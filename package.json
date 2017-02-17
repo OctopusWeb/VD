@@ -1,0 +1,18 @@
+{
+  "name": "virtualdesktop",
+  "version": "1.0.0",
+  "description": "Octopus",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://huzhiyuan@112.124.0.18:8012/r/VirtualDesktop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
