@@ -53,7 +53,7 @@ var destPath = {
 		return gulp.src( [srcPath.script+'/*.js','!'+srcPath.script+'/*.min.js'] ) // 指明源文件路径、并进行文件匹配，排除 .min.js 后缀的文件
 			.pipe(changed( destPath.script )) // 对应匹配的文件
 			.pipe(sourcemaps.init()) // 执行sourcemaps
-			.pipe(rename({ suffix: '.min' })) // 重命名
+//			.pipe(rename({ suffix: '.min' })) // 重命名
 			.pipe(uglify({ preserveComments:'some' })) // 使用uglify进行压缩，并保留部分注释
 			.pipe(sourcemaps.write('maps')) // 地图输出路径（存放位置）
 			.pipe(gulp.dest( destPath.script )); // 输出路径
