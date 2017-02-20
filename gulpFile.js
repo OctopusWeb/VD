@@ -20,7 +20,7 @@ var sass 			= require('gulp-ruby-sass'),			// CSS预处理/Sass编译
 -------------------------------------------------------------- */
 var srcPath = {
 	html	: 'src',
-	css		: 'src/assets/css',
+	css		: 'src/assets/css/pageStyle.sass',
 	script	: 'src/assets/js',
 	image	: 'src/assets/img'
 };
