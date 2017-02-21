@@ -1,0 +1,23 @@
+#login{
+    @include position-center;
+    width: 480px;
+    height: 440px;
+    margin-top: -220px;
+    margin-left: -240px;
+    #logo{
+        width: 94px;
+        height: 94px;
+        position: absolute;
+        top: 0;
+        left: $NomalWidth/2;
+        margin-left: -47px;
+        z-index: 100;
+    };
+    #loginBox{
+        background: nth($NomalColor,5);
+        position: absolute;
+        top:47px ;
+        height: 322px;
+        width: $NomalWidth;
+    };
+}

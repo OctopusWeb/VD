@@ -1,4 +1,9 @@
+html, html body { height: 100%; width: 100%; }
+html body { background: #efefef; }
 
+#login { position: absolute; left: 50%; top: 50%; width: 480px; height: 440px; margin-top: -220px; margin-left: -240px; }
+#login #logo { width: 94px; height: 94px; position: absolute; top: 0; left: 50%; margin-left: -47px; z-index: 100; }
+#login #loginBox { background: #d2d4d8; position: absolute; top: 47px; height: 322px; width: 100%; }
 
 
 

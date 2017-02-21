@@ -1,0 +1,25 @@
+@charset "utf-8";
+//(深红色，浅红色)(蓝色，深蓝色)(黑色，类黑色，深灰色，灰色，浅灰色，白灰色，白色)(红色，灰色，黑色，白色)
+$LightColor:#cf031d #eb7627;
+$DeepColor:#252a30 #313842;
+$NomalColor:#000 #212121 #727171 #b4b4b4 #d2d4d8 #efefef #fff;
+$FontColor:#e83828 #727171 #000 #fff;
+
+$NomalWidth:100%;
+
+@mixin position-center{
+    position: absolute;
+    left: $NomalWidth/2;
+    top: $NomalWidth/2;
+}
+
+html{
+    height: $NomalWidth;
+    width: $NomalWidth;
+    body{
+        @extend html;
+        background:nth($NomalColor,6);
+    }  
+}
+@import "login";
+

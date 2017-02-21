@@ -20,14 +20,14 @@ var sass 			= require('gulp-ruby-sass'),			// CSS预处理/Sass编译
 -------------------------------------------------------------- */
 var srcPath = {
 	html	: 'src',
-	css		: 'src/assets/css/pageStyle.sass',
-	script	: 'src/assets/js',
+	css		: 'src/assets/css/pageStyle.scss',
+	script	: 'src/assets/js/view',
 	image	: 'src/assets/img'
 };
 var destPath = {
 	html	: 'dist',
 	css		: 'dist/assets/css',
-	script	: 'dist/assets/js',
+	script	: 'dist/assets/js/view',
 	image	: 'dist/assets/img'
 };
 
@@ -89,7 +89,7 @@ var destPath = {
 		// 监听 html
 		gulp.watch( srcPath.html+'/**/*.html' , ['html'])
 		// 监听 scss
-		gulp.watch( srcPath.css+'/*.scss' , ['sass']);
+		gulp.watch( srcPath.css , ['sass']);
 		// 监听 images
 		gulp.watch( srcPath.image+'/**/*' , ['images']);
 		// 监听 js
