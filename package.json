@@ -10,9 +10,15 @@
     "type": "git",
     "url": "http://huzhiyuan@112.124.0.18:8012/r/VirtualDesktop.git"
   },
+  "browserify-shim": {
+	    "react": "global:React",
+	    "react-dom": "global:ReactDOM"
+	},
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
     "gulp": "^3.9.1",
@@ -29,6 +35,8 @@
     "gulp-webserver": "^0.9.1",
     "imagemin-pngquant": "^5.0.0",
     "path": "^0.12.7",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
   }

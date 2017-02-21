@@ -12,12 +12,71 @@
         left: $NomalWidth/2;
         margin-left: -47px;
         z-index: 100;
-    };
+    }
     #loginBox{
         background: nth($NomalColor,5);
         position: absolute;
         top:47px ;
         height: 322px;
         width: $NomalWidth;
-    };
+        h1{
+            font-size: nth($FontSize,2);
+            color: nth($NomalColor,1);
+            width: $NomalWidth;
+            text-align: center;
+            margin-top: 57px;
+        }
+        h2{
+            @extend h1;
+            font-size: nth($FontSize,6);
+            color: nth($NomalColor,3);
+            font-weight: $FontWeight;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .input{
+            width: $NomalWidth/2;
+            height: 32px;
+            line-height: 30px;
+            font-size: nth($FontSize,7);
+            margin-left: 25%;
+            margin-top: 10px;
+            input{
+                padding-left: 5px;
+                width: $NomalWidth;
+                background: nth($NomalColor,6);
+            }
+        }
+        #submitBtn{
+            width: $NomalWidth/2;
+            height: 37px;
+            margin-top: 10px;
+            margin-left: 25%;
+            background: #000;
+            background:-webkit-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
+            background:-o-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
+            background:-moz-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
+            background:linear-gradient(to right, nth($LightColor,2), nth($LightColor,1));
+            line-height: 37px;
+            cursor: pointer;
+            p{
+                width: $NomalWidth;
+                text-align: center;
+                font-size: nth($FontSize,5);
+                padding-right: 10px;
+                display: block;
+            }
+        }
+        #forgotPass{
+            width: $NomalWidth/3;
+            height: 31px;
+            margin-left: $NomalWidth/3;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid nth($NomalColor,3);
+            font-size: nth($FontSize,7);            
+            margin-top: 20px;
+        }
+    }
 }

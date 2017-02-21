@@ -15,20 +15,26 @@ var sass 			= require('gulp-ruby-sass'),			// CSS预处理/Sass编译
 	changed 		= require('gulp-changed'),				// 只操作有过修改的文件
 	concat 			= require("gulp-concat"), 				// 文件合并
 	clean 			= require('gulp-clean');				// 文件清理
+	browserify		= require('browserify');
+	babelify		= require('babelify');
+	source			= require('vinyl-source-stream');
+	shim 			= require('browserify-shim');
 
 /* = 全局设置
 -------------------------------------------------------------- */
 var srcPath = {
 	html	: 'src',
 	css		: 'src/assets/css/pageStyle.scss',
-	script	: 'src/assets/js/view',
-	image	: 'src/assets/img'
+	script	: 'src/assets/js',
+	image	: 'src/assets/img',
+	build	: 'src/assets/js/view'
 };
 var destPath = {
 	html	: 'dist',
 	css		: 'dist/assets/css',
-	script	: 'dist/assets/js/view',
-	image	: 'dist/assets/img'
+	script	: 'dist/assets/js',
+	image	: 'dist/assets/img',
+	build	: 'dist/assets/js/view'
 };
 
 /* = 开发环境( Ddevelop Task )
@@ -58,6 +64,21 @@ var destPath = {
 			.pipe(sourcemaps.write('maps')) // 地图输出路径（存放位置）
 			.pipe(gulp.dest( destPath.script )); // 输出路径
 	});
+	
+	gulp.task('build', function() {
+		return gulp.src(srcPath.build+'/*.js',function(err,files){
+			browserify(files)
+	        .transform(babelify, {
+	            presets: ['es2015', 'react']
+	        })
+	        .transform(shim)
+	        .bundle()
+	        .pipe(source(destPath.build+'/bundle.js'))
+ 			.pipe(gulp.dest('./'));
+		})
+	    
+	});
+	
 	// imagemin 图片压缩
 	gulp.task('images', function(){
 		return gulp.src( srcPath.image+'/**/*' ) // 指明源文件路径，如需匹配指定格式的文件，可以写成 .{png,jpg,gif,svg}
@@ -89,11 +110,14 @@ var destPath = {
 		// 监听 html
 		gulp.watch( srcPath.html+'/**/*.html' , ['html'])
 		// 监听 scss
-		gulp.watch( srcPath.css , ['sass']);
+		gulp.watch( 'src/assets/css/*.scss' , ['sass']);
 		// 监听 images
 		gulp.watch( srcPath.image+'/**/*' , ['images']);
+		// 监听react
+		gulp.watch( srcPath.build+'/*.js' , ['build'])
 		// 监听 js
 		gulp.watch( [srcPath.script+'/*.js','!'+srcPath.script+'/*.min.js'] , ['script']);
+		
 	});
 	// 默认任务
 	gulp.task('default',['webserver','watch']);

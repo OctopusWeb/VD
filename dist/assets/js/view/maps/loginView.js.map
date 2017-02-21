@@ -1,1 +1,0 @@
-{"version":3,"sources":["loginView.js"],"names":["loninDom","loginBox","$","inputBox","React","creatClass"],"mappings":"AAAA,GAAIA,WACHC,SAAWC,EAAE,cAEVC,SAAWC,MAAMC","file":"loginView.js","sourcesContent":["var loninDom = {\r\n\tloginBox : $(\"#loginBox\")\r\n};\r\nvar inputBox = React.creatClass({\r\n\t\r\n});\r\n"],"sourceRoot":"/source/"}

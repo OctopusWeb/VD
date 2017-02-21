@@ -1,9 +1,17 @@
-html, html body { height: 100%; width: 100%; }
+@charset "UTF-8";
+html, html body { height: 100%; width: 100%; font-family: "微软雅黑"; }
 html body { background: #efefef; }
 
 #login { position: absolute; left: 50%; top: 50%; width: 480px; height: 440px; margin-top: -220px; margin-left: -240px; }
 #login #logo { width: 94px; height: 94px; position: absolute; top: 0; left: 50%; margin-left: -47px; z-index: 100; }
 #login #loginBox { background: #d2d4d8; position: absolute; top: 47px; height: 322px; width: 100%; }
+#login #loginBox h1, #login #loginBox h2 { font-size: 26px; color: #000; width: 100%; text-align: center; margin-top: 57px; }
+#login #loginBox h2 { font-size: 14px; color: #727171; font-weight: 400; margin-top: 0; margin-bottom: 10px; }
+#login #loginBox .input { width: 50%; height: 32px; line-height: 30px; font-size: 12px; margin-left: 25%; margin-top: 10px; }
+#login #loginBox .input input { padding-left: 5px; width: 100%; background: #efefef; }
+#login #loginBox #submitBtn { width: 50%; height: 37px; margin-top: 10px; margin-left: 25%; background: #000; background: -webkit-linear-gradient(left, #eb7627, #cf031d); background: -o-linear-gradient(left, #eb7627, #cf031d); background: -moz-linear-gradient(left, #eb7627, #cf031d); background: linear-gradient(to right, #eb7627, #cf031d); line-height: 37px; cursor: pointer; }
+#login #loginBox #submitBtn p { width: 100%; text-align: center; font-size: 16px; padding-right: 10px; display: block; }
+#login #loginBox #forgotPass { width: 33.33333%; height: 31px; margin-left: 33.33333%; line-height: 30px; text-align: center; cursor: pointer; border: 2px solid #727171; font-size: 12px; margin-top: 20px; }
 
 
 

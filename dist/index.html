@@ -5,13 +5,21 @@
 		<title>VirtualDesktop</title>
 		<link rel="stylesheet" href="assets/css/reset.css" />
 		<link rel="stylesheet" href="assets/css/pageStyle.css" />
+		<link rel="stylesheet" href="https://at.alicdn.com/t/font_f8u9ouzc7x8ncdi.css" />
 	</head>
 	<body>
 		<div id="all">
 			<div id="login">
 				<img src="assets/img/logo.png" alt="zoolon" id="logo"/>
 				<div id="loginBox">
-					
+					<div id="title">
+						<h1>Welcome to the zoolon</h1>
+						<h2>Please Sign in to get access</h2>
+					</div>
+					<div id="userName" class="input"></div>
+					<div id="passWord" class="input"></div>
+					<div id="submitBtn"></div>
+					<div id="forgotPass"></div> 
 				</div>
 				<div id="logBtn"></div>
 			</div>
@@ -30,10 +38,8 @@
 	</body>
 	
 	<script type="text/javascript" src="assets/js/libs/jquery.min.js" ></script>
-	<script type="text/javascript" src="assets/js/libs/browser.min.js" ></script>
 	<script type="text/javascript" src="assets/js/libs/react.js" ></script>
 	<script type="text/javascript" src="assets/js/libs/react-dom.js" ></script>
 	
-	<script type="text/javascript" src="assets/js/view/viewInit.js" ></script>
-	<script type="text/babel" src="assets/js/view/loginView.js" ></script>
+	<script type="text/javascript" src="assets/js/view/bundle.js" ></script>
 </html>
