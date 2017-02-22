@@ -11,7 +11,11 @@ html body { background: #efefef; }
 #login #loginBox .input input { padding-left: 5px; width: 100%; background: #efefef; }
 #login #loginBox #submitBtn { width: 50%; height: 37px; margin-top: 10px; margin-left: 25%; background: #000; background: -webkit-linear-gradient(left, #eb7627, #cf031d); background: -o-linear-gradient(left, #eb7627, #cf031d); background: -moz-linear-gradient(left, #eb7627, #cf031d); background: linear-gradient(to right, #eb7627, #cf031d); line-height: 37px; cursor: pointer; }
 #login #loginBox #submitBtn p { width: 100%; text-align: center; font-size: 16px; padding-right: 10px; display: block; }
-#login #loginBox #forgotPass { width: 33.33333%; height: 31px; margin-left: 33.33333%; line-height: 30px; text-align: center; cursor: pointer; border: 2px solid #727171; font-size: 12px; margin-top: 20px; }
+#login #loginBox #submitBtn:hover { opacity: .8; filter: alpha(opaity=80); }
+#login #loginBox #forgotPass { width: 33.33333%; height: 31px; margin-left: 33.33333%; line-height: 30px; text-align: center; cursor: pointer; border: 2px solid #727171; color: #212121; font-size: 12px; margin-top: 20px; }
+#login #loginBox #forgotPass:hover { opacity: .8; filter: alpha(opaity=80); }
+#login #logBtn { width: 100%; height: 47px; position: absolute; top: 385px; background: #727171; text-align: center; line-height: 47px; cursor: pointer; }
+#login #logBtn:hover { opacity: .8; filter: alpha(opaity=80); }
 
 
 

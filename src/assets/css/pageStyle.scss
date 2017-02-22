@@ -15,6 +15,10 @@ $NomalWidth:100%;
     left: $NomalWidth/2;
     top: $NomalWidth/2;
 }
+@mixin btn-hover{
+    opacity: .8; 
+    filter:alpha(opaity=80);
+}
 
 html{
     height: $NomalWidth;

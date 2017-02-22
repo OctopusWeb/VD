@@ -66,6 +66,9 @@
                 padding-right: 10px;
                 display: block;
             }
+            &:hover{
+                @include btn-hover
+            }
         }
         #forgotPass{
             width: $NomalWidth/3;
@@ -75,8 +78,25 @@
             text-align: center;
             cursor: pointer;
             border: 2px solid nth($NomalColor,3);
+            color: nth($NomalColor,2);
             font-size: nth($FontSize,7);            
             margin-top: 20px;
+            &:hover{
+                @include btn-hover
+             }
+        }
+    }
+    #logBtn{
+        width: $NomalWidth;
+        height: 47px;
+        position: absolute;
+        top: 385px;
+        background: nth($NomalColor,3); 
+        text-align: center;
+        line-height: 47px;
+        cursor: pointer;
+        &:hover{
+            @include btn-hover
         }
     }
 }

@@ -5,7 +5,8 @@ var loginDom = {
 	userName: GetDomId("userName"),
 	passWord: GetDomId("passWord"),
 	submitBtn: GetDomId("submitBtn"),
-	forgotPass: GetDomId("forgotPass")
+	forgotPass: GetDomId("forgotPass"),
+	logBtn: GetDomId("logBtn")
 };
 var UserName = React.createClass({
 	displayName: "UserName",
@@ -48,11 +49,23 @@ var ForgotPass = React.createClass({
 		);
 	}
 });
+var LogBtn = React.createClass({
+	displayName: "LogBtn",
+
+	render: function render() {
+		return React.createElement(
+			"span",
+			null,
+			"CREATE AN ACCOUNT"
+		);
+	}
+});
 
 ReactDOM.render(React.createElement(UserName, { placehoder: "User Name" }), loginDom.userName);
 ReactDOM.render(React.createElement(PassWord, { placehoder: "Password" }), loginDom.passWord);
 ReactDOM.render(React.createElement(SubmiteBtn, { name: "icon iconfont icon-jiantou-copy-copy" }), loginDom.submitBtn);
 ReactDOM.render(React.createElement(ForgotPass, null), loginDom.forgotPass);
+ReactDOM.render(React.createElement(LogBtn, null), loginDom.logBtn);
 
 function GetDomId(name) {
 	var dom = document.getElementById(name);

@@ -2,7 +2,8 @@ var loginDom = {
 	userName 	: GetDomId("userName"),
 	passWord 	: GetDomId("passWord"),
 	submitBtn	: GetDomId("submitBtn"),
-	forgotPass	: GetDomId("forgotPass") 
+	forgotPass	: GetDomId("forgotPass"),
+	logBtn		: GetDomId("logBtn")
 }
 var UserName = React.createClass({
 	render : function(){
@@ -16,15 +17,17 @@ var PassWord = React.createClass({
 })
 var SubmiteBtn = React.createClass({
 	render : function(){
-		return (<div>
-					<p>SIGN IN<span className={this.props.name}></span></p>
-					
-				</div>)
+		return (<div><p>SIGN IN<span className={this.props.name}></span></p></div>)
 	}
 })
 var ForgotPass = React.createClass({
 	render : function(){
 		return (<span>FORGOT PASSWORD?</span>)
+	}
+})
+var LogBtn = React.createClass({
+	render : function(){
+		return (<span>CREATE AN ACCOUNT</span>)
 	}
 })
 
@@ -44,6 +47,10 @@ ReactDOM.render(
     <ForgotPass />,
     loginDom.forgotPass
 );
+ReactDOM.render(
+	<LogBtn />,
+	loginDom.logBtn 
+)
 
 function GetDomId(name){
 	var dom = document.getElementById(name);
