@@ -104,7 +104,8 @@ var setScreenDom = {
 	title: $at.GetDomId("toptitle"),
 	userInfo: $at.GetDomId("userInfo"),
 	screenList: $at.GetDomId("screenList"),
-	levNum: $at.GetDomId("levNum")
+	levNum: $at.GetDomId("levNum"),
+	pageTitle: $at.GetDomId("pageTitle")
 };
 var Menu = React.createClass({
 	displayName: "Menu",
@@ -192,11 +193,55 @@ var LevTitle = React.createClass({
 	}
 });
 
+var PageTitle = React.createClass({
+	displayName: "PageTitle",
+
+	render: function render() {
+		return React.createElement(
+			"h1",
+			null,
+			this.props.title
+		);
+	}
+});
+
 var obj = ["测试数据1", "测试数据2", "测试数据3", "测试数据4"];
 var LevTitleArr = ["新建虚拟桌面", "选择主机", "分配屏幕"];
 
 ReactDOM.render(React.createElement(Menu, { imgSrc: "assets/img/logo.png", name: "HU" }), setScreenDom.userInfo);
 ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
 ReactDOM.render(React.createElement(LevTitle, null), setScreenDom.levNum);
+ReactDOM.render(React.createElement(PageTitle, { title: "\u65B0\u5EFA\u5C4F\u5E55" }), setScreenDom.pageTitle);
 
-},{}]},{},[1,2]);
+},{}],3:[function(require,module,exports){
+"use strict";
+
+var view1Dom = {
+	inputGroup: $at.GetDomId("inputGroup")
+};
+var InputName = ["新建名称", "屏幕行数", "屏幕宽度", "屏幕列数", "屏幕高度"];
+var InputGroup = React.createClass({
+	displayName: "InputGroup",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ className: "inputGroup" },
+			InputName.map(function (result, index) {
+				return React.createElement(
+					"div",
+					{ key: index, className: "input" },
+					React.createElement(
+						"p",
+						null,
+						result
+					),
+					React.createElement("input", { type: "text", placeholder: result })
+				);
+			})
+		);
+	}
+});
+ReactDOM.render(React.createElement(InputGroup, null), view1Dom.inputGroup);
+
+},{}]},{},[1,2,3]);

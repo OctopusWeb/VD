@@ -2,7 +2,8 @@ var setScreenDom = {
 	title		: $at.GetDomId("toptitle"),
 	userInfo	: $at.GetDomId("userInfo"),
 	screenList	: $at.GetDomId("screenList"),
-	levNum	: $at.GetDomId("levNum")
+	levNum		: $at.GetDomId("levNum"),
+	pageTitle	: $at.GetDomId("pageTitle")
 }
 var Menu = React.createClass({
 	render : function(){
@@ -45,9 +46,16 @@ var LevTitle = React.createClass({
 	}
 })
 
+var PageTitle = React.createClass({
+	render : function(){
+		return (<h1>{this.props.title}</h1>)
+	}
+})
+
 var obj = ["测试数据1","测试数据2","测试数据3","测试数据4"];
 var LevTitleArr = ["新建虚拟桌面","选择主机","分配屏幕"];
 
 ReactDOM.render(<Menu imgSrc = "assets/img/logo.png" name = "HU"/> , setScreenDom.userInfo);
 ReactDOM.render(<MenuList />,setScreenDom.screenList);
 ReactDOM.render(<LevTitle />,setScreenDom.levNum); 
+ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);
