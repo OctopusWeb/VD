@@ -2,11 +2,11 @@
 "use strict";
 
 var loginDom = {
-	userName: GetDomId("userName"),
-	passWord: GetDomId("passWord"),
-	submitBtn: GetDomId("submitBtn"),
-	forgotPass: GetDomId("forgotPass"),
-	logBtn: GetDomId("logBtn")
+	userName: $at.GetDomId("userName"),
+	passWord: $at.GetDomId("passWord"),
+	submitBtn: $at.GetDomId("submitBtn"),
+	forgotPass: $at.GetDomId("forgotPass"),
+	logBtn: $at.GetDomId("logBtn")
 };
 var UserName = React.createClass({
 	displayName: "UserName",
@@ -25,14 +25,23 @@ var PassWord = React.createClass({
 var SubmiteBtn = React.createClass({
 	displayName: "SubmiteBtn",
 
+	getInitialState: function getInitialState() {
+		return { result: true };
+	},
+	handleClick: function handleClick(event) {
+		if (this.state.result) {
+			FormCheck(this);
+		}
+	},
 	render: function render() {
+		var text = this.state.result ? "SIGN IN" : "WAITING......";
 		return React.createElement(
 			"div",
-			null,
+			{ onClick: this.handleClick },
 			React.createElement(
 				"p",
 				null,
-				"SIGN IN",
+				text,
 				React.createElement("span", { className: this.props.name })
 			)
 		);
@@ -67,9 +76,127 @@ ReactDOM.render(React.createElement(SubmiteBtn, { name: "icon iconfont icon-jian
 ReactDOM.render(React.createElement(ForgotPass, null), loginDom.forgotPass);
 ReactDOM.render(React.createElement(LogBtn, null), loginDom.logBtn);
 
-function GetDomId(name) {
-	var dom = document.getElementById(name);
-	return dom;
+//用户名提交验证
+function FormCheck(self) {
+	var userVal = $("#userName input").val();
+	var passVal = $("#passWord input").val();
+	if (userVal == '' || !userVal) {
+		alert("用户名不能为空");
+	} else if (passVal == '' || !passVal) {
+		alert("密码不能为空");
+	} else {
+		var onComplete = function onComplete(json) {
+			setTimeout(function () {
+				self.setState({ result: true });
+				$Animate.complete($Animate.loginHide, $Animate.wrapShow);
+			}, 1500);
+		};
+
+		self.setState({ result: false });
+		$at.getJson("dataDemo.json", "", onComplete);
+	}
 }
 
-},{}]},{},[1]);
+},{}],2:[function(require,module,exports){
+"use strict";
+
+var setScreenDom = {
+	title: $at.GetDomId("toptitle"),
+	userInfo: $at.GetDomId("userInfo"),
+	screenList: $at.GetDomId("screenList"),
+	levNum: $at.GetDomId("levNum")
+};
+var Menu = React.createClass({
+	displayName: "Menu",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement("img", { src: this.props.imgSrc, alt: this.props.name }),
+			React.createElement(
+				"h1",
+				null,
+				this.props.name
+			)
+		);
+	}
+});
+var MenuList = React.createClass({
+	displayName: "MenuList",
+
+	render: function render() {
+		return React.createElement(
+			"ul",
+			null,
+			obj.map(function (result, index) {
+				if (index == 0) {
+					return React.createElement(
+						"li",
+						{ key: index, title: result, className: "selected" },
+						result
+					);
+				} else {
+					return React.createElement(
+						"li",
+						{ key: index, title: result },
+						result
+					);
+				}
+			})
+		);
+	}
+});
+
+var LevTitle = React.createClass({
+	displayName: "LevTitle",
+
+	render: function render() {
+		return React.createElement(
+			"ul",
+			null,
+			LevTitleArr.map(function (result, index) {
+				if (index == 0) {
+					return React.createElement(
+						"li",
+						{ key: index, title: result, className: "selected" },
+						React.createElement(
+							"p",
+							null,
+							React.createElement(
+								"span",
+								null,
+								index
+							),
+							result
+						)
+					);
+				} else {
+					return React.createElement(
+						"li",
+						{ key: index, title: result },
+						React.createElement(
+							"p",
+							null,
+							React.createElement(
+								"span",
+								null,
+								index
+							),
+							result
+						)
+					);
+				}
+			})
+		);
+	}
+});
+
+var obj = ["测试数据1", "测试数据2", "测试数据3", "测试数据4"];
+var LevTitleArr = ["新建虚拟桌面", "选择主机", "分配屏幕"];
+
+ReactDOM.render(React.createElement(Menu, { imgSrc: "assets/img/logo.png", name: "HU" }), setScreenDom.userInfo);
+ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
+ReactDOM.render(React.createElement(LevTitle, null), setScreenDom.levNum);
+
+},{}]},{},[1,2]);

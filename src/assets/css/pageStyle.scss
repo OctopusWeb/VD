@@ -24,10 +24,11 @@ html{
     height: $NomalWidth;
     width: $NomalWidth;
     font-family: "微软雅黑";
+    overflow: hidden;
     body{
         @extend html;
         background:nth($NomalColor,6);
     }  
 }
 @import "login";
-
+@import "wrap1";

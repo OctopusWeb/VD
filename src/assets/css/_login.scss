@@ -4,6 +4,7 @@
     height: 440px;
     margin-top: -220px;
     margin-left: -240px;
+    z-index: 100;
     #logo{
         width: 94px;
         height: 94px;
@@ -91,10 +92,11 @@
         height: 47px;
         position: absolute;
         top: 385px;
-        background: nth($NomalColor,3); 
+        background: nth($NomalColor,2); 
         text-align: center;
         line-height: 47px;
         cursor: pointer;
+        color: nth($LightColor,2);
         &:hover{
             @include btn-hover
         }

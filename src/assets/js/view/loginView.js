@@ -1,9 +1,9 @@
 var loginDom = {
-	userName 	: GetDomId("userName"),
-	passWord 	: GetDomId("passWord"),
-	submitBtn	: GetDomId("submitBtn"),
-	forgotPass	: GetDomId("forgotPass"),
-	logBtn		: GetDomId("logBtn")
+	userName 	: $at.GetDomId("userName"),
+	passWord 	: $at.GetDomId("passWord"),
+	submitBtn	: $at.GetDomId("submitBtn"),
+	forgotPass	: $at.GetDomId("forgotPass"),
+	logBtn		: $at.GetDomId("logBtn")
 }
 var UserName = React.createClass({
 	render : function(){
@@ -16,8 +16,17 @@ var PassWord = React.createClass({
 	}
 })
 var SubmiteBtn = React.createClass({
+	getInitialState : function(){
+		return {result : true}
+	},
+  	handleClick: function(event) {
+  		if(this.state.result){
+  			FormCheck(this)
+  		}
+    },
 	render : function(){
-		return (<div><p>SIGN IN<span className={this.props.name}></span></p></div>)
+		var text = this.state.result ? "SIGN IN" : "WAITING......";
+		return (<div onClick = {this.handleClick}><p>{text}<span className={this.props.name}></span></p></div>)
 	}
 })
 var ForgotPass = React.createClass({
@@ -52,7 +61,22 @@ ReactDOM.render(
 	loginDom.logBtn 
 )
 
-function GetDomId(name){
-	var dom = document.getElementById(name);
-	return dom
+//用户名提交验证
+function FormCheck(self){
+	var userVal = $("#userName input").val();
+	var passVal = $("#passWord input").val();
+	if(userVal =='' || !userVal){
+		alert("用户名不能为空")
+	}else if(passVal =='' || !passVal){
+		alert("密码不能为空")
+	}else{
+		self.setState({result : false});
+		$at.getJson("dataDemo.json","",onComplete);
+		function onComplete(json){  
+			setTimeout(function(){
+				self.setState({result : true});
+				$Animate.complete($Animate.loginHide,$Animate.wrapShow); 
+			},1500)
+		}
+	}
 }
