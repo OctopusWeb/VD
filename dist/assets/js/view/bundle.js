@@ -217,16 +217,58 @@ ReactDOM.render(React.createElement(PageTitle, { title: "\u65B0\u5EFA\u5C4F\u5E5
 "use strict";
 
 var view1Dom = {
-	inputGroup: $at.GetDomId("inputGroup")
+	inputGroup: $at.GetDomId("addPart1"),
+	screenShow: $at.GetDomId("screenShow")
 };
 var InputName = ["新建名称", "屏幕行数", "屏幕宽度", "屏幕列数", "屏幕高度"];
-var InputGroup = React.createClass({
-	displayName: "InputGroup",
+var Part1 = React.createClass({
+	displayName: "Part1",
 
 	render: function render() {
 		return React.createElement(
 			"div",
-			{ className: "inputGroup" },
+			null,
+			React.createElement(InputGroup, { rowChange: this.handlerRow }),
+			React.createElement(ScreenShow, { row: this.state.row, col: this.state.col }),
+			React.createElement(BtnPart1, null)
+		);
+	},
+	getInitialState: function getInitialState() {
+		return {
+			row: 1,
+			col: 1
+		};
+	},
+	handlerRow: function handlerRow(row1, col1) {
+		this.setState({ row: row1, col: col1 });
+	}
+});
+
+var InputGroup = React.createClass({
+	displayName: "InputGroup",
+
+	getInitialState: function getInitialState() {
+		return {
+			row: 0,
+			col: 0
+		};
+	},
+	handlerChange: function handlerChange(event) {
+		if (event.target.name == InputName[1]) {
+			this.setState({ row: event.target.value });
+			this.props.rowChange(event.target.value, this.state.col);
+			console.log(InputName[1] + ":" + event.target.value + this.state.col);
+		} else if (event.target.name == InputName[3]) {
+			this.setState({ col: event.target.value });
+			this.props.rowChange(this.state.row, event.target.value);
+			console.log(InputName[3] + ":" + this.state.row + event.target.value);
+		}
+	},
+	render: function render() {
+		var self = this;
+		return React.createElement(
+			"div",
+			{ id: "inputGroup" },
 			InputName.map(function (result, index) {
 				return React.createElement(
 					"div",
@@ -236,12 +278,60 @@ var InputGroup = React.createClass({
 						null,
 						result
 					),
-					React.createElement("input", { type: "text", placeholder: result })
+					React.createElement("input", { type: "text", onChange: self.handlerChange, placeholder: result, name: result })
 				);
 			})
 		);
 	}
 });
-ReactDOM.render(React.createElement(InputGroup, null), view1Dom.inputGroup);
+var ScreenShow = React.createClass({
+	displayName: "ScreenShow",
 
-},{}]},{},[1,2,3]);
+	render: function render() {
+		var b = [];
+		var row = this.props.row;
+		var col = this.props.col;
+		var wid = 100 / col + "%";
+		var hei = 300 / row;
+		for (var i = 0; i < row * col; i++) {
+			b.push(i);
+		}
+		return React.createElement(
+			"div",
+			{ id: "screenShow" },
+			React.createElement(
+				"h1",
+				null,
+				"\u9884\u89C8"
+			),
+			React.createElement(
+				"ul",
+				null,
+				b.map(function (result, index) {
+					return React.createElement("li", { key: index + 1, style: { width: wid, height: hei } });
+				})
+			)
+		);
+	}
+});
+var BtnPart1 = React.createClass({
+	displayName: "BtnPart1",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ id: "btnPart1" },
+			React.createElement(
+				"div",
+				{ "class": "btn next" },
+				"\u4E0B\u4E00\u6B65"
+			)
+		);
+	}
+});
+ReactDOM.render(React.createElement(Part1, null), view1Dom.inputGroup);
+
+},{}],4:[function(require,module,exports){
+"use strict";
+
+},{}]},{},[1,2,3,4]);

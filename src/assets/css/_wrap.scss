@@ -64,6 +64,7 @@
         height: 100%;
         background: nth($DeepColor,2);
         z-index: 100;
+        position: relative;
         #addBtnGroup{
             width: $NomalWidth;
             height: 50px;
@@ -132,6 +133,8 @@
             width: $NomalWidth;
             box-shadow: 1px 1px #d1d5d8;
             padding: 10px 50px;
+            z-index: 1000;
+            position:relative;
             li{
                 float: left;
                 list-style: none;
@@ -182,6 +185,10 @@
         }
         #pageTitle{
             margin-left: 50px;
+            width: $NomalWidth;
+            position: relative;
+            z-index: 1000;
+            background:nth($NomalColor,6);
             h1{
                 width: $NomalWidth;
                 text-align: left;
