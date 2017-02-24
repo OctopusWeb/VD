@@ -5,5 +5,36 @@
     left: $NomalWidth;
     padding: 100px 150px 50px 50px;
     overflow: auto;
-    background: #000;
+    #screenPlan{
+        width: $NomalWidth/10*8;
+        height: auto;
+        padding-top: 20px;
+        border-top: 1px solid nth($NomalColor,4);
+        position: relative;
+        ul{
+            width: $NomalWidth;
+            height: 300px;
+            float: left;
+            list-style: none;
+            background: nth($NomalColor,5);
+            li{
+                width: $NomalWidth/4;
+                border: 1px solid nth($NomalColor,3);
+                box-sizing: border-box;
+                float: left;
+                height: 150px;
+                text-align: center;
+                img{
+                    height: 50%;
+                    margin-top: 38px;
+                }
+                p{
+                    width: 100%;
+                    text-align: center;
+                    font-size: nth($FontSize,7);
+                    color: nth($FontColor,2);
+                }
+            }
+        }
+    }
 }
