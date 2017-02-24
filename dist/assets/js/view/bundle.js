@@ -257,11 +257,9 @@ var InputGroup = React.createClass({
 		if (event.target.name == InputName[1]) {
 			this.setState({ row: event.target.value });
 			this.props.rowChange(event.target.value, this.state.col);
-			console.log(InputName[1] + ":" + event.target.value + this.state.col);
 		} else if (event.target.name == InputName[3]) {
 			this.setState({ col: event.target.value });
 			this.props.rowChange(this.state.row, event.target.value);
-			console.log(InputName[3] + ":" + this.state.row + event.target.value);
 		}
 	},
 	render: function render() {
@@ -323,7 +321,7 @@ var BtnPart1 = React.createClass({
 			{ id: "btnPart1" },
 			React.createElement(
 				"div",
-				{ "class": "btn next" },
+				{ className: "btn next" },
 				"\u4E0B\u4E00\u6B65"
 			)
 		);
@@ -334,4 +332,73 @@ ReactDOM.render(React.createElement(Part1, null), view1Dom.inputGroup);
 },{}],4:[function(require,module,exports){
 "use strict";
 
-},{}]},{},[1,2,3,4]);
+var view2Dom = {
+	addPart2: $at.GetDomId("addPart2")
+};
+var facilityList = ["PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189"];
+
+var Part2 = React.createClass({
+	displayName: "Part2",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(FacilityList, null),
+			React.createElement(BtnPart2, null)
+		);
+	}
+});
+var FacilityList = React.createClass({
+	displayName: "FacilityList",
+
+	render: function render() {
+		return React.createElement(
+			"ul",
+			null,
+			facilityList.map(function (result, index) {
+				return React.createElement(
+					"li",
+					{ key: index },
+					React.createElement(
+						"div",
+						null,
+						React.createElement("img", { src: "assets/img/facility.png", alt: "PC8189", id: "aa" })
+					),
+					React.createElement(
+						"p",
+						null,
+						result
+					)
+				);
+			})
+		);
+	}
+});
+var BtnPart2 = React.createClass({
+	displayName: "BtnPart2",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ id: "btnPart2" },
+			React.createElement(
+				"div",
+				{ className: "btn pre" },
+				"\u4E0A\u4E00\u6B65"
+			),
+			React.createElement(
+				"div",
+				{ className: "btn next" },
+				"\u4E0B\u4E00\u6B65"
+			)
+		);
+	}
+});
+
+ReactDOM.render(React.createElement(Part2, null), view2Dom.addPart2);
+
+},{}],5:[function(require,module,exports){
+"use strict";
+
+},{}]},{},[1,2,3,4,5]);

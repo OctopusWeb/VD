@@ -4,6 +4,7 @@ $Animate.pagesDom = {
 	wrap		: $("#wrap"),
 	addPart1	: $("#addPart1"),
 	addPart2	: $("#addPart2"),
+	addPart3	: $("#addPart3"),
 }
 $Animate.loginHide = function(){
 	TweenMax.to($Animate.pagesDom.login, 0.5, {left:"-100%",ease: Power0.easeNone});
@@ -31,6 +32,12 @@ $Animate.Part2Hide1 = function(){
 }
 $Animate.Part2Hide2 = function(){
 	TweenMax.to($Animate.pagesDom.addPart2, 0.5, {left:"-100%",ease: Power0.easeNone});
+}
+$Animate.Part3Show = function(){
+	TweenMax.to($Animate.pagesDom.addPart3, 0.5, {left:"0%",ease: Power0.easeNone});
+}
+$Animate.Part3Hide = function(){
+	TweenMax.to($Animate.pagesDom.addPart3, 0.5, {left:"100%",ease: Power0.easeNone});
 }
 
 $Animate.complete = function(hideComplete,showComplete){ 

@@ -28,7 +28,7 @@ html body { background: #efefef; }
 #wrap #toptitle #btnGroup { width: 220px; height: 52px; margin-right: 15px; float: right; }
 #wrap #toptitle #btnGroup .btn { width: 100px; height: 25px; float: left; margin-left: 10px; background: #d2d4d8; text-align: center; line-height: 24px; color: #727171; font-size: 14px; margin-top: 13px; cursor: pointer; }
 #wrap #toptitle #btnGroup:after { clear: both; }
-#wrap #menu { width: 260px; height: 100%; background: #313842; z-index: 100; position: relative; }
+#wrap #menu { width: 260px; height: 100%; background: #313842; z-index: 1000; position: relative; }
 #wrap #menu #addBtnGroup { width: 100%; height: 50px; float: left; border-bottom: 1px solid #252a30; }
 #wrap #menu #addBtnGroup:after { clear: both; }
 #wrap #menu #addBtnGroup .btn { height: 30px; width: 108px; float: left; margin: 10px 0 0 15px; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); line-height: 28px; text-align: center; color: #fff; cursor: pointer; }
@@ -59,9 +59,20 @@ html body { background: #efefef; }
 #addPart1 #screenShow ul li { width: 25%; border: 1px solid #727171; box-sizing: border-box; float: left; height: 150px; text-align: center; }
 #addPart1 #screenShow h1, #addPart1 #screenShow #login #loginBox h2, #login #loginBox #addPart1 #screenShow h2 { line-height: 300px; width: 100%; font-size: 18px; text-align: center; height: 300px; position: absolute; top: 20px; cursor: pointer; }
 #addPart1 #btnPart1 { width: 50%; left: 40%; height: 25px; position: absolute; bottom: 70px; }
-#addPart1 #btnPart1 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; }
+#addPart1 #btnPart1 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; float: left; }
 
-#addPart2 { position: absolute; width: 100%; height: 100%; left: 100%; padding: 100px 150px 50px 50px; background: #abc; overflow: auto; }
+#addPart2 { position: absolute; width: 100%; height: 100%; left: 100%; padding: 100px 150px 50px 50px; overflow: auto; }
+#addPart2 ul { width: 90%; float: left; list-style: none; }
+#addPart2 ul li { width: 110px; height: auto; float: left; position: relative; cursor: pointer; margin-right: 20px; margin-top: 10px; }
+#addPart2 ul li div { width: 110px; height: 110px; border-radius: 5px; }
+#addPart2 ul li div img { width: 100px; height: 100px; margin: 5px; -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+#addPart2 ul li p { width: 80px; margin-left: 15px; text-align: center; line-height: 20px; height: 20px; border-radius: 10px; display: block; margin-top: 10px; color: #727171; font-size: 14px; }
+#addPart2 ul .selected div, #addPart2 ul #wrap #menu #screenList li:hover div, #wrap #menu #screenList #addPart2 ul li:hover div { background: -webkit-linear-gradient(left, #eb7627, #cf031d); background: -o-linear-gradient(left, #eb7627, #cf031d); background: -moz-linear-gradient(left, #eb7627, #cf031d); background: linear-gradient(to right, #eb7627, #cf031d); }
+#addPart2 ul .selected p, #addPart2 ul #wrap #menu #screenList li:hover p, #wrap #menu #screenList #addPart2 ul li:hover p { background: -webkit-linear-gradient(left, #eb7627, #cf031d); background: -o-linear-gradient(left, #eb7627, #cf031d); background: -moz-linear-gradient(left, #eb7627, #cf031d); background: linear-gradient(to right, #eb7627, #cf031d); color: #fff; }
+#addPart2 #btnPart2 { width: 50%; left: 30%; height: 25px; position: absolute; bottom: 70px; }
+#addPart2 #btnPart2 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; float: left; }
+
+#addPart3 { position: absolute; width: 100%; height: 100%; left: 100%; padding: 100px 150px 50px 50px; overflow: auto; background: #000; }
 
 
 

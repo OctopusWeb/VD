@@ -96,6 +96,7 @@
             font-size: nth($FontSize,6);
             border: 1px solid nth($NomalColor,7);
             cursor: pointer;
+            float: left;
         }
     }
 }

@@ -34,11 +34,9 @@ var InputGroup = React.createClass({
 		if(event.target.name == InputName[1]){
 			this.setState({row:event.target.value})
 			this.props.rowChange(event.target.value,this.state.col)
-			console.log(InputName[1]+":"+event.target.value+this.state.col)
 		}else if(event.target.name == InputName[3]){
 			this.setState({col:event.target.value})
 			this.props.rowChange(this.state.row,event.target.value)
-			console.log(InputName[3]+":"+this.state.row+event.target.value) 
 		}
 	},
 	render : function(){
@@ -82,7 +80,7 @@ var ScreenShow = React.createClass({
 var BtnPart1 = React.createClass({
 	render : function(){
 		return (<div id="btnPart1">
-				<div class="btn next">下一步</div>
+				<div className="btn next">下一步</div>
 		</div>	
 		)
 	}
