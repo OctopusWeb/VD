@@ -75,10 +75,20 @@ html body { background: #efefef; }
 
 #addPart3 { position: absolute; width: 100%; height: 100%; left: 100%; padding: 100px 150px 50px 50px; overflow: auto; }
 #addPart3 #screenPlan { width: 80%; height: auto; padding-top: 20px; border-top: 1px solid #b4b4b4; position: relative; }
-#addPart3 #screenPlan ul { width: 100%; height: 300px; float: left; list-style: none; background: #d2d4d8; }
+#addPart3 #screenPlan ul { width: 100%; height: 300px; position: absolute; list-style: none; background: #d2d4d8; top: 0; left: 0; }
 #addPart3 #screenPlan ul li { width: 25%; border: 1px solid #727171; box-sizing: border-box; float: left; height: 150px; text-align: center; }
 #addPart3 #screenPlan ul li img { height: 50%; margin-top: 38px; }
-#addPart3 #screenPlan ul li p { width: 100%; text-align: center; font-size: 12px; color: #727171; }
+#addPart3 #screenPlan ul li p { width: 100%; text-align: center; font-size: 12px; color: #fff; }
+#addPart3 #screenPlan ul .selected, #addPart3 #screenPlan ul #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #addPart3 #screenPlan ul li:hover { border: 1px solid #fff; }
+#addPart3 #screenPlan ul .selected p, #addPart3 #screenPlan ul #wrap #addScreen #menu #screenList li:hover p, #wrap #addScreen #menu #screenList #addPart3 #screenPlan ul li:hover p { color: #fff; }
+#addPart3 #screenPlan #drawArea { width: 100%; height: 300px; position: absolute; top: 0; left: 0; }
+#addPart3 #screenPlan #drawArea #drawBox { position: absolute; left: 0; top: 0; border: 1px solid #cf031d; background: rgba(234, 85, 20, 0.5); }
+#addPart3 #entrySlected { width: 170px; height: auto; position: absolute; background: #b4b4b4; padding-bottom: 5px; display: none; }
+#addPart3 #entrySlected ul { width: 170px; float: left; }
+#addPart3 #entrySlected ul li { list-style: none; width: 50px; margin-left: 5px; margin-top: 5px; height: 70px; float: left; }
+#addPart3 #entrySlected ul li p { font-size: 10px; color: #fff; width: 100%; text-align: center; }
+#addPart3 #entrySlected ul li img { width: 50px; }
+#addPart3 #entrySlected ul .selected img, #addPart3 #entrySlected ul #wrap #addScreen #menu #screenList li:hover img, #wrap #addScreen #menu #screenList #addPart3 #entrySlected ul li:hover img { border-width: 2px !important; }
 
 
 

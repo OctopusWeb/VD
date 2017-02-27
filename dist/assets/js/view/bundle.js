@@ -189,14 +189,29 @@ ReactDOM.render(React.createElement(Part2, null), view2Dom.addPart2);
 var view3Dom = {
 	addPart3: $at.GetDomId("addPart3")
 };
+var facilityList = ["PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189"];
+
+var Part3 = React.createClass({
+	displayName: "Part3",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(ScreenPlan, { num: "8" }),
+			React.createElement(EntrySlected, null),
+			React.createElement(EntryList, null)
+		);
+	}
+});
 var ScreenPlan = React.createClass({
 	displayName: "ScreenPlan",
 
 	render: function render() {
-		var b = [];
+		var arr = [];
 		var num = this.props.num;
 		for (var i = 0; i < num; i++) {
-			b.push(i);
+			arr.push(i);
 		}
 		return React.createElement(
 			"div",
@@ -204,15 +219,58 @@ var ScreenPlan = React.createClass({
 			React.createElement(
 				"ul",
 				null,
-				b.map(function (result, index) {
+				arr.map(function (result, index) {
 					return React.createElement(
 						"li",
 						{ key: index },
-						React.createElement("img", { src: "assets/img/facility.png" }),
+						React.createElement("img", { src: "assets/img/facility1.png" }),
 						React.createElement(
 							"p",
 							null,
-							"HHHHH"
+							"\u7A7A"
+						)
+					);
+				})
+			),
+			React.createElement(DrawArea, null)
+		);
+	}
+});
+
+var DrawArea = React.createClass({
+	displayName: "DrawArea",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ id: "drawArea" },
+			React.createElement("div", { id: "drawBox" })
+		);
+	}
+});
+var EntrySlected = React.createClass({
+	displayName: "EntrySlected",
+
+	render: function render() {
+		var arr = ["AAAA", "BBBB", "CCCC"];
+		return React.createElement(
+			"div",
+			{ id: "entrySlected" },
+			React.createElement(
+				"ul",
+				null,
+				arr.map(function (result, index) {
+					var colorStyle = {
+						border: "1px solid " + $at.staticColors[index]
+					};
+					return React.createElement(
+						"li",
+						{ key: index },
+						React.createElement("img", { src: "assets/img/facility.png", style: colorStyle }),
+						React.createElement(
+							"p",
+							null,
+							result
 						)
 					);
 				})
@@ -220,7 +278,33 @@ var ScreenPlan = React.createClass({
 		);
 	}
 });
-ReactDOM.render(React.createElement(ScreenPlan, { num: "8" }), view3Dom.addPart3);
+var EntryList = React.createClass({
+	displayName: "EntryList",
+
+	render: function render() {
+		return React.createElement(
+			"ul",
+			null,
+			facilityList.map(function (result, index) {
+				return React.createElement(
+					"li",
+					{ key: index },
+					React.createElement(
+						"div",
+						null,
+						React.createElement("img", { src: "assets/img/facility.png", alt: "PC8189" })
+					),
+					React.createElement(
+						"p",
+						null,
+						result
+					)
+				);
+			})
+		);
+	}
+});
+ReactDOM.render(React.createElement(Part3, null), view3Dom.addPart3);
 
 },{}],4:[function(require,module,exports){
 "use strict";
