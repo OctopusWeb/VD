@@ -89,11 +89,11 @@ var InfoBox3 = React.createClass({
 	render : function(){
 		return(<div className="infoBox">
 			<h3>窗口资源</h3>
-			<ul>
+			<ul className="chooseList">
 			{
 				b.map(function(result,index){
 					return(<li key={index}>
-						<img src={result[0]}/>
+						<img src={result[0]} className="icon"/>
 						<p>{result[1]}</p>
 						<img src="assets/img/close.png" className="close"/>
 					</li>)
@@ -107,7 +107,7 @@ var InfoBox4 = React.createClass({
 	render : function(){
 		return(<div className="infoBox">
 			<h3>窗口跨屏属性</h3>
-			<div><p>可跨主机</p><p>不可跨主机</p></div>
+			<div></div>
 		</div>)
 	}
 })

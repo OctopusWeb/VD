@@ -99,6 +99,7 @@
             }
             &>div{
                 width: $NomalWidth/3;
+                min-width:260px;
                 height: 240px;
                 float: left;
                 margin-top: 20px;
@@ -109,6 +110,7 @@
                 margin-left: 5%;
                 border: 1px solid nth($NomalColor,4);
                 background: #f6f6f6;
+                
                 h3{
                     width: $NomalWidth;
                     font-size: nth($FontSize,5);
@@ -173,6 +175,48 @@
                         left: -1px;
                         top: -1px;
                         padding-left: 42px;
+                    }
+                }
+                .chooseList{
+                    width: $NomalWidth;
+                    float: left;
+                    margin-top: 10px;
+                    li{
+                        width: 130px;
+                        float: left;
+                        position: relative;
+                        margin-left: 10px;
+                        height: 26px;
+                        line-height: 26px;
+                        border-radius: 3px;
+                        border: 1px solid nth($NomalColor,4);
+                        overflow: hidden;
+                        background:nth($FontColor,4);
+                        .icon{
+                            float: left;
+                            width: 10px;
+                            height: 10px;
+                            margin: 7px 10px;
+                        }
+                        p{
+                            float: left;
+                            width: 70px;
+                            text-align: center;
+                            line-height: 25px;
+                            font-size: nth($FontSize,7);
+                            color: nth($NomalColor,4);
+                        }
+                        .close{
+                            float: right;
+                            width: 20px;
+                            height: 20px;
+                            margin-top: 3px;
+                        }
+                    }
+                    .selected{
+                        p{
+                            color: nth($LightColor,2);
+                        }
                     }
                 }
             }

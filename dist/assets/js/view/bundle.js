@@ -545,12 +545,12 @@ var InfoBox3 = React.createClass({
 			),
 			React.createElement(
 				"ul",
-				null,
+				{ className: "chooseList" },
 				b.map(function (result, index) {
 					return React.createElement(
 						"li",
 						{ key: index },
-						React.createElement("img", { src: result[0] }),
+						React.createElement("img", { src: result[0], className: "icon" }),
 						React.createElement(
 							"p",
 							null,
@@ -575,20 +575,7 @@ var InfoBox4 = React.createClass({
 				null,
 				"\u7A97\u53E3\u8DE8\u5C4F\u5C5E\u6027"
 			),
-			React.createElement(
-				"div",
-				null,
-				React.createElement(
-					"p",
-					null,
-					"\u53EF\u8DE8\u4E3B\u673A"
-				),
-				React.createElement(
-					"p",
-					null,
-					"\u4E0D\u53EF\u8DE8\u4E3B\u673A"
-				)
-			)
+			React.createElement("div", null)
 		);
 	}
 });

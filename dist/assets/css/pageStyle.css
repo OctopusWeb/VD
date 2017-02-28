@@ -108,7 +108,7 @@ html body { background: #efefef; }
 #layout #LayoutScreen #layoutInfo { float: left; width: 100%; border-top: 1px solid #fff; margin-top: 50px; padding: 50px; }
 #layout #LayoutScreen #layoutInfo h1, #layout #LayoutScreen #layoutInfo #login #loginBox h2, #login #loginBox #layout #LayoutScreen #layoutInfo h2 { width: 100%; float: left; font-size: 16px; color: #727171; font-weight: 400; line-height: 20px; border-left: 3px solid #cf031d; padding-left: 10px; }
 #layout #LayoutScreen #layoutInfo h2 { position: absolute; right: 5%; width: 60px; height: 27px; color: #fff; font-size: 14px; line-height: 27px; font-weight: 400; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); text-align: center; cursor: pointer; }
-#layout #LayoutScreen #layoutInfo > div { width: 33.33333%; height: 240px; float: left; margin-top: 20px; }
+#layout #LayoutScreen #layoutInfo > div { width: 33.33333%; min-width: 260px; height: 240px; float: left; margin-top: 20px; }
 #layout #LayoutScreen #layoutInfo .infoBox { height: 240px; width: 90%; margin-left: 5%; border: 1px solid #b4b4b4; background: #f6f6f6; }
 #layout #LayoutScreen #layoutInfo .infoBox h3 { width: 100%; font-size: 16px; color: #727171; font-weight: 400; line-height: 20px; border-left: 3px solid #727171; padding-left: 10px; margin-top: 10px; margin-bottom: 5px; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseBtn { float: left; height: 26px; border-radius: 3px; width: 170px; border: 1px solid #b4b4b4; overflow: hidden; margin-top: 20px; margin-left: 20px; }
@@ -117,6 +117,12 @@ html body { background: #efefef; }
 #layout #LayoutScreen #layoutInfo .infoBox .inputGroup { width: 105px; float: left; position: relative; margin-left: 10px; height: 26px; line-height: 26px; border-radius: 3px; border: 1px solid #b4b4b4; overflow: hidden; background: #fff; margin-top: 10px; }
 #layout #LayoutScreen #layoutInfo .infoBox .inputGroup p { width: 40px; line-height: 22px; margin: 1px; float: left; display: block; background: #d2d4d8; text-align: center; color: #727171; font-size: 12px; }
 #layout #LayoutScreen #layoutInfo .infoBox .inputGroup input { line-height: 26px; position: absolute; left: -1px; top: -1px; padding-left: 42px; }
+#layout #LayoutScreen #layoutInfo .infoBox .chooseList { width: 100%; float: left; margin-top: 10px; }
+#layout #LayoutScreen #layoutInfo .infoBox .chooseList li { width: 130px; float: left; position: relative; margin-left: 10px; height: 26px; line-height: 26px; border-radius: 3px; border: 1px solid #b4b4b4; overflow: hidden; background: #fff; }
+#layout #LayoutScreen #layoutInfo .infoBox .chooseList li .icon { float: left; width: 10px; height: 10px; margin: 7px 10px; }
+#layout #LayoutScreen #layoutInfo .infoBox .chooseList li p { float: left; width: 70px; text-align: center; line-height: 25px; font-size: 12px; color: #b4b4b4; }
+#layout #LayoutScreen #layoutInfo .infoBox .chooseList li .close { float: right; width: 20px; height: 20px; margin-top: 3px; }
+#layout #LayoutScreen #layoutInfo .infoBox .chooseList .selected p, #layout #LayoutScreen #layoutInfo .infoBox .chooseList #wrap #addScreen #menu #screenList li:hover p, #wrap #addScreen #menu #screenList #layout #LayoutScreen #layoutInfo .infoBox .chooseList li:hover p { color: #eb7627; }
 #layout #LayoutScreen #layoutInfo .infoBox1 { height: 110px; }
 #layout #LayoutScreen #layoutInfo .infoBox2 { height: 110px; margin-top: 20px; }
 
