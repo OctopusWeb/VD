@@ -42,13 +42,13 @@
     #LayoutScreen{
         position: absolute;
         top: 50px;
-        bottom: 50px;
+        bottom: 0px;
         left: 0;
         right: 0;
         overflow: auto;
-        background: #abc;
         #screenUl{
-            position: absolute;
+            float: left;
+            display: inline-block;
             width: 94%;
             margin-left: 3%;
             margin-top: 50px;
@@ -68,5 +68,121 @@
                 }
             }
         } 
+        #layoutInfo{
+            float: left;
+            width: $NomalWidth;
+            border-top: 1px solid nth($NomalColor,7);
+            margin-top: 50px;
+            padding: 50px;
+            h1{
+                width: $NomalWidth;
+                float: left;
+                font-size: nth($FontSize,5);
+                color: nth($NomalColor,3);
+                font-weight: 400;
+                line-height: 20px;
+                border-left: 3px solid nth($LightColor,1);
+                padding-left: 10px;
+            }
+            h2{
+                position: absolute;
+                right: 5%;
+                width: 60px;
+                height: 27px;
+                color: nth($FontColor,4);
+                font-size: nth($FontSize,6);
+                line-height: 27px;
+                font-weight: 400;
+                @include top-gradient;
+                text-align: center;
+                cursor: pointer;
+            }
+            &>div{
+                width: $NomalWidth/3;
+                height: 240px;
+                float: left;
+                margin-top: 20px;
+            }
+            .infoBox{
+                height: 240px;
+                width: 90%;
+                margin-left: 5%;
+                border: 1px solid nth($NomalColor,4);
+                background: #f6f6f6;
+                h3{
+                    width: $NomalWidth;
+                    font-size: nth($FontSize,5);
+                    color: nth($NomalColor,3);
+                    font-weight: 400;
+                    line-height: 20px;
+                    border-left: 3px solid nth($NomalColor,3);
+                    padding-left: 10px;
+                    margin-top: 10px;
+                    margin-bottom: 5px;
+                }
+                .chooseBtn{
+                    float: left;
+                    height: 26px;
+                    border-radius: 3px;
+                    width: 170px;
+                    border: 1px solid nth($NomalColor,4);
+                    overflow: hidden;
+                    margin-top: 20px;
+                    margin-left: 20px;
+                    p{
+                        float: left;
+                        width: 84px;
+                        line-height: 26px;
+                        text-align: center;
+                        color: nth($FontColor,2);
+                        font-size: nth($FontSize,6);
+                        background: nth($NomalColor,5);
+                        cursor: pointer;
+                    }
+                    .selected{
+                        color: nth($LightColor,2);
+                        background: nth($FontColor,4);
+                    }
+                }
+                .inputGroup{
+                    width: 105px;
+                    float: left;
+                    position: relative;
+                    margin-left: 10px;
+                    height: 26px;
+                    line-height: 26px;
+                    border-radius: 3px;
+                    border: 1px solid nth($NomalColor,4);
+                    overflow: hidden;
+                    background:nth($FontColor,4);
+                    margin-top: 10px;
+                    p{
+                        width: 40px;
+                        line-height: 22px;
+                        margin: 1px;
+                        float: left;
+                        display: block;
+                        background: nth($NomalColor,5);
+                        text-align: center;
+                        color: nth($NomalColor,3);
+                        font-size: nth($FontSize,7);
+                    }
+                    input{
+                        line-height: 26px;
+                        position: absolute;
+                        left: -1px;
+                        top: -1px;
+                        padding-left: 42px;
+                    }
+                }
+            }
+            .infoBox1{
+                height: 110px;
+            }
+            .infoBox2{
+                height: 110px;
+                margin-top: 20px;
+            }
+        }
     }
 }

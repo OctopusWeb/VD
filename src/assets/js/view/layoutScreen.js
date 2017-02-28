@@ -56,6 +56,12 @@ var LayoutInfo = React.createClass({
 				<InfoBox1/>
 				<InfoBox2/>
 			</div>
+			<div id="sources">
+				<InfoBox3/>
+			</div>
+			<div>
+				<InfoBox4/>
+			</div>
 		</div>)
 	}
 })
@@ -63,7 +69,7 @@ var InfoBox1 = React.createClass({
 	render : function(){
 		return(<div className="infoBox infoBox1">
 			<h3>窗口跨屏属性</h3>
-			<div><p>可跨主机</p><p>不可跨主机</p></div>
+			<div className="chooseBtn"><p className="selected">可跨主机</p><p>不可跨主机</p></div>
 		</div>)
 	}
 })
@@ -71,10 +77,37 @@ var InfoBox2 = React.createClass({
 	render : function(){
 		return(<div className="infoBox infoBox2">
 			<h3>窗口位置</h3>
-			<div><p>X</p><input type="number"/></div> 
-			<div><p>Y</p><input type="number"/></div> 
-			<div><p>宽度</p><input type="number"/></div> 
-			<div><p>高度</p><input type="number"/></div> 
+			<div className="inputGroup"><p>X</p><input type="number"/></div> 
+			<div className="inputGroup"><p>Y</p><input type="number"/></div> 
+			<div className="inputGroup"><p>宽度</p><input type="number"/></div> 
+			<div className="inputGroup"><p>高度</p><input type="number"/></div> 
+		</div>)
+	}
+})
+var b = [["assets/img/WEB.png","AAAAA"],["assets/img/WEB.png","BBBBB"]] 
+var InfoBox3 = React.createClass({
+	render : function(){
+		return(<div className="infoBox">
+			<h3>窗口资源</h3>
+			<ul>
+			{
+				b.map(function(result,index){
+					return(<li key={index}>
+						<img src={result[0]}/>
+						<p>{result[1]}</p>
+						<img src="assets/img/close.png" className="close"/>
+					</li>)
+				})
+			}
+			</ul>
+		</div>)
+	}
+})
+var InfoBox4 = React.createClass({
+	render : function(){
+		return(<div className="infoBox">
+			<h3>窗口跨屏属性</h3>
+			<div><p>可跨主机</p><p>不可跨主机</p></div>
 		</div>)
 	}
 })

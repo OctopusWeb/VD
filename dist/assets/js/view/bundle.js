@@ -432,6 +432,16 @@ var LayoutInfo = React.createClass({
 				null,
 				React.createElement(InfoBox1, null),
 				React.createElement(InfoBox2, null)
+			),
+			React.createElement(
+				"div",
+				{ id: "sources" },
+				React.createElement(InfoBox3, null)
+			),
+			React.createElement(
+				"div",
+				null,
+				React.createElement(InfoBox4, null)
 			)
 		);
 	}
@@ -450,10 +460,10 @@ var InfoBox1 = React.createClass({
 			),
 			React.createElement(
 				"div",
-				null,
+				{ className: "chooseBtn" },
 				React.createElement(
 					"p",
-					null,
+					{ className: "selected" },
 					"\u53EF\u8DE8\u4E3B\u673A"
 				),
 				React.createElement(
@@ -479,7 +489,7 @@ var InfoBox2 = React.createClass({
 			),
 			React.createElement(
 				"div",
-				null,
+				{ className: "inputGroup" },
 				React.createElement(
 					"p",
 					null,
@@ -489,7 +499,7 @@ var InfoBox2 = React.createClass({
 			),
 			React.createElement(
 				"div",
-				null,
+				{ className: "inputGroup" },
 				React.createElement(
 					"p",
 					null,
@@ -499,7 +509,7 @@ var InfoBox2 = React.createClass({
 			),
 			React.createElement(
 				"div",
-				null,
+				{ className: "inputGroup" },
 				React.createElement(
 					"p",
 					null,
@@ -509,13 +519,75 @@ var InfoBox2 = React.createClass({
 			),
 			React.createElement(
 				"div",
-				null,
+				{ className: "inputGroup" },
 				React.createElement(
 					"p",
 					null,
 					"\u9AD8\u5EA6"
 				),
 				React.createElement("input", { type: "number" })
+			)
+		);
+	}
+});
+var b = [["assets/img/WEB.png", "AAAAA"], ["assets/img/WEB.png", "BBBBB"]];
+var InfoBox3 = React.createClass({
+	displayName: "InfoBox3",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ className: "infoBox" },
+			React.createElement(
+				"h3",
+				null,
+				"\u7A97\u53E3\u8D44\u6E90"
+			),
+			React.createElement(
+				"ul",
+				null,
+				b.map(function (result, index) {
+					return React.createElement(
+						"li",
+						{ key: index },
+						React.createElement("img", { src: result[0] }),
+						React.createElement(
+							"p",
+							null,
+							result[1]
+						),
+						React.createElement("img", { src: "assets/img/close.png", className: "close" })
+					);
+				})
+			)
+		);
+	}
+});
+var InfoBox4 = React.createClass({
+	displayName: "InfoBox4",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ className: "infoBox" },
+			React.createElement(
+				"h3",
+				null,
+				"\u7A97\u53E3\u8DE8\u5C4F\u5C5E\u6027"
+			),
+			React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"p",
+					null,
+					"\u53EF\u8DE8\u4E3B\u673A"
+				),
+				React.createElement(
+					"p",
+					null,
+					"\u4E0D\u53EF\u8DE8\u4E3B\u673A"
+				)
 			)
 		);
 	}
