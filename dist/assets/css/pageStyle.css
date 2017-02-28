@@ -96,7 +96,7 @@ html body { background: #efefef; }
 #addPart3 #btnPart3 { width: 50%; left: 30%; height: 25px; position: absolute; bottom: 70px; }
 #addPart3 #btnPart3 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; float: left; }
 
-#layout { position: absolute; top: 0; left: 260px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; }
+#layout { position: absolute; top: 50px; left: 260px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; }
 #layout #layoutTop { width: 100%; height: 50px; position: absolute; background: #efefef; border-bottom: 1px solid #b4b4b4; }
 #layout #layoutTop h1, #layout #layoutTop #login #loginBox h2, #login #loginBox #layout #layoutTop h2 { line-height: 50px; width: auto; font-size: 16px; color: #eb7627; margin-left: 20px; font-weight: 400; float: left; }
 #layout #layoutTop .addLayout { background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); float: right; margin-right: 20px; width: 100px; height: 25px; margin-right: 20px; line-height: 25px; text-align: center; color: #fff; font-size: 14px; margin-top: 12px; }
@@ -116,7 +116,7 @@ html body { background: #efefef; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseBtn .selected, #layout #LayoutScreen #layoutInfo .infoBox .chooseBtn #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layout #LayoutScreen #layoutInfo .infoBox .chooseBtn li:hover { color: #eb7627; background: #fff; }
 #layout #LayoutScreen #layoutInfo .infoBox .inputGroup { width: 105px; float: left; position: relative; margin-left: 10px; height: 26px; line-height: 26px; border-radius: 3px; border: 1px solid #b4b4b4; overflow: hidden; background: #fff; margin-top: 10px; }
 #layout #LayoutScreen #layoutInfo .infoBox .inputGroup p { width: 40px; line-height: 22px; margin: 1px; float: left; display: block; background: #d2d4d8; text-align: center; color: #727171; font-size: 12px; }
-#layout #LayoutScreen #layoutInfo .infoBox .inputGroup input { line-height: 26px; position: absolute; left: -1px; top: -1px; padding-left: 42px; }
+#layout #LayoutScreen #layoutInfo .infoBox .inputGroup input { line-height: 26px; position: absolute; left: -1px; top: -1px; padding-left: 42px; font-size: 12px; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseList { width: 100%; float: left; margin-top: 10px; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseList li { width: 130px; float: left; position: relative; margin-left: 10px; height: 26px; line-height: 26px; border-radius: 3px; border: 1px solid #b4b4b4; overflow: hidden; background: #fff; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseList li .icon { float: left; width: 10px; height: 10px; margin: 7px 10px; }

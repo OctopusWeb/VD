@@ -2,45 +2,66 @@ var $Animate = {};
 $Animate.pagesDom = {
 	login		: $("#login"),
 	wrap		: $("#wrap"),
+	addScreen	: $("#addScreen"),
 	addPart1	: $("#addPart1"),
 	addPart2	: $("#addPart2"),
 	addPart3	: $("#addPart3"),
+	layout		: $("#layout"),
 }
 $Animate.loginHide = function(){
-	TweenMax.to($Animate.pagesDom.login, 0.5, {left:"-100%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.login,"-100%");
 }
 $Animate.loginShow = function(){
-	TweenMax.to($Animate.pagesDom.login, 0.5, {left:"50%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.login,"50%")
 }
 $Animate.wrapHide = function(){
-	TweenMax.to($Animate.pagesDom.wrap, 0.5, {left:"100%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.wrap,"100%")
 }
 $Animate.wrapShow = function(){
-	TweenMax.to($Animate.pagesDom.wrap, 0.5, {left:"0%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.wrap,"0%")
 }
 $Animate.Part1Show = function(){
-	TweenMax.to($Animate.pagesDom.addPart1, 0.5, {left:"0%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.addPart1,"0%")
 }
 $Animate.Part1Hide = function(){
-	TweenMax.to($Animate.pagesDom.addPart1, 0.5, {left:"-100%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.addPart1,"-100%")
 }
 $Animate.Part2Show = function(){
-	TweenMax.to($Animate.pagesDom.addPart2, 0.5, {left:"0%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.addPart2,"0%")
 }
 $Animate.Part2Hide1 = function(){
-	TweenMax.to($Animate.pagesDom.addPart2, 0.5, {left:"100%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.addPart2,"100%")
 }
 $Animate.Part2Hide2 = function(){
-	TweenMax.to($Animate.pagesDom.addPart2, 0.5, {left:"-100%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.addPart2,"-100%")
 }
 $Animate.Part3Show = function(){
-	TweenMax.to($Animate.pagesDom.addPart3, 0.5, {left:"0%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.addPart3,"0%")
 }
 $Animate.Part3Hide = function(){
-	TweenMax.to($Animate.pagesDom.addPart3, 0.5, {left:"100%",ease: Power0.easeNone});
+	animateFun($Animate.pagesDom.addPart3,"100%")
+}
+$Animate.addScreenShow = function(){
+	animateFun($Animate.pagesDom.addScreen,"0%")
+}
+$Animate.addScreenHide = function(){
+	animateFun($Animate.pagesDom.addScreen,"-100%")
 }
 
+$Animate.LayoutShow = function(){
+	animateFun($Animate.pagesDom.layout,"0%")
+}
+$Animate.LayoutHide1 = function(){
+	animateFun($Animate.pagesDom.layout,"-100%")
+}
+$Animate.LayoutHide2 = function(){
+	animateFun($Animate.pagesDom.layout,"100%")
+}
 $Animate.complete = function(hideComplete,showComplete){ 
 	hideComplete?hideComplete() : console.log("没有隐藏函数");
 	showComplete?showComplete() : console.log("没有显示函数");  
+}
+
+function animateFun(dom,lefts){
+	TweenMax.to(dom, 0.5, {left:lefts,ease: Power0.easeNone});
 }
