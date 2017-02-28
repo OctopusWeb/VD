@@ -80,14 +80,11 @@
                     clear: both;
                 }
                 .btn{
+                    @include top-gradient;
                     height: 30px;
                     width: 108px;
                     float: left;
                     margin: 10px 0 0 15px;
-                    background:-webkit-linear-gradient(top, nth($LightColor,2), nth($LightColor,1));
-                    background:-o-linear-gradient(top, nth($LightColor,2), nth($LightColor,1));
-                    background:-moz-linear-gradient(top, nth($LightColor,2), nth($LightColor,1));
-                    background:linear-gradient(to bottom, nth($LightColor,2), nth($LightColor,1));
                     line-height: 28px;
                     text-align: center;
                     color: nth($FontColor,4);

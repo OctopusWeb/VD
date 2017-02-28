@@ -1,0 +1,72 @@
+#layout{
+	position: absolute;
+	top: 0;
+	left: 260px;
+	right: 0;
+	bottom: 0;
+    overflow: auto;
+    background: nth($NomalColor,6);
+    z-index: 1000;
+    #layoutTop{
+    	width: $NomalWidth;
+    	height: 50px;
+    	position: absolute;
+    	background:nth($NomalColor,6);
+    	border-bottom: 1px solid nth($NomalColor,4);
+    	h1{
+    		line-height: 50px;
+    		width: auto;
+    		font-size: nth($FontSize,5);
+    		color: nth($LightColor,2);
+    		margin-left: 20px;
+    		font-weight: 400;
+    		float: left;
+    	}
+    	.addLayout{
+    	    @include top-gradient;
+    		float: right;
+    		margin-right: 20px;
+    		width: 100px;
+    		height: 25px; 
+    		margin-right: 20px;
+    		line-height: 25px;
+    		text-align: center;
+    		color: nth($FontColor,4);
+    		font-size: nth($FontSize,6);
+    		margin-top: 12px;
+    		&:hover{
+    		    @include btn-hover;
+    		}
+    	}
+    }
+    #LayoutScreen{
+        position: absolute;
+        top: 50px;
+        bottom: 50px;
+        left: 0;
+        right: 0;
+        overflow: auto;
+        background: #abc;
+        #screenUl{
+            position: absolute;
+            width: 94%;
+            margin-left: 3%;
+            margin-top: 50px;
+            background: nth($NomalColor,6);
+            height: auto;
+            padding: 5px;
+            border: 1px solid nth($NomalColor,4);
+            border-radius: 3px;
+            ul{
+                float: left;
+                width: $NomalWidth;
+                li{
+                    float: left;
+                    background: nth($NomalColor,4);
+                    border: 1px solid nth($NomalColor,3);
+                    list-style: none;
+                }
+            }
+        } 
+    }
+}

@@ -9,7 +9,8 @@ $(function(){
 		screenLi	: $("#addPart3 ul li"),
 		entrySlected: $("#entrySlected"),
 		screenPlan	: $("#screenPlan ul"),
-		
+		addPart2	: $("#addPart2"),
+		btnPart3	: $("#btnPart3")
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
 	ControllerDom.btnPart1.find(".next").on("click",function(){
@@ -30,8 +31,16 @@ $(function(){
 		ControllerDom.levNumLi.eq(2).addClass("selected");
 		ControllerDom.pageTitle.html("分配屏幕");
 	});
-	
-	ControllerDom.btnPart2.find("ul").on("click",function(e){
+	ControllerDom.btnPart3.find(".pre").on("click",function(){
+		$Animate.complete($Animate.Part3Hide,$Animate.Part2Show);
+		ControllerDom.levNumLi.removeClass("selected");
+		ControllerDom.levNumLi.eq(1).addClass("selected");
+		ControllerDom.pageTitle.html("分配屏幕");
+	});
+	ControllerDom.btnPart3.find(".next").on("click",function(){
+		
+	});
+	ControllerDom.addPart2.find("ul").on("click",function(e){
 		var event = e || window.event;
 		var dom = event.target || event.srcElement;
 		dom = dom.parentNode.parentNode;

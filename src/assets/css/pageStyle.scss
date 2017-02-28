@@ -19,7 +19,18 @@ $NomalWidth:100%;
     opacity: .8; 
     filter:alpha(opaity=80);
 }
-
+@mixin left-gradient{
+    background:-webkit-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
+    background:-o-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
+    background:-moz-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
+    background:linear-gradient(to right, nth($LightColor,2), nth($LightColor,1));
+}
+@mixin top-gradient{
+    background:-webkit-linear-gradient(top, nth($LightColor,2), nth($LightColor,1));
+    background:-o-linear-gradient(top, nth($LightColor,2), nth($LightColor,1));
+    background:-moz-linear-gradient(top, nth($LightColor,2), nth($LightColor,1));
+    background:linear-gradient(to bottom, nth($LightColor,2), nth($LightColor,1));
+}
 html{
     height: $NomalWidth;
     width: $NomalWidth;
@@ -35,3 +46,4 @@ html{
 @import "page1";
 @import "page2";
 @import "page3";
+@import "layout";

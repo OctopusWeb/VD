@@ -49,15 +49,11 @@
             }
         }
         #submitBtn{
+            @include left-gradient;
             width: $NomalWidth/2;
             height: 37px;
             margin-top: 10px;
             margin-left: 25%;
-            background: #000;
-            background:-webkit-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
-            background:-o-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
-            background:-moz-linear-gradient(left, nth($LightColor,2), nth($LightColor,1));
-            background:linear-gradient(to right, nth($LightColor,2), nth($LightColor,1));
             line-height: 37px;
             cursor: pointer;
             p{

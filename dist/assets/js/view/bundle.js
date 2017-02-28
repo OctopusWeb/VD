@@ -14,18 +14,20 @@ var Part1 = React.createClass({
 			"div",
 			null,
 			React.createElement(InputGroup, { rowChange: this.handlerRow }),
-			React.createElement(ScreenShow, { row: this.state.row, col: this.state.col }),
+			React.createElement(ScreenShow, { row: this.state.row, col: this.state.col, wid: this.state.wid, hei: this.state.hei }),
 			React.createElement(BtnPart1, null)
 		);
 	},
 	getInitialState: function getInitialState() {
 		return {
 			row: 1,
-			col: 1
+			col: 1,
+			wid: 1920,
+			hei: 1080
 		};
 	},
-	handlerRow: function handlerRow(row1, col1) {
-		this.setState({ row: row1, col: col1 });
+	handlerRow: function handlerRow(row1, col1, wid1, hei1) {
+		this.setState({ row: row1, col: col1, wid: wid1, hei: hei1 });
 	}
 });
 
@@ -35,16 +37,24 @@ var InputGroup = React.createClass({
 	getInitialState: function getInitialState() {
 		return {
 			row: 0,
-			col: 0
+			col: 0,
+			wid: 1920,
+			hei: 1080
 		};
 	},
 	handlerChange: function handlerChange(event) {
 		if (event.target.name == InputName[1]) {
 			this.setState({ row: event.target.value });
-			this.props.rowChange(event.target.value, this.state.col);
+			this.props.rowChange(event.target.value, this.state.col, this.state.wid, this.state.hei);
+		} else if (event.target.name == InputName[2]) {
+			this.setState({ wid: event.target.value });
+			this.props.rowChange(this.state.row, this.state.col, event.target.value, this.state.hei);
 		} else if (event.target.name == InputName[3]) {
 			this.setState({ col: event.target.value });
-			this.props.rowChange(this.state.row, event.target.value);
+			this.props.rowChange(this.state.row, event.target.value, this.state.wid, this.state.hei);
+		} else if (event.target.name == InputName[4]) {
+			this.setState({ hei: event.target.value });
+			this.props.rowChange(this.state.row, this.state.col, this.state.wid, event.target.value);
 		}
 	},
 	render: function render() {
@@ -74,8 +84,9 @@ var ScreenShow = React.createClass({
 		var b = [];
 		var row = this.props.row;
 		var col = this.props.col;
+		var bil = this.props.hei / this.props.wid;
 		var wid = 100 / col + "%";
-		var hei = 300 / row;
+		var hei = bil * 100 / col + "%";
 		for (var i = 0; i < row * col; i++) {
 			b.push(i);
 		}
@@ -91,7 +102,7 @@ var ScreenShow = React.createClass({
 				"ul",
 				null,
 				b.map(function (result, index) {
-					return React.createElement("li", { key: index + 1, style: { width: wid, height: hei } });
+					return React.createElement("li", { key: index + 1, style: { width: wid, paddingBottom: hei } });
 				})
 			)
 		);
@@ -148,7 +159,7 @@ var FacilityList = React.createClass({
 					React.createElement(
 						"div",
 						null,
-						React.createElement("img", { src: "assets/img/facility.png", alt: "PC8189", id: "aa" })
+						React.createElement("img", { src: "assets/img/facility.png", alt: "PC8189" })
 					),
 					React.createElement(
 						"p",
@@ -189,7 +200,7 @@ ReactDOM.render(React.createElement(Part2, null), view2Dom.addPart2);
 var view3Dom = {
 	addPart3: $at.GetDomId("addPart3")
 };
-var facilityList = ["PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189", "PC8189"];
+var facilityList = ["PC1111", "PC2222", "PC3333", "PC4444", "PC5555", "PC6666"];
 
 var Part3 = React.createClass({
 	displayName: "Part3",
@@ -200,7 +211,8 @@ var Part3 = React.createClass({
 			null,
 			React.createElement(ScreenPlan, { num: "8" }),
 			React.createElement(EntrySlected, null),
-			React.createElement(EntryList, null)
+			React.createElement(EntryList, null),
+			React.createElement(BtnPart3, null)
 		);
 	}
 });
@@ -252,14 +264,13 @@ var EntrySlected = React.createClass({
 	displayName: "EntrySlected",
 
 	render: function render() {
-		var arr = ["AAAA", "BBBB", "CCCC"];
 		return React.createElement(
 			"div",
 			{ id: "entrySlected" },
 			React.createElement(
 				"ul",
 				null,
-				arr.map(function (result, index) {
+				facilityList.map(function (result, index) {
 					var colorStyle = {
 						border: "1px solid " + $at.staticColors[index]
 					};
@@ -284,16 +295,15 @@ var EntryList = React.createClass({
 	render: function render() {
 		return React.createElement(
 			"ul",
-			null,
+			{ id: "entryList" },
 			facilityList.map(function (result, index) {
+				var colorStyle = {
+					border: "2px solid " + $at.staticColors[index]
+				};
 				return React.createElement(
 					"li",
 					{ key: index },
-					React.createElement(
-						"div",
-						null,
-						React.createElement("img", { src: "assets/img/facility.png", alt: "PC8189" })
-					),
+					React.createElement("img", { src: "assets/img/facility.png", alt: "PC8189", style: colorStyle }),
 					React.createElement(
 						"p",
 						null,
@@ -304,12 +314,215 @@ var EntryList = React.createClass({
 		);
 	}
 });
+var BtnPart3 = React.createClass({
+	displayName: "BtnPart3",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ id: "btnPart3" },
+			React.createElement(
+				"div",
+				{ className: "btn pre" },
+				"\u4E0A\u4E00\u6B65"
+			),
+			React.createElement(
+				"div",
+				{ className: "btn next" },
+				"\u5B8C\u6210"
+			)
+		);
+	}
+});
 ReactDOM.render(React.createElement(Part3, null), view3Dom.addPart3);
 
 },{}],4:[function(require,module,exports){
 "use strict";
 
 },{}],5:[function(require,module,exports){
+"use strict";
+
+var view4Dom = {
+	layout: $at.GetDomId("layout")
+};
+var Part4 = React.createClass({
+	displayName: "Part4",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(LayoutTop, { title: this.props.title }),
+			React.createElement(LayoutScreen, { row: this.props.row, col: this.props.col, wid: this.props.wid, hei: this.props.hei })
+		);
+	}
+});
+var LayoutTop = React.createClass({
+	displayName: "LayoutTop",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ id: "layoutTop" },
+			React.createElement(
+				"h1",
+				null,
+				this.props.title
+			),
+			React.createElement(
+				"div",
+				{ className: "addLayout" },
+				"\u4FDD\u5B58\u5E03\u5C40"
+			)
+		);
+	}
+});
+
+var LayoutScreen = React.createClass({
+	displayName: "LayoutScreen",
+
+	render: function render() {
+		var b = [];
+		var row = this.props.row;
+		var col = this.props.col;
+		var num = row * col;
+		var bil = this.props.hei / this.props.wid;
+		var wid = 100 / col + "%";
+		var hei = bil * 100 / col + "%";
+		for (var i = 0; i < num; i++) {
+			b.push(i);
+		}
+		return React.createElement(
+			"div",
+			{ id: "LayoutScreen" },
+			React.createElement(
+				"div",
+				{ id: "screenUl" },
+				React.createElement(
+					"ul",
+					null,
+					b.map(function (result, index) {
+						return React.createElement("li", { key: index + 1, style: { width: wid, paddingBottom: hei } });
+					})
+				)
+			),
+			React.createElement(LayoutInfo, null)
+		);
+	}
+});
+var LayoutInfo = React.createClass({
+	displayName: "LayoutInfo",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ id: "layoutInfo" },
+			React.createElement(
+				"h1",
+				null,
+				"\u7A97\u53E3\u5C5E\u6027"
+			),
+			React.createElement(
+				"h2",
+				null,
+				"\u6DFB\u52A0\u7A97\u53E3"
+			),
+			React.createElement(
+				"div",
+				null,
+				React.createElement(InfoBox1, null),
+				React.createElement(InfoBox2, null)
+			)
+		);
+	}
+});
+var InfoBox1 = React.createClass({
+	displayName: "InfoBox1",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ className: "infoBox infoBox1" },
+			React.createElement(
+				"h3",
+				null,
+				"\u7A97\u53E3\u8DE8\u5C4F\u5C5E\u6027"
+			),
+			React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"p",
+					null,
+					"\u53EF\u8DE8\u4E3B\u673A"
+				),
+				React.createElement(
+					"p",
+					null,
+					"\u4E0D\u53EF\u8DE8\u4E3B\u673A"
+				)
+			)
+		);
+	}
+});
+var InfoBox2 = React.createClass({
+	displayName: "InfoBox2",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ className: "infoBox infoBox2" },
+			React.createElement(
+				"h3",
+				null,
+				"\u7A97\u53E3\u4F4D\u7F6E"
+			),
+			React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"p",
+					null,
+					"X"
+				),
+				React.createElement("input", { type: "number" })
+			),
+			React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"p",
+					null,
+					"Y"
+				),
+				React.createElement("input", { type: "number" })
+			),
+			React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"p",
+					null,
+					"\u5BBD\u5EA6"
+				),
+				React.createElement("input", { type: "number" })
+			),
+			React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"p",
+					null,
+					"\u9AD8\u5EA6"
+				),
+				React.createElement("input", { type: "number" })
+			)
+		);
+	}
+});
+ReactDOM.render(React.createElement(Part4, { title: "\u865A\u62DF\u684C\u97621", col: "4", row: "2", wid: "1920", hei: "1080" }), view4Dom.layout);
+
+},{}],6:[function(require,module,exports){
 "use strict";
 
 var loginDom = {
@@ -408,7 +621,7 @@ function FormCheck(self) {
 	}
 }
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 
 var setScreenDom = {
@@ -524,4 +737,4 @@ ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
 ReactDOM.render(React.createElement(LevTitle, null), setScreenDom.levNum);
 ReactDOM.render(React.createElement(PageTitle, { title: "\u65B0\u5EFA\u5C4F\u5E55" }), setScreenDom.pageTitle);
 
-},{}]},{},[1,2,3,4,5,6]);
+},{}]},{},[1,2,3,4,5,6,7]);

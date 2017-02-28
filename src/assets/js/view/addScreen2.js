@@ -18,7 +18,7 @@ var FacilityList = React.createClass({
 				facilityList.map(function(result,index){
 					return (<li key={index}>
 								<div>
-									<img src="assets/img/facility.png" alt="PC8189" id="aa" />
+									<img src="assets/img/facility.png" alt="PC8189"/>
 								</div>
 								<p>{result}</p>
 							</li>
