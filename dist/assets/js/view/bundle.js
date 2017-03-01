@@ -347,15 +347,52 @@ var view4Dom = {
 };
 var titleList = [["assets/img/SHIPIN.png", "视频"], ["assets/img/PPT.png", "PPT"], ["assets/img/PDF.png", "PDF"], ["assets/img/FLASH.png", "FLASH"], ["assets/img/WEB.png", "WEB"], ["assets/img/ZOOLONWEB.png", "ZOOLONWEB"]];
 var contentList = [["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"]];
+var view4Info = {
+	screenInfo: {
+		title: "虚拟桌面1",
+		col: "4",
+		row: "2",
+		wid: "1920",
+		hei: "1080"
+	},
+	drawInfo: [{
+		title: "屏幕1",
+		index: 0,
+		screens: [{
+			across: true,
+			screenInfo: [102, 102, 102, 102],
+			medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
+		}, {
+			across: true,
+			screenInfo: [10, 10, 10, 10],
+			medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
+		}]
+	}, {
+		title: "屏幕2",
+		index: 1,
+		screens: [{
+			across: true,
+			screenInfo: [10, 10, 10, 10],
+			medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
+		}, {
+			across: true,
+			screenInfo: [10, 10, 10, 10],
+			medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
+		}]
+	}]
+};
 var Part4 = React.createClass({
 	displayName: "Part4",
 
 	render: function render() {
+		var info = this.props.info;
+		var screenInfo = info.screenInfo;
+
 		return React.createElement(
 			"div",
 			null,
-			React.createElement(LayoutTop, { title: this.props.title }),
-			React.createElement(LayoutScreen, { row: this.props.row, col: this.props.col, wid: this.props.wid, hei: this.props.hei })
+			React.createElement(LayoutTop, { title: screenInfo.title }),
+			React.createElement(LayoutScreen, { obj: { info: info } })
 		);
 	}
 });
@@ -383,14 +420,25 @@ var LayoutTop = React.createClass({
 var LayoutScreen = React.createClass({
 	displayName: "LayoutScreen",
 
+	getInitialState: function getInitialState() {
+		return {
+			info: this.props.obj.info
+		};
+	},
+	acrossHandelers: function acrossHandelers(bol) {
+		var info = this.state.info.drawInfo;
+		console.log(JSON.stringify(info));
+	},
 	render: function render() {
-		var b = [];
-		var row = this.props.row;
-		var col = this.props.col;
+		var info = this.state.info;
+		var drawInfo = info.drawInfo;
+		var row = info.screenInfo.row;
+		var col = info.screenInfo.col;
 		var num = row * col;
-		var bil = this.props.hei / this.props.wid;
+		var bil = info.screenInfo.hei / info.screenInfo.wid;
 		var wid = 100 / col + "%";
 		var hei = bil * 100 / col + "%";
+		var b = [];
 		for (var i = 0; i < num; i++) {
 			b.push(i);
 		}
@@ -402,19 +450,32 @@ var LayoutScreen = React.createClass({
 				{ id: "screenUl" },
 				React.createElement(
 					"ul",
-					null,
+					{ className: "screenUl" },
 					b.map(function (result, index) {
 						return React.createElement("li", { key: index + 1, style: { width: wid, paddingBottom: hei } });
 					})
-				)
+				),
+				React.createElement(DrawBox, { obj: info })
 			),
-			React.createElement(LayoutInfo, null)
+			React.createElement(LayoutInfo, { obj: { drawInfo: drawInfo }, acrossHandelers: this.acrossHandelers })
 		);
 	}
 });
 var LayoutInfo = React.createClass({
 	displayName: "LayoutInfo",
 
+	getInitialState: function getInitialState() {
+		var drawInfo = this.props.obj.drawInfo[0];
+		return {
+			across: drawInfo.screens[0].across,
+			screenInfo: drawInfo.screens[0].screenInfo,
+			medias: drawInfo.screens[0].medias
+		};
+	},
+	acrossHandelers: function acrossHandelers(bol) {
+		this.props.acrossHandelers(bol);
+		console.log(bol);
+	},
 	render: function render() {
 		return React.createElement(
 			"div",
@@ -432,18 +493,18 @@ var LayoutInfo = React.createClass({
 			React.createElement(
 				"div",
 				null,
-				React.createElement(InfoBox1, null),
-				React.createElement(InfoBox2, null)
+				React.createElement(InfoBox1, { texts: this.state.across, acrossHandeler: this.acrossHandelers }),
+				React.createElement(InfoBox2, { texts: this.state.screenInfo })
 			),
 			React.createElement(
 				"div",
 				{ id: "sources" },
-				React.createElement(InfoBox3, null)
+				React.createElement(InfoBox3, { texts: this.state.medias })
 			),
 			React.createElement(
 				"div",
 				null,
-				React.createElement(InfoBox4, null)
+				React.createElement(InfoBox4, { arr: titleList })
 			)
 		);
 	}
@@ -451,35 +512,90 @@ var LayoutInfo = React.createClass({
 var InfoBox1 = React.createClass({
 	displayName: "InfoBox1",
 
+	getInitialState: function getInitialState() {
+		return {
+			bol: this.props.texts
+		};
+	},
+	handelerClick: function handelerClick() {
+		this.setState({ bol: !this.state.bol });
+		this.props.acrossHandeler(this.state.bol);
+	},
 	render: function render() {
-		return React.createElement(
-			"div",
-			{ className: "infoBox infoBox1" },
-			React.createElement(
-				"h3",
-				null,
-				"\u7A97\u53E3\u8DE8\u5C4F\u5C5E\u6027"
-			),
-			React.createElement(
+		if (this.state.bol) {
+			return React.createElement(
 				"div",
-				{ className: "chooseBtn" },
+				{ className: "infoBox infoBox1" },
 				React.createElement(
-					"p",
-					{ className: "selected" },
-					"\u53EF\u8DE8\u4E3B\u673A"
+					"h3",
+					null,
+					"\u7A97\u53E3\u8DE8\u5C4F\u5C5E\u6027"
 				),
 				React.createElement(
-					"p",
-					null,
-					"\u4E0D\u53EF\u8DE8\u4E3B\u673A"
+					"div",
+					{ className: "chooseBtn" },
+					React.createElement(
+						"p",
+						{ className: "selected" },
+						"\u53EF\u8DE8\u4E3B\u673A"
+					),
+					React.createElement(
+						"p",
+						{ onClick: this.handelerClick },
+						"\u4E0D\u53EF\u8DE8\u4E3B\u673A"
+					)
 				)
-			)
-		);
+			);
+		} else {
+			return React.createElement(
+				"div",
+				{ className: "infoBox infoBox1" },
+				React.createElement(
+					"h3",
+					null,
+					"\u7A97\u53E3\u8DE8\u5C4F\u5C5E\u6027"
+				),
+				React.createElement(
+					"div",
+					{ className: "chooseBtn" },
+					React.createElement(
+						"p",
+						{ onClick: this.handelerClick },
+						"\u53EF\u8DE8\u4E3B\u673A"
+					),
+					React.createElement(
+						"p",
+						{ className: "selected" },
+						"\u4E0D\u53EF\u8DE8\u4E3B\u673A"
+					)
+				)
+			);
+		}
 	}
 });
 var InfoBox2 = React.createClass({
 	displayName: "InfoBox2",
 
+	getInitialState: function getInitialState() {
+		return {
+			left: this.props.texts[0],
+			top: this.props.texts[1],
+			wid: this.props.texts[2],
+			hei: this.props.texts[3]
+		};
+	},
+	xhanderler: function xhanderler(e) {
+		this.setState({ left: event.target.value, top: this.state.top, wid: this.state.wid, hei: this.state.hei });
+	},
+	yhanderler: function yhanderler(e) {
+		this.setState({ left: this.state.left, top: event.target.value, wid: this.state.wid, hei: this.state.hei });
+	},
+	whanderler: function whanderler(e) {
+		this.setState({ left: this.state.left, top: this.state.top, wid: event.target.value, hei: this.state.hei });
+	},
+	hhanderler: function hhanderler(e) {
+		this.setState({ left: this.state.left, top: this.state.top, wid: this.state.wid, hei: event.target.value });
+	},
 	render: function render() {
 		return React.createElement(
 			"div",
@@ -497,7 +613,7 @@ var InfoBox2 = React.createClass({
 					null,
 					"X"
 				),
-				React.createElement("input", { type: "number" })
+				React.createElement("input", { type: "number", value: this.state.left, onChange: this.xhanderler })
 			),
 			React.createElement(
 				"div",
@@ -507,7 +623,7 @@ var InfoBox2 = React.createClass({
 					null,
 					"Y"
 				),
-				React.createElement("input", { type: "number" })
+				React.createElement("input", { type: "number", value: this.state.top, onChange: this.yhanderler })
 			),
 			React.createElement(
 				"div",
@@ -517,7 +633,7 @@ var InfoBox2 = React.createClass({
 					null,
 					"\u5BBD\u5EA6"
 				),
-				React.createElement("input", { type: "number" })
+				React.createElement("input", { type: "number", value: this.state.wid, onChange: this.whanderler })
 			),
 			React.createElement(
 				"div",
@@ -527,16 +643,27 @@ var InfoBox2 = React.createClass({
 					null,
 					"\u9AD8\u5EA6"
 				),
-				React.createElement("input", { type: "number" })
+				React.createElement("input", { type: "number", value: this.state.hei, onChange: this.hhanderler })
 			)
 		);
 	}
 });
-var b = [["assets/img/WEB.png", "AAAAA"], ["assets/img/WEB.png", "BBBBB"]];
 var InfoBox3 = React.createClass({
 	displayName: "InfoBox3",
 
+	getInitialState: function getInitialState() {
+		return {
+			medias: this.props.texts
+		};
+	},
+	clickHandeler: function clickHandeler(e) {
+		var arr = this.state.medias;
+		arr.splice(e.target.name, 1);
+		this.setState({ medias: arr });
+	},
 	render: function render() {
+		var b = this.state.medias;
+		var self = this;
 		return React.createElement(
 			"div",
 			{ className: "infoBox" },
@@ -549,16 +676,17 @@ var InfoBox3 = React.createClass({
 				"ul",
 				{ className: "chooseList" },
 				b.map(function (result, index) {
+					var imgSrc = "assets/img/" + result[0] + ".png";
 					return React.createElement(
 						"li",
 						{ key: index },
-						React.createElement("img", { src: result[0], className: "icon" }),
+						React.createElement("img", { src: imgSrc, className: "icon" }),
 						React.createElement(
 							"p",
 							null,
 							result[1]
 						),
-						React.createElement("img", { src: "assets/img/close.png", className: "close" })
+						React.createElement("img", { src: "assets/img/close.png", className: "close", onClick: self.clickHandeler, name: index })
 					);
 				})
 			)
@@ -583,7 +711,7 @@ var InfoBox4 = React.createClass({
 				React.createElement(
 					"ul",
 					{ className: "titileList" },
-					titleList.map(function (result, index) {
+					this.props.arr.map(function (result, index) {
 						var cla = index == 0 ? "selected" : "";
 						return React.createElement(
 							"li",
@@ -625,22 +753,89 @@ var InfoBox4 = React.createClass({
 		);
 	}
 });
+var DrawBox = React.createClass({
+	displayName: "DrawBox",
 
-//<ul class="titileList">
-//	<li>
-//		<img src="assets/img/WEB.png"/>
-//		<h1>视频</h1>
-//	</li>
-//</ul>
-//<ul class="contentList">
-//	<li>
-//		<div class="contentBtn">
-//			<img src="assets/img/WEB.png"/>
-//			<h2>叮当</h2>
-//		</div>
-//	</li>
-//</ul>
-ReactDOM.render(React.createElement(Part4, { title: "\u865A\u62DF\u684C\u97621", col: "4", row: "2", wid: "1920", hei: "1080" }), view4Dom.layout);
+	getInitialState: function getInitialState() {
+		var screenInfo = this.props.obj.screenInfo;
+		var drawInfo = this.props.obj.drawInfo;
+		return {
+			drawInfo: drawInfo,
+			screenInfo: screenInfo,
+			index: 0,
+			smallIndex: 0
+		};
+	},
+	clickHandeler: function clickHandeler(e) {
+		this.setState({ index: e.target.id });
+	},
+	render: function render() {
+		var self = this;
+		return React.createElement(
+			"div",
+			{ id: "drawBox" },
+			React.createElement(
+				"div",
+				{ className: "btnGroup" },
+				React.createElement(
+					"p",
+					null,
+					"\u5E03\u5C40\u5C5E\u6027"
+				),
+				React.createElement(
+					"span",
+					null,
+					"\u6DFB\u52A0\u5E03\u5C40"
+				)
+			),
+			React.createElement(
+				"ul",
+				{ className: "drawTitle" },
+				this.state.drawInfo.map(function (result, index) {
+					var cla = index == self.state.index ? "selected" : "";
+					return React.createElement(
+						"li",
+						{ key: index, className: cla },
+						React.createElement(
+							"p",
+							{ id: index, onClick: self.clickHandeler },
+							result.title
+						),
+						React.createElement("img", { src: "assets/img/close.png", className: "close" })
+					);
+				})
+			),
+			React.createElement(
+				"ul",
+				{ className: "drawContent" },
+				this.state.drawInfo[this.state.index].screens.map(function (result, index) {
+					var styleInfo = result.screenInfo;
+					var styleObj = {
+						height: styleInfo[0],
+						width: styleInfo[1],
+						top: styleInfo[2],
+						left: styleInfo[3]
+					};
+					return React.createElement(
+						"li",
+						{ key: index, style: styleObj },
+						React.createElement(
+							"span",
+							null,
+							index
+						),
+						React.createElement("img", { src: "assets/img/close.png", className: "close" }),
+						React.createElement("div", { className: "change1 change" }),
+						React.createElement("div", { className: "change2 change" }),
+						React.createElement("div", { className: "change3 change" })
+					);
+				})
+			)
+		);
+	}
+});
+
+ReactDOM.render(React.createElement(Part4, { info: view4Info }), view4Dom.layout);
 
 },{}],6:[function(require,module,exports){
 "use strict";
