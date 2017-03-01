@@ -345,6 +345,8 @@ ReactDOM.render(React.createElement(Part3, null), view3Dom.addPart3);
 var view4Dom = {
 	layout: $at.GetDomId("layout")
 };
+var titleList = [["assets/img/SHIPIN.png", "视频"], ["assets/img/PPT.png", "PPT"], ["assets/img/PDF.png", "PDF"], ["assets/img/FLASH.png", "FLASH"], ["assets/img/WEB.png", "WEB"], ["assets/img/ZOOLONWEB.png", "ZOOLONWEB"]];
+var contentList = [["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"]];
 var Part4 = React.createClass({
 	displayName: "Part4",
 
@@ -575,10 +577,69 @@ var InfoBox4 = React.createClass({
 				null,
 				"\u7A97\u53E3\u8DE8\u5C4F\u5C5E\u6027"
 			),
-			React.createElement("div", null)
+			React.createElement(
+				"div",
+				{ className: "infoList" },
+				React.createElement(
+					"ul",
+					{ className: "titileList" },
+					titleList.map(function (result, index) {
+						var cla = index == 0 ? "selected" : "";
+						return React.createElement(
+							"li",
+							{ key: index, className: cla },
+							React.createElement("img", { src: result[0] }),
+							React.createElement(
+								"p",
+								null,
+								result[1]
+							)
+						);
+					})
+				),
+				React.createElement(
+					"ul",
+					{ className: "contentList" },
+					contentList.map(function (result, index) {
+						var cla = index == 0 ? "selected" : "";
+						var imgSrc = titleList[index][0];
+						return React.createElement(
+							"li",
+							{ key: index, className: cla },
+							result.map(function (result2, index2) {
+								return React.createElement(
+									"div",
+									{ className: "contentBtn", key: index2 },
+									React.createElement("img", { src: imgSrc }),
+									React.createElement(
+										"span",
+										null,
+										result2
+									)
+								);
+							})
+						);
+					})
+				)
+			)
 		);
 	}
 });
+
+//<ul class="titileList">
+//	<li>
+//		<img src="assets/img/WEB.png"/>
+//		<h1>视频</h1>
+//	</li>
+//</ul>
+//<ul class="contentList">
+//	<li>
+//		<div class="contentBtn">
+//			<img src="assets/img/WEB.png"/>
+//			<h2>叮当</h2>
+//		</div>
+//	</li>
+//</ul>
 ReactDOM.render(React.createElement(Part4, { title: "\u865A\u62DF\u684C\u97621", col: "4", row: "2", wid: "1920", hei: "1080" }), view4Dom.layout);
 
 },{}],6:[function(require,module,exports){

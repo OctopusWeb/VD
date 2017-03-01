@@ -1,6 +1,8 @@
 var view4Dom = {
 	layout	: $at.GetDomId("layout")
 }
+var titleList = [["assets/img/SHIPIN.png","视频"],["assets/img/PPT.png","PPT"],["assets/img/PDF.png","PDF"],["assets/img/FLASH.png","FLASH"],["assets/img/WEB.png","WEB"],["assets/img/ZOOLONWEB.png","ZOOLONWEB"]]
+var contentList = [["叮当","叮当"],["叮当","叮当"],["叮当","叮当"],["叮当","叮当"],["叮当","叮当"],["叮当","叮当"]]
 var Part4 = React.createClass({
 	render : function(){
 		return (<div>
@@ -107,8 +109,56 @@ var InfoBox4 = React.createClass({
 	render : function(){
 		return(<div className="infoBox">
 			<h3>窗口跨屏属性</h3>
-			<div></div>
+			<div className="infoList">
+				<ul className="titileList">
+					{
+						titleList.map(function(result,index){
+							var cla = index==0?"selected":""
+							return(<li key={index} className={cla}>
+								<img src={result[0]}/>
+								<p>{result[1]}</p>
+							</li>)
+						})
+					}
+				</ul>
+				<ul className="contentList">
+					{
+						contentList.map(function(result,index){
+							var cla = index==0?"selected":"";
+							var imgSrc = titleList[index][0]
+							return(<li key={index} className={cla}>
+								{
+									result.map(function(result2,index2){
+										return(
+											<div className="contentBtn" key={index2}>
+												<img src={imgSrc}/>
+												<span>{result2}</span>
+											</div>
+										)
+									})
+								}
+								
+							</li>)
+						})
+					}
+				</ul>
+			</div>
 		</div>)
 	}
 })
+
+//<ul class="titileList">
+//	<li>
+//		<img src="assets/img/WEB.png"/>
+//		<h1>视频</h1>
+//	</li>
+//</ul>
+//<ul class="contentList">
+//	<li>
+//		<div class="contentBtn">
+//			<img src="assets/img/WEB.png"/>
+//			<h2>叮当</h2>
+//		</div>
+//	</li>
+//</ul>
 ReactDOM.render(<Part4 title="虚拟桌面1" col="4" row="2" wid="1920" hei="1080"/>,view4Dom.layout) 
