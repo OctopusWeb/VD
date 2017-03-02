@@ -342,45 +342,12 @@ ReactDOM.render(React.createElement(Part3, null), view3Dom.addPart3);
 },{}],5:[function(require,module,exports){
 "use strict";
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var view4Dom = {
 	layout: $at.GetDomId("layout")
 };
 var titleList = [["assets/img/SHIPIN.png", "视频"], ["assets/img/PPT.png", "PPT"], ["assets/img/PDF.png", "PDF"], ["assets/img/FLASH.png", "FLASH"], ["assets/img/WEB.png", "WEB"], ["assets/img/ZOOLONWEB.png", "ZOOLONWEB"]];
-var contentList = [["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"], ["叮当", "叮当"]];
-var view4Info = {
-	screenInfo: {
-		title: "虚拟桌面1",
-		col: "4",
-		row: "2",
-		wid: "1920",
-		hei: "1080"
-	},
-	drawInfo: [{
-		title: "屏幕1",
-		index: 0,
-		screens: [{
-			across: true,
-			screenInfo: [102, 102, 102, 102],
-			medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
-		}, {
-			across: true,
-			screenInfo: [10, 10, 10, 10],
-			medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
-		}]
-	}, {
-		title: "屏幕2",
-		index: 1,
-		screens: [{
-			across: true,
-			screenInfo: [10, 10, 10, 10],
-			medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
-		}, {
-			across: true,
-			screenInfo: [10, 10, 10, 10],
-			medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
-		}]
-	}]
-};
 var Part4 = React.createClass({
 	displayName: "Part4",
 
@@ -392,7 +359,7 @@ var Part4 = React.createClass({
 			"div",
 			null,
 			React.createElement(LayoutTop, { title: screenInfo.title }),
-			React.createElement(LayoutScreen, { obj: { info: info } })
+			React.createElement(LayoutScreen, { obj: { info: info }, softWare: this.props.softWare })
 		);
 	}
 });
@@ -422,12 +389,16 @@ var LayoutScreen = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			info: this.props.obj.info
+			info: this.props.obj.info,
+			index: 0,
+			smallIndex: 0
 		};
 	},
-	acrossHandelers: function acrossHandelers(bol) {
-		var info = this.state.info.drawInfo;
-		console.log(JSON.stringify(info));
+	changeIndex: function changeIndex(num) {
+		this.setState({ index: num });
+	},
+	changeSmallIndex: function changeSmallIndex(num) {
+		this.setState({ smallIndex: num });
 	},
 	render: function render() {
 		var info = this.state.info;
@@ -455,28 +426,22 @@ var LayoutScreen = React.createClass({
 						return React.createElement("li", { key: index + 1, style: { width: wid, paddingBottom: hei } });
 					})
 				),
-				React.createElement(DrawBox, { obj: info })
+				React.createElement(DrawBox, { obj: info, index: this.state.index, smallIndex: this.state.smallIndex, changeIndex: this.changeIndex, changeIndex2: this.changeSmallIndex })
 			),
-			React.createElement(LayoutInfo, { obj: { drawInfo: drawInfo }, acrossHandelers: this.acrossHandelers })
+			React.createElement(LayoutInfo, { obj: { drawInfo: drawInfo }, index: this.state.index, smallIndex: this.state.smallIndex, softWare: this.props.softWare })
 		);
 	}
 });
 var LayoutInfo = React.createClass({
 	displayName: "LayoutInfo",
 
-	getInitialState: function getInitialState() {
-		var drawInfo = this.props.obj.drawInfo[0];
-		return {
-			across: drawInfo.screens[0].across,
-			screenInfo: drawInfo.screens[0].screenInfo,
-			medias: drawInfo.screens[0].medias
-		};
-	},
-	acrossHandelers: function acrossHandelers(bol) {
-		this.props.acrossHandelers(bol);
-		console.log(bol);
-	},
 	render: function render() {
+		var i1 = this.props.index;
+		var i2 = this.props.smallIndex;
+		var drawInfo = this.props.obj.drawInfo[i1];
+		var across = drawInfo.screens[i2].across;
+		var screenInfo = drawInfo.screens[i2].screenInfo;
+		var medias = drawInfo.screens[i2].medias;
 		return React.createElement(
 			"div",
 			{ id: "layoutInfo" },
@@ -493,18 +458,18 @@ var LayoutInfo = React.createClass({
 			React.createElement(
 				"div",
 				null,
-				React.createElement(InfoBox1, { texts: this.state.across, acrossHandeler: this.acrossHandelers }),
-				React.createElement(InfoBox2, { texts: this.state.screenInfo })
+				React.createElement(InfoBox1, { texts: across }),
+				React.createElement(InfoBox2, null)
 			),
 			React.createElement(
 				"div",
 				{ id: "sources" },
-				React.createElement(InfoBox3, { texts: this.state.medias })
+				React.createElement(InfoBox3, { texts: medias })
 			),
 			React.createElement(
 				"div",
 				null,
-				React.createElement(InfoBox4, { arr: titleList })
+				React.createElement(InfoBox4, { softWare: this.props.softWare })
 			)
 		);
 	}
@@ -512,17 +477,9 @@ var LayoutInfo = React.createClass({
 var InfoBox1 = React.createClass({
 	displayName: "InfoBox1",
 
-	getInitialState: function getInitialState() {
-		return {
-			bol: this.props.texts
-		};
-	},
-	handelerClick: function handelerClick() {
-		this.setState({ bol: !this.state.bol });
-		this.props.acrossHandeler(this.state.bol);
-	},
 	render: function render() {
-		if (this.state.bol) {
+		var bol = this.props.texts;
+		if (bol) {
 			return React.createElement(
 				"div",
 				{ className: "infoBox infoBox1" },
@@ -541,7 +498,7 @@ var InfoBox1 = React.createClass({
 					),
 					React.createElement(
 						"p",
-						{ onClick: this.handelerClick },
+						null,
 						"\u4E0D\u53EF\u8DE8\u4E3B\u673A"
 					)
 				)
@@ -560,7 +517,7 @@ var InfoBox1 = React.createClass({
 					{ className: "chooseBtn" },
 					React.createElement(
 						"p",
-						{ onClick: this.handelerClick },
+						null,
 						"\u53EF\u8DE8\u4E3B\u673A"
 					),
 					React.createElement(
@@ -576,26 +533,6 @@ var InfoBox1 = React.createClass({
 var InfoBox2 = React.createClass({
 	displayName: "InfoBox2",
 
-	getInitialState: function getInitialState() {
-		return {
-			left: this.props.texts[0],
-			top: this.props.texts[1],
-			wid: this.props.texts[2],
-			hei: this.props.texts[3]
-		};
-	},
-	xhanderler: function xhanderler(e) {
-		this.setState({ left: event.target.value, top: this.state.top, wid: this.state.wid, hei: this.state.hei });
-	},
-	yhanderler: function yhanderler(e) {
-		this.setState({ left: this.state.left, top: event.target.value, wid: this.state.wid, hei: this.state.hei });
-	},
-	whanderler: function whanderler(e) {
-		this.setState({ left: this.state.left, top: this.state.top, wid: event.target.value, hei: this.state.hei });
-	},
-	hhanderler: function hhanderler(e) {
-		this.setState({ left: this.state.left, top: this.state.top, wid: this.state.wid, hei: event.target.value });
-	},
 	render: function render() {
 		return React.createElement(
 			"div",
@@ -613,7 +550,7 @@ var InfoBox2 = React.createClass({
 					null,
 					"X"
 				),
-				React.createElement("input", { type: "number", value: this.state.left, onChange: this.xhanderler })
+				React.createElement("input", { type: "number" })
 			),
 			React.createElement(
 				"div",
@@ -623,7 +560,7 @@ var InfoBox2 = React.createClass({
 					null,
 					"Y"
 				),
-				React.createElement("input", { type: "number", value: this.state.top, onChange: this.yhanderler })
+				React.createElement("input", { type: "number" })
 			),
 			React.createElement(
 				"div",
@@ -633,7 +570,7 @@ var InfoBox2 = React.createClass({
 					null,
 					"\u5BBD\u5EA6"
 				),
-				React.createElement("input", { type: "number", value: this.state.wid, onChange: this.whanderler })
+				React.createElement("input", { type: "number" })
 			),
 			React.createElement(
 				"div",
@@ -643,7 +580,7 @@ var InfoBox2 = React.createClass({
 					null,
 					"\u9AD8\u5EA6"
 				),
-				React.createElement("input", { type: "number", value: this.state.hei, onChange: this.hhanderler })
+				React.createElement("input", { type: "number" })
 			)
 		);
 	}
@@ -651,18 +588,8 @@ var InfoBox2 = React.createClass({
 var InfoBox3 = React.createClass({
 	displayName: "InfoBox3",
 
-	getInitialState: function getInitialState() {
-		return {
-			medias: this.props.texts
-		};
-	},
-	clickHandeler: function clickHandeler(e) {
-		var arr = this.state.medias;
-		arr.splice(e.target.name, 1);
-		this.setState({ medias: arr });
-	},
 	render: function render() {
-		var b = this.state.medias;
+		var b = this.props.texts;
 		var self = this;
 		return React.createElement(
 			"div",
@@ -686,7 +613,7 @@ var InfoBox3 = React.createClass({
 							null,
 							result[1]
 						),
-						React.createElement("img", { src: "assets/img/close.png", className: "close", onClick: self.clickHandeler, name: index })
+						React.createElement("img", { src: "assets/img/close.png", className: "close", name: index })
 					);
 				})
 			)
@@ -696,7 +623,16 @@ var InfoBox3 = React.createClass({
 var InfoBox4 = React.createClass({
 	displayName: "InfoBox4",
 
+	getInitialState: function getInitialState() {
+		return {
+			index: 0
+		};
+	},
+	listHandeler: function listHandeler(e) {
+		this.setState({ index: e.target.id });
+	},
 	render: function render() {
+		var self = this;
 		return React.createElement(
 			"div",
 			{ className: "infoBox" },
@@ -711,15 +647,15 @@ var InfoBox4 = React.createClass({
 				React.createElement(
 					"ul",
 					{ className: "titileList" },
-					this.props.arr.map(function (result, index) {
-						var cla = index == 0 ? "selected" : "";
+					titleList.map(function (result, index) {
+						var cla = self.state.index == index ? "selected" : "";
 						return React.createElement(
 							"li",
 							{ key: index, className: cla },
 							React.createElement("img", { src: result[0] }),
 							React.createElement(
 								"p",
-								null,
+								{ id: index, onClick: self.listHandeler },
 								result[1]
 							)
 						);
@@ -728,8 +664,8 @@ var InfoBox4 = React.createClass({
 				React.createElement(
 					"ul",
 					{ className: "contentList" },
-					contentList.map(function (result, index) {
-						var cla = index == 0 ? "selected" : "";
+					this.props.softWare.map(function (result, index) {
+						var cla = self.state.index == index ? "selected" : "";
 						var imgSrc = titleList[index][0];
 						return React.createElement(
 							"li",
@@ -761,16 +697,29 @@ var DrawBox = React.createClass({
 		var drawInfo = this.props.obj.drawInfo;
 		return {
 			drawInfo: drawInfo,
-			screenInfo: screenInfo,
-			index: 0,
-			smallIndex: 0
+			screenInfo: screenInfo
 		};
 	},
 	clickHandeler: function clickHandeler(e) {
-		this.setState({ index: e.target.id });
+		this.props.changeIndex(e.target.id);
+	},
+	clickHandeler2: function clickHandeler2(e) {
+		if (e.target.nodeName.toLowerCase() == "li") {
+			this.props.changeIndex2(e.target.id);
+		}
+	},
+	componentWillUpdate: function componentWillUpdate() {
+		if (!this.state.drawInfo[this.props.index]) {
+			console.log(parseInt(this.props.index) - 1);
+			this.props.changeIndex(parseInt(this.props.index) - 1);
+		}
 	},
 	render: function render() {
 		var self = this;
+		var hei = this.props.obj.screenInfo.hei;
+		var wid = this.props.obj.screenInfo.wid;
+		var row = this.props.obj.screenInfo.row;
+		var col = this.props.obj.screenInfo.col;
 		return React.createElement(
 			"div",
 			{ id: "drawBox" },
@@ -792,7 +741,7 @@ var DrawBox = React.createClass({
 				"ul",
 				{ className: "drawTitle" },
 				this.state.drawInfo.map(function (result, index) {
-					var cla = index == self.state.index ? "selected" : "";
+					var cla = index == self.props.index ? "selected" : "";
 					return React.createElement(
 						"li",
 						{ key: index, className: cla },
@@ -808,17 +757,17 @@ var DrawBox = React.createClass({
 			React.createElement(
 				"ul",
 				{ className: "drawContent" },
-				this.state.drawInfo[this.state.index].screens.map(function (result, index) {
+				this.state.drawInfo[this.props.index].screens.map(function (result, index) {
 					var styleInfo = result.screenInfo;
 					var styleObj = {
-						height: styleInfo[0],
-						width: styleInfo[1],
-						top: styleInfo[2],
-						left: styleInfo[3]
+						height: styleInfo[1] / hei / row * 100 + "%",
+						width: styleInfo[0] / wid / col * 100 + "%",
+						top: styleInfo[2] / hei / row * 100 + "%",
+						left: styleInfo[3] / wid / col * 100 + "%"
 					};
 					return React.createElement(
 						"li",
-						{ key: index, style: styleObj },
+						{ key: index, style: styleObj, id: index, onClick: self.clickHandeler2 },
 						React.createElement(
 							"span",
 							null,
@@ -835,7 +784,186 @@ var DrawBox = React.createClass({
 	}
 });
 
-ReactDOM.render(React.createElement(Part4, { info: view4Info }), view4Dom.layout);
+var LayoutName = React.createClass({
+	displayName: "LayoutName",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ className: "layoutName" },
+			React.createElement(
+				"h1",
+				null,
+				"\u5E03\u5C40\u5C5E\u6027"
+			),
+			React.createElement(
+				"div",
+				{ className: "inputGroup" },
+				React.createElement(
+					"h2",
+					null,
+					"\u540D\u79F0:"
+				),
+				React.createElement("input", { type: "text" })
+			),
+			React.createElement(
+				"p",
+				null,
+				"\u5B8C\u6210"
+			)
+		);
+	}
+});
+
+$(function () {
+	var view4Info = {
+		screenInfo: {
+			title: "虚拟桌面1",
+			col: "4",
+			row: "2",
+			wid: "1920",
+			hei: "1080"
+		},
+		drawInfo: [{
+			title: "屏幕1",
+			index: 0,
+			screens: [{
+				across: true,
+				screenInfo: [1920, 1080, 0, 0],
+				medias: [["PPT", "叮当1"], ["FLASH", "叮当2"]]
+			}, {
+				across: false,
+				screenInfo: [1920, 1080, 0, 1920],
+				medias: [["PPT", "叮当2"], ["FLASH", "叮当2"]]
+			}]
+		}, {
+			title: "屏幕2",
+			index: 1,
+			screens: [{
+				across: false,
+				screenInfo: [1920, 1080, 0, 1920],
+				medias: [["PPT", "叮当3"], ["FLASH", "叮当2"]]
+			}, {
+				across: false,
+				screenInfo: [1920, 1080, 0, 3840],
+				medias: [["PPT", "叮当4"], ["FLASH", "叮当2"]]
+			}]
+		}, {
+			title: "屏幕3",
+			index: 1,
+			screens: [{
+				across: false,
+				screenInfo: [1920, 1080, 1080, 0],
+				medias: [["PPT", "叮当5"], ["FLASH", "叮当2"]]
+			}, {
+				across: false,
+				screenInfo: [1920, 1080, 0, 0],
+				medias: [["PPT", "叮当6"], ["FLASH", "叮当2"]]
+			}]
+		}]
+	};
+	var softWare = [["叮当1", "叮当1"], ["叮当2", "叮当2"], ["叮当3", "叮当3"], ["叮当4", "叮当4"], ["叮当5", "叮当5"], ["叮当6", "叮当6"]];
+	ReactDOM.render(React.createElement(Part4, { info: view4Info, softWare: softWare }), view4Dom.layout);
+	layoutController(view4Info, softWare);
+});
+
+function layoutController(infoArr, softWare) {
+	var infoArr = infoArr;
+	var screenLen = 0;
+	var smallIndex = 0;
+	var dom = _defineProperty({
+		drawBox: $("#drawBox"),
+		drawTitle: $(".drawTitle"),
+		drawTitleClose: $(".drawTitle .close"),
+		btnGroup: $(".btnGroup"),
+		infoBox1: $(".infoBox1"),
+		drawContent: $(".drawContent"),
+		infoBox2: $(".infoBox2"),
+		chooseList: $(".chooseList"),
+		addBuju: $("#layoutInfo h2")
+	}, "drawContent", $(".drawContent"));
+	dom.drawTitle.on("click", "li", function () {
+		screenLen = dom.drawTitle.find("li").index($(this));
+	});
+	dom.drawTitleClose.on("click", function (e) {
+		var index = dom.drawTitleClose.index($(this));
+		infoArr.drawInfo.splice(index, 1);
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.btnGroup.find("span").on("click", function () {
+		var num = parseInt(infoArr.drawInfo.length) + 1;
+		var addScreen = {
+			title: "屏幕" + num,
+			index: num,
+			screens: [{
+				across: true,
+				screenInfo: [1920, 1080, 0, 0],
+				medias: []
+			}]
+		};
+		infoArr.drawInfo.push(addScreen);
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.btnGroup.find("p").on("click", function () {});
+	dom.infoBox1.on("click", "p", function () {
+		dom.infoBox1.find("p").removeClass("selected");
+		$(this).addClass("selected");
+		infoArr.drawInfo[screenLen].screens[smallIndex].across = dom.infoBox1.find("p").index($(this)) == 0;
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.drawContent.on("click", "li", function () {
+		var num = parseInt($(this).find("span").html());
+		smallIndex = num;
+		var arr = infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo;
+		dom.infoBox2.find("input").eq(1).val(arr[2]);
+		dom.infoBox2.find("input").eq(0).val(arr[3]);
+		dom.infoBox2.find("input").eq(2).val(arr[0]);
+		dom.infoBox2.find("input").eq(3).val(arr[1]);
+		dom.drawContent.find("li").removeClass("selected");
+		$(this).addClass("selected");
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.infoBox2.find("input").eq(0).on("change", function () {
+		var x = $(this).val();
+		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[3] = parseInt(x);
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.infoBox2.find("input").eq(1).on("change", function () {
+		var y = $(this).val();
+		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[2] = parseInt(y);
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.infoBox2.find("input").eq(2).on("change", function () {
+		var wid = $(this).val();
+		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[0] = parseInt(wid);
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.infoBox2.find("input").eq(3).on("change", function () {
+		var hei = $(this).val();
+		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[1] = parseInt(hei);
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.chooseList.on("click", ".close", function () {
+		var num = dom.chooseList.find("li .close").index($(this));
+		infoArr.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num), 1);
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.addBuju.on("click", function () {
+		var data = {
+			across: true,
+			screenInfo: [1920, 1080, 0, 0],
+			medias: []
+		};
+		console.log(screenLen);
+		infoArr.drawInfo[screenLen].screens.push(data);
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.drawContent.on("click", ".close", function () {
+		infoArr.drawInfo[screenLen].screens.splice(smallIndex, 1);
+		smallIndex = 0;
+		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+}
 
 },{}],6:[function(require,module,exports){
 "use strict";

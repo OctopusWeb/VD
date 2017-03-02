@@ -7,6 +7,15 @@
     overflow: auto;
     background: nth($NomalColor,6);
     z-index: 1000;
+    .layoutName{
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: #fff;
+        left: 50%;
+        margin-left: -100px;
+        top: 20%;
+    }
     #layoutTop{
     	width: $NomalWidth;
     	height: 50px;
@@ -82,6 +91,7 @@
                     top: -25px;
                     right: 0;
                     width: 130px;
+                    z-index: 100;
                     p{
                         display: block;
                         float: left;
@@ -136,6 +146,9 @@
                     }
                     .selected{
                         background: nth($FontColor,4);
+                        .close{
+                            display: none;
+                        }
                     }
                 }
                 .drawContent{
@@ -155,6 +168,7 @@
                             position: absolute;
                             background: nth($FontColor,4);
                             border: 1px solid nth($LightColor,3);
+                            display: none;
                         }
                         .change1{
                             left: -4px;
@@ -172,6 +186,7 @@
                             position: absolute;
                             right: -9px;
                             top: -9px;
+                            display: none;
                         }
                         span{
                             text-align: center;
@@ -187,6 +202,14 @@
                             text-align: center;
                             margin-top: -7px;
                             margin-left: -7px;
+                        }
+                    }
+                    .selected{
+                        .change{
+                            display: block;
+                        }
+                        .close{
+                            display: block;
                         }
                     }
                 }
