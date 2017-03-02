@@ -868,10 +868,12 @@ $(function () {
 });
 
 function layoutController(infoArr, softWare) {
+	var _dom;
+
 	var infoArr = infoArr;
 	var screenLen = 0;
 	var smallIndex = 0;
-	var dom = _defineProperty({
+	var dom = (_dom = {
 		drawBox: $("#drawBox"),
 		drawTitle: $(".drawTitle"),
 		drawTitleClose: $(".drawTitle .close"),
@@ -881,7 +883,7 @@ function layoutController(infoArr, softWare) {
 		infoBox2: $(".infoBox2"),
 		chooseList: $(".chooseList"),
 		addBuju: $("#layoutInfo h2")
-	}, "drawContent", $(".drawContent"));
+	}, _defineProperty(_dom, "drawContent", $(".drawContent")), _defineProperty(_dom, "contentList", $(".contentList")), _dom);
 	dom.drawTitle.on("click", "li", function () {
 		screenLen = dom.drawTitle.find("li").index($(this));
 	});
@@ -962,6 +964,9 @@ function layoutController(infoArr, softWare) {
 		infoArr.drawInfo[screenLen].screens.splice(smallIndex, 1);
 		smallIndex = 0;
 		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
+	});
+	dom.contentList.on("click", ".contentBtn", function () {
+		$(this).css({ "background": "#000" });
 	});
 }
 

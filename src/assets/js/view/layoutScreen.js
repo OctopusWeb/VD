@@ -352,7 +352,8 @@ function layoutController(infoArr,softWare){
 		infoBox2		: $(".infoBox2"),
 		chooseList		: $(".chooseList"),
 		addBuju			: $("#layoutInfo h2"),
-		drawContent		: $(".drawContent")
+		drawContent		: $(".drawContent"),
+		contentList		: $(".contentList")
 	}
 	dom.drawTitle.on("click","li",function(){
 		screenLen = dom.drawTitle.find("li").index($(this))
@@ -438,6 +439,9 @@ function layoutController(infoArr,softWare){
 		infoArr.drawInfo[screenLen].screens.splice(smallIndex,1);
 		smallIndex=0;
 		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+	})
+	dom.contentList.on("click",".contentBtn",function(){
+		$(this).css({"background":"#000"})
 	})
 }
 
