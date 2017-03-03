@@ -9,12 +9,65 @@
     z-index: 1000;
     .layoutName{
         position: absolute;
-        width: 200px;
-        height: 200px;
-        background: #fff;
+        width: 300px;
+        height: 150px;
+        background: nth($NomalColor,6);
         left: 50%;
-        margin-left: -100px;
+        margin-left: -150px;
         top: 20%;
+        border-radius: 5px;
+        border: 1px nth($NomalColor,3) solid;
+        display: none;
+        .close{
+            position: absolute;
+            right: 0px;
+            top: 0px;
+        }
+        h1{
+            text-align: center;
+            font-size: nth($FontSize,4);
+            line-height: 50px;
+            color: nth($NomalColor,3);
+            font-weight: 400;
+            border-bottom: 1px solid nth($NomalColor,3);
+        }
+        .inputGroup{
+            float: left;
+            width: 90%;
+            margin-left: 5%;
+            margin-top: 10px;
+            position: relative;
+            h2{
+                float: left;
+                width: 100px;
+                line-height:30px;
+                font-size: nth($FontSize,7);
+                color: nth($NomalColor,4);
+                font-weight: 400;
+            }
+            input{
+                padding-left: 50px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: $NomalWidth;
+                height: 30px;
+                line-height: 30px;
+                border-bottom: 1px solid nth($NomalColor,4);
+            }
+        }
+        p{
+            float: left;
+            margin-left: 10%;
+            width: 80%;
+            height: 30px;
+            line-height: 30px;
+            background: nth($LightColor,1);
+            color: nth($FontColor,4);
+            text-align: center;
+            font-size: nth($FontSize,7);
+            margin-top: 10px;
+        }
     }
     #layoutTop{
     	width: $NomalWidth;
@@ -340,6 +393,7 @@
                         border: 1px solid nth($NomalColor,4);
                         overflow: hidden;
                         background:nth($FontColor,4);
+                        margin-top: 5px;
                         .icon{
                             float: left;
                             margin: 7px 10px;
@@ -422,7 +476,8 @@
                                 margin-left: 10px;
                                 margin-top: 10px;
                                 cursor: pointer;
-                                img{
+                                position: relative;
+                                .icon{
                                     width: 10px;
                                     float: left;
                                     margin: 8px 10px;
@@ -434,6 +489,23 @@
                                     text-align: center;
                                     font-size: nth($FontSize,7);
                                     color: nth($FontColor,2);
+                                }
+                                .add{
+                                    float: left;
+                                    right: 5px;
+                                    margin-top: 7px;
+                                    height: 10px;
+                                    width: 10px;
+                                    display: none;
+                                }
+                            }
+                            .selected{
+                                border-color: nth($LightColor,2);
+                                span{
+                                    color: nth($LightColor,2);
+                                }
+                                .add{
+                                    display: block;
                                 }
                             }
                         }

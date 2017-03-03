@@ -1,7 +1,7 @@
 var view4Dom = {
 	layout	: $at.GetDomId("layout")
 }
-var titleList = [["assets/img/SHIPIN.png","视频"],["assets/img/PPT.png","PPT"],["assets/img/PDF.png","PDF"],["assets/img/FLASH.png","FLASH"],["assets/img/WEB.png","WEB"],["assets/img/ZOOLONWEB.png","ZOOLONWEB"]]
+var titleList = [["SHIPIN","视频"],["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH"],["WEB","WEB"],["ZOOLONWEB","ZOOLONWEB"]]
 var Part4 = React.createClass({
 	render : function(){
 		var info = this.props.info;
@@ -10,6 +10,7 @@ var Part4 = React.createClass({
 		return (<div> 
 			<LayoutTop title={screenInfo.title}/>
 			<LayoutScreen obj={{info}} softWare={this.props.softWare}/>
+			<LayoutName/>
 			</div>)
 	}
 })
@@ -157,9 +158,10 @@ var InfoBox4 = React.createClass({
 				<ul className="titileList">
 					{
 						titleList.map(function(result,index){
-							var cla = self.state.index==index?"selected":""
+							var cla = self.state.index==index?"selected":"";
+							var imgSrc = "assets/img/"+titleList[index][0]+".png";
 							return(<li key={index} className={cla}>
-								<img src={result[0]}/>
+								<img src={imgSrc}/>
 								<p id={index} onClick={self.listHandeler}>{result[1]}</p>
 							</li>)
 						})
@@ -169,14 +171,15 @@ var InfoBox4 = React.createClass({
 					{
 						this.props.softWare.map(function(result,index){
 							var cla = self.state.index==index?"selected":""
-							var imgSrc = titleList[index][0]
+							var imgSrc = "assets/img/"+titleList[index][0]+".png"
 							return(<li key={index} className={cla}>
 								{
 									result.map(function(result2,index2){
 										return(
 											<div className="contentBtn" key={index2}>
-												<img src={imgSrc}/>
+												<img src={imgSrc} className="icon" name={titleList[index][0]}/>
 												<span>{result2}</span>
+												<img src="assets/img/add.png" className="add"/>
 											</div>
 										)
 									})
@@ -210,7 +213,6 @@ var DrawBox = React.createClass({
 	},
 	componentWillUpdate : function(){
 		if(!this.state.drawInfo[this.props.index]){
-			console.log(parseInt(this.props.index)-1)
 			this.props.changeIndex(parseInt(this.props.index)-1)
 		}
 	},
@@ -263,6 +265,7 @@ var DrawBox = React.createClass({
 var LayoutName = React.createClass({
 	render : function(){
 		return(<div className="layoutName">
+			<img src="assets/img/close.png" className="close"/>
 			<h1>布局属性</h1>
 			<div className="inputGroup">
 				<h2>名称:</h2>
@@ -290,7 +293,7 @@ $(function(){
 					{
 						across:true,
 						screenInfo:[1920,1080,0,0],
-						medias:[["PPT","叮当1"],["FLASH","叮当2"]],
+						medias:[["SHIPIN","叮当1"],["FLASH","叮当2"]],
 					},
 					{
 						across:false,
@@ -353,8 +356,13 @@ function layoutController(infoArr,softWare){
 		chooseList		: $(".chooseList"),
 		addBuju			: $("#layoutInfo h2"),
 		drawContent		: $(".drawContent"),
-		contentList		: $(".contentList")
+		contentList		: $(".contentList"),
+		layoutName		: $(".layoutName"),
+		addLayout		: $(".addLayout")
 	}
+	dom.addLayout.on("click",function(){
+		console.log(JSON.stringify(infoArr))
+	})
 	dom.drawTitle.on("click","li",function(){
 		screenLen = dom.drawTitle.find("li").index($(this))
 	})
@@ -380,7 +388,19 @@ function layoutController(infoArr,softWare){
 		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
 	})
 	dom.btnGroup.find("p").on("click",function(){
-		
+		dom.layoutName.find("input").val("")
+		dom.layoutName.show();
+	})
+	dom.layoutName.find(".close").on("click",function(){
+		dom.layoutName.hide();
+	})
+	dom.layoutName.find("p").on("click",function(){
+		var value = dom.layoutName.find("input").val();
+		if(value){
+			infoArr.drawInfo[screenLen].title = value;
+			ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+			dom.layoutName.hide();
+		}
 	})
 	dom.infoBox1.on("click","p",function(){
 		dom.infoBox1.find("p").removeClass("selected");
@@ -431,7 +451,6 @@ function layoutController(infoArr,softWare){
 					screenInfo:[1920,1080,0,0],
 					medias:[],
 				}
-		console.log(screenLen)
 		infoArr.drawInfo[screenLen].screens.push(data);
 		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
 	})
@@ -441,7 +460,15 @@ function layoutController(infoArr,softWare){
 		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
 	})
 	dom.contentList.on("click",".contentBtn",function(){
-		$(this).css({"background":"#000"})
+		dom.contentList.find(".contentBtn").removeClass("selected");
+		$(this).addClass("selected");
+	})
+	dom.contentList.on("click",".add",function(){
+		var type = $(this).parent().find(".icon").attr("name");
+		var name = $(this).parent().find("span").html();
+		var arr = [type,name]
+		infoArr.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
+		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
 	})
 }
 
