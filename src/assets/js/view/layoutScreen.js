@@ -361,6 +361,7 @@ function layoutController(infoArr,softWare){
 		addLayout		: $(".addLayout")
 	}
 	dom.addLayout.on("click",function(){
+		$Animate.LayoutHide()
 		console.log(JSON.stringify(infoArr))
 	})
 	dom.drawTitle.on("click","li",function(){

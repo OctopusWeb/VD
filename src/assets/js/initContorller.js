@@ -38,7 +38,7 @@ $(function(){
 		ControllerDom.pageTitle.html("分配屏幕");
 	});
 	ControllerDom.btnPart3.find(".next").on("click",function(){
-		
+		$Animate.LayoutShow();
 	});
 	ControllerDom.addPart2.find("ul").on("click",function(e){
 		var event = e || window.event;

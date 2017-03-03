@@ -96,7 +96,7 @@ html body { background: #efefef; }
 #addPart3 #btnPart3 { width: 50%; left: 30%; height: 25px; position: absolute; bottom: 70px; }
 #addPart3 #btnPart3 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; float: left; }
 
-#layout { position: absolute; top: 50px; left: 260px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; }
+#layout { position: absolute; top: 50px; left: 260px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; opacity: 0; display: none; }
 #layout .layoutName { position: absolute; width: 300px; height: 150px; background: #efefef; left: 50%; margin-left: -150px; top: 20%; border-radius: 5px; border: 1px #727171 solid; display: none; }
 #layout .layoutName .close { position: absolute; right: 0px; top: 0px; }
 #layout .layoutName h1, #layout .layoutName #login #loginBox h2, #login #loginBox #layout .layoutName h2 { text-align: center; font-size: 18px; line-height: 50px; color: #727171; font-weight: 400; border-bottom: 1px solid #727171; }

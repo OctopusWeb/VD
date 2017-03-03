@@ -888,6 +888,7 @@ function layoutController(infoArr, softWare) {
 		addBuju: $("#layoutInfo h2")
 	}, _defineProperty(_dom, "drawContent", $(".drawContent")), _defineProperty(_dom, "contentList", $(".contentList")), _defineProperty(_dom, "layoutName", $(".layoutName")), _defineProperty(_dom, "addLayout", $(".addLayout")), _dom);
 	dom.addLayout.on("click", function () {
+		$Animate.LayoutHide();
 		console.log(JSON.stringify(infoArr));
 	});
 	dom.drawTitle.on("click", "li", function () {

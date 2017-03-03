@@ -48,14 +48,15 @@ $Animate.addScreenHide = function(){
 	animateFun($Animate.pagesDom.addScreen,"-100%")
 }
 
-$Animate.LayoutShow = function(){
-	animateFun($Animate.pagesDom.layout,"0%")
+$Animate.LayoutShow = function(){ 
+	$Animate.pagesDom.layout.show();
+	TweenMax.to($Animate.pagesDom.layout, 0.5, {opacity:"1",ease: Power0.easeNone});
 }
-$Animate.LayoutHide1 = function(){
-	animateFun($Animate.pagesDom.layout,"-100%")
-}
-$Animate.LayoutHide2 = function(){
-	animateFun($Animate.pagesDom.layout,"100%")
+$Animate.LayoutHide = function(){
+	TweenMax.to($Animate.pagesDom.layout, 0.5, {opacity:"0",ease: Power0.easeNone,onComplete:function(){
+		$Animate.pagesDom.layout.hide()
+	}});
+	
 }
 $Animate.complete = function(hideComplete,showComplete){ 
 	hideComplete?hideComplete() : console.log("没有隐藏函数");
