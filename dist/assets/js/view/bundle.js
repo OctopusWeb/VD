@@ -1066,10 +1066,22 @@ var LayoutBottom = React.createClass({
 	displayName: "LayoutBottom",
 
 	render: function render() {
+		var drawInfo = this.props.obj.drawInfo;
+		var index = this.props.index;
+		var smallIndex = this.props.smallIndex;
+		var info = drawInfo[index].screens[smallIndex].medias;
 		return React.createElement(
 			"div",
 			{ id: "layoutBottom" },
-			React.createElement(FunTitle, null)
+			React.createElement(FunTitle, { title: info }),
+			React.createElement(
+				"div",
+				{ className: "layoutContent" },
+				info.map(function (result, index) {
+					var htmls = chooseType(result[0], result[1], index);
+					return htmls;
+				})
+			)
 		);
 	}
 });
@@ -1130,9 +1142,9 @@ var LayoutShow = React.createClass({
 						return React.createElement("li", { key: index + 1, style: { width: wid, paddingBottom: hei } });
 					})
 				),
-				React.createElement(DrawBox, { obj: info, index: this.state.index, smallIndex: this.state.smallIndex, changeIndex: this.changeIndex, changeIndex2: this.changeSmallIndex })
-			),
-			React.createElement(LayoutBottom, null)
+				React.createElement(DrawBox, { obj: info, index: this.state.index, smallIndex: this.state.smallIndex, changeIndex: this.changeIndex, changeIndex2: this.changeSmallIndex }),
+				React.createElement(LayoutBottom, { obj: info, index: this.state.index, smallIndex: this.state.smallIndex })
+			)
 		);
 	}
 });
@@ -1210,55 +1222,105 @@ var DrawBox = React.createClass({
 		);
 	}
 });
-
+function chooseType(type, name, index) {
+	switch (type) {
+		case "SHIPIN":
+			return React.createElement(VideoFun, { title: name, key: index });
+		default:
+			break;
+	}
+}
 var FunTitle = React.createClass({
 	displayName: "FunTitle",
 
 	render: function render() {
 		var title = this.props.title;
-		return React.createElement("div", null);
+		return React.createElement(
+			"ul",
+			{ className: "funTitle" },
+			title.map(function (result, index) {
+				var cla = index == 0 ? "selected" : "";
+				var imgSrc = "assets/img/" + result[0] + ".png";
+				return React.createElement(
+					"li",
+					{ key: index, className: cla },
+					React.createElement("img", { src: imgSrc }),
+					React.createElement(
+						"p",
+						null,
+						result[1]
+					)
+				);
+			})
+		);
 	}
 });
 var VideoFun = React.createClass({
 	displayName: "VideoFun",
 
 	render: function render() {
-		return React.createElement("div", null);
+		return React.createElement(
+			"div",
+			{ className: "videoFun fun" },
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u52A8\u4F5C"
+				),
+				React.createElement(
+					"div",
+					{ className: "onBtn" },
+					React.createElement(
+						"p",
+						null,
+						"\u6253\u5F00"
+					),
+					React.createElement(
+						"p",
+						null,
+						"\u5173\u95ED"
+					)
+				)
+			)
+		);
 	}
 });
 var PptFun = React.createClass({
 	displayName: "PptFun",
 
 	render: function render() {
-		return React.createElement("div", null);
+		return React.createElement("div", { className: "pptFun" });
 	}
 });
 var PdfFun = React.createClass({
 	displayName: "PdfFun",
 
 	render: function render() {
-		return React.createElement("div", null);
+		return React.createElement("div", { className: "pdfFun" });
 	}
 });
 var FlashFun = React.createClass({
 	displayName: "FlashFun",
 
 	render: function render() {
-		return React.createElement("div", null);
+		return React.createElement("div", { className: "flashFun" });
 	}
 });
 var WebFun = React.createClass({
 	displayName: "WebFun",
 
 	render: function render() {
-		return React.createElement("div", null);
+		return React.createElement("div", { className: "webFun" });
 	}
 });
 var ZoolonFun = React.createClass({
 	displayName: "ZoolonFun",
 
 	render: function render() {
-		return React.createElement("div", null);
+		return React.createElement("div", { className: "zoolonFun" });
 	}
 });
 

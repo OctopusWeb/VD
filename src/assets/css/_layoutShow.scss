@@ -9,7 +9,6 @@
     z-index: 1000;
     opacity: 1; 
     display: block; 
-    background: #abc;
     #showTop{
         width: $NomalWidth;
         height: 50px;
@@ -122,14 +121,65 @@
                     border: 2px solid nth($LightColor,3);
                 }
             }
-        }
+        } 
         #layoutBottom{
             position: absolute;
             width: $NomalWidth;
-            padding: 0 20px;
             height: 335px;
-            bottom: -210px;
-        }
-        
+            top: 100%;
+            margin-top: 30px;
+            border-top: 1px solid nth($NomalColor,6);
+            margin-left: -5px;
+            .funTitle{
+                width: $NomalWidth;
+                float: left;
+                height: 25px;
+                li{
+                    width: 10%;
+                    float: left;
+                    border-top-left-radius:3px;
+                    border-top-right-radius:3px;
+                    height:25px;
+                    border:1px solid nth($NomalColor,4);
+                    margin-left:5px;
+                    list-style:none;
+                    position: relative;
+                    border-bottom: none;
+                    img{
+                        position: absolute;
+                        top: 5px;
+                        left: 8px;
+                    }
+                    p{
+                        width: 100%;
+                        text-align: center;
+                        line-height: 25px;
+                        font-size: 12px;
+                        color: nth($NomalColor,4)
+                    }
+                }
+                .selected{
+                    background: #f7f8f8;
+                }
+            }
+            .layoutContent{
+                width: $NomalWidth;
+                float: left;height: 300px;
+                background: #f7f8f8;
+                border-top-left-radius:3px;
+                border-top-right-radius:3px;
+                border:1px solid nth($NomalColor,4);
+                .fun{
+                    width: $NomalWidth;
+                    float: left;
+                    padding: 20px;
+                    background: nth($FontColor,4);
+                }
+                .controllerBox{
+                   
+                }
+            }
+        } 
     }
+    
 }

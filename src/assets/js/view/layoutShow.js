@@ -70,8 +70,20 @@ var Part5 = React.createClass({
 })
 var LayoutBottom = React.createClass({
 	render : function(){
+		var drawInfo = this.props.obj.drawInfo;
+		var index = this.props.index;
+		var smallIndex = this.props.smallIndex;
+		var info = drawInfo[index].screens[smallIndex].medias;
 		return(<div id="layoutBottom">
-			<FunTitle/>
+			<FunTitle title = {info}/>
+			<div className='layoutContent'>
+				{
+					info.map(function(result,index){
+						var htmls = chooseType(result[0],result[1],index)
+						return htmls
+					})
+				}
+			</div>
 		</div>)
 	}
 })
@@ -119,8 +131,9 @@ var LayoutShow = React.createClass({
 			}
 			</ul>
 			<DrawBox obj={info} index={this.state.index} smallIndex={this.state.smallIndex} changeIndex={this.changeIndex} changeIndex2={this.changeSmallIndex}/>
+			<LayoutBottom obj={info} index={this.state.index} smallIndex={this.state.smallIndex}/>
 			</div>
-			<LayoutBottom />
+			
 		</div>
 		)
 	}
@@ -184,41 +197,67 @@ var DrawBox = React.createClass({
 		</div>)
 	}
 })
-
+function chooseType(type,name,index){
+	switch (type){
+		case "SHIPIN":
+			return(<VideoFun title={name} key={index}/>)
+		default:
+			break;
+	}
+}
 var FunTitle = React.createClass({
 	render : function(){
 		var title = this.props.title;
-		return (<div></div>) 
+		return (<ul className="funTitle">
+			{
+				title.map(function(result,index){
+					var cla = index==0?"selected":"";
+					var imgSrc = "assets/img/"+result[0]+".png"
+					return(<li key={index} className={cla}>
+						<img src={imgSrc}/>
+						<p>{result[1]}</p>
+						</li>)
+				})
+			}
+		</ul>)
 	}
 })
 var VideoFun = React.createClass({
 	render : function(){
-		return(<div></div>)
+		return(<div className="videoFun fun">
+			<div className="controllerBox"> 
+				<h1>动作</h1>
+				<div className="onBtn">
+					<p>打开</p> 
+					<p>关闭</p>
+				</div>
+			</div>
+		</div>)
 	}
 })
 var PptFun = React.createClass({
 	render :function(){
-		return (<div></div>)
+		return (<div className="pptFun"></div>)
 	}
 })
 var PdfFun = React.createClass({
 	render : function(){
-		return(<div></div>)
+		return(<div className="pdfFun"></div>)
 	}
 })
 var FlashFun = React.createClass({
 	render :function(){
-		return (<div></div>)
+		return (<div className="flashFun"></div>)
 	}
 })
 var WebFun = React.createClass({
 	render :function(){
-		return (<div></div>)
+		return (<div className="webFun"></div>)
 	}
 })
 var ZoolonFun = React.createClass({
 	render :function(){
-		return (<div></div>)
+		return (<div className="zoolonFun"></div>)
 	}
 })
 
