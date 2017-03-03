@@ -7,8 +7,8 @@
     overflow: auto;
     background: nth($NomalColor,6);
     z-index: 1000;
-    opacity: 0; 
-    display: none;
+    opacity: 1; 
+    display: block;
     .layoutName{
         position: absolute;
         width: 300px;

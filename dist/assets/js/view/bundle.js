@@ -20,8 +20,8 @@ var Part1 = React.createClass({
 	},
 	getInitialState: function getInitialState() {
 		return {
-			row: 1,
-			col: 1,
+			row: 2,
+			col: 4,
 			wid: 1920,
 			hei: 1080
 		};
@@ -36,8 +36,8 @@ var InputGroup = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			row: 0,
-			col: 0,
+			row: 2,
+			col: 4,
 			wid: 1920,
 			hei: 1080
 		};
@@ -1001,6 +1001,278 @@ function layoutController(infoArr, softWare) {
 },{}],6:[function(require,module,exports){
 "use strict";
 
+var view5Dom = {
+	layoutShow: $at.GetDomId("layoutShow")
+};
+var view5Info = {
+	screenInfo: {
+		title: "虚拟桌面1",
+		col: "4",
+		row: "2",
+		wid: "1920",
+		hei: "1080"
+	},
+	drawInfo: [{
+		title: "屏幕1",
+		screens: [{
+			across: true,
+			screenInfo: [1920, 1080, 0, 0],
+			medias: [["SHIPIN", "叮当1"], ["FLASH", "叮当2"]]
+		}, {
+			across: false,
+			screenInfo: [1920, 1080, 0, 1920],
+			medias: [["PPT", "叮当2"], ["FLASH", "叮当2"]]
+		}]
+	}, {
+		title: "屏幕2",
+		screens: [{
+			across: false,
+			screenInfo: [1920, 1080, 0, 1920],
+			medias: [["PPT", "叮当3"], ["FLASH", "叮当2"]]
+		}, {
+			across: false,
+			screenInfo: [1920, 1080, 0, 3840],
+			medias: [["PPT", "叮当4"], ["FLASH", "叮当2"]]
+		}]
+	}, {
+		title: "屏幕3",
+		screens: [{
+			across: false,
+			screenInfo: [1920, 1080, 1080, 0],
+			medias: [["PPT", "叮当5"], ["FLASH", "叮当2"]]
+		}, {
+			across: false,
+			screenInfo: [1920, 1080, 0, 0],
+			medias: [["PPT", "叮当6"], ["FLASH", "叮当2"]]
+		}]
+	}]
+};
+var Part5 = React.createClass({
+	displayName: "Part5",
+
+	render: function render() {
+		var info = this.props.info;
+		var screenInfo = info.screenInfo;
+
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(LayoutTop, { title: screenInfo.title }),
+			React.createElement(LayoutShow, { obj: { info: info } })
+		);
+	}
+});
+var LayoutBottom = React.createClass({
+	displayName: "LayoutBottom",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ id: "layoutBottom" },
+			React.createElement(FunTitle, null)
+		);
+	}
+});
+var LayoutTop = React.createClass({
+	displayName: "LayoutTop",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			{ id: "showTop" },
+			React.createElement(
+				"h1",
+				null,
+				this.props.title
+			)
+		);
+	}
+});
+var LayoutShow = React.createClass({
+	displayName: "LayoutShow",
+
+	getInitialState: function getInitialState() {
+		return {
+			info: this.props.obj.info,
+			index: 0,
+			smallIndex: 0
+		};
+	},
+	changeIndex: function changeIndex(num) {
+		this.setState({ index: num });
+	},
+	changeSmallIndex: function changeSmallIndex(num) {
+		this.setState({ smallIndex: num });
+	},
+	render: function render() {
+		var info = this.state.info;
+		var drawInfo = info.drawInfo;
+		var row = info.screenInfo.row;
+		var col = info.screenInfo.col;
+		var num = row * col;
+		var bil = info.screenInfo.hei / info.screenInfo.wid;
+		var wid = 100 / col + "%";
+		var hei = bil * 100 / col + "%";
+		var b = [];
+		for (var i = 0; i < num; i++) {
+			b.push(i);
+		}
+		return React.createElement(
+			"div",
+			{ id: "LayoutScreen" },
+			React.createElement(
+				"div",
+				{ id: "screenUl" },
+				React.createElement(
+					"ul",
+					{ className: "screenUl" },
+					b.map(function (result, index) {
+						return React.createElement("li", { key: index + 1, style: { width: wid, paddingBottom: hei } });
+					})
+				),
+				React.createElement(DrawBox, { obj: info, index: this.state.index, smallIndex: this.state.smallIndex, changeIndex: this.changeIndex, changeIndex2: this.changeSmallIndex })
+			),
+			React.createElement(LayoutBottom, null)
+		);
+	}
+});
+var DrawBox = React.createClass({
+	displayName: "DrawBox",
+
+	getInitialState: function getInitialState() {
+		var screenInfo = this.props.obj.screenInfo;
+		var drawInfo = this.props.obj.drawInfo;
+		return {
+			drawInfo: drawInfo,
+			screenInfo: screenInfo
+		};
+	},
+	clickHandeler: function clickHandeler(e) {
+		this.props.changeIndex(e.target.id);
+	},
+	clickHandeler2: function clickHandeler2(e) {
+		if (e.target.nodeName.toLowerCase() == "li") {
+			this.props.changeIndex2(e.target.id);
+		}
+	},
+	componentWillUpdate: function componentWillUpdate() {
+		if (!this.state.drawInfo[this.props.index]) {
+			this.props.changeIndex(parseInt(this.props.index) - 1);
+		}
+	},
+	render: function render() {
+		var self = this;
+		var hei = this.props.obj.screenInfo.hei;
+		var wid = this.props.obj.screenInfo.wid;
+		var row = this.props.obj.screenInfo.row;
+		var col = this.props.obj.screenInfo.col;
+		return React.createElement(
+			"div",
+			{ id: "drawBox1" },
+			React.createElement(
+				"ul",
+				{ className: "drawTitle1" },
+				this.state.drawInfo.map(function (result, index) {
+					var cla = index == self.props.index ? "selected" : "";
+					return React.createElement(
+						"li",
+						{ key: index, className: cla },
+						React.createElement(
+							"p",
+							{ id: index, onClick: self.clickHandeler },
+							result.title
+						)
+					);
+				})
+			),
+			React.createElement(
+				"ul",
+				{ className: "drawContent1" },
+				this.state.drawInfo[this.props.index].screens.map(function (result, index) {
+					var styleInfo = result.screenInfo;
+					var styleObj = {
+						height: styleInfo[1] / hei / row * 100 + "%",
+						width: styleInfo[0] / wid / col * 100 + "%",
+						top: styleInfo[2] / hei / row * 100 + "%",
+						left: styleInfo[3] / wid / col * 100 + "%"
+					};
+					return React.createElement(
+						"li",
+						{ key: index, style: styleObj, id: index, onClick: self.clickHandeler2 },
+						React.createElement(
+							"span",
+							null,
+							index
+						)
+					);
+				})
+			)
+		);
+	}
+});
+
+var FunTitle = React.createClass({
+	displayName: "FunTitle",
+
+	render: function render() {
+		var title = this.props.title;
+		return React.createElement("div", null);
+	}
+});
+var VideoFun = React.createClass({
+	displayName: "VideoFun",
+
+	render: function render() {
+		return React.createElement("div", null);
+	}
+});
+var PptFun = React.createClass({
+	displayName: "PptFun",
+
+	render: function render() {
+		return React.createElement("div", null);
+	}
+});
+var PdfFun = React.createClass({
+	displayName: "PdfFun",
+
+	render: function render() {
+		return React.createElement("div", null);
+	}
+});
+var FlashFun = React.createClass({
+	displayName: "FlashFun",
+
+	render: function render() {
+		return React.createElement("div", null);
+	}
+});
+var WebFun = React.createClass({
+	displayName: "WebFun",
+
+	render: function render() {
+		return React.createElement("div", null);
+	}
+});
+var ZoolonFun = React.createClass({
+	displayName: "ZoolonFun",
+
+	render: function render() {
+		return React.createElement("div", null);
+	}
+});
+
+ReactDOM.render(React.createElement(Part5, { info: view5Info }), view5Dom.layoutShow);
+$(function () {
+	$(".drawContent1").on("click", "li", function () {
+		$(".drawContent1").find("li").removeClass("selected");
+		$(this).addClass("selected");
+	});
+});
+
+},{}],7:[function(require,module,exports){
+"use strict";
+
 var loginDom = {
 	userName: $at.GetDomId("userName"),
 	passWord: $at.GetDomId("passWord"),
@@ -1097,7 +1369,7 @@ function FormCheck(self) {
 	}
 }
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 
 var setScreenDom = {
@@ -1213,4 +1485,4 @@ ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
 ReactDOM.render(React.createElement(LevTitle, null), setScreenDom.levNum);
 ReactDOM.render(React.createElement(PageTitle, { title: "\u65B0\u5EFA\u5C4F\u5E55" }), setScreenDom.pageTitle);
 
-},{}]},{},[1,2,3,4,5,6,7]);
+},{}]},{},[1,2,3,4,5,6,7,8]);

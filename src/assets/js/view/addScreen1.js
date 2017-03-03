@@ -14,8 +14,8 @@ var Part1 = React.createClass({
 	},
 	getInitialState : function(){
 		return {
-			row : 1,
-			col : 1,
+			row : 2,
+			col : 4,
 			wid : 1920,
 			hei : 1080
 		}
@@ -28,8 +28,8 @@ var Part1 = React.createClass({
 var InputGroup = React.createClass({
 	getInitialState : function(){
 		return {
-			row : 0,
-			col : 0,
+			row : 2,
+			col : 4,
 			wid : 1920,
 			hei : 1080
 		}
