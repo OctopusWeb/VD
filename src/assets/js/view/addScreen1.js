@@ -8,7 +8,6 @@ var Part1 = React.createClass({
 		return (<div>
 			<InputGroup rowChange={this.handlerRow}/>
 			<ScreenShow row={this.state.row} col={this.state.col} wid={this.state.wid} hei={this.state.hei}/>
-			<BtnPart1 />
 		</div>
 		)
 	},
@@ -82,6 +81,7 @@ var ScreenShow = React.createClass({
 					return <li key={index+1} style={{width:wid,paddingBottom:hei}}></li>  
 				})
 			}
+			<BtnPart1 />
 			</ul>
 		</div>
 		)

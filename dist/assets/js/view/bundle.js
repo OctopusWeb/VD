@@ -14,8 +14,7 @@ var Part1 = React.createClass({
 			"div",
 			null,
 			React.createElement(InputGroup, { rowChange: this.handlerRow }),
-			React.createElement(ScreenShow, { row: this.state.row, col: this.state.col, wid: this.state.wid, hei: this.state.hei }),
-			React.createElement(BtnPart1, null)
+			React.createElement(ScreenShow, { row: this.state.row, col: this.state.col, wid: this.state.wid, hei: this.state.hei })
 		);
 	},
 	getInitialState: function getInitialState() {
@@ -98,7 +97,8 @@ var ScreenShow = React.createClass({
 				null,
 				b.map(function (result, index) {
 					return React.createElement("li", { key: index + 1, style: { width: wid, paddingBottom: hei } });
-				})
+				}),
+				React.createElement(BtnPart1, null)
 			)
 		);
 	}

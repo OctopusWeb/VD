@@ -59,14 +59,14 @@
             width: $NomalWidth;
             height: auto;
             float: left;
-            list-style: none;
-            background: nth($NomalColor,5);
+            list-style: none;       
             li{
                 width: $NomalWidth/4;
                 border: 1px solid nth($NomalColor,3);
                 box-sizing: border-box;
                 float: left;
                 text-align: center;
+                background: nth($NomalColor,5);
             }
         }
         h1{
@@ -82,10 +82,12 @@
     }
     #btnPart1{
         width: $NomalWidth/2;
-        left: $NomalWidth/5*2;
+        margin-left: $NomalWidth/5*2;
         height: 25px;
-        position: absolute;
         bottom: 70px;
+        float: left;
+        margin-top: 20px;
+        margin-bottom: 20px;
         div{
             height: 25px;
             line-height: 25px;
