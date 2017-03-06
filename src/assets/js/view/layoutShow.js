@@ -16,7 +16,7 @@ var view5Info = {
 					{
 						across:true,
 						screenInfo:[1920,1080,0,0],
-						medias:[["SHIPIN","叮当1"],["FLASH","叮当2"]],
+						medias:[["SHIPIN","叮当1"],["FLASH","叮当2"],["PDF","叮当3"],["PPT","叮当4"],["WEB","叮当5"]],
 					},
 					{
 						across:false,
@@ -84,6 +84,7 @@ var LayoutBottom = React.createClass({
 					})
 				}
 			</div>
+			<p className="layout2">编辑布局</p>
 		</div>)
 	}
 })
@@ -201,6 +202,16 @@ function chooseType(type,name,index){
 	switch (type){
 		case "SHIPIN":
 			return(<VideoFun title={name} key={index}/>)
+		case "PPT":
+			return(<PptFun title={name} key={index}/>)
+		case "PDF":
+			return(<PdfFun title={name} key={index}/>)
+		case "FLASH":
+			return(<FlashFun title={name} key={index}/>)
+		case "WEB":
+			return(<WebFun title={name} key={index}/>)
+		case "SHIPIN":
+			return(<FlashFun title={name} key={index}/>)
 		default:
 			break;
 	}
@@ -227,9 +238,35 @@ var VideoFun = React.createClass({
 		return(<div className="videoFun fun">
 			<div className="controllerBox"> 
 				<h1>动作</h1>
-				<div className="onBtn">
-					<p>打开</p> 
-					<p>关闭</p>
+				<div className="controller">
+					<div className="onBtn">
+						<p className="selected">打开</p> 
+						<p>关闭</p>
+					</div>
+				</div>
+			</div>
+			<div className="controllerBox"> 
+				<h1>控制界面</h1>
+				<div className="controller">
+					<h2>播放模式</h2>
+					<div className="onBtn">
+						<p className="selected">默认</p> 
+						<p>循环</p>
+					</div>
+				</div>
+				<div className="controller">
+					<h2>播放进度</h2>
+					<div className="pro1">
+						<img src="assets/img/action.png"/>
+						<div><p></p></div>
+					</div>
+				</div>
+				<div className="controller">
+					<h2>音量</h2>
+					<div className="pro1">
+						<img src="assets/img/sound.png"/>
+						<div><p></p></div>
+					</div>
 				</div>
 			</div>
 		</div>)
@@ -237,22 +274,132 @@ var VideoFun = React.createClass({
 })
 var PptFun = React.createClass({
 	render :function(){
-		return (<div className="pptFun"></div>)
+		return (<div className="pptFun fun">
+			<div className="controllerBox"> 
+				<h1>动作</h1>
+				<div className="controller">
+					<div className="onBtn">
+						<p className="selected">打开</p> 
+						<p>关闭</p>
+					</div>
+				</div>
+			</div>
+			<div className="controllerBox"> 
+				<h1>控制界面</h1>
+				<div className="controller">
+					<h2>跳转页面</h2>
+					<div className="nomalBtn">
+						<p>首页</p> 
+						<p>上一页</p> 
+						<p>下一页</p> 
+						<p>尾页</p> 
+					</div>
+					<div className="inputBtn">
+						<p>跳转至</p>
+						<input type="number"/>
+					</div>
+				</div>
+			</div>
+		</div>)
 	}
 })
 var PdfFun = React.createClass({
 	render : function(){
-		return(<div className="pdfFun"></div>)
+		return(<div className="pdfFun fun">
+			<div className="controllerBox"> 
+				<h1>动作</h1>
+				<div className="controller">
+					<div className="onBtn">
+						<p className="selected">打开</p> 
+						<p>关闭</p>
+					</div>
+				</div>
+			</div>
+			<div className="controllerBox"> 
+				<h1>控制界面</h1>
+				<div className="controller">
+					<h2>跳转页面</h2>
+					<div className="nomalBtn">
+						<p>首页</p> 
+						<p>上一页</p> 
+						<p>下一页</p> 
+						<p>尾页</p> 
+					</div>
+					<div className="inputBtn">
+						<p>跳转至</p>
+						<input type="number"/>
+					</div>
+				</div>
+				<div className="controller">
+					<h2>布局模式</h2>
+					<div className="nomalBtn">
+						<p>单页</p> 
+						<p>单列</p> 
+						<p>双列(左)</p> 
+						<p>双列(右)</p> 
+						<p>适应</p> 
+					</div>
+				</div>
+				<div className="controller">
+					<h2>缩放</h2>
+					<div className="pro1">
+						<span>100</span>
+						<div><p></p></div>
+					</div>
+				</div>
+			</div>
+				
+		</div>)
 	}
 })
 var FlashFun = React.createClass({
 	render :function(){
-		return (<div className="flashFun"></div>)
+		return (<div className="flashFun fun">
+			<div className="controllerBox"> 
+				<h1>动作</h1>
+				<div className="controller">
+					<div className="onBtn">
+						<p className="selected">打开</p> 
+						<p>关闭</p>
+					</div>
+				</div>
+			</div>
+			<div className="controllerBox"> 
+				<h1>控制界面</h1>
+				<div className="controller">
+					<h2>调用方法</h2>
+					<div className="inputBtn">
+						<p>方法名</p>
+						<input type="text"/>
+					</div>
+				</div>
+			</div>	
+		</div>)
 	}
 })
 var WebFun = React.createClass({
 	render :function(){
-		return (<div className="webFun"></div>)
+		return (<div className="flashFun fun">
+			<div className="controllerBox"> 
+				<h1>动作</h1>
+				<div className="controller">
+					<div className="onBtn">
+						<p className="selected">打开</p> 
+						<p>关闭</p>
+					</div>
+				</div>
+			</div>
+			<div className="controllerBox"> 
+				<h1>控制界面</h1>
+				<div className="controller">
+					<h2>调用方法</h2>
+					<div className="inputBtn">
+						<p>方法名</p>
+						<input type="text"/>
+					</div>
+				</div>
+			</div>	
+		</div>)
 	}
 })
 var ZoolonFun = React.createClass({

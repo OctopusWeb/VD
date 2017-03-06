@@ -429,7 +429,12 @@ var LayoutScreen = React.createClass({
 				),
 				React.createElement(DrawBox, { obj: info, index: this.state.index, smallIndex: this.state.smallIndex, changeIndex: this.changeIndex, changeIndex2: this.changeSmallIndex })
 			),
-			React.createElement(LayoutInfo, { obj: { drawInfo: drawInfo }, index: this.state.index, smallIndex: this.state.smallIndex, softWare: this.props.softWare })
+			React.createElement(LayoutInfo, { obj: { drawInfo: drawInfo }, index: this.state.index, smallIndex: this.state.smallIndex, softWare: this.props.softWare }),
+			React.createElement(
+				"p",
+				{ className: "layout1" },
+				"\u9884\u89C8\u5E03\u5C40"
+			)
 		);
 	}
 });
@@ -888,7 +893,6 @@ function layoutController(infoArr, softWare) {
 		addBuju: $("#layoutInfo h2")
 	}, _defineProperty(_dom, "drawContent", $(".drawContent")), _defineProperty(_dom, "contentList", $(".contentList")), _defineProperty(_dom, "layoutName", $(".layoutName")), _defineProperty(_dom, "addLayout", $(".addLayout")), _dom);
 	dom.addLayout.on("click", function () {
-		$Animate.LayoutHide();
 		console.log(JSON.stringify(infoArr));
 	});
 	dom.drawTitle.on("click", "li", function () {
@@ -1017,7 +1021,7 @@ var view5Info = {
 		screens: [{
 			across: true,
 			screenInfo: [1920, 1080, 0, 0],
-			medias: [["SHIPIN", "叮当1"], ["FLASH", "叮当2"]]
+			medias: [["SHIPIN", "叮当1"], ["FLASH", "叮当2"], ["PDF", "叮当3"], ["PPT", "叮当4"], ["WEB", "叮当5"]]
 		}, {
 			across: false,
 			screenInfo: [1920, 1080, 0, 1920],
@@ -1081,6 +1085,11 @@ var LayoutBottom = React.createClass({
 					var htmls = chooseType(result[0], result[1], index);
 					return htmls;
 				})
+			),
+			React.createElement(
+				"p",
+				{ className: "layout2" },
+				"\u7F16\u8F91\u5E03\u5C40"
 			)
 		);
 	}
@@ -1226,6 +1235,16 @@ function chooseType(type, name, index) {
 	switch (type) {
 		case "SHIPIN":
 			return React.createElement(VideoFun, { title: name, key: index });
+		case "PPT":
+			return React.createElement(PptFun, { title: name, key: index });
+		case "PDF":
+			return React.createElement(PdfFun, { title: name, key: index });
+		case "FLASH":
+			return React.createElement(FlashFun, { title: name, key: index });
+		case "WEB":
+			return React.createElement(WebFun, { title: name, key: index });
+		case "SHIPIN":
+			return React.createElement(FlashFun, { title: name, key: index });
 		default:
 			break;
 	}
@@ -1272,16 +1291,90 @@ var VideoFun = React.createClass({
 				),
 				React.createElement(
 					"div",
-					{ className: "onBtn" },
+					{ className: "controller" },
 					React.createElement(
-						"p",
+						"div",
+						{ className: "onBtn" },
+						React.createElement(
+							"p",
+							{ className: "selected" },
+							"\u6253\u5F00"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5173\u95ED"
+						)
+					)
+				)
+			),
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u63A7\u5236\u754C\u9762"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
 						null,
-						"\u6253\u5F00"
+						"\u64AD\u653E\u6A21\u5F0F"
 					),
 					React.createElement(
-						"p",
+						"div",
+						{ className: "onBtn" },
+						React.createElement(
+							"p",
+							{ className: "selected" },
+							"\u9ED8\u8BA4"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5FAA\u73AF"
+						)
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
 						null,
-						"\u5173\u95ED"
+						"\u64AD\u653E\u8FDB\u5EA6"
+					),
+					React.createElement(
+						"div",
+						{ className: "pro1" },
+						React.createElement("img", { src: "assets/img/action.png" }),
+						React.createElement(
+							"div",
+							null,
+							React.createElement("p", null)
+						)
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
+						null,
+						"\u97F3\u91CF"
+					),
+					React.createElement(
+						"div",
+						{ className: "pro1" },
+						React.createElement("img", { src: "assets/img/sound.png" }),
+						React.createElement(
+							"div",
+							null,
+							React.createElement("p", null)
+						)
 					)
 				)
 			)
@@ -1292,28 +1385,369 @@ var PptFun = React.createClass({
 	displayName: "PptFun",
 
 	render: function render() {
-		return React.createElement("div", { className: "pptFun" });
+		return React.createElement(
+			"div",
+			{ className: "pptFun fun" },
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u52A8\u4F5C"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"div",
+						{ className: "onBtn" },
+						React.createElement(
+							"p",
+							{ className: "selected" },
+							"\u6253\u5F00"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5173\u95ED"
+						)
+					)
+				)
+			),
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u63A7\u5236\u754C\u9762"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
+						null,
+						"\u8DF3\u8F6C\u9875\u9762"
+					),
+					React.createElement(
+						"div",
+						{ className: "nomalBtn" },
+						React.createElement(
+							"p",
+							null,
+							"\u9996\u9875"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u4E0A\u4E00\u9875"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u4E0B\u4E00\u9875"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5C3E\u9875"
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "inputBtn" },
+						React.createElement(
+							"p",
+							null,
+							"\u8DF3\u8F6C\u81F3"
+						),
+						React.createElement("input", { type: "number" })
+					)
+				)
+			)
+		);
 	}
 });
 var PdfFun = React.createClass({
 	displayName: "PdfFun",
 
 	render: function render() {
-		return React.createElement("div", { className: "pdfFun" });
+		return React.createElement(
+			"div",
+			{ className: "pdfFun fun" },
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u52A8\u4F5C"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"div",
+						{ className: "onBtn" },
+						React.createElement(
+							"p",
+							{ className: "selected" },
+							"\u6253\u5F00"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5173\u95ED"
+						)
+					)
+				)
+			),
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u63A7\u5236\u754C\u9762"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
+						null,
+						"\u8DF3\u8F6C\u9875\u9762"
+					),
+					React.createElement(
+						"div",
+						{ className: "nomalBtn" },
+						React.createElement(
+							"p",
+							null,
+							"\u9996\u9875"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u4E0A\u4E00\u9875"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u4E0B\u4E00\u9875"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5C3E\u9875"
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "inputBtn" },
+						React.createElement(
+							"p",
+							null,
+							"\u8DF3\u8F6C\u81F3"
+						),
+						React.createElement("input", { type: "number" })
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
+						null,
+						"\u5E03\u5C40\u6A21\u5F0F"
+					),
+					React.createElement(
+						"div",
+						{ className: "nomalBtn" },
+						React.createElement(
+							"p",
+							null,
+							"\u5355\u9875"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5355\u5217"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u53CC\u5217(\u5DE6)"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u53CC\u5217(\u53F3)"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u9002\u5E94"
+						)
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
+						null,
+						"\u7F29\u653E"
+					),
+					React.createElement(
+						"div",
+						{ className: "pro1" },
+						React.createElement(
+							"span",
+							null,
+							"100"
+						),
+						React.createElement(
+							"div",
+							null,
+							React.createElement("p", null)
+						)
+					)
+				)
+			)
+		);
 	}
 });
 var FlashFun = React.createClass({
 	displayName: "FlashFun",
 
 	render: function render() {
-		return React.createElement("div", { className: "flashFun" });
+		return React.createElement(
+			"div",
+			{ className: "flashFun fun" },
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u52A8\u4F5C"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"div",
+						{ className: "onBtn" },
+						React.createElement(
+							"p",
+							{ className: "selected" },
+							"\u6253\u5F00"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5173\u95ED"
+						)
+					)
+				)
+			),
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u63A7\u5236\u754C\u9762"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
+						null,
+						"\u8C03\u7528\u65B9\u6CD5"
+					),
+					React.createElement(
+						"div",
+						{ className: "inputBtn" },
+						React.createElement(
+							"p",
+							null,
+							"\u65B9\u6CD5\u540D"
+						),
+						React.createElement("input", { type: "text" })
+					)
+				)
+			)
+		);
 	}
 });
 var WebFun = React.createClass({
 	displayName: "WebFun",
 
 	render: function render() {
-		return React.createElement("div", { className: "webFun" });
+		return React.createElement(
+			"div",
+			{ className: "flashFun fun" },
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u52A8\u4F5C"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"div",
+						{ className: "onBtn" },
+						React.createElement(
+							"p",
+							{ className: "selected" },
+							"\u6253\u5F00"
+						),
+						React.createElement(
+							"p",
+							null,
+							"\u5173\u95ED"
+						)
+					)
+				)
+			),
+			React.createElement(
+				"div",
+				{ className: "controllerBox" },
+				React.createElement(
+					"h1",
+					null,
+					"\u63A7\u5236\u754C\u9762"
+				),
+				React.createElement(
+					"div",
+					{ className: "controller" },
+					React.createElement(
+						"h2",
+						null,
+						"\u8C03\u7528\u65B9\u6CD5"
+					),
+					React.createElement(
+						"div",
+						{ className: "inputBtn" },
+						React.createElement(
+							"p",
+							null,
+							"\u65B9\u6CD5\u540D"
+						),
+						React.createElement("input", { type: "text" })
+					)
+				)
+			)
+		);
 	}
 });
 var ZoolonFun = React.createClass({

@@ -10,7 +10,13 @@ $(function(){
 		entrySlected: $("#entrySlected"),
 		screenPlan	: $("#screenPlan ul"),
 		addPart2	: $("#addPart2"),
-		btnPart3	: $("#btnPart3")
+		btnPart3	: $("#btnPart3"),
+		funTitle	: $(".funTitle"),
+		layoutContent:$(".layoutContent"),
+		layout1		: $(".layout1"),
+		layout2		: $(".layout2"),
+		layoutShow	: $("#layoutShow"),
+		layout		: $("#layout")
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
 	ControllerDom.btnPart1.find(".next").on("click",function(){
@@ -40,6 +46,14 @@ $(function(){
 	ControllerDom.btnPart3.find(".next").on("click",function(){
 		$Animate.LayoutShow();
 	});
+	ControllerDom.layout1.on("click",function(){
+		ControllerDom.layoutShow.show();
+		ControllerDom.layout.hide();
+	})
+	ControllerDom.layout2.on("click",function(){
+		ControllerDom.layoutShow.hide();
+		ControllerDom.layout.show();
+	})
 	ControllerDom.addPart2.find("ul").on("click",function(e){
 		var event = e || window.event;
 		var dom = event.target || event.srcElement;
@@ -65,6 +79,13 @@ $(function(){
 		selected.css({"background":$at.staticColors[index]});
 		selected.find("p").html(value)
 		ControllerDom.entrySlected.hide();
+	})
+	ControllerDom.funTitle.on("click","li",function(){
+		var index = ControllerDom.funTitle.find("li").index($(this));
+		ControllerDom.funTitle.find("li").removeClass("selected");
+		ControllerDom.funTitle.find("li").eq(index).addClass("selected");
+		ControllerDom.layoutContent.find(".fun").removeClass("selected");
+		ControllerDom.layoutContent.find(".fun").eq(index).addClass("selected")
 	})
 	drawController(ControllerDom);
 })

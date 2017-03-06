@@ -64,6 +64,7 @@ var LayoutScreen = React.createClass({
 			<DrawBox obj={info} index={this.state.index} smallIndex={this.state.smallIndex} changeIndex={this.changeIndex} changeIndex2={this.changeSmallIndex}/>
 			</div>
 			<LayoutInfo obj={{drawInfo}} index={this.state.index} smallIndex={this.state.smallIndex} softWare={this.props.softWare}/>
+			<p className="layout1">预览布局</p>
 		</div>
 		)
 	}
@@ -361,8 +362,7 @@ function layoutController(infoArr,softWare){
 		addLayout		: $(".addLayout")
 	}
 	dom.addLayout.on("click",function(){
-		$Animate.LayoutHide()
-		console.log(JSON.stringify(infoArr))
+		console.log(JSON.stringify(infoArr));
 	})
 	dom.drawTitle.on("click","li",function(){
 		screenLen = dom.drawTitle.find("li").index($(this))

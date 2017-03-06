@@ -7,8 +7,8 @@
     overflow: auto;
     background: nth($NomalColor,6);
     z-index: 1000;
-    opacity: 1; 
-    display: block;
+    opacity: 0; 
+    display: none;
     .layoutName{
         position: absolute;
         width: 300px;
@@ -524,6 +524,17 @@
                 height: 110px;
                 margin-top: 20px;
             }
+        }
+        .layout1{
+            float: left;
+            width: 100px;
+            height: 26px;
+            margin:20px 40%;
+            color: nth($FontColor,4);
+            text-align: center;
+            font-size: nth($FontSize,7);
+            line-height: 26px;
+            @include top-gradient;
         }
     }
 }

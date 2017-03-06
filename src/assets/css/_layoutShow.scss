@@ -8,7 +8,7 @@
     background: nth($NomalColor,6);
     z-index: 1000;
     opacity: 1; 
-    display: block; 
+    display: none;
     #showTop{
         width: $NomalWidth;
         height: 50px;
@@ -130,6 +130,17 @@
             margin-top: 30px;
             border-top: 1px solid nth($NomalColor,6);
             margin-left: -5px;
+            .layout2{
+                float: left;
+                width: 100px;
+                height: 26px;
+                margin:20px 40%;
+                color: nth($FontColor,4);
+                text-align: center;
+                font-size: nth($FontSize,7);
+                line-height: 26px;
+                @include top-gradient;
+            }
             .funTitle{
                 width: $NomalWidth;
                 float: left;
@@ -164,7 +175,8 @@
             }
             .layoutContent{
                 width: $NomalWidth;
-                float: left;height: 300px;
+                float: left;
+                height: 300px;
                 background: #f7f8f8;
                 border-top-left-radius:3px;
                 border-top-right-radius:3px;
@@ -173,10 +185,155 @@
                     width: $NomalWidth;
                     float: left;
                     padding: 20px;
-                    background: nth($FontColor,4);
+                    padding-top: 0;
+                    display: none;
+                }
+                .selected{
+                    display: block;
                 }
                 .controllerBox{
-                   
+                   width: $NomalWidth;
+                   float: left;
+                   height: 120px;
+                   margin-top: 20px;
+                   background: nth($FontColor,4);
+                   border: 1px solid nth($NomalColor,5);
+                   h1{
+                       width: $NomalWidth;
+                       float: left;
+                       line-height: 21px;
+                       font-size: nth($FontSize,6);
+                       color: nth($NomalColor,3);
+                       border-left: 3px solid nth($NomalColor,3);
+                       padding-left: 10px;
+                       font-weight: 400;
+                       margin: 10px 0;
+                   }
+                   .controller{
+                       float: left;
+                       height: 80px;
+                       margin-left: 20px;
+                       h2{
+                           float: left;
+                           font-size: nth($FontSize,7);
+                           color: nth($NomalColor,4);
+                           line-height: 20px;
+                           width: 100%;
+                           font-weight: 400;
+                       }
+                       .onBtn{
+                           width: 160px;
+                           height: 26px;
+                           float: left;
+                           border: 1px solid nth($NomalColor,4);
+                           border-radius: 3px;
+                           overflow: hidden;
+                           margin-top: 10px;
+                           p{
+                               float: left;
+                               width: 79px;
+                               color: nth($NomalColor,4);
+                               background: nth($NomalColor,5);
+                               height: 26px;
+                               text-align: center;
+                               line-height: 26px;
+                               font-size: nth($FontSize,7);
+                           }
+                           .selected{
+                               color: nth($LightColor,2);
+                               background: nth($NomalColor,6);
+                           }
+                       }
+                       .pro1{
+                           width: 220px;
+                           height: 26px;
+                           float: left;
+                           border: 1px solid nth($NomalColor,4);
+                           border-radius: 3px;
+                           background: nth($NomalColor,6);
+                           margin-top: 10px;
+                           img{
+                               float: left;
+                               height: 12px;
+                               margin: 5px 8px;
+                           }
+                           span{
+                               float: left;
+                               display: block;
+                               height: 12px;
+                               width: 12px;
+                               margin: 5px 8px;
+                               font-size: nth($FontSize,7);
+                               color: nth($NomalColor,4);
+                           }
+                           div{
+                               width: 160px;
+                               float: left;
+                               height: 4px;
+                               border-radius: 2px;
+                               background: nth($NomalColor,7);
+                               margin-top: 10px;
+                               margin-left: 10px;
+                               
+                               p{
+                                   display: block;
+                                   float: left;
+                                   height: 4px;
+                                   background: nth($NomalColor,4);
+                                   border-radius: 2px;
+                                   width: 70%;
+                               }
+                           }
+                       }
+                       .nomalBtn{
+                           float: left;
+                           height: 26px;
+                           border-radius: 3px;
+                           border: 1px solid nth($NomalColor,4);
+                           overflow: hidden;
+                           margin-top: 10px;
+                           p{
+                               float: left;
+                               width: 80px;
+                               color: nth($NomalColor,4);
+                               background: nth($NomalColor,6);
+                               height: 26px;
+                               text-align: center;
+                               line-height: 26px;
+                               border-right: 1px solid nth($NomalColor,4);
+                               font-size: nth($FontSize,7);
+                           }
+                       }
+                       .inputBtn{
+                           float: left;
+                           height: 26px;
+                           border-radius: 3px;
+                           border: 1px solid nth($NomalColor,4);
+                           overflow: hidden;
+                           margin-top: 10px;
+                           p{
+                               float: left;
+                               width: 80px;
+                               color: nth($NomalColor,4);
+                               background: nth($NomalColor,6);
+                               height: 26px;
+                               text-align: center;
+                               line-height: 26px;
+                               border-right: 1px solid nth($NomalColor,4);
+                               font-size: nth($FontSize,7);
+                           }
+                           input{
+                               float: left;
+                               width: 80px;
+                               color: nth($NomalColor,4);
+                               background: nth($NomalColor,7);
+                               height: 26px;
+                               text-align: center;
+                               line-height: 26px;
+                               font-size: nth($FontSize,7);
+                           }
+                       }
+                   }
                 }
             }
         } 
