@@ -16,7 +16,11 @@ $(function(){
 		layout1		: $(".layout1"),
 		layout2		: $(".layout2"),
 		layoutShow	: $("#layoutShow"),
-		layout		: $("#layout")
+		layout		: $("#layout"),
+		btnGroup	: $("#btnGroup"),
+		ulList		: $(".ulList"),
+		entryHard	: $("#entryHard"),
+		entrySoft	: $("#entrySoftware")
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
 	ControllerDom.btnPart1.find(".next").on("click",function(){
@@ -86,6 +90,17 @@ $(function(){
 		ControllerDom.funTitle.find("li").eq(index).addClass("selected");
 		ControllerDom.layoutContent.find(".fun").removeClass("selected");
 		ControllerDom.layoutContent.find(".fun").eq(index).addClass("selected")
+	})
+	ControllerDom.btnGroup.find(".btn").eq(0).on("click",function(){
+		ControllerDom.entryHard.slideToggle(); 
+		ControllerDom.entrySoft.slideUp(); 
+	})
+	ControllerDom.btnGroup.find(".btn").eq(1).on("click",function(){
+		ControllerDom.entrySoft.slideToggle(); 
+		ControllerDom.entryHard.slideUp();
+	})
+	ControllerDom.ulList.on("click","p",function(){
+		$(this).parent().find("li").slideToggle(); 
 	})
 	drawController(ControllerDom);
 })

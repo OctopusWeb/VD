@@ -76,7 +76,6 @@ var ScreenShow = React.createClass({
  			b.push(i)
  		}
 		return (<div id="screenShow">
-			<h1>预览</h1>
 			<ul>
 			{
 				b.map(function(result,index){ 

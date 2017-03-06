@@ -1,0 +1,197 @@
+#entryHard,#entrySoftware{
+    position: absolute;
+    left: 0;
+    top: 50px;
+    bottom: 0;
+    right: 0;
+    z-index: 10000;
+    background: nth($NomalColor,6);
+    padding:30px;
+    display: none;
+    overflow: auto;
+    .title{
+        width: $NomalWidth;
+        float: left;
+        height: 40px;
+        -webkit-box-shadow:0 0 10px rgba(0, 0, 0, .3);  
+        -moz-box-shadow:0 0 10px rgba(0, 0, 0, .3);  
+        box-shadow:0 0 10px rgba(0, 0, 0, .3);
+        h1{
+            width: $NomalWidth;
+            float: left;
+            font-size: nth($FontSize,6);
+            color: nth($LightColor,1);
+            border-left: 3px solid nth($LightColor,1);
+            font-weight: 400;
+            padding-left: 10px;
+        }
+    }
+    #entryList{
+        width: $NomalWidth/4;
+        float: left;
+        height: 600px;
+        border: 1px solid nth($NomalColor,4);
+        background: #e9eef2;
+        overflow: auto;
+        h2{
+            width: $NomalWidth;
+            float: left;
+            font-size: nth($FontSize,6);
+            color: nth($NomalColor,3);
+            border-left: 3px solid nth($NomalColor,3);
+            font-weight: 400;
+            padding-left: 10px;
+            margin: 10px 0;
+        }
+        ul{
+            float: left;
+            width: $NomalWidth;
+            margin-top: 20px;
+            li{
+                float: left;
+                width: 140px;
+                height: 140px;
+                list-style: none;
+                img{
+                    width: 120px;
+                    float: left;
+                    margin: 0 10px;
+                }
+                h3{
+                    width: $NomalWidth;
+                    text-align: center;
+                    font-size: nth($FontSize,7);
+                    color: nth($NomalColor,4);
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+    #chooseList{
+        width: $NomalWidth/10*7;
+        float: left;
+        height: 600px;
+        border: 1px solid nth($NomalColor,4);
+        background: #e9eef2;
+        overflow: auto;
+        margin-left: 2%;
+        h2{
+            width: $NomalWidth;
+            float: left;
+            font-size: nth($FontSize,6);
+            color: nth($NomalColor,3);
+            border-left: 3px solid nth($NomalColor,3);
+            font-weight: 400;
+            padding-left: 10px;
+            margin: 10px 0;
+        }
+        .ulList{
+            height: 550px;
+            width: $NomalWidth;
+            float: left;
+            overflow: auto;
+            ul{
+                width: $NomalWidth;
+                float: left;
+                border-bottom: 1px solid nth($NomalColor,4);
+                border-top: 1px solid nth($FontColor,4);
+                padding: 10px 0;
+                overflow: hidden;
+                height: auto;
+                p{
+                    width: $NomalWidth;
+                    float: left;
+                    display: block;
+                    line-height: 25px;
+                    color: nth($LightColor,3);
+                    height: 25px;
+                    padding: 0 30px;
+                    font-size: nth($FontSize,7);
+                    font-weight: 600;
+                    img{
+                        display: block;
+                        border-style: none;
+                        float: right;
+                        margin-right: 20px;
+                        margin-top: 10px
+                    }
+                }
+                li{
+                    float: left;
+                    list-style: none;
+                    padding:0 10px;
+                    img{
+                        width: 120px;
+                        float: left;
+                        margin: 0 10px;
+                    }
+                    h3{
+                        width: $NomalWidth;
+                        text-align: center;
+                        font-size: nth($FontSize,7);
+                        color: nth($NomalColor,4);
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+        
+    }
+    .hardInput{
+        float: left;
+        width: $NomalWidth;
+        border-top: 1px solid nth($NomalColor,4);
+        margin-top: 20px;
+        ul{
+            float: left;
+            width: $NomalWidth;
+            h1{
+                width: $NomalWidth;
+                font-weight: 400;
+                font-size: nth($FontSize,6);
+                color: nth($LightColor,3);
+                line-height: 20px;
+                border-left: 3px solid nth($LightColor,3);
+                padding-left: 10px;
+                margin-top: 20px;
+            }
+            li{
+                float: left;
+                width: $NomalWidth/5;
+                background: nth($FontColor,4);
+                border: 1px solid nth($NomalColor,4);
+                border-radius: 3px;
+                height: 25px;
+                list-style: none;
+                position: relative;
+                overflow: hidden;
+                margin-right: 2%;
+                margin-top: 20px;
+                p{
+                    float: left;
+                    width: 90px;
+                    line-height: 21px;
+                    text-align: center;
+                    font-size:nth($FontSize,7);
+                    z-index: 100;
+                    background: #dcdddd;
+                    display: block;
+                    margin: 1px;
+                    
+                }
+                input{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding-left: 95px;
+                    width: $NomalWidth;
+                    height: 23px;
+                    font-size: nth($FontSize,6);
+                }
+            }
+            .brInput{
+                margin-right: 50%;
+            }
+        }
+    }
+}

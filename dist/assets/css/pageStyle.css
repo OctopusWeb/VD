@@ -214,6 +214,32 @@ html body { background: #efefef; }
 #layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox .controller .inputBtn p { float: left; width: 80px; color: #b4b4b4; background: #efefef; height: 26px; text-align: center; line-height: 26px; border-right: 1px solid #b4b4b4; font-size: 12px; }
 #layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox .controller .inputBtn input { float: left; width: 80px; color: #b4b4b4; background: #fff; height: 26px; text-align: center; line-height: 26px; font-size: 12px; }
 
+#entryHard, #entrySoftware { position: absolute; left: 0; top: 50px; bottom: 0; right: 0; z-index: 10000; background: #efefef; padding: 30px; display: none; overflow: auto; }
+#entryHard .title, #entrySoftware .title { width: 100%; float: left; height: 40px; -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+#entryHard .title h1, #entryHard .title #login #loginBox h2, #login #loginBox #entryHard .title h2, #entrySoftware .title h1, #entrySoftware .title #login #loginBox h2, #login #loginBox #entrySoftware .title h2 { width: 100%; float: left; font-size: 14px; color: #cf031d; border-left: 3px solid #cf031d; font-weight: 400; padding-left: 10px; }
+#entryHard #entryList, #entrySoftware #entryList { width: 25%; float: left; height: 600px; border: 1px solid #b4b4b4; background: #e9eef2; overflow: auto; }
+#entryHard #entryList h2, #entrySoftware #entryList h2 { width: 100%; float: left; font-size: 14px; color: #727171; border-left: 3px solid #727171; font-weight: 400; padding-left: 10px; margin: 10px 0; }
+#entryHard #entryList ul, #entrySoftware #entryList ul { float: left; width: 100%; margin-top: 20px; }
+#entryHard #entryList ul li, #entrySoftware #entryList ul li { float: left; width: 140px; height: 140px; list-style: none; }
+#entryHard #entryList ul li img, #entrySoftware #entryList ul li img { width: 120px; float: left; margin: 0 10px; }
+#entryHard #entryList ul li h3, #entrySoftware #entryList ul li h3 { width: 100%; text-align: center; font-size: 12px; color: #b4b4b4; font-weight: 400; }
+#entryHard #chooseList, #entrySoftware #chooseList { width: 70%; float: left; height: 600px; border: 1px solid #b4b4b4; background: #e9eef2; overflow: auto; margin-left: 2%; }
+#entryHard #chooseList h2, #entrySoftware #chooseList h2 { width: 100%; float: left; font-size: 14px; color: #727171; border-left: 3px solid #727171; font-weight: 400; padding-left: 10px; margin: 10px 0; }
+#entryHard #chooseList .ulList, #entrySoftware #chooseList .ulList { height: 550px; width: 100%; float: left; overflow: auto; }
+#entryHard #chooseList .ulList ul, #entrySoftware #chooseList .ulList ul { width: 100%; float: left; border-bottom: 1px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px 0; overflow: hidden; height: auto; }
+#entryHard #chooseList .ulList ul p, #entrySoftware #chooseList .ulList ul p { width: 100%; float: left; display: block; line-height: 25px; color: #e95513; height: 25px; padding: 0 30px; font-size: 12px; font-weight: 600; }
+#entryHard #chooseList .ulList ul p img, #entrySoftware #chooseList .ulList ul p img { display: block; border-style: none; float: right; margin-right: 20px; margin-top: 10px; }
+#entryHard #chooseList .ulList ul li, #entrySoftware #chooseList .ulList ul li { float: left; list-style: none; padding: 0 10px; }
+#entryHard #chooseList .ulList ul li img, #entrySoftware #chooseList .ulList ul li img { width: 120px; float: left; margin: 0 10px; }
+#entryHard #chooseList .ulList ul li h3, #entrySoftware #chooseList .ulList ul li h3 { width: 100%; text-align: center; font-size: 12px; color: #b4b4b4; font-weight: 400; }
+#entryHard .hardInput, #entrySoftware .hardInput { float: left; width: 100%; border-top: 1px solid #b4b4b4; margin-top: 20px; }
+#entryHard .hardInput ul, #entrySoftware .hardInput ul { float: left; width: 100%; }
+#entryHard .hardInput ul h1, #entryHard .hardInput ul #login #loginBox h2, #login #loginBox #entryHard .hardInput ul h2, #entrySoftware .hardInput ul h1, #entrySoftware .hardInput ul #login #loginBox h2, #login #loginBox #entrySoftware .hardInput ul h2 { width: 100%; font-weight: 400; font-size: 14px; color: #e95513; line-height: 20px; border-left: 3px solid #e95513; padding-left: 10px; margin-top: 20px; }
+#entryHard .hardInput ul li, #entrySoftware .hardInput ul li { float: left; width: 20%; background: #fff; border: 1px solid #b4b4b4; border-radius: 3px; height: 25px; list-style: none; position: relative; overflow: hidden; margin-right: 2%; margin-top: 20px; }
+#entryHard .hardInput ul li p, #entrySoftware .hardInput ul li p { float: left; width: 90px; line-height: 21px; text-align: center; font-size: 12px; z-index: 100; background: #dcdddd; display: block; margin: 1px; }
+#entryHard .hardInput ul li input, #entrySoftware .hardInput ul li input { position: absolute; top: 0; left: 0; padding-left: 95px; width: 100%; height: 23px; font-size: 14px; }
+#entryHard .hardInput ul .brInput, #entrySoftware .hardInput ul .brInput { margin-right: 50%; }
+
 
 
 /*# sourceMappingURL=maps/pageStyle.css.map */

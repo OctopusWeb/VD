@@ -94,11 +94,6 @@ var ScreenShow = React.createClass({
 			"div",
 			{ id: "screenShow" },
 			React.createElement(
-				"h1",
-				null,
-				"\u9884\u89C8"
-			),
-			React.createElement(
 				"ul",
 				null,
 				b.map(function (result, index) {
@@ -338,6 +333,219 @@ ReactDOM.render(React.createElement(Part3, null), view3Dom.addPart3);
 
 },{}],4:[function(require,module,exports){
 "use strict";
+
+var entryArr = [["ppt1", "PPT"], ["pdf1", "PDF"], ["flash1", "FLASH"], ["web1", "WEB"], ["zoolonweb1", "ZoolonWEB"], ["vedio1", "视频"]];
+var entryName = ["展项名称", "展项类型", "资源URL", "总控命令地址"];
+var entryList = [{
+	"name": "PPT",
+	"img": "ppt1",
+	"arr": ["AAAA", "BBBB"]
+}, {
+	"name": "PDF",
+	"img": "pdf1",
+	"arr": ["CCCC", "DDDD"]
+}, {
+	"name": "FLASH",
+	"img": "flash1",
+	"arr": ["DDDD", "EEEE"]
+}, {
+	"name": "WEB",
+	"img": "web1",
+	"arr": ["FFFF", "GGGG"]
+}, {
+	"name": "ZoolonWEB",
+	"img": "zoolonweb1",
+	"arr": ["HHHH", "IIII"]
+}, {
+	"name": "VEDIO",
+	"img": "vedio1",
+	"arr": ["JJJJ", "KKKK"]
+}];
+
+var softArr = [["shebei1", "PC"]];
+var softName = ["设备名称", "mac地址", "daemonld", "备注"];
+var softList = [{
+	"name": "PC",
+	"img": "shebei1",
+	"arr": ["AAAA", "BBBB"]
+}];
+var EntryHard = React.createClass({
+	displayName: "EntryHard",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(EntryList, { arr: entryArr, name: "资源类型" }),
+			React.createElement(ChooseList, { list: entryList, name: "当前所有内容" }),
+			React.createElement(InputList, { name: entryName })
+		);
+	}
+});
+var EntrySoft = React.createClass({
+	displayName: "EntrySoft",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(EntryList, { arr: softArr, name: "设备类型" }),
+			React.createElement(ChooseList, { list: softList, name: "当前所有设备" }),
+			React.createElement(InputList, { name: softName })
+		);
+	}
+});
+var EntryList = React.createClass({
+	displayName: "EntryList",
+
+	render: function render() {
+		var arr = this.props.arr;
+		return React.createElement(
+			"div",
+			{ id: "entryList" },
+			React.createElement(
+				"div",
+				{ className: "title" },
+				React.createElement(
+					"h2",
+					null,
+					this.props.name
+				)
+			),
+			React.createElement(
+				"ul",
+				null,
+				arr.map(function (result, index) {
+					var imgSrc = "assets/img/" + result[0] + ".png";
+					return React.createElement(
+						"li",
+						{ key: index },
+						React.createElement("img", { src: imgSrc }),
+						React.createElement(
+							"h3",
+							null,
+							result[1]
+						)
+					);
+				})
+			)
+		);
+	}
+});
+
+var ChooseList = React.createClass({
+	displayName: "ChooseList",
+
+	render: function render() {
+		var list = this.props.list;
+		return React.createElement(
+			"div",
+			{ id: "chooseList" },
+			React.createElement(
+				"div",
+				{ className: "title" },
+				React.createElement(
+					"h2",
+					null,
+					this.props.name
+				)
+			),
+			React.createElement(
+				"div",
+				{ className: "ulList" },
+				list.map(function (result, index) {
+					return React.createElement(
+						"ul",
+						{ key: index },
+						React.createElement(
+							"p",
+							null,
+							result.name,
+							React.createElement("img", { src: "assets/img/showbtn.png" })
+						),
+						result.arr.map(function (results, indexs) {
+							var imgSrc = "assets/img/" + result.img + ".png";
+							return React.createElement(
+								"li",
+								{ key: indexs },
+								React.createElement("img", { src: imgSrc }),
+								React.createElement(
+									"h3",
+									null,
+									results
+								)
+							);
+						})
+					);
+				})
+			)
+		);
+	}
+});
+
+var InputList = React.createClass({
+	displayName: "InputList",
+
+	render: function render() {
+		var name = this.props.name;
+		return React.createElement(
+			"div",
+			{ className: "hardInput" },
+			React.createElement(
+				"ul",
+				null,
+				React.createElement(
+					"h1",
+					null,
+					"\u8D44\u6E90\u5C5E\u6027"
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						"p",
+						null,
+						name[0]
+					),
+					React.createElement("input", { type: "text" })
+				),
+				React.createElement(
+					"li",
+					{ className: "brInput" },
+					React.createElement(
+						"p",
+						null,
+						name[1]
+					),
+					React.createElement("input", { type: "text" })
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						"p",
+						null,
+						name[2]
+					),
+					React.createElement("input", { type: "text" })
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						"p",
+						null,
+						name[3]
+					),
+					React.createElement("input", { type: "text" })
+				)
+			)
+		);
+	}
+});
+
+ReactDOM.render(React.createElement(EntryHard, null), document.getElementById("entryHard"));
+ReactDOM.render(React.createElement(EntrySoft, null), document.getElementById("entrySoftware"));
 
 },{}],5:[function(require,module,exports){
 "use strict";
