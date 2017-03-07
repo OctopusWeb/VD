@@ -349,7 +349,6 @@ function layoutController(infoArr,softWare){
 	var dom ={
 		drawBox			: $("#drawBox"),
 		drawTitle		: $(".drawTitle"),
-		drawTitleClose	: $(".drawTitle .close"),
 		btnGroup		: $(".btnGroup"),
 		infoBox1		: $(".infoBox1"),
 		drawContent		: $(".drawContent"),
@@ -367,8 +366,8 @@ function layoutController(infoArr,softWare){
 	dom.drawTitle.on("click","li",function(){
 		screenLen = dom.drawTitle.find("li").index($(this))
 	})
-	dom.drawTitleClose.on("click",function(e){
-		var index = dom.drawTitleClose.index($(this));
+	dom.drawTitle.on("click",".close",function(e){
+		var index = dom.drawTitle.find("close").index($(this));
 		infoArr.drawInfo.splice(index,1);
 		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
 	})

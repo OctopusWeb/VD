@@ -20,7 +20,8 @@ $(function(){
 		btnGroup	: $("#btnGroup"),
 		ulList		: $(".ulList"),
 		entryHard	: $("#entryHard"),
-		entrySoft	: $("#entrySoftware")
+		entrySoft	: $("#entrySoftware"),
+		
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
 	ControllerDom.btnPart1.find(".next").on("click",function(){
@@ -102,6 +103,8 @@ $(function(){
 	ControllerDom.ulList.on("click","p",function(){
 		$(this).parent().find("li").slideToggle(); 
 	})
+	
+
 	drawController(ControllerDom);
 })
  

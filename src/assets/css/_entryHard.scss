@@ -26,7 +26,7 @@
             padding-left: 10px;
         }
     }
-    #entryList{
+    .entryList{
         width: $NomalWidth/4;
         float: left;
         height: 600px;
@@ -65,16 +65,37 @@
                     font-weight: 400;
                 }
             }
+            .selected{
+               img{
+                   -webkit-box-shadow:0 0 10px rgba(232, 45, 37, .3);  
+                    -moz-box-shadow:0 0 10px rgba(232, 45, 37, .3);  
+                    box-shadow:0 0 10px rgba(232, 45, 37, .3);  
+               }
+               h3{
+                   color: nth($LightColor,2);
+               }
+            }
         }
     }
-    #chooseList{
+    .addBtn{
+        position: absolute;
+        width: 3.5%;
+        text-align: center;
+        line-height: 25px;
+        color: nth($FontColor,4);
+        top: 40%;
+        left: 26%;
+        font-size: nth($FontSize,7);
+        @include top-gradient;
+    } 
+    .chooseList{
         width: $NomalWidth/10*7;
         float: left;
         height: 600px;
         border: 1px solid nth($NomalColor,4);
         background: #e9eef2;
         overflow: auto;
-        margin-left: 2%;
+        margin-left: 4%;
         h2{
             width: $NomalWidth;
             float: left;
@@ -131,6 +152,16 @@
                         font-size: nth($FontSize,7);
                         color: nth($NomalColor,4);
                         font-weight: 400;
+                    }
+                }
+                .selected{
+                    img{
+                       -webkit-box-shadow:0 0 10px rgba(232, 45, 37, .3);  
+                        -moz-box-shadow:0 0 10px rgba(232, 45, 37, .3);  
+                        box-shadow:0 0 10px rgba(232, 45, 37, .3);  
+                    }
+                    h3{
+                       color: nth($LightColor,2);
                     }
                 }
             }

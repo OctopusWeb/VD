@@ -7,7 +7,6 @@ var Part2 = React.createClass({
 	render : function(){
 		return (<div>
 			<FacilityList />
-			<BtnPart2/>
 		</div>)
 	}
 })
@@ -25,6 +24,7 @@ var FacilityList = React.createClass({
 						)
 				})
 			}
+			<BtnPart2/>
 		</ul>)
 	}
 })

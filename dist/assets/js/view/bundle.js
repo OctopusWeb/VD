@@ -135,8 +135,7 @@ var Part2 = React.createClass({
 		return React.createElement(
 			"div",
 			null,
-			React.createElement(FacilityList, null),
-			React.createElement(BtnPart2, null)
+			React.createElement(FacilityList, null)
 		);
 	}
 });
@@ -162,7 +161,8 @@ var FacilityList = React.createClass({
 						result
 					)
 				);
-			})
+			}),
+			React.createElement(BtnPart2, null)
 		);
 	}
 });
@@ -334,41 +334,6 @@ ReactDOM.render(React.createElement(Part3, null), view3Dom.addPart3);
 },{}],4:[function(require,module,exports){
 "use strict";
 
-var entryArr = [["ppt1", "PPT"], ["pdf1", "PDF"], ["flash1", "FLASH"], ["web1", "WEB"], ["zoolonweb1", "ZoolonWEB"], ["vedio1", "视频"]];
-var entryName = ["展项名称", "展项类型", "资源URL", "总控命令地址"];
-var entryList = [{
-	"name": "PPT",
-	"img": "ppt1",
-	"arr": ["AAAA", "BBBB"]
-}, {
-	"name": "PDF",
-	"img": "pdf1",
-	"arr": ["CCCC", "DDDD"]
-}, {
-	"name": "FLASH",
-	"img": "flash1",
-	"arr": ["DDDD", "EEEE"]
-}, {
-	"name": "WEB",
-	"img": "web1",
-	"arr": ["FFFF", "GGGG"]
-}, {
-	"name": "ZoolonWEB",
-	"img": "zoolonweb1",
-	"arr": ["HHHH", "IIII"]
-}, {
-	"name": "VEDIO",
-	"img": "vedio1",
-	"arr": ["JJJJ", "KKKK"]
-}];
-
-var softArr = [["shebei1", "PC"]];
-var softName = ["设备名称", "mac地址", "daemonld", "备注"];
-var softList = [{
-	"name": "PC",
-	"img": "shebei1",
-	"arr": ["AAAA", "BBBB"]
-}];
 var EntryHard = React.createClass({
 	displayName: "EntryHard",
 
@@ -376,9 +341,14 @@ var EntryHard = React.createClass({
 		return React.createElement(
 			"div",
 			null,
-			React.createElement(EntryList, { arr: entryArr, name: "资源类型" }),
-			React.createElement(ChooseList, { list: entryList, name: "当前所有内容" }),
-			React.createElement(InputList, { name: entryName })
+			React.createElement(EntryList, { arr: this.props.arr, name: "资源类型" }),
+			React.createElement(
+				"div",
+				{ className: "addBtn", id: "entryAdd" },
+				"\u6DFB\u52A0"
+			),
+			React.createElement(ChooseList, { list: this.props.list, name: "当前所有内容" }),
+			React.createElement(InputList, { name: this.props.name })
 		);
 	}
 });
@@ -389,9 +359,14 @@ var EntrySoft = React.createClass({
 		return React.createElement(
 			"div",
 			null,
-			React.createElement(EntryList, { arr: softArr, name: "设备类型" }),
-			React.createElement(ChooseList, { list: softList, name: "当前所有设备" }),
-			React.createElement(InputList, { name: softName })
+			React.createElement(EntryList, { arr: this.props.arr, name: "设备类型" }),
+			React.createElement(
+				"div",
+				{ className: "addBtn", id: "softAdd" },
+				"\u6DFB\u52A0"
+			),
+			React.createElement(ChooseList, { list: this.props.list, name: "当前所有设备" }),
+			React.createElement(InputList, { name: this.props.name })
 		);
 	}
 });
@@ -402,7 +377,7 @@ var EntryList = React.createClass({
 		var arr = this.props.arr;
 		return React.createElement(
 			"div",
-			{ id: "entryList" },
+			{ className: "entryList" },
 			React.createElement(
 				"div",
 				{ className: "title" },
@@ -440,7 +415,7 @@ var ChooseList = React.createClass({
 		var list = this.props.list;
 		return React.createElement(
 			"div",
-			{ id: "chooseList" },
+			{ className: "chooseList" },
 			React.createElement(
 				"div",
 				{ className: "title" },
@@ -456,7 +431,7 @@ var ChooseList = React.createClass({
 				list.map(function (result, index) {
 					return React.createElement(
 						"ul",
-						{ key: index },
+						{ key: index, className: result.name },
 						React.createElement(
 							"p",
 							null,
@@ -544,8 +519,94 @@ var InputList = React.createClass({
 	}
 });
 
-ReactDOM.render(React.createElement(EntryHard, null), document.getElementById("entryHard"));
-ReactDOM.render(React.createElement(EntrySoft, null), document.getElementById("entrySoftware"));
+$(function () {
+	var entryArr = [["ppt1", "PPT"], ["pdf1", "PDF"], ["flash1", "FLASH"], ["web1", "WEB"], ["zoolonweb1", "ZoolonWEB"], ["video1", "Video"]];
+	var entryName = ["展项名称", "展项类型", "资源URL", "总控命令地址"];
+	var entryList = [{
+		"name": "PPT",
+		"img": "ppt1",
+		"arr": ["AAAA", "BBBB"]
+	}, {
+		"name": "PDF",
+		"img": "pdf1",
+		"arr": ["CCCC", "DDDD"]
+	}, {
+		"name": "FLASH",
+		"img": "flash1",
+		"arr": ["DDDD", "EEEE"]
+	}, {
+		"name": "WEB",
+		"img": "web1",
+		"arr": ["FFFF", "GGGG"]
+	}, {
+		"name": "ZoolonWEB",
+		"img": "zoolonweb1",
+		"arr": ["HHHH", "IIII"]
+	}, {
+		"name": "Video",
+		"img": "video1",
+		"arr": ["JJJJ", "KKKK"]
+	}];
+
+	var softArr = [["shebei1", "PC"]];
+	var softName = ["设备名称", "mac地址", "daemonld", "备注"];
+	var softList = [{
+		"name": "PC",
+		"img": "shebei1",
+		"arr": ["AAAA", "BBBB"]
+	}];
+	ReactDOM.render(React.createElement(EntryHard, { arr: entryArr, list: entryList, name: entryName }), document.getElementById("entryHard"));
+	ReactDOM.render(React.createElement(EntrySoft, { arr: softArr, list: softList, name: softName }), document.getElementById("entrySoftware"));
+	$(".entryList").on("click", "li", function () {
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected");
+		$("#entryHard input").eq(0).val("");
+		$("#entrySoftware input").eq(0).val("");
+	});
+	$("#entryAdd").on("click", function () {
+		var name = $("#entryHard input").eq(0).val();
+		name = name == "" ? "未定义" : name;
+		var type = $(".entryList .selected").find("h3").html();
+		for (var i = 0; i < entryList.length; i++) {
+			if (type == entryList[i].name) {
+				entryList[i].arr.push(name);
+			}
+		}
+		ReactDOM.render(React.createElement(EntryHard, { arr: entryArr, list: entryList, name: entryName }), document.getElementById("entryHard"));
+		$("#entryHard input").eq(0).val("");
+	});
+	$("#entryHard .chooseList").on("click", "li", function () {
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected");
+		var type = $(this).parent().attr("class");
+		var name = $(this).find("h3").html();
+		$("#entryHard input").eq(0).val(name);
+	});
+
+	$("#softAdd").on("click", function () {
+		var name = $("#entrySoftware input").eq(0).val();
+		name = name == "" ? "未定义" : name;
+		var type = $(".entryList .selected").find("h3").html();
+		for (var i = 0; i < softList.length; i++) {
+			if (type == softList[i].name) {
+				softList[i].arr.push(name);
+			}
+		}
+		ReactDOM.render(React.createElement(EntrySoft, { arr: softArr, list: softList, name: softName }), document.getElementById("entrySoftware"));
+		$("#entrySoftware input").eq(0).val("");
+	});
+
+	$("#entrySoftware .chooseList").on("click", "li", function () {
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected");
+		var type = $(this).parent().attr("class");
+		var name = $(this).find("h3").html();
+		$("#entrySoftware input").eq(0).val(name);
+	});
+});
 
 },{}],5:[function(require,module,exports){
 "use strict";
@@ -1092,7 +1153,6 @@ function layoutController(infoArr, softWare) {
 	var dom = (_dom = {
 		drawBox: $("#drawBox"),
 		drawTitle: $(".drawTitle"),
-		drawTitleClose: $(".drawTitle .close"),
 		btnGroup: $(".btnGroup"),
 		infoBox1: $(".infoBox1"),
 		drawContent: $(".drawContent"),
@@ -1106,8 +1166,8 @@ function layoutController(infoArr, softWare) {
 	dom.drawTitle.on("click", "li", function () {
 		screenLen = dom.drawTitle.find("li").index($(this));
 	});
-	dom.drawTitleClose.on("click", function (e) {
-		var index = dom.drawTitleClose.index($(this));
+	dom.drawTitle.on("click", ".close", function (e) {
+		var index = dom.drawTitle.find("close").index($(this));
 		infoArr.drawInfo.splice(index, 1);
 		ReactDOM.render(React.createElement(Part4, { info: infoArr, softWare: softWare }), view4Dom.layout);
 	});

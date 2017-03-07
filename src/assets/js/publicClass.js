@@ -8,7 +8,7 @@ $at.GetDomId = function(name){
 	var dom = document.getElementById(name);
 	return dom
 }
-$at.staticColors = [
+$at.staticColors = [ 
 	"#265497",
 	"#1e87b5",
 	"#b7ab64",
@@ -16,3 +16,4 @@ $at.staticColors = [
 	"#c93e3e",
 	"#b5b5b5"
 ];
+
