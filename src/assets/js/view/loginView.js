@@ -26,7 +26,7 @@ var SubmiteBtn = React.createClass({
     },
 	render : function(){
 		var text = this.state.result ? "SIGN IN" : "WAITING......";
-		return (<div onClick = {this.handleClick}><p>{text}<span className={this.props.name}></span></p></div>)
+		return (<div className = "submite"><p>{text}<span className={this.props.name}></span></p></div>)
 	}
 })
 var ForgotPass = React.createClass({
@@ -62,7 +62,7 @@ ReactDOM.render(
 )
 
 //用户名提交验证
-function FormCheck(self){
+function FormCheck(next){
 	var userVal = $("#userName input").val();
 	var passVal = $("#passWord input").val();
 	if(userVal =='' || !userVal){
@@ -70,13 +70,37 @@ function FormCheck(self){
 	}else if(passVal =='' || !passVal){
 		alert("密码不能为空")
 	}else{
-		self.setState({result : false});
-		$at.getJson("dataDemo.json","",onComplete);
+		var data = {name:userVal,password:passVal}
+		$at.getJson($at.staicUrl+"interfaces/login",data,onComplete);
 		function onComplete(json){  
-			setTimeout(function(){
-				self.setState({result : true});
+			if(json.state){ 
+//				next(json.data.name);
 				$Animate.complete($Animate.loginHide,$Animate.wrapShow); 
-			},1500)
+			}else{
+				alert("用户名或密码错误，请重新输入");
+			}
+			
 		}
 	}
+}
+$(function(){
+	$(".submite").on("click",function(){
+		FormCheck();
+	})
+})
+function getScreenInfo(names){
+	var obj = ["测试数据1","测试数据2","测试数据3","测试数据4"];
+	$at.getJson($at.staicUrl+"interfaces/screenInfo",onComplete);
+	function onComplete(json){
+		var data = json.data;
+		var obj = [];
+		for (var i=0;i<json.length;i++) {
+			obj.push(json)
+		}
+		ReactDOM.render(<Menu imgSrc = "assets/img/logo.png" name = names/> , setScreenDom.userInfo);
+		ReactDOM.render(<MenuList obj={obj}/>,setScreenDom.screenList);
+		ReactDOM.render(<LevTitle />,setScreenDom.levNum); 
+		ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);
+	}
+	
 }

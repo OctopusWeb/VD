@@ -30,11 +30,11 @@ var srcPath = {
 	build	: 'src/assets/js/view'
 };
 var destPath = {
-	html	: 'dist',
-	css		: 'dist/assets/css',
-	script	: 'dist/assets/js',
-	image	: 'dist/assets/img',
-	build	: 'dist/assets/js/view'
+	html	: 'dist/public',
+	css		: 'dist/public/assets/css',
+	script	: 'dist/public/assets/js',
+	image	: 'dist/public/assets/img',
+	build	: 'dist/public/assets/js/view'
 };
 
 /* = 开发环境( Ddevelop Task )

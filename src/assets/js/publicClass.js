@@ -16,4 +16,6 @@ $at.staticColors = [
 	"#c93e3e",
 	"#b5b5b5"
 ];
+$at.LevTitleArr = ["新建虚拟桌面","选择主机","分配屏幕"];
+$at.staicUrl = "http://localhost:3000/";
 
