@@ -8,13 +8,13 @@ var Part4 = React.createClass({
 		var screenInfo = info.screenInfo; 
 		
 		return (<div> 
-			<LayoutTop title={screenInfo.title}/>
-			<LayoutScreen obj={{info}} softWare={this.props.softWare}/>
-			<LayoutName/>
+			<LayoutTop1 title={screenInfo.title}/>
+			<LayoutScreen1 obj={{info}} softWare={this.props.softWare}/>
+			<LayoutName1/>
 			</div>)
 	}
 })
-var LayoutTop = React.createClass({
+var LayoutTop1 = React.createClass({
 	render : function(){
 		return (<div id="layoutTop">
 						<h1>{this.props.title}</h1>
@@ -25,7 +25,7 @@ var LayoutTop = React.createClass({
 	}
 })
 
-var LayoutScreen = React.createClass({
+var LayoutScreen1 = React.createClass({
 	getInitialState : function(){
 		return{
 			info : this.props.obj.info,
@@ -61,7 +61,7 @@ var LayoutScreen = React.createClass({
 				})
 			}
 			</ul>
-			<DrawBox obj={info} index={this.state.index} smallIndex={this.state.smallIndex} changeIndex={this.changeIndex} changeIndex2={this.changeSmallIndex}/>
+			<DrawBox1 obj={info} index={this.state.index} smallIndex={this.state.smallIndex} changeIndex={this.changeIndex} changeIndex2={this.changeSmallIndex}/>
 			</div>
 			<LayoutInfo obj={{drawInfo}} index={this.state.index} smallIndex={this.state.smallIndex} softWare={this.props.softWare}/>
 			<p className="layout1">预览布局</p>
@@ -194,7 +194,7 @@ var InfoBox4 = React.createClass({
 		</div>)
 	}
 })
-var DrawBox = React.createClass({
+var DrawBox1 = React.createClass({ 
 	getInitialState : function(){
 		var screenInfo = this.props.obj.screenInfo;
 		var drawInfo = this.props.obj.drawInfo;
@@ -263,7 +263,7 @@ var DrawBox = React.createClass({
 	}
 })
 
-var LayoutName = React.createClass({
+var LayoutName1 = React.createClass({
 	render : function(){
 		return(<div className="layoutName">
 			<img src="assets/img/close.png" className="close"/>
@@ -277,198 +277,6 @@ var LayoutName = React.createClass({
 	}
 })
 
-$(function(){
-	var view4Info = { 
-		screenInfo:{
-			title:"虚拟桌面1",
-			col:"4",
-			row:"2",
-			wid:"1920",
-			hei:"1080"
-		},
-		drawInfo:[
-			{
-				title: "屏幕1",
-				index:0,
-				screens:[
-					{
-						across:true,
-						screenInfo:[1920,1080,0,0],
-						medias:[["SHIPIN","叮当1"],["FLASH","叮当2"]],
-					},
-					{
-						across:false,
-						screenInfo:[1920,1080,0,1920],
-						medias:[["PPT","叮当2"],["FLASH","叮当2"]],
-					}
-				]
-			},
-			{
-				title: "屏幕2",
-				index:1,
-				screens:[
-					{
-						across:false,
-						screenInfo:[1920,1080,0,1920],
-						medias:[["PPT","叮当3"],["FLASH","叮当2"]],
-					},
-					{
-						across:false,
-						screenInfo:[1920,1080,0,3840],
-						medias:[["PPT","叮当4"],["FLASH","叮当2"]],
-					}
-				]
-			},
-			{
-				title: "屏幕3",
-				index:1,
-				screens:[
-					{
-						across:false,
-						screenInfo:[1920,1080,1080,0],
-						medias:[["PPT","叮当5"],["FLASH","叮当2"]],
-					},
-					{
-						across:false,
-						screenInfo:[1920,1080,0,0],
-						medias:[["PPT","叮当6"],["FLASH","叮当2"]],
-					}
-				]
-			}
-		]
-	}
-	var softWare =[["叮当1","叮当1"],["叮当2","叮当2"],["叮当3","叮当3"],["叮当4","叮当4"],["叮当5","叮当5"],["叮当6","叮当6"]];
-	ReactDOM.render(<Part4 info={view4Info} softWare={softWare}/>,view4Dom.layout);
-	layoutController(view4Info,softWare)
-})
 
-function layoutController(infoArr,softWare){
-	var infoArr = infoArr;
-	var screenLen=0;
-	var smallIndex=0;
-	var dom ={
-		drawBox			: $("#drawBox"),
-		drawTitle		: $(".drawTitle"),
-		btnGroup		: $(".btnGroup"),
-		infoBox1		: $(".infoBox1"),
-		drawContent		: $(".drawContent"),
-		infoBox2		: $(".infoBox2"),
-		chooseList		: $(".chooseList"),
-		addBuju			: $("#layoutInfo h2"),
-		drawContent		: $(".drawContent"),
-		contentList		: $(".contentList"),
-		layoutName		: $(".layoutName"),
-		addLayout		: $(".addLayout")
-	}
-	dom.addLayout.on("click",function(){
-		console.log(JSON.stringify(infoArr));
-	})
-	dom.drawTitle.on("click","li",function(){
-		screenLen = dom.drawTitle.find("li").index($(this))
-	})
-	dom.drawTitle.on("click",".close",function(e){
-		var index = dom.drawTitle.find("close").index($(this));
-		infoArr.drawInfo.splice(index,1);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.btnGroup.find("span").on("click",function(){
-		var num  = parseInt(infoArr.drawInfo.length)+1;
-		var addScreen = {
-			title: "屏幕"+num,
-			index:num,
-			screens:[
-				{
-					across:true,
-					screenInfo:[1920,1080,0,0],
-					medias:[],
-				}
-			]
-		}
-		infoArr.drawInfo.push(addScreen);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.btnGroup.find("p").on("click",function(){
-		dom.layoutName.find("input").val("")
-		dom.layoutName.show();
-	})
-	dom.layoutName.find(".close").on("click",function(){
-		dom.layoutName.hide();
-	})
-	dom.layoutName.find("p").on("click",function(){
-		var value = dom.layoutName.find("input").val();
-		if(value){
-			infoArr.drawInfo[screenLen].title = value;
-			ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-			dom.layoutName.hide();
-		}
-	})
-	dom.infoBox1.on("click","p",function(){
-		dom.infoBox1.find("p").removeClass("selected");
-		$(this).addClass("selected");
-		infoArr.drawInfo[screenLen].screens[smallIndex].across=dom.infoBox1.find("p").index($(this))==0;
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.drawContent.on("click","li",function(){
-		var num = parseInt($(this).find("span").html());
-		smallIndex=num;
-		var arr = infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo;
-		dom.infoBox2.find("input").eq(1).val(arr[2])
-		dom.infoBox2.find("input").eq(0).val(arr[3])
-		dom.infoBox2.find("input").eq(2).val(arr[0])
-		dom.infoBox2.find("input").eq(3).val(arr[1])
-		dom.drawContent.find("li").removeClass("selected");
-		$(this).addClass("selected");
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.infoBox2.find("input").eq(0).on("change",function(){
-		var x = $(this).val();
-		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(x);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.infoBox2.find("input").eq(1).on("change",function(){
-		var y = $(this).val();
-		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(y);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.infoBox2.find("input").eq(2).on("change",function(){
-		var wid = $(this).val();
-		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.infoBox2.find("input").eq(3).on("change",function(){
-		var hei = $(this).val();
-		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.chooseList.on("click",".close",function(){
-		var num = dom.chooseList.find("li .close").index($(this));
-		infoArr.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num),1);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.addBuju.on("click",function(){
-		var data = {
-					across:true,
-					screenInfo:[1920,1080,0,0],
-					medias:[],
-				}
-		infoArr.drawInfo[screenLen].screens.push(data);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.drawContent.on("click",".close",function(){
-		infoArr.drawInfo[screenLen].screens.splice(smallIndex,1);
-		smallIndex=0;
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-	dom.contentList.on("click",".contentBtn",function(){
-		dom.contentList.find(".contentBtn").removeClass("selected");
-		$(this).addClass("selected");
-	})
-	dom.contentList.on("click",".add",function(){
-		var type = $(this).parent().find(".icon").attr("name");
-		var name = $(this).parent().find("span").html();
-		var arr = [type,name]
-		infoArr.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
-}
+
 

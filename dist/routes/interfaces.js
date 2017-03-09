@@ -15,15 +15,38 @@ router.get('/login', function(req, res){
 	var name = req.query.name || req.params.name;
 	var pass = req.query.password || req.parms.password;
 	var userGetSql = 'SELECT *  FROM `t_user_info` WHERE userName=? AND password=?';
-    pool.query(userGetSql,[name,utility.md5(pass)], function(err, result) {
-		if (err) {
+	var screenInfoGetSql = 'SELECT *  FROM `t_screen_info`';
+	var screenLayoutGetSql = 'SELECT *  FROM `t_screen_layout`';
+	var screenDescribeGetSql = 'SELECT *  FROM `t_describe`';
+    pool.query(userGetSql,[name,utility.md5(pass)], function(errUser, resultUser) {
+		if (errUser) {
 			console.log("b");
 			return;
 		}
-		if(result.length==0){
-			res.send({state:false,data:result})
+		if(resultUser.length==0){
+			res.send({state:false,data:resultUser})
 		}else{
-			res.send({state:true,data:result[0]})
+			pool.query(screenInfoGetSql, function(errScreen, resultScreen) {
+				if (errScreen) {
+					console.log("b");
+					return;
+				}
+				pool.query(screenLayoutGetSql, function(errLayout, resultLayout) {
+					if (errLayout) {
+						console.log("b");
+						return;
+					}
+					pool.query(screenDescribeGetSql, function(errLayout, resultDescribe) {
+						if (errLayout) {
+							console.log("b");
+							return;
+						}
+						console.log(resultDescribe.length)
+						res.send({state:true,screenInfo:resultScreen,layout:resultLayout,describe:resultDescribe})
+					})
+				})
+				
+			})
 		}
 	})
 });

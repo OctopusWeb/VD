@@ -65,8 +65,8 @@ var destPath = {
 			.pipe(gulp.dest( destPath.script )); // 输出路径
 	});
 	
-	gulp.task('build', function() {
-		return gulp.src(srcPath.build+'/*.js',function(err,files){
+	gulp.task('build',["reactContact"],function() {
+		return gulp.src('src/assets/js/main/main.js',function(err,files){
 			browserify(files)
 	        .transform(babelify, {
 	            presets: ['es2015', 'react']
@@ -78,6 +78,10 @@ var destPath = {
 		})
 	    
 	});
+	
+	gulp.task("reactContact",function(){
+		gulp.src(srcPath.build+'/*.js').pipe(concat('main.js')).pipe(gulp.dest('src/assets/js/main'));
+	})
 	
 	// imagemin 图片压缩
 	gulp.task('images', function(){

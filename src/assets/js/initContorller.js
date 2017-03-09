@@ -21,6 +21,7 @@ $(function(){
 		ulList		: $(".ulList"),
 		entryHard	: $("#entryHard"),
 		entrySoft	: $("#entrySoftware"),
+		layoutBottom: $("#layoutBottom")
 		
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
@@ -55,7 +56,7 @@ $(function(){
 		ControllerDom.layoutShow.show();
 		ControllerDom.layout.hide();
 	})
-	ControllerDom.layout2.on("click",function(){
+	ControllerDom.layoutBottom.on("click",".layout2",function(){
 		ControllerDom.layoutShow.hide();
 		ControllerDom.layout.show();
 	})
@@ -85,13 +86,7 @@ $(function(){
 		selected.find("p").html(value)
 		ControllerDom.entrySlected.hide();
 	})
-	ControllerDom.funTitle.on("click","li",function(){
-		var index = ControllerDom.funTitle.find("li").index($(this));
-		ControllerDom.funTitle.find("li").removeClass("selected");
-		ControllerDom.funTitle.find("li").eq(index).addClass("selected");
-		ControllerDom.layoutContent.find(".fun").removeClass("selected");
-		ControllerDom.layoutContent.find(".fun").eq(index).addClass("selected")
-	})
+	
 	ControllerDom.btnGroup.find(".btn").eq(0).on("click",function(){
 		ControllerDom.entryHard.slideToggle(); 
 		ControllerDom.entrySoft.slideUp(); 

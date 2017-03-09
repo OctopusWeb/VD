@@ -406,12 +406,4 @@ var ZoolonFun = React.createClass({
 	render :function(){
 		return (<div className="zoolonFun"></div>)
 	}
-})
-
-ReactDOM.render(<Part5 info={view5Info}/>,view5Dom.layoutShow);
-$(function(){
-	$(".drawContent1").on("click","li",function(){
-		$(".drawContent1").find("li").removeClass("selected")
-		$(this).addClass("selected");
-	})
-})
+}) 

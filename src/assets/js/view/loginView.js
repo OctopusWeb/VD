@@ -72,7 +72,7 @@ function FormCheck(next){
 	}else{
 		var data = {name:userVal,password:passVal}
 		$at.getJson($at.staicUrl+"interfaces/login",data,onComplete);
-		function onComplete(json){  
+		function onComplete(json){   
 			if(json.state){ 
 //				next(json.data.name);
 				$Animate.complete($Animate.loginHide,$Animate.wrapShow); 
@@ -83,24 +83,68 @@ function FormCheck(next){
 		}
 	}
 }
-$(function(){
-	$(".submite").on("click",function(){
-		FormCheck();
-	})
-})
-function getScreenInfo(names){
-	var obj = ["测试数据1","测试数据2","测试数据3","测试数据4"];
-	$at.getJson($at.staicUrl+"interfaces/screenInfo",onComplete);
-	function onComplete(json){
-		var data = json.data;
-		var obj = [];
-		for (var i=0;i<json.length;i++) {
-			obj.push(json)
-		}
-		ReactDOM.render(<Menu imgSrc = "assets/img/logo.png" name = names/> , setScreenDom.userInfo);
-		ReactDOM.render(<MenuList obj={obj}/>,setScreenDom.screenList);
-		ReactDOM.render(<LevTitle />,setScreenDom.levNum); 
-		ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);
+
+function initScreenInfo(){
+	var view5Info = { 
+		screenInfo:{
+			title:"虚拟桌面1",
+			col:"4",
+			row:"2",
+			wid:"1920",
+			hei:"1080"
+		},
+		drawInfo:[
+			{
+				title: "屏幕1",
+				screens:[
+					{
+						across:true,
+						screenInfo:[1920,1080,0,0],
+						medias:[["SHIPIN","叮当1"],["FLASH","叮当2"],["PDF","叮当3"],["PPT","叮当4"],["WEB","叮当5"]],
+					},
+					{
+						across:false,
+						screenInfo:[1920,1080,0,1920],
+						medias:[["PPT","叮当2"],["FLASH","叮当2"]],
+					}
+				]
+			},
+			{
+				title: "屏幕2",
+				screens:[
+					{
+						across:false,
+						screenInfo:[1920,1080,0,1920],
+						medias:[["PPT","叮当3"],["FLASH","叮当2"]],
+					},
+					{
+						across:false,
+						screenInfo:[1920,1080,0,3840],
+						medias:[["PPT","叮当4"],["FLASH","叮当2"]],
+					}
+				]
+			},
+			{
+				title: "屏幕3",
+				screens:[
+					{
+						across:false,
+						screenInfo:[1920,1080,1080,0],
+						medias:[["PPT","叮当5"],["FLASH","叮当2"]],
+					},
+					{
+						across:false,
+						screenInfo:[1920,1080,0,0],
+						medias:[["PPT","叮当6"],["FLASH","叮当2"]],
+					}
+				]
+			}
+		]
 	}
-	
+	$at.getJson("dataDemo.json","",onComplete);
+	function onComplete(json){
+		console.log(json)
+		ReactDOM.render(<Part5 info={view5Info}/>,view5Dom.layoutShow);
+	}
 }
+
