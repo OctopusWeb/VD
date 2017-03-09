@@ -4,12 +4,9 @@ $(function(){
 		
 		
 		layShow		: $("#layoutShow"),
-		layShowbtn	: $(".layout1"),
 		layBottom	: $("#layoutBottom"),
 		layContent	: $(".layoutContent"),
-		
 		layChange	: $("#layout"),
-		layChangebtn: $(".layout2"),
 		
 		
 		PartLev 	: $("#levNum li"),
@@ -40,21 +37,9 @@ $(function(){
 		
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
-	changePage(Dom);
-
+	partController(Dom);
 	
-	Dom.addPart2.find("ul").on("click",function(e){
-		var event = e || window.event;
-		var dom = event.target || event.srcElement;
-		dom = dom.parentNode.parentNode;
-		if(dom.tagName.toLowerCase() == "li"){
-			if(dom.getAttribute("class") == "selected"){ 
-				dom.setAttribute("class", "");
-			}else{
-				dom.setAttribute("class", "selected");
-			}	
-		}
-	});
+	
 	Dom.entrySlected.find("li").hover(function(){
 		$(this).addClass("selected");
 	},function(){
@@ -84,52 +69,48 @@ $(function(){
 	loginController(Dom); 
 	drawController(Dom);
 })
-function changePage(Dom){
-	Dom.Part1btn.find(".next").on("click",function(){
-		$Animate.complete($Animate.Part1Hide,$Animate.Part2Show);
-		PartChange(1)
-	});
-	Dom.Part2btn.find(".pre").on("click",function(){
-		$Animate.complete($Animate.Part2Hide1,$Animate.Part1Show);
-		PartChange(0)
-	});
-	Dom.Part2btn.find(".next").on("click",function(){
-		$Animate.complete($Animate.Part2Hide2,$Animate.Part3Show);
-		PartChange(2)
-	});
-	Dom.Part3btn.find(".pre").on("click",function(){
-		$Animate.complete($Animate.Part3Hide,$Animate.Part2Show);
-		PartChange(1)
-	});
-	Dom.Part3btn.find(".next").on("click",function(){
-		$Animate.LayoutShow();
-	});
-	function PartChange(index){
-		var title = ["新建虚拟桌面","选择主机","分配屏幕"]
-		Dom.PartLev.removeClass("selected");
-		Dom.PartLev.eq(index).addClass("selected");
-		Dom.pageTitle.html(title[index]);
-	}
-}
+
 
 function loginController(Dom){
 	Dom.submite.on("click",function(){
 		$Animate.complete($Animate.loginHide,$Animate.wrapShow); 
-		getScreenInfo(Dom);
+		initLayInfo(Dom);
 	})
 }
-
-function getScreenInfo(Dom){
+function layShowController(data,Dom){
+	ReactDOM.render(<Part5 info={data[0]}/>,view5Dom.layoutShow);
+	var funTitle = $(".funTitle");
+	var layoutContent = $(".layoutContent");
+	funTitle.on("click","li",function(){
+		var index = funTitle.find("li").index($(this));
+		funTitle.find("li").removeClass("selected");
+		funTitle.find("li").eq(index).addClass("selected");
+		layoutContent.find(".fun").removeClass("selected");
+		layoutContent.find(".fun").eq(index).addClass("selected");
+	})
+	Dom.layShow.on("click",".layout2",function(){ 
+		Dom.layShow.hide();
+		Dom.layChange.show();
+	})
+}
+function layChangeController(data,Dom){
+	var data=data;
+	var softWare =[["叮当1","叮当1"],["叮当2","叮当2"],["叮当3","叮当3"],["叮当4","叮当4"],["叮当5","叮当5"],["叮当6","叮当6"]];
+	ReactDOM.render(<Part4 info={data[0]} softWare={softWare}/>,view4Dom.layout);
+	Dom.layChange.on("click",".layout1",function(){
+		Dom.layShow.show();
+		Dom.layChange.hide();
+	})
+}
+function initLayInfo(Dom){
 	$at.getJson("../dataDemo.json","",onComplete);
 	function onComplete(json){
-		var data = parseScreenDate(json);
-		initScreenShow(data,Dom); 
-		initScreenBianji(data,Dom)
+		var data = layParseDate(json);
+		layShowController(data,Dom); 
+		layChangeController(data,Dom)
 	}
-	
 }
-
-function parseScreenDate(json){
+function layParseDate(json){
 	var screenArr=[];
 	for (var i=0;i<json.screenInfo.length;i++) {
 		var obj={};
@@ -184,32 +165,54 @@ function parseScreenDate(json){
 	}
 	return screenArr;
 }
-
-function initScreenShow(data,Dom){
-	ReactDOM.render(<Part5 info={data[0]}/>,view5Dom.layoutShow);
-	var funTitle = $(".funTitle");
-	var layoutContent = $(".layoutContent");
-	funTitle.on("click","li",function(){
-		var index = funTitle.find("li").index($(this));
-		funTitle.find("li").removeClass("selected");
-		funTitle.find("li").eq(index).addClass("selected");
-		layoutContent.find(".fun").removeClass("selected");
-		layoutContent.find(".fun").eq(index).addClass("selected");
-	})
-	Dom.layChangebtn.on("click",function(){ 
-		Dom.layShow.hide();
-		Dom.layChange.show();
-	})
-}
-function initScreenBianji(data,Dom){
-	var softWare =[["叮当1","叮当1"],["叮当2","叮当2"],["叮当3","叮当3"],["叮当4","叮当4"],["叮当5","叮当5"],["叮当6","叮当6"]];
-	ReactDOM.render(<Part4 info={data[0]} softWare={softWare}/>,view4Dom.layout);
+function partController(Dom){
+	changePage(Dom);
+	Dom.addPart2.find("ul").on("click",function(e){
+		var event = e || window.event;
+		var dom = event.target || event.srcElement;
+		dom = dom.parentNode.parentNode;
+		if(dom.tagName.toLowerCase() == "li"){
+			if(dom.getAttribute("class") == "selected"){ 
+				dom.setAttribute("class", "");
+			}else{
+				dom.setAttribute("class", "selected");
+			}	
+		}
+	});
 	
-	Dom.layShowbtn.on("click",function(){
-		Dom.layShow.show();
-		Dom.layChange.hide();
-	})
+	function changePage(Dom){
+		Dom.Part1btn.find(".next").on("click",function(){
+			$Animate.complete($Animate.Part1Hide,$Animate.Part2Show);
+			PartChange(1)
+		});
+		Dom.Part2btn.find(".pre").on("click",function(){
+			$Animate.complete($Animate.Part2Hide1,$Animate.Part1Show);
+			PartChange(0)
+		});
+		Dom.Part2btn.find(".next").on("click",function(){
+			$Animate.complete($Animate.Part2Hide2,$Animate.Part3Show);
+			PartChange(2)
+		});
+		Dom.Part3btn.find(".pre").on("click",function(){
+			$Animate.complete($Animate.Part3Hide,$Animate.Part2Show);
+			PartChange(1)
+		});
+		Dom.Part3btn.find(".next").on("click",function(){
+			$Animate.LayoutShow();
+		});
+		function PartChange(index){
+			var title = ["新建虚拟桌面","选择主机","分配屏幕"]
+			Dom.PartLev.removeClass("selected");
+			Dom.PartLev.eq(index).addClass("selected");
+			Dom.pageTitle.html(title[index]);
+		}
+	}
 }
+
+
+
+
+
 
 
 
@@ -221,17 +224,6 @@ function layoutController(Dom){
 		$(".drawContent1").find("li").removeClass("selected")
 		$(this).addClass("selected"); 
 	});
-}
-
-function layoutBianji(Dom){
-
-}
-  
-function initScreenInfo(Dom){
-	function onComplete(json){
-		
-	}
-		
 }
 function layoutBianjiController(infoArr,softWare){
 	var infoArr = infoArr;
