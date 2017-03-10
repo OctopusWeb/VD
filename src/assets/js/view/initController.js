@@ -88,27 +88,50 @@ function layShowController(data,Dom){
 		layoutContent.find(".fun").removeClass("selected");
 		layoutContent.find(".fun").eq(index).addClass("selected");
 	})
-	Dom.layShow.on("click",".layout2",function(){ 
+	Dom.layShow.on("click",".layout2",function(){
 		Dom.layShow.hide();
 		Dom.layChange.show();
 	})
+	Dom.layShow.find(".drawContent1").on("click","li",function(){
+		$(".drawContent1").find("li").removeClass("selected");
+		$(this).addClass("selected"); 
+	});
 }
-function layChangeController(data,Dom){
+function layChangeController(data,Dom,softWare){
 	var data=data;
-	var softWare =[["叮当1","叮当1"],["叮当2","叮当2"],["叮当3","叮当3"],["叮当4","叮当4"],["叮当5","叮当5"],["叮当6","叮当6"]];
 	ReactDOM.render(<Part4 info={data[0]} softWare={softWare}/>,view4Dom.layout);
 	Dom.layChange.on("click",".layout1",function(){
 		Dom.layShow.show();
 		Dom.layChange.hide();
 	})
+	layoutChange(data[0],softWare);
 }
 function initLayInfo(Dom){
 	$at.getJson("../dataDemo.json","",onComplete);
 	function onComplete(json){
-		var data = layParseDate(json);
-		layShowController(data,Dom); 
-		layChangeController(data,Dom)
+		var data = layParseDate(json); 
+		$at.getJson("../softWare.json","",onComplete2);
+		function onComplete2(json2){
+			var softWare = ParseSoft(json2.data);
+			layShowController(data,Dom); 
+			layChangeController(data,Dom,softWare);
+		}	
 	}
+}
+function ParseSoft(json){ 
+	console.log(json)
+	var data=[];
+	var type=["video","ppt","pdf","flash","web","zoolonweb"]
+	for (var i=0;i<type.length;i++) {
+		var timeData=[]
+		for (var j=0;j<json.length;j++) {
+			if(type[i]==json[j].typeCode){
+				timeData.push(json[j].name);
+			}
+		}
+		data.push(timeData);
+	}
+	return data;
 }
 function layParseDate(json){
 	var screenArr=[];
@@ -165,6 +188,7 @@ function layParseDate(json){
 	}
 	return screenArr;
 }
+
 function partController(Dom){
 	changePage(Dom);
 	Dom.addPart2.find("ul").on("click",function(e){
@@ -212,24 +236,12 @@ function partController(Dom){
 
 
 
-
-
-
-
-
-
-
-function layoutController(Dom){
-	$(".drawContent1").on("click","li",function(){
-		$(".drawContent1").find("li").removeClass("selected")
-		$(this).addClass("selected"); 
-	});
-}
-function layoutBianjiController(infoArr,softWare){
+function layoutChange(infoArr,softWare){
+	console.log(infoArr,softWare);
 	var infoArr = infoArr;
 	var screenLen=0;
 	var smallIndex=0;
-	var dom ={
+	var dom ={ 
 		drawBox			: $("#drawBox"),
 		drawTitle		: $(".drawTitle"),
 		btnGroup		: $(".btnGroup"),
@@ -284,7 +296,7 @@ function layoutBianjiController(infoArr,softWare){
 			ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
 			dom.layoutName.hide();
 		}
-	})
+	});
 	dom.infoBox1.on("click","p",function(){
 		dom.infoBox1.find("p").removeClass("selected");
 		$(this).addClass("selected");
@@ -352,5 +364,5 @@ function layoutBianjiController(infoArr,softWare){
 		var arr = [type,name]
 		infoArr.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
 		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-	})
+	}) 
 }

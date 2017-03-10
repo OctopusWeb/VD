@@ -1,62 +1,6 @@
 var view5Dom = {
 	layoutShow	: $at.GetDomId("layoutShow")
 }
-var view5Info = { 
-		screenInfo:{
-			title:"虚拟桌面1",
-			col:"4",
-			row:"2",
-			wid:"1920",
-			hei:"1080"
-		},
-		drawInfo:[
-			{
-				title: "屏幕1",
-				screens:[
-					{
-						across:true,
-						screenInfo:[1920,1080,0,0],
-						medias:[["SHIPIN","叮当1"],["FLASH","叮当2"],["PDF","叮当3"],["PPT","叮当4"],["WEB","叮当5"]],
-					},
-					{
-						across:false,
-						screenInfo:[1920,1080,0,1920],
-						medias:[["PPT","叮当2"],["FLASH","叮当2"]],
-					}
-				]
-			},
-			{
-				title: "屏幕2",
-				screens:[
-					{
-						across:false,
-						screenInfo:[1920,1080,0,1920],
-						medias:[["PPT","叮当3"],["FLASH","叮当2"]],
-					},
-					{
-						across:false,
-						screenInfo:[1920,1080,0,3840],
-						medias:[["PPT","叮当4"],["FLASH","叮当2"]],
-					}
-				]
-			},
-			{
-				title: "屏幕3",
-				screens:[
-					{
-						across:false,
-						screenInfo:[1920,1080,1080,0],
-						medias:[["PPT","叮当5"],["FLASH","叮当2"]],
-					},
-					{
-						across:false,
-						screenInfo:[1920,1080,0,0],
-						medias:[["PPT","叮当6"],["FLASH","叮当2"]],
-					}
-				]
-			}
-		]
-	}
 var Part5 = React.createClass({
 	render : function(){
 		var info = this.props.info;

@@ -688,22 +688,46 @@ function layShowController(data, Dom) {
 		Dom.layShow.hide();
 		Dom.layChange.show();
 	});
+	Dom.layShow.find(".drawContent1").on("click", "li", function () {
+		$(".drawContent1").find("li").removeClass("selected");
+		$(this).addClass("selected");
+	});
 }
-function layChangeController(data, Dom) {
-	var softWare = [["叮当1", "叮当1"], ["叮当2", "叮当2"], ["叮当3", "叮当3"], ["叮当4", "叮当4"], ["叮当5", "叮当5"], ["叮当6", "叮当6"]];
+function layChangeController(data, Dom, softWare) {
+	var data = data;
 	ReactDOM.render(React.createElement(Part4, { info: data[0], softWare: softWare }), view4Dom.layout);
 	Dom.layChange.on("click", ".layout1", function () {
 		Dom.layShow.show();
 		Dom.layChange.hide();
 	});
+	layoutChange(data[0], softWare);
 }
 function initLayInfo(Dom) {
 	$at.getJson("../dataDemo.json", "", onComplete);
 	function onComplete(json) {
 		var data = layParseDate(json);
-		layShowController(data, Dom);
-		layChangeController(data, Dom);
+		$at.getJson("../softWare.json", "", onComplete2);
+		function onComplete2(json2) {
+			var softWare = ParseSoft(json2.data);
+			layShowController(data, Dom);
+			layChangeController(data, Dom, softWare);
+		}
 	}
+}
+function ParseSoft(json) {
+	console.log(json);
+	var data = [];
+	var type = ["video", "ppt", "pdf", "flash", "web", "zoolonweb"];
+	for (var i = 0; i < type.length; i++) {
+		var timeData = [];
+		for (var j = 0; j < json.length; j++) {
+			if (type[i] == json[j].typeCode) {
+				timeData.push(json[j].name);
+			}
+		}
+		data.push(timeData);
+	}
+	return data;
 }
 function layParseDate(json) {
 	var screenArr = [];
@@ -760,6 +784,7 @@ function layParseDate(json) {
 	}
 	return screenArr;
 }
+
 function partController(Dom) {
 	changePage(Dom);
 	Dom.addPart2.find("ul").on("click", function (e) {
@@ -804,21 +829,10 @@ function partController(Dom) {
 	}
 }
 
-function layoutController(Dom) {
-	$(".drawContent1").on("click", "li", function () {
-		$(".drawContent1").find("li").removeClass("selected");
-		$(this).addClass("selected");
-	});
-}
-
-function layoutBianji(Dom) {}
-
-function initScreenInfo(Dom) {
-	function onComplete(json) {}
-}
-function layoutBianjiController(infoArr, softWare) {
+function layoutChange(infoArr, softWare) {
 	var _dom;
 
+	console.log(infoArr, softWare);
 	var infoArr = infoArr;
 	var screenLen = 0;
 	var smallIndex = 0;
@@ -1422,49 +1436,6 @@ var LayoutName1 = React.createClass({
 
 var view5Dom = {
 	layoutShow: $at.GetDomId("layoutShow")
-};
-var view5Info = {
-	screenInfo: {
-		title: "虚拟桌面1",
-		col: "4",
-		row: "2",
-		wid: "1920",
-		hei: "1080"
-	},
-	drawInfo: [{
-		title: "屏幕1",
-		screens: [{
-			across: true,
-			screenInfo: [1920, 1080, 0, 0],
-			medias: [["SHIPIN", "叮当1"], ["FLASH", "叮当2"], ["PDF", "叮当3"], ["PPT", "叮当4"], ["WEB", "叮当5"]]
-		}, {
-			across: false,
-			screenInfo: [1920, 1080, 0, 1920],
-			medias: [["PPT", "叮当2"], ["FLASH", "叮当2"]]
-		}]
-	}, {
-		title: "屏幕2",
-		screens: [{
-			across: false,
-			screenInfo: [1920, 1080, 0, 1920],
-			medias: [["PPT", "叮当3"], ["FLASH", "叮当2"]]
-		}, {
-			across: false,
-			screenInfo: [1920, 1080, 0, 3840],
-			medias: [["PPT", "叮当4"], ["FLASH", "叮当2"]]
-		}]
-	}, {
-		title: "屏幕3",
-		screens: [{
-			across: false,
-			screenInfo: [1920, 1080, 1080, 0],
-			medias: [["PPT", "叮当5"], ["FLASH", "叮当2"]]
-		}, {
-			across: false,
-			screenInfo: [1920, 1080, 0, 0],
-			medias: [["PPT", "叮当6"], ["FLASH", "叮当2"]]
-		}]
-	}]
 };
 var Part5 = React.createClass({
 	displayName: "Part5",
