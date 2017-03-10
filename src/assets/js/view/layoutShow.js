@@ -3,9 +3,9 @@ var view5Dom = {
 }
 var Part5 = React.createClass({
 	render : function(){
+		
 		var info = this.props.info;
 		var screenInfo = info.screenInfo; 
-		
 		return (<div> 
 			<LayoutTop title={screenInfo.title}/>
 			<LayoutShow obj={{info}}/>
@@ -143,7 +143,7 @@ var DrawBox = React.createClass({
 	}
 })
 function chooseType(type,name,index){
-	switch (type){
+	switch (type.toUpperCase()){ 
 		case "SHIPIN":
 			return(<VideoFun title={name} key={index}/>)
 		case "PPT":

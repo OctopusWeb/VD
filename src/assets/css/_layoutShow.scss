@@ -8,7 +8,7 @@
     background: nth($NomalColor,6);
     z-index: 1000;
     opacity: 1; 
-    display: none; 
+    display: block;
     #showTop{
         width: $NomalWidth;
         height: 50px;

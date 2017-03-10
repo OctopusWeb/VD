@@ -5,8 +5,7 @@ var titleList = [["SHIPIN","视频"],["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH
 var Part4 = React.createClass({
 	render : function(){
 		var info = this.props.info;
-		var screenInfo = info.screenInfo; 
-		
+		var screenInfo = info.screenInfo;
 		return (<div> 
 			<LayoutTop1 title={screenInfo.title}/>
 			<LayoutScreen1 obj={{info}} softWare={this.props.softWare}/>

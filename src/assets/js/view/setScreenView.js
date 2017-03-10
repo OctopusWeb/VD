@@ -15,6 +15,7 @@ var Menu = React.createClass({
 })
 var MenuList = React.createClass({
 	render : function(){
+		var obj = this.props.obj;
 		return (<ul>
 				{ 
 					obj.map(function(result,index){
@@ -32,6 +33,7 @@ var MenuList = React.createClass({
 
 var LevTitle = React.createClass({
 	render : function(){
+		var LevTitleArr = this.props.arr;
 		return (<ul>
 			{
 				LevTitleArr.map(function(result,index){
@@ -52,10 +54,3 @@ var PageTitle = React.createClass({
 	}
 })
 
-var obj = ["测试数据1","测试数据2","测试数据3","测试数据4"];
-var LevTitleArr = ["新建虚拟桌面","选择主机","分配屏幕"];
-
-ReactDOM.render(<Menu imgSrc = "assets/img/logo.png" name = "HU"/> , setScreenDom.userInfo);
-ReactDOM.render(<MenuList />,setScreenDom.screenList);
-ReactDOM.render(<LevTitle />,setScreenDom.levNum); 
-ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);

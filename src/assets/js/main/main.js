@@ -224,6 +224,142 @@ var BtnPart3 = React.createClass({
 })
 ReactDOM.render(<Part3/>,view3Dom.addPart3);  
 
+function entryController(Dom){
+	var entryArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZoolonWEB"],["video1","Video"]]
+	var entryName = ["展项名称","展项类型","资源URL","总控命令地址"]
+	var entryList = [
+		{
+		"name":"PPT",
+		"img":"ppt1",
+		"arr":["AAAA","BBBB"]
+		},
+		{
+		"name":"PDF",
+		"img":"pdf1",
+		"arr":["CCCC","DDDD"]
+		},
+		{
+		"name":"FLASH",
+		"img":"flash1",
+		"arr":["DDDD","EEEE"]
+		},
+		{
+		"name":"WEB",
+		"img":"web1",
+		"arr":["FFFF","GGGG"]
+		},
+		{
+		"name":"ZoolonWEB",
+		"img":"zoolonweb1",
+		"arr":["HHHH","IIII"]
+		},
+		{
+		"name":"Video",
+		"img":"video1",
+		"arr":["JJJJ","KKKK"]
+		}
+	]
+	
+	var softArr = [["shebei1","PC"]];
+	var softName = ["设备名称","mac地址","daemonld","备注"];
+	var softList = [
+		{
+		"name":"PC",
+		"img":"shebei1",
+		"arr":["AAAA","BBBB"]
+		}
+	]
+	ReactDOM.render(<EntryHard arr={entryArr} list={entryList} name={entryName}/>,document.getElementById("entryHard"));
+	ReactDOM.render(<EntrySoft arr={softArr}  list={softList}  name={softName}/>,document.getElementById("entrySoftware"));
+	Dom.entrySlected.find("li").hover(function(){
+		$(this).addClass("selected");
+	},function(){
+		$(this).removeClass("selected");
+	})
+	
+	Dom.entrySlected.find("li").on("click",function(){
+		var index = Dom.entrySlected.find("li").index($(this));
+		var selected = Dom.screenPlan.find(".selected");
+		var value = $(this).find("p").html();
+		selected.css({"background":$at.staticColors[index]});
+		selected.find("p").html(value)
+		Dom.entrySlected.hide();
+	})
+	
+	Dom.btnGroup.find(".btn").eq(0).on("click",function(){
+		Dom.entryHard.slideToggle(); 
+		Dom.entrySoft.slideUp(); 
+	})
+	Dom.btnGroup.find(".btn").eq(1).on("click",function(){
+		Dom.entrySoft.slideToggle(); 
+		Dom.entryHard.slideUp();
+	})
+	$(".entryList").on("click","li",function(){
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected"); 
+		$("#entryHard input").eq(0).val("");
+		$("#entrySoftware input").eq(0).val("");
+	})
+	$("#entryAdd").on("click",function(){
+		var name = $("#entryHard input").eq(0).val();
+		name = name==""?"未定义":name;
+		var type = $(".entryList .selected").find("h3").html();
+		for (var i=0;i<entryList.length;i++) {
+			if(type == entryList[i].name){
+				entryList[i].arr.push(name)
+			}
+		}
+		ReactDOM.render(<EntryHard arr={entryArr} list={entryList} name={entryName}/>,document.getElementById("entryHard"));
+		$("#entryHard input").eq(0).val("");
+	})
+	$("#entryHard .chooseList").on("click","li",function(){
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected");
+		var type = $(this).parent().attr("class");
+		var name = $(this).find("h3").html();
+		$("#entryHard input").eq(0).val(name);
+	})
+	
+	$("#softAdd").on("click",function(){
+		var name = $("#entrySoftware input").eq(0).val();
+		name = name==""?"未定义":name;
+		var type = $(".entryList .selected").find("h3").html();
+		for (var i=0;i<softList.length;i++) {
+			if(type == softList[i].name){
+				softList[i].arr.push(name)
+			}
+		}
+		ReactDOM.render(<EntrySoft arr={softArr}  list={softList}  name={softName}/>,document.getElementById("entrySoftware"));
+		$("#entrySoftware input").eq(0).val("");
+	})
+	
+	$("#entrySoftware .chooseList").on("click","li",function(){
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected");
+		var type = $(this).parent().attr("class");
+		var name = $(this).find("h3").html();
+		$("#entrySoftware input").eq(0).val(name);
+	})
+}
+
+function ParseSoft(json){ 
+	console.log(json)
+	var data=[];
+	var type=["video","ppt","pdf","flash","web","zoolonweb"]
+	for (var i=0;i<type.length;i++) {
+		var timeData=[]
+		for (var j=0;j<json.length;j++) {
+			if(type[i]==json[j].typeCode){
+				timeData.push(json[j].name);
+			}
+		}
+		data.push(timeData);
+	}
+	return data;
+} 
 
 var EntryHard = React.createClass({
 	render : function(){
@@ -323,113 +459,17 @@ var InputList = React.createClass({
 
 
 $(function(){
-	var entryArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZoolonWEB"],["video1","Video"]]
-	var entryName = ["展项名称","展项类型","资源URL","总控命令地址"]
-	var entryList = [
-		{
-		"name":"PPT",
-		"img":"ppt1",
-		"arr":["AAAA","BBBB"]
-		},
-		{
-		"name":"PDF",
-		"img":"pdf1",
-		"arr":["CCCC","DDDD"]
-		},
-		{
-		"name":"FLASH",
-		"img":"flash1",
-		"arr":["DDDD","EEEE"]
-		},
-		{
-		"name":"WEB",
-		"img":"web1",
-		"arr":["FFFF","GGGG"]
-		},
-		{
-		"name":"ZoolonWEB",
-		"img":"zoolonweb1",
-		"arr":["HHHH","IIII"]
-		},
-		{
-		"name":"Video",
-		"img":"video1",
-		"arr":["JJJJ","KKKK"]
-		}
-	]
 	
-	var softArr = [["shebei1","PC"]];
-	var softName = ["设备名称","mac地址","daemonld","备注"];
-	var softList = [
-		{
-		"name":"PC",
-		"img":"shebei1",
-		"arr":["AAAA","BBBB"]
-		}
-	]
-	ReactDOM.render(<EntryHard arr={entryArr} list={entryList} name={entryName}/>,document.getElementById("entryHard"));
-	ReactDOM.render(<EntrySoft arr={softArr}  list={softList}  name={softName}/>,document.getElementById("entrySoftware"));
-	$(".entryList").on("click","li",function(){
-		$(".entryList").find("li").removeClass("selected");
-		$(".chooseList").find("li").removeClass("selected");
-		$(this).addClass("selected"); 
-		$("#entryHard input").eq(0).val("");
-		$("#entrySoftware input").eq(0).val("");
-	})
-	$("#entryAdd").on("click",function(){
-		var name = $("#entryHard input").eq(0).val();
-		name = name==""?"未定义":name;
-		var type = $(".entryList .selected").find("h3").html();
-		for (var i=0;i<entryList.length;i++) {
-			if(type == entryList[i].name){
-				entryList[i].arr.push(name)
-			}
-		}
-		ReactDOM.render(<EntryHard arr={entryArr} list={entryList} name={entryName}/>,document.getElementById("entryHard"));
-		$("#entryHard input").eq(0).val("");
-	})
-	$("#entryHard .chooseList").on("click","li",function(){
-		$(".entryList").find("li").removeClass("selected");
-		$(".chooseList").find("li").removeClass("selected");
-		$(this).addClass("selected");
-		var type = $(this).parent().attr("class");
-		var name = $(this).find("h3").html();
-		$("#entryHard input").eq(0).val(name);
-	})
-	
-	$("#softAdd").on("click",function(){
-		var name = $("#entrySoftware input").eq(0).val();
-		name = name==""?"未定义":name;
-		var type = $(".entryList .selected").find("h3").html();
-		for (var i=0;i<softList.length;i++) {
-			if(type == softList[i].name){
-				softList[i].arr.push(name)
-			}
-		}
-		ReactDOM.render(<EntrySoft arr={softArr}  list={softList}  name={softName}/>,document.getElementById("entrySoftware"));
-		$("#entrySoftware input").eq(0).val("");
-	})
-	
-	$("#entrySoftware .chooseList").on("click","li",function(){
-		$(".entryList").find("li").removeClass("selected");
-		$(".chooseList").find("li").removeClass("selected");
-		$(this).addClass("selected");
-		var type = $(this).parent().attr("class");
-		var name = $(this).find("h3").html();
-		$("#entrySoftware input").eq(0).val(name);
-	})
 })
 
 $(function(){
 	var Dom = {
 		submite		: $(".submite"),
 		
-		
 		layShow		: $("#layoutShow"),
 		layBottom	: $("#layoutBottom"),
 		layContent	: $(".layoutContent"),
 		layChange	: $("#layout"),
-		
 		
 		PartLev 	: $("#levNum li"),
 		Part1btn 	: $("#btnPart1"),
@@ -440,10 +480,8 @@ $(function(){
 		entryHard	: $("#entryHard"),
 		entrySoft	: $("#entrySoftware"),
 		
-		
-		
 		drawArea	: $("#drawArea"),
-		drawBox		: $("#drawBox"),
+		
 		screenLi	: $("#addPart3 ul li"),
 		entrySlected: $("#entrySlected"),
 		screenPlan	: $("#screenPlan ul"),
@@ -459,157 +497,17 @@ $(function(){
 		
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
-	partController(Dom);
 	
 	
-	Dom.entrySlected.find("li").hover(function(){
-		$(this).addClass("selected");
-	},function(){
-		$(this).removeClass("selected");
-	})
-	
-	Dom.entrySlected.find("li").on("click",function(){
-		var index = Dom.entrySlected.find("li").index($(this));
-		var selected = Dom.screenPlan.find(".selected");
-		var value = $(this).find("p").html();
-		selected.css({"background":$at.staticColors[index]});
-		selected.find("p").html(value)
-		Dom.entrySlected.hide();
-	})
-	
-	Dom.btnGroup.find(".btn").eq(0).on("click",function(){
-		Dom.entryHard.slideToggle(); 
-		Dom.entrySoft.slideUp(); 
-	})
-	Dom.btnGroup.find(".btn").eq(1).on("click",function(){
-		Dom.entrySoft.slideToggle(); 
-		Dom.entryHard.slideUp();
-	})
 	Dom.ulList.on("click","p",function(){
 		$(this).parent().find("li").slideToggle(); 
 	})
-	loginController(Dom); 
+	partController(Dom);
+	loginController(Dom);
+	entryController(Dom);
 	drawController(Dom);
+	
 })
-
-
-function loginController(Dom){
-	Dom.submite.on("click",function(){
-		$Animate.complete($Animate.loginHide,$Animate.wrapShow); 
-		initLayInfo(Dom);
-	})
-}
-function layShowController(data,Dom){
-	ReactDOM.render(<Part5 info={data[0]}/>,view5Dom.layoutShow);
-	var funTitle = $(".funTitle");
-	var layoutContent = $(".layoutContent");
-	funTitle.on("click","li",function(){
-		var index = funTitle.find("li").index($(this));
-		funTitle.find("li").removeClass("selected");
-		funTitle.find("li").eq(index).addClass("selected");
-		layoutContent.find(".fun").removeClass("selected");
-		layoutContent.find(".fun").eq(index).addClass("selected");
-	})
-	Dom.layShow.on("click",".layout2",function(){
-		Dom.layShow.hide();
-		Dom.layChange.show();
-	})
-	Dom.layShow.find(".drawContent1").on("click","li",function(){
-		$(".drawContent1").find("li").removeClass("selected");
-		$(this).addClass("selected"); 
-	});
-}
-function layChangeController(data,Dom,softWare){
-	var data=data;
-	ReactDOM.render(<Part4 info={data[0]} softWare={softWare}/>,view4Dom.layout);
-	Dom.layChange.on("click",".layout1",function(){
-		Dom.layShow.show();
-		Dom.layChange.hide();
-	})
-	layoutChange(data[0],softWare);
-}
-function initLayInfo(Dom){
-	$at.getJson("../dataDemo.json","",onComplete);
-	function onComplete(json){
-		var data = layParseDate(json); 
-		$at.getJson("../softWare.json","",onComplete2);
-		function onComplete2(json2){
-			var softWare = ParseSoft(json2.data);
-			layShowController(data,Dom); 
-			layChangeController(data,Dom,softWare);
-		}	
-	}
-}
-function ParseSoft(json){ 
-	console.log(json)
-	var data=[];
-	var type=["video","ppt","pdf","flash","web","zoolonweb"]
-	for (var i=0;i<type.length;i++) {
-		var timeData=[]
-		for (var j=0;j<json.length;j++) {
-			if(type[i]==json[j].typeCode){
-				timeData.push(json[j].name);
-			}
-		}
-		data.push(timeData);
-	}
-	return data;
-}
-function layParseDate(json){
-	var screenArr=[];
-	for (var i=0;i<json.screenInfo.length;i++) {
-		var obj={};
-		var drawInfo=[];
-		var info = json.screenInfo[i];
-		obj.screenInfo={
-			title:info.name,
-			col:info.columnCount,
-			row:info.rowCount,
-			wid:info.widthOne,
-			hei:info.heightOne,
-			id:info.screenId
-		};
-		for (var j=0;j<json.layout.length;j++) {
-			var obj2 = {} 
-			var screens=[];
-			var layout = json.layout[j];
-			if(info.screenId == layout.screenId){
-				obj2 = {
-					title: layout.name,
-					id: layout.layoutId,
-					controlUrl : layout.controlUrl,
-					usePercent:layout.usePercent
-				}
-				for (var m=0;m<json.describe.length;m++) {
-					var obj3={};
-					var describe = json.describe[m];
-					var medias=[];
-					if(layout.layoutId == describe.layoutId){
-						obj3={
-							id:describe.winId,
-							scale:describe.scale,
-							across:false,
-							screenInfo:[describe.width,describe.height,describe.x,describe.y],
-							medias:[["PPT","叮当5"],["FLASH","叮当2"]],
-							items:describe.items
-						}
-					}
-					for (var n=0;n<json.describe[m].items.length;n++) {
-						var mediasArr=[json.describe[m].items[n].controlType,json.describe[m].items[n].name];
-						medias.push(mediasArr);
-					}
-					obj3.medias=medias;
-					screens.push(obj3)
-				}
-				obj2.screens=screens;
-			}
-			drawInfo.push(obj2)
-		}
-		obj.drawInfo=drawInfo;
-		screenArr.push(obj);
-	}
-	return screenArr;
-}
 
 function partController(Dom){
 	changePage(Dom);
@@ -625,7 +523,6 @@ function partController(Dom){
 			}	
 		}
 	});
-	
 	function changePage(Dom){
 		Dom.Part1btn.find(".next").on("click",function(){
 			$Animate.complete($Animate.Part1Hide,$Animate.Part2Show);
@@ -655,41 +552,117 @@ function partController(Dom){
 	}
 }
 
-
-
-
-function layoutChange(infoArr,softWare){
-	console.log(infoArr,softWare);
-	var infoArr = infoArr;
-	var screenLen=0;
-	var smallIndex=0;
-	var dom ={ 
-		drawBox			: $("#drawBox"),
-		drawTitle		: $(".drawTitle"),
-		btnGroup		: $(".btnGroup"),
-		infoBox1		: $(".infoBox1"),
-		drawContent		: $(".drawContent"),
-		infoBox2		: $(".infoBox2"),
-		chooseList		: $(".chooseList"),
-		addBuju			: $("#layoutInfo h2"),
-		drawContent		: $(".drawContent"),
-		contentList		: $(".contentList"),
-		layoutName		: $(".layoutName"),
-		addLayout		: $(".addLayout")
+function layShowController(Dom){
+	ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
+	var funTitle = $(".funTitle");
+	var layoutContent = $(".layoutContent");
+	funTitle.on("click","li",function(){
+		var index = funTitle.find("li").index($(this));
+		funTitle.find("li").removeClass("selected");
+		funTitle.find("li").eq(index).addClass("selected");
+		layoutContent.find(".fun").removeClass("selected");
+		layoutContent.find(".fun").eq(index).addClass("selected");
+	})
+	Dom.layShow.on("click",".layout2",function(){
+		Dom.layShow.hide();
+		Dom.layChange.show();
+	})
+	Dom.layShow.find(".drawContent1").on("click","li",function(){
+		$(".drawContent1").find("li").removeClass("selected");
+		$(this).addClass("selected"); 
+	});
+}
+function layChangeController(Dom){ 
+	ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+	layoutChange(Dom);
+}
+function layParseDate(json){
+	var screenArr=[]; 
+	for (var i=0;i<json.screenInfo.length;i++) {
+		var obj={};
+		var drawInfo=[];
+		var info = json.screenInfo[i];
+		obj.screenInfo={
+			title:info.name,
+			col:info.columnCount,
+			row:info.rowCount,
+			wid:info.widthOne,
+			hei:info.heightOne,
+			id:info.screenId
+		};
+		for (var j=0;j<json.layout.length;j++) {
+			var layout = json.layout[j];
+			if(info.screenId == layout.screenId){
+				var obj2 = {} 
+				var screens=[];
+				obj2 = {
+					title: layout.name,
+					id: layout.layoutId,
+					controlUrl : layout.controlUrl,
+					usePercent:layout.usePercent
+				}
+				for (var m=0;m<json.describe.length;m++){
+					var describe = json.describe[m];
+					if(layout.layoutId == describe.layoutId){
+						var obj3={};
+						var media=[];
+						for (var n=0;n<json.describe[m].items.length;n++) {
+							var mediasArr=[json.describe[m].items[n].controlType,json.describe[m].items[n].name];
+							media.push(mediasArr);
+						}
+						obj3={
+							id:describe.winId,
+							scale:describe.scale,
+							across:false,
+							screenInfo:[describe.width,describe.height,describe.x,describe.y],
+							medias:media, 
+							items:describe.items
+						}
+						screens.push(obj3)
+					} 
+				}
+				obj2.screens=screens;
+				drawInfo.push(obj2)
+			}
+			
+		}
+		obj.drawInfo=drawInfo;
+		screenArr.push(obj);
 	}
-	dom.addLayout.on("click",function(){
-		console.log(JSON.stringify(infoArr));
+	return screenArr;
+}
+function layoutChange(Dom){
+	var screenLen=0; 
+	var smallIndex=0;
+	var layChangeBox = $("#LayoutScreen");
+	var layoutInfo = $("#layoutInfo");
+	var changeTitle = layChangeBox.find(".drawTitle");
+	var changeBtnGroup = layChangeBox.find(".btnGroup");
+	var changeDraw = layChangeBox.find(".drawContent");
+	var changeBox2 = layoutInfo.find(".infoBox2");
+	var changeChoose = layoutInfo.find(".chooseList");
+	var changeAddbuju = layoutInfo.find("h2");
+	var changeContent =layoutInfo.find(".contentList");
+	var changelayName = $(".layoutName");
+	var changeAddlay = $(".addLayout");
+	Dom.layChange.on("click",".layout1",function(){
+		Dom.layShow.show(); 
+		Dom.layChange.hide();
+		ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
 	})
-	dom.drawTitle.on("click","li",function(){
-		screenLen = dom.drawTitle.find("li").index($(this))
+	changeAddlay.on("click",function(){
+		$at.allInfo[$at.menuIndex]=$at.screenInfo;
 	})
-	dom.drawTitle.on("click",".close",function(e){
-		var index = dom.drawTitle.find("close").index($(this));
-		infoArr.drawInfo.splice(index,1);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+	changeTitle.on("click","li",function(){
+		screenLen = changeTitle.find("li").index($(this))
 	})
-	dom.btnGroup.find("span").on("click",function(){
-		var num  = parseInt(infoArr.drawInfo.length)+1;
+	changeTitle.on("click",".close",function(e){
+		var index = changeTitle.find("close").index($(this));
+		$at.screenInfo.drawInfo.splice(index,1);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+	})
+	changeBtnGroup.find("span").on("click",function(){
+		var num  = parseInt($at.screenInfo.drawInfo.length)+1;
 		var addScreen = {
 			title: "屏幕"+num,
 			index:num,
@@ -701,91 +674,91 @@ function layoutChange(infoArr,softWare){
 				}
 			]
 		}
-		infoArr.drawInfo.push(addScreen);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		$at.screenInfo.drawInfo.push(addScreen);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.btnGroup.find("p").on("click",function(){
-		dom.layoutName.find("input").val("")
-		dom.layoutName.show();
+	changeBtnGroup.find("p").on("click",function(){
+		changelayName.find("input").val("")
+		changelayName.show();
 	})
-	dom.layoutName.find(".close").on("click",function(){
-		dom.layoutName.hide();
+	changelayName.find(".close").on("click",function(){
+		changelayName.hide();
 	})
-	dom.layoutName.find("p").on("click",function(){
-		var value = dom.layoutName.find("input").val();
+	changelayName.find("p").on("click",function(){
+		var value = changelayName.find("input").val();
 		if(value){
-			infoArr.drawInfo[screenLen].title = value;
-			ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
-			dom.layoutName.hide();
+			$at.screenInfo.drawInfo[screenLen].title = value;
+			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+			changelayName.hide();
 		}
 	});
-	dom.infoBox1.on("click","p",function(){
-		dom.infoBox1.find("p").removeClass("selected");
+	layoutInfo.find(".infoBox1").on("click","p",function(){
+		layoutInfo.find("p").removeClass("selected");
 		$(this).addClass("selected");
-		infoArr.drawInfo[screenLen].screens[smallIndex].across=dom.infoBox1.find("p").index($(this))==0;
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].across=layoutInfo.find("p").index($(this))==0;
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.drawContent.on("click","li",function(){
+	changeDraw.on("click","li",function(){
 		var num = parseInt($(this).find("span").html());
 		smallIndex=num;
-		var arr = infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo;
-		dom.infoBox2.find("input").eq(1).val(arr[2])
-		dom.infoBox2.find("input").eq(0).val(arr[3])
-		dom.infoBox2.find("input").eq(2).val(arr[0])
-		dom.infoBox2.find("input").eq(3).val(arr[1])
-		dom.drawContent.find("li").removeClass("selected");
+		var arr = $at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo;
+		changeBox2.find("input").eq(1).val(arr[2])
+		changeBox2.find("input").eq(0).val(arr[3])
+		changeBox2.find("input").eq(2).val(arr[0])
+		changeBox2.find("input").eq(3).val(arr[1])
+		changeDraw.find("li").removeClass("selected"); 
 		$(this).addClass("selected");
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.infoBox2.find("input").eq(0).on("change",function(){
+	changeBox2.find("input").eq(0).on("change",function(){
 		var x = $(this).val();
-		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(x);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(x);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.infoBox2.find("input").eq(1).on("change",function(){
+	changeBox2.find("input").eq(1).on("change",function(){
 		var y = $(this).val();
-		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(y);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(y);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.infoBox2.find("input").eq(2).on("change",function(){
+	changeBox2.find("input").eq(2).on("change",function(){
 		var wid = $(this).val();
-		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.infoBox2.find("input").eq(3).on("change",function(){
+	changeBox2.find("input").eq(3).on("change",function(){
 		var hei = $(this).val();
-		infoArr.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.chooseList.on("click",".close",function(){
-		var num = dom.chooseList.find("li .close").index($(this));
-		infoArr.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num),1);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+	changeChoose.on("click",".close",function(){
+		var num = changeChoose.find("li .close").index($(this));
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num),1);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.addBuju.on("click",function(){
+	changeAddbuju.on("click",function(){ 
 		var data = {
 					across:true,
 					screenInfo:[1920,1080,0,0],
 					medias:[],
 				}
-		infoArr.drawInfo[screenLen].screens.push(data);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		$at.screenInfo.drawInfo[screenLen].screens.push(data); 
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.drawContent.on("click",".close",function(){
-		infoArr.drawInfo[screenLen].screens.splice(smallIndex,1);
+	changeContent.on("click",".close",function(){
+		$at.screenInfo.drawInfo[screenLen].screens.splice(smallIndex,1);
 		smallIndex=0;
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	dom.contentList.on("click",".contentBtn",function(){
-		dom.contentList.find(".contentBtn").removeClass("selected");
+	changeContent.on("click",".contentBtn",function(){
+		changeContent.find(".contentBtn").removeClass("selected");
 		$(this).addClass("selected");
 	})
-	dom.contentList.on("click",".add",function(){
+	changeContent.on("click",".add",function(){
 		var type = $(this).parent().find(".icon").attr("name");
 		var name = $(this).parent().find("span").html();
 		var arr = [type,name]
-		infoArr.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
-		ReactDOM.render(<Part4 info={infoArr} softWare={softWare}/>,view4Dom.layout);
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	}) 
 }
 var view4Dom = {
@@ -795,8 +768,7 @@ var titleList = [["SHIPIN","视频"],["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH
 var Part4 = React.createClass({
 	render : function(){
 		var info = this.props.info;
-		var screenInfo = info.screenInfo; 
-		
+		var screenInfo = info.screenInfo;
 		return (<div> 
 			<LayoutTop1 title={screenInfo.title}/>
 			<LayoutScreen1 obj={{info}} softWare={this.props.softWare}/>
@@ -1076,9 +1048,9 @@ var view5Dom = {
 }
 var Part5 = React.createClass({
 	render : function(){
+		
 		var info = this.props.info;
 		var screenInfo = info.screenInfo; 
-		
 		return (<div> 
 			<LayoutTop title={screenInfo.title}/>
 			<LayoutShow obj={{info}}/>
@@ -1216,7 +1188,7 @@ var DrawBox = React.createClass({
 	}
 })
 function chooseType(type,name,index){
-	switch (type){
+	switch (type.toUpperCase()){ 
 		case "SHIPIN":
 			return(<VideoFun title={name} key={index}/>)
 		case "PPT":
@@ -1425,6 +1397,27 @@ var ZoolonFun = React.createClass({
 	}
 }) 
 
+function loginController(Dom){
+	Dom.submite.on("click",function(){
+		$Animate.complete($Animate.loginHide,$Animate.wrapShow); 
+		initLayInfo(Dom);
+	})
+}
+function initLayInfo(Dom){ 
+	$at.getJson("../dataDemo.json","",onComplete); 
+	function onComplete(json){
+		var data = layParseDate(json);
+		$at.allInfo = data;
+		$at.screenInfo=data[$at.menuIndex];
+		$at.getJson("../softWare.json","",onComplete2);
+		function onComplete2(json2){
+			$at.softWare = ParseSoft(json2.data);
+			layShowController(Dom);
+			layChangeController(Dom);
+			setScreen(Dom,data); 
+		}	
+	}
+}
 var loginDom = {
 	userName 	: $at.GetDomId("userName"),
 	passWord 	: $at.GetDomId("passWord"),
@@ -1576,6 +1569,31 @@ function initScreenInfo(){
 }
 
 
+function setScreen(Dom,data){
+	var obj=[];
+	for (var i=0;i<data.length;i++) {
+		obj.push(data[i].screenInfo.title);
+	}
+	var LevTitleArr = ["新建虚拟桌面","选择主机","分配屏幕"];
+	ReactDOM.render(<Menu imgSrc = "assets/img/logo.png" name = "HU"/> , setScreenDom.userInfo);
+	ReactDOM.render(<MenuList obj={obj}/>,setScreenDom.screenList);
+	ReactDOM.render(<LevTitle arr={LevTitleArr}/>,setScreenDom.levNum); 
+	ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);
+	$("#screenList").on("click","li",function(){
+		$("#screenList").find("li").removeClass("selected");
+		$(this).addClass("selected"); 
+		$at.menuIndex = $("#screenList").find("li").index($(this));
+		$at.screenInfo = $at.allInfo[$at.menuIndex];
+		selectedMenu(Dom);
+	})
+}
+function selectedMenu(Dom){
+	$("#layoutShow").html("");
+	$("#layout").html("");
+	layShowController(Dom);
+	layChangeController(Dom); 
+}
+
 var setScreenDom = {
 	title		: $at.GetDomId("toptitle"),
 	userInfo	: $at.GetDomId("userInfo"),
@@ -1593,6 +1611,7 @@ var Menu = React.createClass({
 })
 var MenuList = React.createClass({
 	render : function(){
+		var obj = this.props.obj;
 		return (<ul>
 				{ 
 					obj.map(function(result,index){
@@ -1610,6 +1629,7 @@ var MenuList = React.createClass({
 
 var LevTitle = React.createClass({
 	render : function(){
+		var LevTitleArr = this.props.arr;
 		return (<ul>
 			{
 				LevTitleArr.map(function(result,index){
@@ -1630,10 +1650,3 @@ var PageTitle = React.createClass({
 	}
 })
 
-var obj = ["测试数据1","测试数据2","测试数据3","测试数据4"];
-var LevTitleArr = ["新建虚拟桌面","选择主机","分配屏幕"];
-
-ReactDOM.render(<Menu imgSrc = "assets/img/logo.png" name = "HU"/> , setScreenDom.userInfo);
-ReactDOM.render(<MenuList />,setScreenDom.screenList);
-ReactDOM.render(<LevTitle />,setScreenDom.levNum); 
-ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);

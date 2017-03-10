@@ -1,1 +1,240 @@
-{"state":true,"screenInfo":[{"screenId":"1","columnCount":4,"heightOne":1080,"name":"测试1","rowCount":2,"widthOne":1920,"time":11},{"screenId":"2","columnCount":8,"heightOne":768,"name":"测试2","rowCount":4,"widthOne":1366,"time":12}],"layout":[{"layoutId":"1","controlUrl":"1","name":"测试1","screenId":"1","usePercent":"1","idx":1,"describeJson":null},{"layoutId":"2","controlUrl":"2","name":"测试2","screenId":"1","usePercent":"1","idx":2,"describeJson":null}],"describe":[{"screenId":"1","layoutId":"1","x":100,"y":100,"width":1920,"height":1080,"winId":"F29Y2aabqsO7Srn7tS1nQFsrvlcjJqlJ","scale":1,"items":[{"contentId":"c96ba3008d1e4226b826a1c49887aae7","controlType":"","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-总体","orderScript":"","path":"D:\\flash\\daxiuchang\\showImg.swf","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":true},{"contentId":"fd76ad7be13c44f9a81bda53021b66b3","controlType":"","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-仓库","orderScript":"","path":"D:\\flash\\daxiuchang\\4-cangku\\showImg.swf","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false},{"contentId":"a9adbcce9eec4db0b1731ff76704c028","controlType":"","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-库房","orderScript":"","path":"D:\\flash\\daxiuchang\\3-kufang\\showImg.swf","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false},{"contentId":"bdc851235c364ab8bc65ddda3c13596d","controlType":"","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-维修","orderScript":"","path":"D:\\flash\\daxiuchang\\2-weixiu\\showImg.swf","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false}]}]}
+[
+    {
+        "screenInfo": {
+            "title": "测试11",
+            "col": 4,
+            "row": 2,
+            "wid": 1920,
+            "hei": 1080,
+            "id": "s1"
+        },
+        "drawInfo": [
+            {
+                "title": "测试1",
+                "id": "l1",
+                "controlUrl": "1",
+                "usePercent": "1",
+                "screens": [
+                    {
+                        "id": "w1",
+                        "scale": 1,
+                        "across": false,
+                        "screenInfo": [
+                            1920,
+                            1080,
+                            100,
+                            100
+                        ],
+                        "medias": [
+                            [
+                                "PPT",
+                                "大修厂-总体"
+                            ],
+                            [
+                                "WEB",
+                                "大修厂-仓库"
+                            ],
+                            [
+                                "FLASH",
+                                "大修厂-库房"
+                            ],
+                            [
+                                "PDF",
+                                "大修厂-维修"
+                            ]
+                        ],
+                        "items": [
+                            {
+                                "contentId": "c96ba3008d1e4226b826a1c49887aae7",
+                                "controlType": "PPT",
+                                "controlUrl": "",
+                                "fileId": "",
+                                "fromResourceCenter": "-1",
+                                "ifStandardControl": "",
+                                "name": "大修厂-总体",
+                                "orderScript": "",
+                                "path": "D:\\FLASH\\daxiuchang\\showImg.swf",
+                                "spaceId": "66f060fda8eb4534b563819e18e1f34b",
+                                "time": 0,
+                                "typeCode": "t_content_00005",
+                                "volume": 50,
+                                "icon": "assets/images/icons-128/软件/Flash.png",
+                                "selected": true
+                            },
+                            {
+                                "contentId": "fd76ad7be13c44f9a81bda53021b66b3",
+                                "controlType": "WEB",
+                                "controlUrl": "",
+                                "fileId": "",
+                                "fromResourceCenter": "-1",
+                                "ifStandardControl": "",
+                                "name": "大修厂-仓库",
+                                "orderScript": "",
+                                "path": "D:\\FLASH\\daxiuchang\\4-cangku\\showImg.swf",
+                                "spaceId": "66f060fda8eb4534b563819e18e1f34b",
+                                "time": 0,
+                                "typeCode": "t_content_00005",
+                                "volume": 50,
+                                "icon": "assets/images/icons-128/软件/Flash.png",
+                                "selected": false
+                            },
+                            {
+                                "contentId": "a9adbcce9eec4db0b1731ff76704c028",
+                                "controlType": "FLASH",
+                                "controlUrl": "",
+                                "fileId": "",
+                                "fromResourceCenter": "-1",
+                                "ifStandardControl": "",
+                                "name": "大修厂-库房",
+                                "orderScript": "",
+                                "path": "D:\\FLASH\\daxiuchang\\3-kufang\\showImg.swf",
+                                "spaceId": "66f060fda8eb4534b563819e18e1f34b",
+                                "time": 0,
+                                "typeCode": "t_content_00005",
+                                "volume": 50,
+                                "icon": "assets/images/icons-128/软件/Flash.png",
+                                "selected": false
+                            },
+                            {
+                                "contentId": "bdc851235c364ab8bc65ddda3c13596d",
+                                "controlType": "PDF",
+                                "controlUrl": "",
+                                "fileId": "",
+                                "fromResourceCenter": "-1",
+                                "ifStandardControl": "",
+                                "name": "大修厂-维修",
+                                "orderScript": "",
+                                "path": "D:\\FLASH\\daxiuchang\\2-weixiu\\showImg.swf",
+                                "spaceId": "66f060fda8eb4534b563819e18e1f34b",
+                                "time": 0,
+                                "typeCode": "t_content_00005",
+                                "volume": 50,
+                                "icon": "assets/images/icons-128/软件/Flash.png",
+                                "selected": false
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "screenInfo": {
+            "title": "测试2",
+            "col": 4,
+            "row": 2,
+            "wid": 1366,
+            "hei": 768,
+            "id": "s2"
+        },
+        "drawInfo": [
+            {
+                "title": "测试2",
+                "id": "l2",
+                "controlUrl": "2",
+                "usePercent": "1",
+                "screens": [
+                    {
+                        "id": "w1",
+                        "scale": 1,
+                        "across": false,
+                        "screenInfo": [
+                            1366,
+                            768,
+                            0,
+                            0
+                        ],
+                        "medias": [
+                            [
+                                "PPT",
+                                "大修厂-总体"
+                            ],
+                            [
+                                "WEB",
+                                "大修厂-仓库"
+                            ],
+                            [
+                                "FLASH",
+                                "大修厂-库房"
+                            ],
+                            [
+                                "PDF",
+                                "大修厂-维修"
+                            ]
+                        ],
+                        "items": [
+                            {
+                                "contentId": "c96ba3008d1e4226b826a1c49887aae7",
+                                "controlType": "PPT",
+                                "controlUrl": "",
+                                "fileId": "",
+                                "fromResourceCenter": "-1",
+                                "ifStandardControl": "",
+                                "name": "大修厂-总体",
+                                "orderScript": "",
+                                "path": "D:\\FLASH\\daxiuchang\\showImg.swf",
+                                "spaceId": "66f060fda8eb4534b563819e18e1f34b",
+                                "time": 0,
+                                "typeCode": "t_content_00005",
+                                "volume": 50,
+                                "icon": "assets/images/icons-128/软件/Flash.png",
+                                "selected": true
+                            },
+                            {
+                                "contentId": "fd76ad7be13c44f9a81bda53021b66b3",
+                                "controlType": "WEB",
+                                "controlUrl": "",
+                                "fileId": "",
+                                "fromResourceCenter": "-1",
+                                "ifStandardControl": "",
+                                "name": "大修厂-仓库",
+                                "orderScript": "",
+                                "path": "D:\\FLASH\\daxiuchang\\4-cangku\\showImg.swf",
+                                "spaceId": "66f060fda8eb4534b563819e18e1f34b",
+                                "time": 0,
+                                "typeCode": "t_content_00005",
+                                "volume": 50,
+                                "icon": "assets/images/icons-128/软件/Flash.png",
+                                "selected": false
+                            },
+                            {
+                                "contentId": "a9adbcce9eec4db0b1731ff76704c028",
+                                "controlType": "FLASH",
+                                "controlUrl": "",
+                                "fileId": "",
+                                "fromResourceCenter": "-1",
+                                "ifStandardControl": "",
+                                "name": "大修厂-库房",
+                                "orderScript": "",
+                                "path": "D:\\FLASH\\daxiuchang\\3-kufang\\showImg.swf",
+                                "spaceId": "66f060fda8eb4534b563819e18e1f34b",
+                                "time": 0,
+                                "typeCode": "t_content_00005",
+                                "volume": 50,
+                                "icon": "assets/images/icons-128/软件/Flash.png",
+                                "selected": false
+                            },
+                            {
+                                "contentId": "bdc851235c364ab8bc65ddda3c13596d",
+                                "controlType": "PDF",
+                                "controlUrl": "",
+                                "fileId": "",
+                                "fromResourceCenter": "-1",
+                                "ifStandardControl": "",
+                                "name": "大修厂-维修",
+                                "orderScript": "",
+                                "path": "D:\\FLASH\\daxiuchang\\2-weixiu\\showImg.swf",
+                                "spaceId": "66f060fda8eb4534b563819e18e1f34b",
+                                "time": 0,
+                                "typeCode": "t_content_00005",
+                                "volume": 50,
+                                "icon": "assets/images/icons-128/软件/Flash.png",
+                                "selected": false
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
