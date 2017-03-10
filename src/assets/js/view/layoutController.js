@@ -100,7 +100,7 @@ function layoutChange(Dom){
 		$at.allInfo[$at.menuIndex]=$at.screenInfo;
 	})
 	changeTitle.on("click","li",function(){
-		screenLen = changeTitle.find("li").index($(this))
+		screenLen = changeTitle.find("li").index($(this));
 	})
 	changeTitle.on("click",".close",function(e){
 		var index = changeTitle.find("close").index($(this));

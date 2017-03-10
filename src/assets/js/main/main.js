@@ -654,7 +654,7 @@ function layoutChange(Dom){
 		$at.allInfo[$at.menuIndex]=$at.screenInfo;
 	})
 	changeTitle.on("click","li",function(){
-		screenLen = changeTitle.find("li").index($(this))
+		screenLen = changeTitle.find("li").index($(this));
 	})
 	changeTitle.on("click",".close",function(e){
 		var index = changeTitle.find("close").index($(this));
@@ -1414,7 +1414,8 @@ function initLayInfo(Dom){
 			$at.softWare = ParseSoft(json2.data);
 			layShowController(Dom);
 			layChangeController(Dom);
-			setScreen(Dom,data); 
+			setScreen(Dom,data);
+			$(".layoutContent .fun").eq(0).addClass("selected");
 		}	
 	}
 }
@@ -1581,7 +1582,9 @@ function setScreen(Dom,data){
 	ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);
 	$("#screenList").on("click","li",function(){
 		$("#screenList").find("li").removeClass("selected");
-		$(this).addClass("selected"); 
+		$(this).addClass("selected");
+		Dom.layShow.show();
+		Dom.layChange.hide(); 
 		$at.menuIndex = $("#screenList").find("li").index($(this));
 		$at.screenInfo = $at.allInfo[$at.menuIndex];
 		selectedMenu(Dom);
@@ -1592,6 +1595,7 @@ function selectedMenu(Dom){
 	$("#layout").html("");
 	layShowController(Dom);
 	layChangeController(Dom); 
+	$(".layoutContent .fun").eq(0).addClass("selected");
 }
 
 var setScreenDom = {

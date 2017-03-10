@@ -15,7 +15,8 @@ function initLayInfo(Dom){
 			$at.softWare = ParseSoft(json2.data);
 			layShowController(Dom);
 			layChangeController(Dom);
-			setScreen(Dom,data); 
+			setScreen(Dom,data);
+			$(".layoutContent .fun").eq(0).addClass("selected");
 		}	
 	}
 }

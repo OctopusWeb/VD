@@ -2139,6 +2139,7 @@ function initLayInfo(Dom) {
 			layShowController(Dom);
 			layChangeController(Dom);
 			setScreen(Dom, data);
+			$(".layoutContent .fun").eq(0).addClass("selected");
 		}
 	}
 }
@@ -2304,6 +2305,8 @@ function setScreen(Dom, data) {
 	$("#screenList").on("click", "li", function () {
 		$("#screenList").find("li").removeClass("selected");
 		$(this).addClass("selected");
+		Dom.layShow.show();
+		Dom.layChange.hide();
 		$at.menuIndex = $("#screenList").find("li").index($(this));
 		$at.screenInfo = $at.allInfo[$at.menuIndex];
 		selectedMenu(Dom);
@@ -2314,6 +2317,7 @@ function selectedMenu(Dom) {
 	$("#layout").html("");
 	layShowController(Dom);
 	layChangeController(Dom);
+	$(".layoutContent .fun").eq(0).addClass("selected");
 }
 
 var setScreenDom = {
