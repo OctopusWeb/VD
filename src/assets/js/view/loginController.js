@@ -14,7 +14,6 @@ function initLayInfo(Dom){
 		function onComplete2(json2){
 			$at.softWare = ParseSoft(json2.data);
 			initSoft(Dom); 
-			console.log(JSON.stringify($at.softWare)); 
 			layShowController(Dom); 
 			layChangeController(Dom);
 			setScreen(Dom,data); 

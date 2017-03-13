@@ -47,7 +47,6 @@ function partController(Dom){
 		$("#addPart2").css({"left":"100%"});
 		$("#addPart3").css({"left":"100%"});
 		PartChange(0);
-		console.log(JSON.stringify($at.screenInfo)); 
 		var name = $at.screenInfo.screenInfo.title; 
 		var row = $at.screenInfo.screenInfo.row; 
 		var col = $at.screenInfo.screenInfo.col; 

@@ -18,7 +18,6 @@ function initSoft(Dom){
 				$at.softWare[i].arr.push([name,info0,info1,info2]); 
 			}
 		}
-		console.log($at.softWare);
 		ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 		$("#entryHard input").eq(0).val("");
 	})
@@ -82,7 +81,6 @@ function initHard(Dom){
 		for (var i=0;i<$at.entryHard.length;i++) {
 			$at.entryHard[i].arr.push([name,info0,info1,info2]); 
 		} 
-		console.log($at.entryHard);
 		ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
 		$("#entrySoftware input").eq(0).val("");
 	})
