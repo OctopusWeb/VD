@@ -54,8 +54,11 @@ var ChooseList = React.createClass({
 							result.arr.map(function(results,indexs){
 								var imgSrc = "assets/img/"+result.img+".png"
 								return(<li key={indexs}>
-										<img src={imgSrc}/>
-										<h3>{results}</h3>
+										<img src={imgSrc}/> 
+										<h3>{results[0]}</h3>
+										<p className="hideInfo hideInfo1">{results[1]}</p>
+										<p className="hideInfo hideInfo2">{results[2]}</p>
+										<p className="hideInfo hideInfo3">{results[3]}</p>
 									</li>)
 							})
 						}
@@ -93,9 +96,4 @@ var InputList = React.createClass({
 			</ul>
 		</div>)
 	}
-})
-
-
-$(function(){
-	
 })

@@ -106,6 +106,7 @@
             padding-left: 10px;
             margin: 10px 0;
         }
+        
         .ulList{
             height: 550px;
             width: $NomalWidth;
@@ -163,6 +164,9 @@
                     h3{
                        color: nth($LightColor,2);
                     }
+                }
+                .hideInfo{
+                    display: none; 
                 }
             }
         }
