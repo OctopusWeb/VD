@@ -1,8 +1,8 @@
 function drawController(ControllerDom){
-	var drawArea = ControllerDom.drawArea;
-	var drawBox = ControllerDom.drawBox;
-	var screenLi = ControllerDom.screenLi;
-	var entrySlected = ControllerDom.entrySlected;
+	var drawArea = $("#drawArea");
+	var drawBox = $("#drawBox");
+	var screenLi = $("#addPart3 ul li"); 
+	var entrySlected = $("#entrySlected"); 
 	drawFun(drawArea,drawBox,screenLi,entrySlected,selectedScreen);
 }
 function drawFun(drawArea,drawBox,screenLi,entrySlected,onComplete)
@@ -65,6 +65,19 @@ function drawFun(drawArea,drawBox,screenLi,entrySlected,onComplete)
 	function showEntry(lefts,tops){
 		entrySlected.css({left:lefts,top:tops});
 	}
+	entrySlected.find("li").hover(function(){ 
+		$(this).addClass("selected");
+	},function(){ 
+		$(this).removeClass("selected");
+	})
+	entrySlected.on("click","li",function(){ 
+		var index = entrySlected.find("li").index($(this));
+		var selected = $("#screenPlan ul").find(".selected");
+		var value = $(this).find("p").html();
+		selected.css({"background":$at.staticColors[index]});
+		selected.find("p").html(value); 
+		entrySlected.hide();
+	}) 
 }
 
 function selectedScreen(screenList,obj){

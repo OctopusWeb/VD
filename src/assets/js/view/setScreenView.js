@@ -15,7 +15,10 @@ var Menu = React.createClass({
 })
 var MenuList = React.createClass({
 	render : function(){
-		var obj = this.props.obj;
+		var obj = [];
+		for (var i=0;i<$at.allInfo.length;i++) {
+			obj.push($at.allInfo[i].screenInfo.title);
+		} 
 		return (<ul>
 				{ 
 					obj.map(function(result,index){

@@ -6,17 +6,17 @@ var InputName = ["新建名称","屏幕行数","屏幕宽度","屏幕列数","�
 var Part1 = React.createClass({
 	render : function(){
 		return (<div>
-			<InputGroup rowChange={this.handlerRow}/>
+			<InputGroup rowChange={this.handlerRow} row={this.props.row} col={this.props.col} hei={this.props.hei} wid={this.props.wid}/>
 			<ScreenShow row={this.state.row} col={this.state.col} wid={this.state.wid} hei={this.state.hei}/>
 		</div>
 		)
 	},
 	getInitialState : function(){
 		return {
-			row : 2,
-			col : 4,
-			wid : 1920,
-			hei : 1080
+			row : this.props.row,
+			col : this.props.col,
+			wid : this.props.wid,
+			hei : this.props.hei
 		}
 	},
 	handlerRow : function(row1,col1,wid1,hei1){
@@ -27,10 +27,10 @@ var Part1 = React.createClass({
 var InputGroup = React.createClass({
 	getInitialState : function(){
 		return {
-			row : 2,
-			col : 4,
-			wid : 1920,
-			hei : 1080
+			row : this.props.row,
+			col : this.props.col,
+			wid : this.props.wid,
+			hei : this.props.hei
 		}
 	},
 	handlerChange : function(event){
@@ -95,4 +95,4 @@ var BtnPart1 = React.createClass({
 		)
 	}
 })
-ReactDOM.render(<Part1/>,view1Dom.inputGroup);
+

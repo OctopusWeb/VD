@@ -51,8 +51,18 @@ router.get('/login', function(req, res){
 	})
 });
 router.get('/entry/device',function(req,res){
-	var screenInfoGetSql = 'SELECT *  FROM `t_device`';
-	pool.query(screenInfoGetSql, function(err, result) {
+	var entryDeviceGetSql = 'SELECT *  FROM `t_device`';
+	pool.query(entryDeviceGetSql, function(err, result) {
+		if (err) {
+			console.log("b");
+			return;
+		}
+		res.send({state:true,data:result})
+	})
+})
+router.get('/entry/content',function(req,res){
+	var entryContentGetSql = 'SELECT *  FROM `t_content`';
+	pool.query(entryContentGetSql, function(err, result) {
 		if (err) {
 			console.log("b");
 			return;

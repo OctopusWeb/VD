@@ -13,16 +13,16 @@ var Part1 = React.createClass({
 		return React.createElement(
 			"div",
 			null,
-			React.createElement(InputGroup, { rowChange: this.handlerRow }),
+			React.createElement(InputGroup, { rowChange: this.handlerRow, row: this.props.row, col: this.props.col, hei: this.props.hei, wid: this.props.wid }),
 			React.createElement(ScreenShow, { row: this.state.row, col: this.state.col, wid: this.state.wid, hei: this.state.hei })
 		);
 	},
 	getInitialState: function getInitialState() {
 		return {
-			row: 2,
-			col: 4,
-			wid: 1920,
-			hei: 1080
+			row: this.props.row,
+			col: this.props.col,
+			wid: this.props.wid,
+			hei: this.props.hei
 		};
 	},
 	handlerRow: function handlerRow(row1, col1, wid1, hei1) {
@@ -35,10 +35,10 @@ var InputGroup = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			row: 2,
-			col: 4,
-			wid: 1920,
-			hei: 1080
+			row: this.props.row,
+			col: this.props.col,
+			wid: this.props.wid,
+			hei: this.props.hei
 		};
 	},
 	handlerChange: function handlerChange(event) {
@@ -118,7 +118,6 @@ var BtnPart1 = React.createClass({
 		);
 	}
 });
-ReactDOM.render(React.createElement(Part1, null), view1Dom.inputGroup);
 
 var view2Dom = {
 	addPart2: $at.GetDomId("addPart2")
@@ -143,19 +142,19 @@ var FacilityList = React.createClass({
 		return React.createElement(
 			"ul",
 			null,
-			facilityList.map(function (result, index) {
+			$at.entryHard[0].arr.map(function (result, index) {
 				return React.createElement(
 					"li",
 					{ key: index },
 					React.createElement(
 						"div",
 						null,
-						React.createElement("img", { src: "assets/img/facility.png", alt: "PC8189" })
+						React.createElement("img", { src: "assets/img/facility.png" })
 					),
 					React.createElement(
 						"p",
 						null,
-						result
+						result[0]
 					)
 				);
 			}),
@@ -184,12 +183,9 @@ var BtnPart2 = React.createClass({
 	}
 });
 
-ReactDOM.render(React.createElement(Part2, null), view2Dom.addPart2);
-
 var view3Dom = {
 	addPart3: $at.GetDomId("addPart3")
 };
-var facilityList = ["PC1111", "PC2222", "PC3333", "PC4444", "PC5555", "PC6666"];
 
 var Part3 = React.createClass({
 	displayName: "Part3",
@@ -199,8 +195,8 @@ var Part3 = React.createClass({
 			"div",
 			null,
 			React.createElement(ScreenPlan, { num: "8" }),
-			React.createElement(EntrySlected, null),
-			React.createElement(EntryList, null),
+			React.createElement(EntrySlected, { arr: this.props.arr }),
+			React.createElement(EntryList1, { arr: this.props.arr }),
 			React.createElement(BtnPart3, null)
 		);
 	}
@@ -253,13 +249,14 @@ var EntrySlected = React.createClass({
 	displayName: "EntrySlected",
 
 	render: function render() {
+		var facilityList = this.props.arr;
 		return React.createElement(
 			"div",
 			{ id: "entrySlected" },
 			React.createElement(
 				"ul",
 				null,
-				facilityList.map(function (result, index) {
+				facilityList[0].arr.map(function (result, index) {
 					var colorStyle = {
 						border: "1px solid " + $at.staticColors[index]
 					};
@@ -270,7 +267,7 @@ var EntrySlected = React.createClass({
 						React.createElement(
 							"p",
 							null,
-							result
+							result[0]
 						)
 					);
 				})
@@ -278,28 +275,33 @@ var EntrySlected = React.createClass({
 		);
 	}
 });
-var EntryList = React.createClass({
-	displayName: "EntryList",
+var EntryList1 = React.createClass({
+	displayName: "EntryList1",
 
 	render: function render() {
+		var facilityList = this.props.arr;
 		return React.createElement(
-			"ul",
+			"div",
 			{ id: "entryList" },
-			facilityList.map(function (result, index) {
-				var colorStyle = {
-					border: "2px solid " + $at.staticColors[index]
-				};
-				return React.createElement(
-					"li",
-					{ key: index },
-					React.createElement("img", { src: "assets/img/facility.png", alt: "PC8189", style: colorStyle }),
-					React.createElement(
-						"p",
-						null,
-						result
-					)
-				);
-			})
+			React.createElement(
+				"ul",
+				null,
+				facilityList[0].arr.map(function (result, index) {
+					var colorStyle = {
+						border: "2px solid " + $at.staticColors[index]
+					};
+					return React.createElement(
+						"li",
+						{ key: index },
+						React.createElement("img", { src: "assets/img/facility.png", style: colorStyle }),
+						React.createElement(
+							"p",
+							null,
+							result[0]
+						)
+					);
+				})
+			)
 		);
 	}
 });
@@ -323,112 +325,12 @@ var BtnPart3 = React.createClass({
 		);
 	}
 });
-ReactDOM.render(React.createElement(Part3, null), view3Dom.addPart3);
 
-function entryController(Dom) {
-	var entryArr = [["ppt1", "PPT"], ["pdf1", "PDF"], ["flash1", "FLASH"], ["web1", "WEB"], ["zoolonweb1", "ZoolonWEB"], ["video1", "Video"]];
-	var entryName = ["展项名称", "展项类型", "资源URL", "总控命令地址"];
-	var entryList = [{
-		"name": "PPT",
-		"img": "ppt1",
-		"arr": [["AAAA", "macaddrass", "备注", "111"], ["AAAA", "macaddrass", "备注", "111"]]
-	}, {
-		"name": "PDF",
-		"img": "pdf1",
-		"arr": [["AAAA", "macaddrass", "备注", "111"], ["AAAA", "macaddrass", "备注", "111"]]
-	}, {
-		"name": "FLASH",
-		"img": "flash1",
-		"arr": [["AAAA", "macaddrass", "备注", "111"], ["AAAA", "macaddrass", "备注", "111"]]
-	}, {
-		"name": "WEB",
-		"img": "web1",
-		"arr": [["AAAA", "macaddrass", "备注", "111"], ["AAAA", "macaddrass", "备注", "111"]]
-	}, {
-		"name": "ZoolonWEB",
-		"img": "zoolonweb1",
-		"arr": [["AAAA", "macaddrass", "备注", "111"], ["AAAA", "macaddrass", "备注", "111"]]
-	}, {
-		"name": "Video",
-		"img": "video1",
-		"arr": []
-	}];
+function initSoft(Dom) {
+	var softArr = [["ppt1", "PPT"], ["pdf1", "PDF"], ["flash1", "FLASH"], ["web1", "WEB"], ["zoolonweb1", "ZoolonWEB"], ["video1", "Video"]];
+	var softName = ["展项名称", "展项类型", "资源URL", "总控命令地址"];
+	ReactDOM.render(React.createElement(EntryHard, { arr: softArr, list: $at.softWare, name: softName }), document.getElementById("entryHard"));
 
-	var softArr = [["shebei1", "PC"]];
-	var softName = ["设备名称", "mac地址", "daemonld", "备注"];
-	var softList = [];
-	$at.getJson("../entryDevice.json", "", onCompleteSoft);
-	function onCompleteSoft(json) {
-		for (var i = 0; i < softArr.length; i++) {
-			var obj = {};
-			obj.name = softArr[i][1];
-			obj.img = softArr[i][0];
-			obj.arr = [];
-			for (var j = 0; j < json.data.length; j++) {
-				var info = json.data[j];
-				var infoArr = [info.name, info.macAddress, info.remark, info.deviceId];
-				obj.arr.push(infoArr);
-			}
-		}
-		softList.push(obj);
-		ReactDOM.render(React.createElement(EntrySoft, { arr: softArr, list: softList, name: softName }), document.getElementById("entrySoftware"));
-		$("#entrySoftware .chooseList").on("click", "li", function () {
-			$(".entryList").find("li").removeClass("selected");
-			$(".chooseList").find("li").removeClass("selected");
-			$(this).addClass("selected");
-			var type = $(this).parent().attr("class");
-			var name = $(this).find("h3").html();
-			var info0 = $(this).find("p").eq(0).html();
-			var info1 = $(this).find("p").eq(1).html();
-			var info2 = $(this).find("p").eq(2).html();
-			$("#entrySoftware input").eq(0).val(name);
-			$("#entrySoftware input").eq(1).val(info0);
-			$("#entrySoftware input").eq(2).val(info1);
-			$("#entrySoftware input").eq(3).val(info2);
-		});
-		$("#entrySoftware .entryList").on("click", "li", function () {
-			$(".entryList").find("li").removeClass("selected");
-			$(".chooseList").find("li").removeClass("selected");
-			$(this).addClass("selected");
-			$("#entryHard input").eq(0).val("");
-			$("#entrySoftware input").eq(0).val("");
-		});
-		$("#softAdd").on("click", function () {
-			var name = $("#entrySoftware input").eq(0).val();
-			name = name == "" ? "未定义" : name;
-			var info0 = $("#entrySoftware input").eq(1).val();
-			info0 = info0 == "" ? "未定义" : info0;
-			var info1 = $("#entrySoftware input").eq(2).val();
-			info1 = info1 == "" ? "未定义" : info1;
-			var info2 = $("#entrySoftware input").eq(3).val();
-			info2 = info2 == "" ? "未定义" : info2;
-			var type = $(".entryList .selected").find("h3").html();
-			for (var i = 0; i < softList.length; i++) {
-				if (type == softList[i].name) {
-					softList[i].arr.push([name, info0, info1, info2]);
-				}
-			}
-			ReactDOM.render(React.createElement(EntrySoft, { arr: softArr, list: softList, name: softName }), document.getElementById("entrySoftware"));
-			$("#entrySoftware input").eq(0).val("");
-		});
-	}
-
-	ReactDOM.render(React.createElement(EntryHard, { arr: entryArr, list: entryList, name: entryName }), document.getElementById("entryHard"));
-
-	Dom.entrySlected.find("li").hover(function () {
-		$(this).addClass("selected");
-	}, function () {
-		$(this).removeClass("selected");
-	});
-
-	Dom.entrySlected.on("click", "li", function () {
-		var index = Dom.entrySlected.find("li").index($(this));
-		var selected = Dom.screenPlan.find(".selected");
-		var value = $(this).find("p").html();
-		selected.css({ "background": $at.staticColors[index] });
-		selected.find("p").html(value);
-		Dom.entrySlected.hide();
-	});
 	$("#entryAdd").on("click", function () {
 		var name = $("#entryHard input").eq(0).val();
 		name = name == "" ? "未定义" : name;
@@ -439,13 +341,21 @@ function entryController(Dom) {
 		var info2 = $("#entryHard input").eq(3).val();
 		info2 = info2 == "" ? "未定义" : info2;
 		var type = $(".entryList .selected").find("h3").html();
-		for (var i = 0; i < entryList.length; i++) {
-			if (type == entryList[i].name) {
-				entryList[i].arr.push([name, info0, info1, info2]);
+		for (var i = 0; i < $at.softWare.length; i++) {
+			if (type == $at.softWare[i].name) {
+				$at.softWare[i].arr.push([name, info0, info1, info2]);
 			}
 		}
-		ReactDOM.render(React.createElement(EntryHard, { arr: entryArr, list: entryList, name: entryName }), document.getElementById("entryHard"));
+		console.log($at.softWare);
+		ReactDOM.render(React.createElement(EntryHard, { arr: softArr, list: $at.softWare, name: softName }), document.getElementById("entryHard"));
 		$("#entryHard input").eq(0).val("");
+	});
+	$("#entryHard .entryList").on("click", "li", function () {
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected");
+		$("#entryHard input").eq(0).val("");
+		$("#entrySoftware input").eq(0).val("");
 	});
 	$("#entryHard .chooseList").on("click", "li", function () {
 		$(".entryList").find("li").removeClass("selected");
@@ -462,21 +372,84 @@ function entryController(Dom) {
 		$("#entryHard input").eq(3).val(info2);
 	});
 }
-
+function initHard(Dom) {
+	var hardArr = [["shebei1", "PC"]];
+	var hardName = ["设备名称", "mac地址", "daemonld", "备注"];
+	ReactDOM.render(React.createElement(EntrySoft, { arr: hardArr, list: $at.entryHard, name: hardName }), document.getElementById("entrySoftware"));
+	$("#entrySoftware .chooseList").on("click", "li", function () {
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected");
+		var type = $(this).parent().attr("class");
+		var name = $(this).find("h3").html();
+		var info0 = $(this).find("p").eq(0).html();
+		var info1 = $(this).find("p").eq(1).html();
+		var info2 = $(this).find("p").eq(2).html();
+		$("#entrySoftware input").eq(0).val(name);
+		$("#entrySoftware input").eq(1).val(info0);
+		$("#entrySoftware input").eq(2).val(info1);
+		$("#entrySoftware input").eq(3).val(info2);
+	});
+	$("#entrySoftware .entryList").on("click", "li", function () {
+		$(".entryList").find("li").removeClass("selected");
+		$(".chooseList").find("li").removeClass("selected");
+		$(this).addClass("selected");
+		$("#entryHard input").eq(0).val("");
+		$("#entrySoftware input").eq(0).val("");
+	});
+	$("#softAdd").on("click", function () {
+		var name = $("#entrySoftware input").eq(0).val();
+		name = name == "" ? "未定义" : name;
+		var info0 = $("#entrySoftware input").eq(1).val();
+		info0 = info0 == "" ? "未定义" : info0;
+		var info1 = $("#entrySoftware input").eq(2).val();
+		info1 = info1 == "" ? "未定义" : info1;
+		var info2 = $("#entrySoftware input").eq(3).val();
+		info2 = info2 == "" ? "未定义" : info2;
+		var type = $(".entryList .selected").find("h3").html();
+		for (var i = 0; i < $at.entryHard.length; i++) {
+			$at.entryHard[i].arr.push([name, info0, info1, info2]);
+		}
+		console.log($at.entryHard);
+		ReactDOM.render(React.createElement(EntrySoft, { arr: hardArr, list: $at.entryHard, name: hardName }), document.getElementById("entrySoftware"));
+		$("#entrySoftware input").eq(0).val("");
+	});
+}
 function ParseSoft(json) {
-	console.log(json);
-	var data = [];
-	var type = ["video", "ppt", "pdf", "flash", "web", "zoolonweb"];
-	for (var i = 0; i < type.length; i++) {
-		var timeData = [];
+	var softArr = [["ppt1", "PPT"], ["pdf1", "PDF"], ["flash1", "FLASH"], ["web1", "WEB"], ["zoolonweb1", "ZoolonWEB"], ["video1", "Video"]];
+	var softList = [];
+	for (var i = 0; i < softArr.length; i++) {
+		var obj = {};
+		obj.name = softArr[i][1];
+		obj.img = softArr[i][0];
+		obj.arr = [];
 		for (var j = 0; j < json.length; j++) {
-			if (type[i] == json[j].typeCode) {
-				timeData.push(json[j].name);
+			if (json[j].typeCode.toUpperCase() == softArr[i][1]) {
+				var info = json[j];
+				var infoArr = [info.name, info.typeCode, info.path, info.contentId];
+				obj.arr.push(infoArr);
 			}
 		}
-		data.push(timeData);
+		softList.push(obj);
 	}
-	return data;
+	return softList;
+}
+function ParseHard(json) {
+	var hardArr = [["shebei1", "PC"]];
+	var hardList = [];
+	for (var i = 0; i < hardArr.length; i++) {
+		var obj = {};
+		obj.name = hardArr[i][1];
+		obj.img = hardArr[i][0];
+		obj.arr = [];
+		for (var j = 0; j < json.length; j++) {
+			var info = json[j];
+			var infoArr = [info.name, info.macAddress, info.remark, info.deviceId];
+			obj.arr.push(infoArr);
+		}
+	}
+	hardList.push(obj);
+	return hardList;
 }
 
 var EntryHard = React.createClass({
@@ -688,16 +661,16 @@ $(function () {
 		layContent: $(".layoutContent"),
 		layChange: $("#layout"),
 
-		PartLev: $("#levNum li"),
 		Part1btn: $("#btnPart1"),
 		Part2btn: $("#btnPart2"),
 		Part3btn: $("#btnPart3"),
-		PartTitle: $("#pageTitle h1"),
+		addBtnGroup: $("#addBtnGroup"),
 
 		entryHard: $("#entryHard"),
 		entrySoft: $("#entrySoftware"),
 
 		drawArea: $("#drawArea"),
+		drawBox: $("#drawBox"),
 
 		screenLi: $("#addPart3 ul li"),
 		entrySlected: $("#entrySlected"),
@@ -708,7 +681,6 @@ $(function () {
 
 		btnGroup: $("#btnGroup"),
 		ulList: $(".ulList")
-
 	};
 	document.body.onselectstart = document.body.oncontextmenu = function () {
 		return false;
@@ -719,53 +691,7 @@ $(function () {
 	});
 	partController(Dom);
 	loginController(Dom);
-	entryController(Dom);
-	drawController(Dom);
 });
-
-function partController(Dom) {
-	changePage(Dom);
-	Dom.addPart2.find("ul").on("click", function (e) {
-		var event = e || window.event;
-		var dom = event.target || event.srcElement;
-		dom = dom.parentNode.parentNode;
-		if (dom.tagName.toLowerCase() == "li") {
-			if (dom.getAttribute("class") == "selected") {
-				dom.setAttribute("class", "");
-			} else {
-				dom.setAttribute("class", "selected");
-			}
-		}
-	});
-	function changePage(Dom) {
-		Dom.Part1btn.find(".next").on("click", function () {
-			$Animate.complete($Animate.Part1Hide, $Animate.Part2Show);
-			PartChange(1);
-		});
-		Dom.Part2btn.find(".pre").on("click", function () {
-			$Animate.complete($Animate.Part2Hide1, $Animate.Part1Show);
-			PartChange(0);
-		});
-		Dom.Part2btn.find(".next").on("click", function () {
-			$Animate.complete($Animate.Part2Hide2, $Animate.Part3Show);
-			PartChange(2);
-		});
-		Dom.Part3btn.find(".pre").on("click", function () {
-			$Animate.complete($Animate.Part3Hide, $Animate.Part2Show);
-			PartChange(1);
-		});
-		Dom.Part3btn.find(".next").on("click", function () {
-			$Animate.LayoutShow();
-		});
-		function PartChange(index) {
-			var title = ["新建虚拟桌面", "选择主机", "分配屏幕"];
-			Dom.PartLev.removeClass("selected");
-			Dom.PartLev.eq(index).addClass("selected");
-			Dom.pageTitle.html(title[index]);
-		}
-	}
-}
-
 function layShowController(Dom) {
 	ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 	var funTitle = $(".funTitle");
@@ -975,7 +901,7 @@ function layoutChange(Dom) {
 var view4Dom = {
 	layout: $at.GetDomId("layout")
 };
-var titleList = [["SHIPIN", "视频"], ["PPT", "PPT"], ["PDF", "PDF"], ["FLASH", "FLASH"], ["WEB", "WEB"], ["ZOOLONWEB", "ZOOLONWEB"]];
+var titleList = [["PPT", "PPT"], ["PDF", "PDF"], ["FLASH", "FLASH"], ["WEB", "WEB"], ["ZOOLONWEB", "ZOOLONWEB"], ["SHIPIN", "视频"]];
 var Part4 = React.createClass({
 	displayName: "Part4",
 
@@ -1304,7 +1230,7 @@ var InfoBox4 = React.createClass({
 						return React.createElement(
 							"li",
 							{ key: index, className: cla },
-							result.map(function (result2, index2) {
+							result.arr.map(function (result2, index2) {
 								return React.createElement(
 									"div",
 									{ className: "contentBtn", key: index2 },
@@ -1312,7 +1238,7 @@ var InfoBox4 = React.createClass({
 									React.createElement(
 										"span",
 										null,
-										result2
+										result2[0]
 									),
 									React.createElement("img", { src: "assets/img/add.png", className: "add" })
 								);
@@ -2172,13 +2098,20 @@ function initLayInfo(Dom) {
 		var data = layParseDate(json);
 		$at.allInfo = data;
 		$at.screenInfo = data[$at.menuIndex];
-		$at.getJson("../softWare.json", "", onComplete2);
+		$at.getJson("../entryContent.json", "", onComplete2);
 		function onComplete2(json2) {
 			$at.softWare = ParseSoft(json2.data);
+			initSoft(Dom);
+			console.log(JSON.stringify($at.softWare));
 			layShowController(Dom);
 			layChangeController(Dom);
 			setScreen(Dom, data);
 			$(".layoutContent .fun").eq(0).addClass("selected");
+		}
+		$at.getJson("../entryDevice.json", "", onComplete3);
+		function onComplete3(json3) {
+			$at.entryHard = ParseHard(json3.data);
+			initHard(Dom);
 		}
 	}
 }
@@ -2331,14 +2264,113 @@ function initScreenInfo() {
 	}
 }
 
-function setScreen(Dom, data) {
-	var obj = [];
-	for (var i = 0; i < data.length; i++) {
-		obj.push(data[i].screenInfo.title);
+function partController(Dom) {
+	Dom.addBtnGroup.find(".btn").eq(1).on("click", function () {
+		initPart1(Dom);
+		$("#btnPart1").on("click", ".next", function () {
+			$Animate.complete($Animate.Part1Hide, $Animate.Part2Show);
+			PartChange(1);
+			initPart2(Dom);
+		});
+	});
+	Dom.addBtnGroup.find(".btn").eq(0).on("click", function () {
+		$at.screenInfo = {
+			"screenInfo": { "title": "未命名", "col": 4, "row": 2, "wid": 1920, "hei": 1080, "id": "s1" },
+			"drawInfo": [{
+				"title": "测试1",
+				"id": "l1",
+				"controlUrl": "1",
+				"usePercent": "1",
+				"screens": [{
+					"id": "w1",
+					"scale": 1,
+					"across": false,
+					"screenInfo": [0, 0, 0, 0],
+					"medias": [],
+					"items": []
+				}]
+			}]
+		};
+		$at.allInfo.push($at.screenInfo);
+		ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
+		initPart1(Dom);
+		$("#screenList ul li").removeClass("selected");
+		$("#screenList ul li").last().addClass("selected");
+		$("#btnPart1").on("click", ".next", function () {
+			$Animate.complete($Animate.Part1Hide, $Animate.Part2Show);
+			PartChange(1);
+			initPart2(Dom);
+		});
+	});
+	function initPart1(Dom) {
+		Dom.layShow.hide();
+		Dom.layChange.hide();
+		$("#addPart1").css({ "left": "0" });
+		$("#addPart2").css({ "left": "100%" });
+		$("#addPart3").css({ "left": "100%" });
+		PartChange(0);
+		console.log(JSON.stringify($at.screenInfo));
+		var name = $at.screenInfo.screenInfo.title;
+		var row = $at.screenInfo.screenInfo.row;
+		var col = $at.screenInfo.screenInfo.col;
+		var wid = $at.screenInfo.screenInfo.wid;
+		var hei = $at.screenInfo.screenInfo.hei;
+		$("#addPart1").html("");
+		ReactDOM.render(React.createElement(Part1, { row: row, col: col, hei: hei, wid: wid }), view1Dom.inputGroup);
+		$("#inputGroup .input").eq(0).find("input").val(name);
+		$("#inputGroup .input").eq(1).find("input").val(row);
+		$("#inputGroup .input").eq(2).find("input").val(wid);
+		$("#inputGroup .input").eq(3).find("input").val(col);
+		$("#inputGroup .input").eq(4).find("input").val(hei);
 	}
+	function initPart2(Dom) {
+		$("#addPart2").html("");
+		ReactDOM.render(React.createElement(Part2, null), view2Dom.addPart2);
+		$("#btnPart2").find(".pre").on("click", function () {
+			$Animate.complete($Animate.Part2Hide1, $Animate.Part1Show);
+			PartChange(0);
+		});
+		$("#btnPart2").find(".next").on("click", function () {
+			$Animate.complete($Animate.Part2Hide2, $Animate.Part3Show);
+			PartChange(2);
+			initPart3(Dom);
+		});
+		$("#addPart2").find("ul").on("click", function (e) {
+			var event = e || window.event;
+			var dom = event.target || event.srcElement;
+			dom = dom.parentNode.parentNode;
+			if (dom.tagName.toLowerCase() == "li") {
+				if (dom.getAttribute("class") == "selected") {
+					dom.setAttribute("class", "");
+				} else {
+					dom.setAttribute("class", "selected");
+				}
+			}
+		});
+	}
+	function initPart3(Dom) {
+		$("#addPart3").html("");
+		ReactDOM.render(React.createElement(Part3, { arr: $at.entryHard }), view3Dom.addPart3);
+		drawController(Dom);
+		$("#addPart3").find(".pre").on("click", function () {
+			$Animate.complete($Animate.Part3Hide, $Animate.Part2Show);
+			PartChange(1);
+		});
+		$("#addPart3").find(".next").on("click", function () {
+			$Animate.LayoutShow();
+		});
+	}
+	function PartChange(index) {
+		var title = ["新建虚拟桌面", "选择主机", "分配屏幕"];
+		$("#levNum li").removeClass("selected");
+		$("#levNum li").eq(index).addClass("selected");
+		$("#pageTitle h1").html(title[index]);
+	}
+}
+function setScreen(Dom, data) {
 	var LevTitleArr = ["新建虚拟桌面", "选择主机", "分配屏幕"];
 	ReactDOM.render(React.createElement(Menu, { imgSrc: "assets/img/logo.png", name: "HU" }), setScreenDom.userInfo);
-	ReactDOM.render(React.createElement(MenuList, { obj: obj }), setScreenDom.screenList);
+	ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
 	ReactDOM.render(React.createElement(LevTitle, { arr: LevTitleArr }), setScreenDom.levNum);
 	ReactDOM.render(React.createElement(PageTitle, { title: "\u65B0\u5EFA\u5C4F\u5E55" }), setScreenDom.pageTitle);
 	$("#screenList").on("click", "li", function () {
@@ -2386,7 +2418,10 @@ var MenuList = React.createClass({
 	displayName: "MenuList",
 
 	render: function render() {
-		var obj = this.props.obj;
+		var obj = [];
+		for (var i = 0; i < $at.allInfo.length; i++) {
+			obj.push($at.allInfo[i].screenInfo.title);
+		}
 		return React.createElement(
 			"ul",
 			null,

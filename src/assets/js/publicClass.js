@@ -18,7 +18,8 @@ $at.staticColors = [
 ];
 $at.allInfo={};
 $at.screenInfo={};
-$at.softWare={} ;
+$at.softWare={};
+$at.entryHard={};
 $at.menuIndex=0;
 $at.staicUrl = "http://localhost:3000/";
 

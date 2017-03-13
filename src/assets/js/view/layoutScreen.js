@@ -1,7 +1,7 @@
 var view4Dom = {
 	layout	: $at.GetDomId("layout")
 }
-var titleList = [["SHIPIN","视频"],["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH"],["WEB","WEB"],["ZOOLONWEB","ZOOLONWEB"]]
+var titleList = [["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH"],["WEB","WEB"],["ZOOLONWEB","ZOOLONWEB"],["SHIPIN","视频"]]
 var Part4 = React.createClass({
 	render : function(){
 		var info = this.props.info;
@@ -106,7 +106,6 @@ var InfoBox1 = React.createClass({
 				<div className="chooseBtn"><p>可跨主机</p><p className="selected">不可跨主机</p></div>
 			</div>) 
 		}
-		
 	}
 })
 var InfoBox2 = React.createClass({
@@ -174,11 +173,11 @@ var InfoBox4 = React.createClass({
 							var imgSrc = "assets/img/"+titleList[index][0]+".png"
 							return(<li key={index} className={cla}>
 								{
-									result.map(function(result2,index2){
+									result.arr.map(function(result2,index2){
 										return(
 											<div className="contentBtn" key={index2}>
-												<img src={imgSrc} className="icon" name={titleList[index][0]}/>
-												<span>{result2}</span>
+												<img src={imgSrc} className="icon" name={titleList[index][0]}/> 
+												<span>{result2[0]}</span>
 												<img src="assets/img/add.png" className="add"/>
 											</div>
 										)

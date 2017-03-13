@@ -14,12 +14,12 @@ var FacilityList = React.createClass({
 	render : function(){
 		return (<ul>
 			{
-				facilityList.map(function(result,index){
+				$at.entryHard[0].arr.map(function(result,index){ 
 					return (<li key={index}>
 								<div>
-									<img src="assets/img/facility.png" alt="PC8189"/>
+									<img src="assets/img/facility.png"/>
 								</div>
-								<p>{result}</p>
+								<p>{result[0]}</p> 
 							</li>
 						)
 				})
@@ -36,6 +36,4 @@ var BtnPart2 = React.createClass({
 		</div>)
 	}
 })
-
-ReactDOM.render(<Part2 />,view2Dom.addPart2);
-						
+ 						
