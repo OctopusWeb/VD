@@ -52,8 +52,13 @@ function layParseDate(json){
 					if(layout.layoutId == describe.layoutId){
 						var obj3={};
 						var media=[];
-						for (var n=0;n<json.describe[m].items.length;n++) {
-							var mediasArr=[json.describe[m].items[n].controlType,json.describe[m].items[n].name];
+						var item = json.describe[m].items;
+						if(typeof(item)=="string"){
+							item=eval(item);
+						}
+						console.log(typeof(item))
+						for (var n=0;n<item.length;n++) {
+							var mediasArr=[item[n].controlType,item[n].name];
 							media.push(mediasArr);
 						}
 						obj3={

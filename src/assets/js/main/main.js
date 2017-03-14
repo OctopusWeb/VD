@@ -228,30 +228,82 @@ function initSoft(Dom){
 	ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 	
 	$("#entryAdd").on("click",function(){
+		var len=$(".entryList ul .selected").length;
+		if(len == 0){return}; 
 		var name = $("#entryHard input").eq(0).val();
-		name = name==""?"未定义":name;
 		var info0 = $("#entryHard input").eq(1).val();
-		info0 = info0==""?"未定义":info0;
 		var info1 = $("#entryHard input").eq(2).val();
-		info1 = info1==""?"未定义":info1;
 		var info2 = $("#entryHard input").eq(3).val();
-		info2 = info2==""?"未定义":info2;
-		var type = $(".entryList .selected").find("h3").html();
-		for (var i=0;i<$at.softWare.length;i++) {
-			if(type == $at.softWare[i].name){
-				$at.softWare[i].arr.push([name,info0,info1,info2]); 
+		if(name==""||info0==""||info1==""||info2==""){
+			alert("请在下方填写相关信息");
+		}else{
+			var type = $(".entryList .selected").find("h3").html();
+			var num;
+			for (var i=0;i<$at.softWare.length;i++) {
+				if(type == $at.softWare[i].name){
+					num=i;
+					var data={
+						name : name,
+						path : info1,
+						typeCode : info0
+					}
+				}
+			}
+			$.post($at.url+"/interfaces/entryPost/content", data,onComplete); 
+			function onComplete(json){
+				$at.softWare[num].arr.push([name,info0,info1,json.data.contentId,""]);
+				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
+			}
+			
+			$("#entryHard input").eq(0).val("");
+		}
+		
+	})
+	$("#entryChange").on("click",function(){
+		var name = $("#entryHard input").eq(0).val();
+		var info0 = $("#entryHard input").eq(1).val();
+		var info1 = $("#entryHard input").eq(2).val();
+		var info2 = $("#entryHard input").eq(3).val();
+		var contentId = $(".chooseList .selected p").eq(2).html();
+		if(name==""||info0==""||info1==""||info2==""){
+			alert("请在下方填写相关信息");
+			return
+		}else{
+			var data={
+				contentId : contentId,
+				name : name,
+				path : info1,
+				typeCode : info0
+			}
+			$.post($at.url+"/interfaces/entryChange/content", data,onComplete);  
+			function onComplete(json){
+				if(!json.state){
+					return
+				}else{
+					$(".changeBtn").hide()
+				} 
+				for (var i=0;i<$at.softWare.length;i++) {
+					var arr = $at.softWare[i].arr;
+					for (var j=0;j<arr.length;j++) {
+						if($at.softWare[i].arr[j][3]==contentId){
+							$at.softWare[i].arr[j]=[name,info0,info1,contentId,""];
+						}
+					}
+				}
+				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 			}
 		}
-		console.log($at.softWare);
-		ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
-		$("#entryHard input").eq(0).val("");
 	})
 	$("#entryHard .entryList").on("click","li",function(){
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected"); 
+		var type = $(this).find("h3").html()
 		$("#entryHard input").eq(0).val("");
-		$("#entrySoftware input").eq(0).val("");
+		$("#entryHard input").eq(1).val(type);
+		$("#entryHard input").eq(2).val("");
+		$("#entryHard input").eq(3).val("");
+		$(".changeBtn").hide();
 	})
 	$("#entryHard .chooseList").on("click","li",function(){
 		$(".entryList").find("li").removeClass("selected");
@@ -266,6 +318,7 @@ function initSoft(Dom){
 		$("#entryHard input").eq(1).val(info0);
 		$("#entryHard input").eq(2).val(info1);
 		$("#entryHard input").eq(3).val(info2);
+		$(".changeBtn").show(); 
 	}) 
 }
 function initHard(Dom){
@@ -285,34 +338,86 @@ function initHard(Dom){
 		$("#entrySoftware input").eq(1).val(info0);
 		$("#entrySoftware input").eq(2).val(info1);
 		$("#entrySoftware input").eq(3).val(info2);
+		$(".changeBtn").show();
 	});
 	$("#entrySoftware .entryList").on("click","li",function(){
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
-		$(this).addClass("selected"); 
-		$("#entryHard input").eq(0).val("");
+		$(this).addClass("selected");
 		$("#entrySoftware input").eq(0).val("");
+		$("#entrySoftware input").eq(1).val("");
+		$("#entrySoftware input").eq(2).val("");
+		$("#entrySoftware input").eq(3).val("");
+		$(".changeBtn").hide()
 	})
 	$("#softAdd").on("click",function(){
+		var len=$(".entryList ul .selected").length;
+		if(len == 0){return};
 		var name = $("#entrySoftware input").eq(0).val();
-		name = name==""?"未定义":name;
 		var info0 = $("#entrySoftware input").eq(1).val();
-		info0 = info0==""?"未定义":info0;
 		var info1 = $("#entrySoftware input").eq(2).val();
-		info1 = info1==""?"未定义":info1;
 		var info2 = $("#entrySoftware input").eq(3).val();
-		info2 = info2==""?"未定义":info2;
-		var type = $(".entryList .selected").find("h3").html();
-		for (var i=0;i<$at.entryHard.length;i++) {
-			$at.entryHard[i].arr.push([name,info0,info1,info2]); 
-		} 
-		console.log($at.entryHard);
-		ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
-		$("#entrySoftware input").eq(0).val("");
+		if(name==""||info0==""||info1==""||info2==""){
+			alert("请在下方填写相关信息");
+		}else{
+			var num;
+			for (var i=0;i<$at.entryHard.length;i++) {
+				num=i;
+				var data={
+					name : name,
+					macAddress : info0,
+					daemonId : info1,
+					remark : info2
+				}
+				
+			} 
+			$.post($at.url+"/interfaces/entryPost/device", data,onComplete); 
+			function onComplete(json){
+				$at.entryHard[num].arr.push([name,info0,info1,info2,json.data.deviceId]);
+				ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
+			}
+			$("#entrySoftware input").eq(0).val("");
+		}
+	})
+	$("#softChange").on("click",function(){
+		var name = $("#entrySoftware input").eq(0).val();
+		var info0 = $("#entrySoftware input").eq(1).val();
+		var info1 = $("#entrySoftware input").eq(2).val();
+		var info2 = $("#entrySoftware input").eq(3).val();
+		var deviceId = $(".chooseList .selected p").eq(3).html();
+		if(name==""||info0==""||info1==""||info2==""){
+			alert("请在下方填写相关信息");
+			return
+		}else{
+			var data={
+				deviceId : deviceId,
+				name : name,
+				macAddress : info0,
+				daemonId :info1,
+				remark : info2
+			}
+			$.post($at.url+"/interfaces/entryChange/device", data,onComplete);  
+			function onComplete(json){
+				if(!json.state){
+					return
+				}else{
+					$(".changeBtn").hide()
+				}
+				for (var i=0;i<$at.entryHard.length;i++) {
+					var arr = $at.entryHard[i].arr;
+					for (var j=0;j<arr.length;j++) {
+						if($at.entryHard[i].arr[j][4]==deviceId){
+							$at.entryHard[i].arr[j]=[name,info0,info1,info2,deviceId];
+						}
+					}
+				}
+				ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
+			}
+		}
 	})
 }
 function ParseSoft(json){
-	var softArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZoolonWEB"],["video1","Video"]]
+	var softArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZOOLONWEB"],["video1","VIDEO"]]
 	var softList=[];
 	for (var i=0;i<softArr.length;i++) {
 		var obj={};
@@ -322,7 +427,7 @@ function ParseSoft(json){
 		for (var j=0;j<json.length;j++) { 
 			if(json[j].typeCode.toUpperCase() == softArr[i][1]){ 
 				var info=json[j];
-				var infoArr=[info.name,info.typeCode,info.path,info.contentId]; 
+				var infoArr=[info.name,info.typeCode,info.path,info.contentId];
 				obj.arr.push(infoArr)
 			}
 		}
@@ -340,7 +445,7 @@ function ParseHard(json){
 		obj.arr=[];
 		for (var j=0;j<json.length;j++) {
 			var info=json[j];
-			var infoArr=[info.name,info.macAddress,info.remark,info.deviceId];
+			var infoArr=[info.name,info.macAddress,info.daemonId,info.remark,info.deviceId];
 			obj.arr.push(infoArr)
 		}
 	}
@@ -349,14 +454,13 @@ function ParseHard(json){
 }
 
 
-
 var EntryHard = React.createClass({
 	render : function(){
 		return(<div>
 				<EntryList arr={this.props.arr} name={"资源类型"}/>
 				<div className="addBtn" id="entryAdd">添加</div> 
 				<ChooseList list = {this.props.list} name={"当前所有内容"}/>
-				<InputList name={this.props.name}/>
+				<InputList name={this.props.name} id={"entryChange"}/>
 			</div>
 		)
 	}
@@ -367,7 +471,7 @@ var EntrySoft = React.createClass({
 				<EntryList arr={this.props.arr} name={"设备类型"}/>
 				<div className="addBtn" id="softAdd">添加</div> 
 				<ChooseList list={this.props.list} name={"当前所有设备"}/>
-				<InputList name={this.props.name}/>
+				<InputList name={this.props.name} id={"softChange"}/>
 			</div>)
 	}
 })
@@ -410,6 +514,7 @@ var ChooseList = React.createClass({
 										<p className="hideInfo hideInfo1">{results[1]}</p>
 										<p className="hideInfo hideInfo2">{results[2]}</p>
 										<p className="hideInfo hideInfo3">{results[3]}</p>
+										<p className="hideInfo hideInfo4">{results[4]}</p>
 									</li>)
 							})
 						}
@@ -445,6 +550,7 @@ var InputList = React.createClass({
 					<input type="text"/>
 				</li>
 			</ul>
+			<div id={this.props.id} className="changeBtn">确认修改</div> 
 		</div>)
 	}
 })
@@ -542,8 +648,13 @@ function layParseDate(json){
 					if(layout.layoutId == describe.layoutId){
 						var obj3={};
 						var media=[];
-						for (var n=0;n<json.describe[m].items.length;n++) {
-							var mediasArr=[json.describe[m].items[n].controlType,json.describe[m].items[n].name];
+						var item = json.describe[m].items;
+						if(typeof(item)=="string"){
+							item=eval(item);
+						}
+						console.log(typeof(item))
+						for (var n=0;n<item.length;n++) {
+							var mediasArr=[item[n].controlType,item[n].name];
 							media.push(mediasArr);
 						}
 						obj3={
@@ -1334,28 +1445,38 @@ var ZoolonFun = React.createClass({
 
 function loginController(Dom){
 	Dom.submite.on("click",function(){
-		$Animate.complete($Animate.loginHide,$Animate.wrapShow); 
-		initLayInfo(Dom);
+		
+		var name=$("#userName input").val();
+		var pass=$("#passWord input").val();
+		if(name==""||pass==""){
+			alert("请输入用户名密码");
+		}else{
+			initLayInfo(Dom,name,pass);
+		}
 	})
 }
-function initLayInfo(Dom){ 
-	$at.getJson("../dataDemo.json","",onComplete); 
+function initLayInfo(Dom,user,password){
+	$at.getJson($at.url+"/interfaces/login",{name:user,password:password},onComplete);
 	function onComplete(json){
+		if(!json.state){
+			alert("用户名密码错误"); 
+			return;
+		} 
+		$Animate.complete($Animate.loginHide,$Animate.wrapShow);
 		var data = layParseDate(json);
 		$at.allInfo = data;
 		$at.screenInfo=data[$at.menuIndex];
-		$at.getJson("../entryContent.json","",onComplete2);
+		$at.getJson($at.url+"/interfaces/entry/content","",onComplete2);
 		function onComplete2(json2){
 			$at.softWare = ParseSoft(json2.data);
 			initSoft(Dom); 
-			console.log(JSON.stringify($at.softWare)); 
 			layShowController(Dom); 
 			layChangeController(Dom);
-			setScreen(Dom,data); 
+			setScreen(Dom,data);
 			$(".layoutContent .fun").eq(0).addClass("selected");
 		}	
-		$at.getJson("../entryDevice.json","",onComplete3); 
-		function onComplete3(json3){   
+		$at.getJson($at.url+"/interfaces/entry/device","",onComplete3); 
+		function onComplete3(json3){		
 			$at.entryHard = ParseHard(json3.data); 
 			initHard(Dom);
 		}	
@@ -1561,7 +1682,6 @@ function partController(Dom){
 		$("#addPart2").css({"left":"100%"});
 		$("#addPart3").css({"left":"100%"});
 		PartChange(0);
-		console.log(JSON.stringify($at.screenInfo)); 
 		var name = $at.screenInfo.screenInfo.title; 
 		var row = $at.screenInfo.screenInfo.row; 
 		var col = $at.screenInfo.screenInfo.col; 

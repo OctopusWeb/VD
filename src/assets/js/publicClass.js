@@ -1,14 +1,15 @@
 var $at = {}; 
+$at.url="http://localhost:3000";
 $at.getJson = function(url,data,onComplete){
 	$.getJSON(url,data,function(data){
 		onComplete(data) 
 	})
 }
 $at.GetDomId = function(name){
-	var dom = document.getElementById(name);
+	var dom = document.getElementById(name); 
 	return dom
 }
-$at.staticColors = [ 
+$at.staticColors = [
 	"#265497",
 	"#1e87b5",
 	"#b7ab64",

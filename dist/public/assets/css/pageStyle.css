@@ -245,6 +245,7 @@ html body { background: #efefef; }
 #entryHard .hardInput ul li p, #entrySoftware .hardInput ul li p { float: left; width: 90px; line-height: 21px; text-align: center; font-size: 12px; z-index: 100; background: #dcdddd; display: block; margin: 1px; }
 #entryHard .hardInput ul li input, #entrySoftware .hardInput ul li input { position: absolute; top: 0; left: 0; padding-left: 95px; width: 100%; height: 23px; font-size: 14px; }
 #entryHard .hardInput ul .brInput, #entrySoftware .hardInput ul .brInput { margin-right: 50%; }
+#entryHard .hardInput .changeBtn, #entrySoftware .hardInput .changeBtn { position: relative; float: left; margin-top: 10px; display: none; width: 100px; height: 25px; text-align: center; color: #fff; line-height: 25px; font-size: 12px; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); }
 
 
 
