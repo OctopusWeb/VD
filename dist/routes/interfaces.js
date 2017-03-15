@@ -288,7 +288,7 @@ router.get("/screenHost",function(req,res){
 	})
 })
 router.get("/device",function(req,res){
-	var screenInfoGetSql = 'SELECT *  FROM `t_device`';
+	var screenInfoGetSql = 'SELECT *  FROM `t_device`'; 
     pool.query(screenInfoGetSql, function(err, result) {
 		if (err) {
 			console.log("b");
