@@ -25,7 +25,7 @@ function initLayInfo(Dom,user,password){
 		function onComplete2(json2){
 			$at.softWare = ParseSoft(json2.data);
 			initSoft(Dom); 
-			layShowController(Dom); 
+			layShowController(Dom);
 			layChangeController(Dom);
 			setScreen(Dom,data);
 			$(".layoutContent .fun").eq(0).addClass("selected");

@@ -19,6 +19,7 @@ router.get('/login', function(req, res){
 	var screenInfoGetSql = 'SELECT *  FROM `t_screen_info`';
 	var screenLayoutGetSql = 'SELECT *  FROM `t_screen_layout`';
 	var screenDescribeGetSql = 'SELECT *  FROM `t_describe`';
+	var screenHostGetSql = 'SELECT *  FROM `t_screen_host`';
     pool.query(userGetSql,[name,utility.md5(pass)], function(errUser, resultUser) {
 		if (errUser) {
 			console.log("b");
@@ -37,13 +38,18 @@ router.get('/login', function(req, res){
 						console.log("b");
 						return;
 					}
-					pool.query(screenDescribeGetSql, function(errLayout, resultDescribe) {
-						if (errLayout) {
+					pool.query(screenDescribeGetSql, function(errDescribe, resultDescribe) {
+						if (errDescribe) {
 							console.log("b");
 							return;
 						}
-						console.log(resultDescribe.length)
-						res.send({state:true,screenInfo:resultScreen,layout:resultLayout,describe:resultDescribe})
+						pool.query(screenHostGetSql, function(errHost, resultHost) {
+							if (errLayout) {
+								console.log("b");
+								return;
+							}
+							res.send({state:true,screenInfo:resultScreen,layout:resultLayout,describe:resultDescribe,resultHost:resultHost})
+						})
 					})
 				})
 				
@@ -202,7 +208,6 @@ router.post("/screenInfo/changeScreen",function(req,res){
 	var param = JSON.parse(postData.data);
 	var data = new Date();
 	var time = data.getTime();
-	
 	var screenInfo = {
 		screenId : param.screenInfo.id,
 		columnCount : param.screenInfo.col,
@@ -211,10 +216,10 @@ router.post("/screenInfo/changeScreen",function(req,res){
 		rowCount :param.screenInfo.row,
 		widthOne :param.screenInfo.wid
 	}
-	var initScreenPost = "UPDATE `t_screen_info` SET screenId ='"+screenInfo.screenId+"', columnCount ='"+screenInfo.columnCount+
+	var changeScreenPost = "UPDATE `t_screen_info` SET screenId ='"+screenInfo.screenId+"', columnCount ='"+screenInfo.columnCount+
 						"', heightOne ='"+screenInfo.heightOne+"', name ='"+screenInfo.name+"', rowCount ='"+screenInfo.rowCount+
 						"', widthOne ='"+screenInfo.widthOne+"', time ='"+time+"' WHERE screenId ='"+screenInfo.screenId+"'";
-
+	
 	var screenLayout = {
 		controlUrl : param.drawInfo[0].controlUrl,
 		layoutId : param.drawInfo[0].id,
@@ -222,7 +227,7 @@ router.post("/screenInfo/changeScreen",function(req,res){
 		usePercent : param.drawInfo[0].usePercent,
 		idx : 1
 	}
-	var initLayoutPost = "UPDATE `t_screen_layout` SET layoutId ='"+screenLayout.layoutId+"', controlUrl ='"+screenLayout.controlUrl+
+	var changeLayoutPost = "UPDATE `t_screen_layout` SET layoutId ='"+screenLayout.layoutId+"', controlUrl ='"+screenLayout.controlUrl+
 						"', name ='"+screenLayout.name+"', screenId ='"+screenInfo.screenId+"', usePercent ='"+screenLayout.usePercent+
 						"', idx ='"+screenLayout.idx+"' WHERE screenId ='"+screenLayout.layoutId+"'";
 						
@@ -235,29 +240,28 @@ router.post("/screenInfo/changeScreen",function(req,res){
 		width : param.drawInfo[0].screens[0].screenInfo[0],
 		height : param.drawInfo[0].screens[0].screenInfo[1],
 		scale : param.drawInfo[0].usePercent,
-		item : param.drawInfo[0].screens[0].items[0]
+		item : param.drawInfo[0].screens[0].items
 	}
-	var initDescribePost = "UPDATE `t_screen_layout` SET screenId ='"+describe.screenId+"', layoutId ='"+describe.layoutId+
+	var changeDescribePost = "UPDATE `t_describe` SET screenId ='"+describe.screenId+"', layoutId ='"+describe.layoutId+
 						"', x ='"+describe.x+"', y ='"+describe.y+"', width ='"+describe.width+"', height ='"+describe.height+
-						"', winId ='"+describe.winId+"', scale ='"+describe.scale+"', items ='"+describe.items+
+						"', winId ='"+describe.winId+"', scale ='"+describe.scale+"', items ='"+describe.item+
 						"' WHERE winId ='"+describe.winId+"'";
-						
-	pool.query(initScreenPost, screenData,function(err1, result1) {
+	pool.query(changeScreenPost, "",function(err1, result1) {
 		if (err1) {
 			console.log(err1);
 			return;
 		}
-		pool.query(initLayoutPost, layoutData,function(err2, result2) {
+		pool.query(changeLayoutPost, "",function(err2, result2) {
 			if (err2) {
 				console.log(err2);
 				return;
 			}
-			pool.query(initDescribePost, describeData,function(err3, result3) {
+			pool.query(changeDescribePost, "",function(err3, result3) {
 				if (err3) {
 					console.log(err3);
 					return;
 				}
-				res.send({state:true,data:{screenId:screenId,layoutId:layoutId,winId:winId}});
+				res.send({state:true,msg:"修改成功"});
 			})
 		})
 	})

@@ -5,7 +5,7 @@ var view3Dom = {
 var Part3 = React.createClass({
 	render : function(){
 		return (<div>
-			<ScreenPlan num = "8"/>
+			<ScreenPlan num = {this.props.num}/>
 			<EntrySlected arr={this.props.arr}/>
 			<EntryList1 arr={this.props.arr}/>
 			<BtnPart3/> 
@@ -45,11 +45,18 @@ var EntrySlected = React.createClass({
 		var facilityList = this.props.arr;
 		return (<div id="entrySlected"><ul>
 			{
-				facilityList[0].arr.map(function(result,index){
+				facilityList.map(function(result,index){
 					var colorStyle = {
 						border : "1px solid "+$at.staticColors[index]
 					}
-					return (<li key = {index}><img src="assets/img/facility.png" style={colorStyle}/><p>{result[0]}</p></li>) 
+					return (<li key = {index}>
+						<img src="assets/img/facility.png" style={colorStyle}/>
+						<p>{result.name}</p>
+						<span>{result.macAddress}</span>
+						<span>{result.daemonId}</span>
+						<span>{result.remark}</span>
+						<span>{result.deviceId}</span>
+						</li>)
 				}) 
 			}
 		</ul></div>
@@ -59,15 +66,20 @@ var EntrySlected = React.createClass({
 var EntryList1 = React.createClass({
 	render : function(){
 		var facilityList = this.props.arr;
+		console.log(facilityList)
 		return (<div id="entryList"><ul> 
 			{
-				facilityList[0].arr.map(function(result,index){
+				facilityList.map(function(result,index){
 					var colorStyle = {
 						border : "2px solid "+$at.staticColors[index]
 					} 
 					return (<li key={index}>
 								<img src="assets/img/facility.png" style={colorStyle}/>
-								<p>{result[0]}</p>
+								<p>{result.name}</p>
+								<span>{result.macAddress}</span>
+								<span>{result.daemonId}</span>
+								<span>{result.remark}</span>
+								<span>{result.deviceId}</span> 
 							</li>
 						)
 				})

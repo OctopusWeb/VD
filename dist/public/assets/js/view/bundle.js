@@ -1,8 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var view1Dom = {
 	inputGroup: $at.GetDomId("addPart1"),
 	screenShow: $at.GetDomId("screenShow")
@@ -157,6 +155,26 @@ var FacilityList = React.createClass({
 						"p",
 						null,
 						result[0]
+					),
+					React.createElement(
+						"span",
+						null,
+						result[1]
+					),
+					React.createElement(
+						"span",
+						null,
+						result[2]
+					),
+					React.createElement(
+						"span",
+						null,
+						result[3]
+					),
+					React.createElement(
+						"span",
+						null,
+						result[4]
 					)
 				);
 			}),
@@ -196,7 +214,7 @@ var Part3 = React.createClass({
 		return React.createElement(
 			"div",
 			null,
-			React.createElement(ScreenPlan, { num: "8" }),
+			React.createElement(ScreenPlan, { num: this.props.num }),
 			React.createElement(EntrySlected, { arr: this.props.arr }),
 			React.createElement(EntryList1, { arr: this.props.arr }),
 			React.createElement(BtnPart3, null)
@@ -258,7 +276,7 @@ var EntrySlected = React.createClass({
 			React.createElement(
 				"ul",
 				null,
-				facilityList[0].arr.map(function (result, index) {
+				facilityList.map(function (result, index) {
 					var colorStyle = {
 						border: "1px solid " + $at.staticColors[index]
 					};
@@ -269,7 +287,27 @@ var EntrySlected = React.createClass({
 						React.createElement(
 							"p",
 							null,
-							result[0]
+							result.name
+						),
+						React.createElement(
+							"span",
+							null,
+							result.macAddress
+						),
+						React.createElement(
+							"span",
+							null,
+							result.daemonId
+						),
+						React.createElement(
+							"span",
+							null,
+							result.remark
+						),
+						React.createElement(
+							"span",
+							null,
+							result.deviceId
 						)
 					);
 				})
@@ -282,13 +320,14 @@ var EntryList1 = React.createClass({
 
 	render: function render() {
 		var facilityList = this.props.arr;
+		console.log(facilityList);
 		return React.createElement(
 			"div",
 			{ id: "entryList" },
 			React.createElement(
 				"ul",
 				null,
-				facilityList[0].arr.map(function (result, index) {
+				facilityList.map(function (result, index) {
 					var colorStyle = {
 						border: "2px solid " + $at.staticColors[index]
 					};
@@ -299,7 +338,27 @@ var EntryList1 = React.createClass({
 						React.createElement(
 							"p",
 							null,
-							result[0]
+							result.name
+						),
+						React.createElement(
+							"span",
+							null,
+							result.macAddress
+						),
+						React.createElement(
+							"span",
+							null,
+							result.daemonId
+						),
+						React.createElement(
+							"span",
+							null,
+							result.remark
+						),
+						React.createElement(
+							"span",
+							null,
+							result.deviceId
 						)
 					);
 				})
@@ -846,6 +905,7 @@ function layParseDate(json) {
 	for (var i = 0; i < json.screenInfo.length; i++) {
 		var obj = {};
 		var drawInfo = [];
+		var host = [];
 		var info = json.screenInfo[i];
 		obj.screenInfo = {
 			title: info.name,
@@ -855,6 +915,17 @@ function layParseDate(json) {
 			hei: info.heightOne,
 			id: info.screenId
 		};
+		for (var j = 0; j < json.resultHost.length; j++) {
+			if (info.screenId == json.resultHost[j].screenId) {
+				var obj1 = {
+					id: json.resultHost[j].id,
+					deviceId: json.resultHost[j].deviceId,
+					describeJson: json.resultHost[j].describeJson
+				};
+				host.push(obj1);
+			}
+		}
+		obj.screenInfo.host = host;
 		for (var j = 0; j < json.layout.length; j++) {
 			var layout = json.layout[j];
 			if (info.screenId == layout.screenId) {
@@ -875,7 +946,6 @@ function layParseDate(json) {
 						if (typeof item == "string") {
 							item = eval(item);
 						}
-						console.log(typeof item === "undefined" ? "undefined" : _typeof(item));
 						for (var n = 0; n < item.length; n++) {
 							var mediasArr = [item[n].controlType, item[n].name];
 							media.push(mediasArr);
@@ -2407,11 +2477,6 @@ function initScreenInfo() {
 function partController(Dom) {
 	Dom.addBtnGroup.find(".btn").eq(1).on("click", function () {
 		initPart1(Dom);
-		$("#btnPart1").on("click", ".next", function () {
-			$Animate.complete($Animate.Part1Hide, $Animate.Part2Show);
-			PartChange(1);
-			initPart2(Dom);
-		});
 	});
 	Dom.addBtnGroup.find(".btn").eq(0).on("click", function () {
 		var screenInfo = {
@@ -2443,11 +2508,6 @@ function partController(Dom) {
 			initPart1(Dom);
 			$("#screenList ul li").removeClass("selected");
 			$("#screenList ul li").last().addClass("selected");
-			$("#btnPart1").on("click", ".next", function () {
-				$Animate.complete($Animate.Part1Hide, $Animate.Part2Show);
-				PartChange(1);
-				initPart2(Dom);
-			});
 		}
 	});
 	function initPart1(Dom) {
@@ -2469,18 +2529,53 @@ function partController(Dom) {
 		$("#inputGroup .input").eq(2).find("input").val(wid);
 		$("#inputGroup .input").eq(3).find("input").val(col);
 		$("#inputGroup .input").eq(4).find("input").val(hei);
+
+		$("#btnPart1").on("click", ".next", function () {
+			$at.screenInfo.screenInfo.title = $("#inputGroup .input").eq(0).find("input").val();
+			$at.screenInfo.screenInfo.row = $("#inputGroup .input").eq(1).find("input").val();
+			$at.screenInfo.screenInfo.col = $("#inputGroup .input").eq(3).find("input").val();
+			$at.screenInfo.screenInfo.wid = $("#inputGroup .input").eq(2).find("input").val();
+			$at.screenInfo.screenInfo.hei = $("#inputGroup .input").eq(4).find("input").val();
+			$Animate.complete($Animate.Part1Hide, $Animate.Part2Show);
+			PartChange(1);
+			initPart2(Dom);
+		});
 	}
 	function initPart2(Dom) {
 		$("#addPart2").html("");
 		ReactDOM.render(React.createElement(Part2, null), view2Dom.addPart2);
+		var host = $("#addPart2 ul li");
+		for (var i = 0; i < $at.screenInfo.screenInfo.host.length; i++) {
+			for (var j = 0; j < host.length; j++) {
+				if (host.eq(j).find("span").eq(3).html() == $at.screenInfo.screenInfo.host[i].id) {
+					host.eq(j).addClass("selected");
+				}
+			}
+		}
 		$("#btnPart2").find(".pre").on("click", function () {
 			$Animate.complete($Animate.Part2Hide1, $Animate.Part1Show);
 			PartChange(0);
 		});
 		$("#btnPart2").find(".next").on("click", function () {
-			$Animate.complete($Animate.Part2Hide2, $Animate.Part3Show);
-			PartChange(2);
-			initPart3(Dom);
+			var selected = $("#addPart2 ul .selected");
+			var deviceList = [];
+			for (var i = 0; i < selected.length; i++) {
+				var obj = {
+					name: selected.eq(i).find("p").eq(0).html(),
+					macAddress: selected.eq(i).find("span").eq(0).html(),
+					daemonId: selected.eq(i).find("span").eq(1).html(),
+					remark: selected.eq(i).find("span").eq(2).html(),
+					deviceId: selected.eq(i).find("span").eq(3).html()
+				};
+				deviceList.push(obj);
+			}
+			if (deviceList.length == 0) {
+				alert("你还没有选择设备");
+			} else {
+				$Animate.complete($Animate.Part2Hide2, $Animate.Part3Show);
+				PartChange(2);
+				initPart3(Dom, deviceList);
+			}
 		});
 		$("#addPart2").find("ul").on("click", function (e) {
 			var event = e || window.event;
@@ -2495,9 +2590,10 @@ function partController(Dom) {
 			}
 		});
 	}
-	function initPart3(Dom) {
+	function initPart3(Dom, deviceList) {
 		$("#addPart3").html("");
-		ReactDOM.render(React.createElement(Part3, { arr: $at.entryHard }), view3Dom.addPart3);
+		var nums = $at.screenInfo.screenInfo.row * $at.screenInfo.screenInfo.col;
+		ReactDOM.render(React.createElement(Part3, { arr: deviceList, num: nums }), view3Dom.addPart3);
 		drawController(Dom);
 		$("#addPart3").find(".pre").on("click", function () {
 			$Animate.complete($Animate.Part3Hide, $Animate.Part2Show);
@@ -2508,9 +2604,12 @@ function partController(Dom) {
 			$Animate.LayoutShow();
 		});
 		function changeSrceen() {
+			console.log($at.screenInfo);
 			var data1 = { data: JSON.stringify($at.screenInfo) };
 			$.post($at.url + "/interfaces/screenInfo/ChangeScreen", data1, onComplete);
 			function onComplete(json) {
+				ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
+				ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 				ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
 			}
 		}

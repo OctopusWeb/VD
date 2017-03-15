@@ -68,6 +68,7 @@ html body { background: #efefef; }
 #addPart2 ul li div { width: 110px; height: 110px; border-radius: 5px; }
 #addPart2 ul li div img { width: 100px; height: 100px; margin: 5px; -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
 #addPart2 ul li p { width: 80px; margin-left: 15px; text-align: center; line-height: 20px; height: 20px; border-radius: 10px; display: block; margin-top: 10px; color: #727171; font-size: 14px; }
+#addPart2 ul li span { display: none; }
 #addPart2 ul .selected div, #addPart2 ul #wrap #addScreen #menu #screenList li:hover div, #wrap #addScreen #menu #screenList #addPart2 ul li:hover div { background: -webkit-linear-gradient(left, #eb7627, #cf031d); background: -o-linear-gradient(left, #eb7627, #cf031d); background: -moz-linear-gradient(left, #eb7627, #cf031d); background: linear-gradient(to right, #eb7627, #cf031d); }
 #addPart2 ul .selected p, #addPart2 ul #wrap #addScreen #menu #screenList li:hover p, #wrap #addScreen #menu #screenList #addPart2 ul li:hover p { background: -webkit-linear-gradient(left, #eb7627, #cf031d); background: -o-linear-gradient(left, #eb7627, #cf031d); background: -moz-linear-gradient(left, #eb7627, #cf031d); background: linear-gradient(to right, #eb7627, #cf031d); color: #fff; }
 #addPart2 #btnPart2 { width: 50%; left: 30%; height: 25px; position: absolute; bottom: 70px; }
@@ -87,12 +88,14 @@ html body { background: #efefef; }
 #addPart3 #entrySlected ul { width: 170px; float: left; }
 #addPart3 #entrySlected ul li { list-style: none; width: 50px; margin-left: 5px; margin-top: 5px; height: 70px; float: left; }
 #addPart3 #entrySlected ul li p { font-size: 10px; color: #fff; width: 100%; text-align: center; }
+#addPart3 #entrySlected ul li span { display: none; }
 #addPart3 #entrySlected ul li img { width: 50px; }
 #addPart3 #entrySlected ul .selected img, #addPart3 #entrySlected ul #wrap #addScreen #menu #screenList li:hover img, #wrap #addScreen #menu #screenList #addPart3 #entrySlected ul li:hover img { border-width: 2px !important; }
 #addPart3 #entryList { width: 80%; height: auto; position: relative; top: 300px; }
 #addPart3 #entryList li { float: left; width: 110px; height: 140px; list-style: none; }
 #addPart3 #entryList li img { width: 100px; float: left; margin: 5px; }
 #addPart3 #entryList li p { width: 110px; text-align: center; font-size: 14px; color: #727171; border-radius: 4px; }
+#addPart3 #entryList li span { display: none; }
 #addPart3 #btnPart3 { width: 50%; left: 30%; height: 25px; position: absolute; bottom: 70px; }
 #addPart3 #btnPart3 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; float: left; }
 

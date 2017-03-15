@@ -27,6 +27,7 @@ function layParseDate(json){
 	for (var i=0;i<json.screenInfo.length;i++) {
 		var obj={};
 		var drawInfo=[];
+		var host = [];
 		var info = json.screenInfo[i];
 		obj.screenInfo={
 			title:info.name,
@@ -34,8 +35,19 @@ function layParseDate(json){
 			row:info.rowCount,
 			wid:info.widthOne,
 			hei:info.heightOne,
-			id:info.screenId
+			id:info.screenId,
 		};
+		for (var j=0;j<json.resultHost.length;j++) {
+			if(info.screenId == json.resultHost[j].screenId){
+				var obj1={
+					id:json.resultHost[j].id,
+					deviceId:json.resultHost[j].deviceId,
+					describeJson:json.resultHost[j].describeJson
+				};
+				host.push(obj1);
+			}
+		}
+		obj.screenInfo.host=host;
 		for (var j=0;j<json.layout.length;j++) {
 			var layout = json.layout[j];
 			if(info.screenId == layout.screenId){
@@ -56,7 +68,6 @@ function layParseDate(json){
 						if(typeof(item)=="string"){
 							item=eval(item);
 						}
-						console.log(typeof(item))
 						for (var n=0;n<item.length;n++) {
 							var mediasArr=[item[n].controlType,item[n].name];
 							media.push(mediasArr);

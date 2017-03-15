@@ -1,11 +1,6 @@
 function partController(Dom){ 
 	Dom.addBtnGroup.find(".btn").eq(1).on("click",function(){ 
 		initPart1(Dom);
-		$("#btnPart1").on("click",".next",function(){ 
-			$Animate.complete($Animate.Part1Hide,$Animate.Part2Show);
-			PartChange(1); 
-			initPart2(Dom);
-		});
 	})
 	Dom.addBtnGroup.find(".btn").eq(0).on("click",function(){
 		var screenInfo={
@@ -41,11 +36,6 @@ function partController(Dom){
 			initPart1(Dom);
 			$("#screenList ul li").removeClass("selected");
 			$("#screenList ul li").last().addClass("selected"); 
-			$("#btnPart1").on("click",".next",function(){ 
-				$Animate.complete($Animate.Part1Hide,$Animate.Part2Show);
-				PartChange(1); 
-				initPart2(Dom);
-			});
 		}	
 	})
 	function initPart1(Dom){
@@ -55,30 +45,66 @@ function partController(Dom){
 		$("#addPart2").css({"left":"100%"});
 		$("#addPart3").css({"left":"100%"});
 		PartChange(0);
-		var name = $at.screenInfo.screenInfo.title; 
+		var name = $at.screenInfo.screenInfo.title;
 		var row = $at.screenInfo.screenInfo.row; 
 		var col = $at.screenInfo.screenInfo.col; 
 		var wid = $at.screenInfo.screenInfo.wid; 
 		var hei = $at.screenInfo.screenInfo.hei; 
 		$("#addPart1").html("");
-		ReactDOM.render(<Part1 row={row} col={col} hei={hei} wid={wid}/>,view1Dom.inputGroup); 
+		ReactDOM.render(<Part1 row={row} col={col} hei={hei} wid={wid}/>,view1Dom.inputGroup);
 		$("#inputGroup .input").eq(0).find("input").val(name);
 		$("#inputGroup .input").eq(1).find("input").val(row);
 		$("#inputGroup .input").eq(2).find("input").val(wid);
 		$("#inputGroup .input").eq(3).find("input").val(col);
-		$("#inputGroup .input").eq(4).find("input").val(hei);
+		$("#inputGroup .input").eq(4).find("input").val(hei); 
+		
+		$("#btnPart1").on("click",".next",function(){
+			$at.screenInfo.screenInfo.title = $("#inputGroup .input").eq(0).find("input").val();
+			$at.screenInfo.screenInfo.row = $("#inputGroup .input").eq(1).find("input").val();
+			$at.screenInfo.screenInfo.col = $("#inputGroup .input").eq(3).find("input").val(); 
+			$at.screenInfo.screenInfo.wid = $("#inputGroup .input").eq(2).find("input").val(); 
+			$at.screenInfo.screenInfo.hei = $("#inputGroup .input").eq(4).find("input").val();
+			$Animate.complete($Animate.Part1Hide,$Animate.Part2Show);
+			PartChange(1);
+			initPart2(Dom);
+		});
 	}
 	function initPart2(Dom){
 		$("#addPart2").html("");
 		ReactDOM.render(<Part2/>,view2Dom.addPart2);
+		var host = $("#addPart2 ul li"); 
+		for (var i=0;i<$at.screenInfo.screenInfo.host.length;i++) {
+			for (var j=0;j<host.length;j++) {
+				if(host.eq(j).find("span").eq(3).html() == $at.screenInfo.screenInfo.host[i].id){
+					host.eq(j).addClass("selected");
+				}
+			}
+		}
 		$("#btnPart2").find(".pre").on("click",function(){
 			$Animate.complete($Animate.Part2Hide1,$Animate.Part1Show);
 			PartChange(0);
 		});
 		$("#btnPart2").find(".next").on("click",function(){
-			$Animate.complete($Animate.Part2Hide2,$Animate.Part3Show);
-			PartChange(2);
-			initPart3(Dom);
+			var selected = $("#addPart2 ul .selected");
+			var deviceList = []
+			for (var i=0;i<selected.length;i++) {
+				var obj={
+					name : selected.eq(i).find("p").eq(0).html(),
+					macAddress : selected.eq(i).find("span").eq(0).html(),
+					daemonId : selected.eq(i).find("span").eq(1).html(),
+					remark : selected.eq(i).find("span").eq(2).html(),
+					deviceId : selected.eq(i).find("span").eq(3).html()
+				} 
+				deviceList.push(obj);
+			}
+			if(deviceList.length==0){
+				alert("你还没有选择设备")
+			}else{
+				$Animate.complete($Animate.Part2Hide2,$Animate.Part3Show);
+				PartChange(2);
+				initPart3(Dom,deviceList);
+			}
+			
 		});
 		$("#addPart2").find("ul").on("click",function(e){
 			var event = e || window.event;
@@ -93,10 +119,11 @@ function partController(Dom){
 			}
 		});
 	}
-	function initPart3(Dom){
+	function initPart3(Dom,deviceList){
 		$("#addPart3").html("");
-		ReactDOM.render(<Part3 arr={$at.entryHard}/>,view3Dom.addPart3); 
-		drawController(Dom);
+		var nums = $at.screenInfo.screenInfo.row*$at.screenInfo.screenInfo.col;
+		ReactDOM.render(<Part3 arr={deviceList} num={nums}/>,view3Dom.addPart3); 
+		drawController(Dom); 
 		$("#addPart3").find(".pre").on("click",function(){
 			$Animate.complete($Animate.Part3Hide,$Animate.Part2Show);
 			PartChange(1)
@@ -106,9 +133,12 @@ function partController(Dom){
 			$Animate.LayoutShow();
 		});
 		function changeSrceen(){
+			console.log($at.screenInfo);
 			var data1 = {data:JSON.stringify($at.screenInfo)}
 			$.post($at.url+"/interfaces/screenInfo/ChangeScreen", data1,onComplete);
 			function onComplete(json){
+				ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
+				ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 				ReactDOM.render(<MenuList/>,setScreenDom.screenList);
 			}	
 		}

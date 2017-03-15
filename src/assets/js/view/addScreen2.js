@@ -20,6 +20,10 @@ var FacilityList = React.createClass({
 									<img src="assets/img/facility.png"/>
 								</div>
 								<p>{result[0]}</p> 
+								<span>{result[1]}</span> 
+								<span>{result[2]}</span> 
+								<span>{result[3]}</span> 
+								<span>{result[4]}</span> 
 							</li>
 						)
 				})

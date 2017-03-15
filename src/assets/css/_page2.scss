@@ -42,6 +42,9 @@
                 color: nth($FontColor,2);
                 font-size: nth($FontSize,6);
             }
+            span{
+                display: none;
+            }
         }
         .selected{
             div{
