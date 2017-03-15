@@ -130,13 +130,136 @@ router.post("/entryChange/device",function(req,res){
 	var remark = param.remark;
 	var daemonId = param.daemonId;
 	var entryDeviceChangeSql = "UPDATE `t_device` SET name ='"+name+"', macAddress ='"+macAddress+"', remark ='"+remark+"', daemonId ='"+daemonId+"' WHERE deviceId ='"+deviceId+"'"
-	console.log(entryDeviceChangeSql)
 	pool.query(entryDeviceChangeSql,function(err, result) {
 		if (err) {
 			console.log(err);
 			return;
 		}
 		res.send({state:true,data:{contentId:deviceId}});
+	})
+})
+
+router.post("/screenInfo/addScreen",function(req,res){
+	var postData = req.body;
+	var param = JSON.parse(postData.data);
+
+	var screenId = shortid.gen();
+	var data = new Date();
+	var time = data.getTime();
+	var screenInfo = {
+		columnCount : param.screenInfo.col,
+		heightOne :param.screenInfo.hei,
+		name :param.screenInfo.title,
+		rowCount :param.screenInfo.row,
+		widthOne :param.screenInfo.wid
+	}
+	var screenData = [screenId,screenInfo.columnCount,screenInfo.heightOne,screenInfo.name,screenInfo.rowCount,screenInfo.widthOne,time]
+	var initScreenPost = "INSERT INTO `t_screen_info`(screenId,columnCount,heightOne,name,rowCount,widthOne,time) VALUES(?,?,?,?,?,?,?)";
+	
+	var layoutId = shortid.gen();
+	var screenLayout = {
+		controlUrl : param.drawInfo[0].controlUrl,
+		name : param.drawInfo[0].title,
+		usePercent : param.drawInfo[0].usePercent,
+		idx : 1
+	}
+	var layoutData = [layoutId,screenLayout.controlUrl,screenLayout.name,screenId,screenLayout.usePercent,screenLayout.idx]
+	var initLayoutPost = "INSERT INTO `t_screen_layout`(layoutId,controlUrl,name,screenId,usePercent,idx) VALUES(?,?,?,?,?,?)";
+	var winId = shortid.gen()
+	var describe = {
+		x : param.drawInfo[0].screens[0].screenInfo[2],
+		y : param.drawInfo[0].screens[0].screenInfo[3],
+		width : param.drawInfo[0].screens[0].screenInfo[0],
+		height : param.drawInfo[0].screens[0].screenInfo[1],
+		scale : param.drawInfo[0].usePercent,
+		item : param.drawInfo[0].screens[0].items[0]
+	}
+	var describeData = [screenId,layoutId,describe.x,describe.y,describe.width,describe.height,winId,describe.scale,describe.item];
+	var initDescribePost = "INSERT INTO `t_describe` (screenId,layoutId,x,y,width,height,winId,scale,items) VALUES(?,?,?,?,?,?,?,?,?)";
+	pool.query(initScreenPost, screenData,function(err1, result1) {
+		if (err1) {
+			console.log(err1);
+			return;
+		}
+		pool.query(initLayoutPost, layoutData,function(err2, result2) {
+			if (err2) {
+				console.log(err2);
+				return;
+			}
+			pool.query(initDescribePost, describeData,function(err3, result3) {
+				if (err3) {
+					console.log(err3);
+					return;
+				}
+				res.send({state:true,data:{screenId:screenId,layoutId:layoutId,winId:winId}});
+			})
+		})
+	})
+})
+
+router.post("/screenInfo/changeScreen",function(req,res){
+	var postData = req.body;
+	var param = JSON.parse(postData.data);
+	var data = new Date();
+	var time = data.getTime();
+	
+	var screenInfo = {
+		screenId : param.screenInfo.id,
+		columnCount : param.screenInfo.col,
+		heightOne :param.screenInfo.hei,
+		name :param.screenInfo.title,
+		rowCount :param.screenInfo.row,
+		widthOne :param.screenInfo.wid
+	}
+	var initScreenPost = "UPDATE `t_screen_info` SET screenId ='"+screenInfo.screenId+"', columnCount ='"+screenInfo.columnCount+
+						"', heightOne ='"+screenInfo.heightOne+"', name ='"+screenInfo.name+"', rowCount ='"+screenInfo.rowCount+
+						"', widthOne ='"+screenInfo.widthOne+"', time ='"+time+"' WHERE screenId ='"+screenInfo.screenId+"'";
+
+	var screenLayout = {
+		controlUrl : param.drawInfo[0].controlUrl,
+		layoutId : param.drawInfo[0].id,
+		name : param.drawInfo[0].title,
+		usePercent : param.drawInfo[0].usePercent,
+		idx : 1
+	}
+	var initLayoutPost = "UPDATE `t_screen_layout` SET layoutId ='"+screenLayout.layoutId+"', controlUrl ='"+screenLayout.controlUrl+
+						"', name ='"+screenLayout.name+"', screenId ='"+screenInfo.screenId+"', usePercent ='"+screenLayout.usePercent+
+						"', idx ='"+screenLayout.idx+"' WHERE screenId ='"+screenLayout.layoutId+"'";
+						
+	var describe = {
+		screenId : param.screenInfo.id,
+		layoutId : param.drawInfo[0].id,
+		winId : param.drawInfo[0].screens[0].id,
+		x : param.drawInfo[0].screens[0].screenInfo[2],
+		y : param.drawInfo[0].screens[0].screenInfo[3],
+		width : param.drawInfo[0].screens[0].screenInfo[0],
+		height : param.drawInfo[0].screens[0].screenInfo[1],
+		scale : param.drawInfo[0].usePercent,
+		item : param.drawInfo[0].screens[0].items[0]
+	}
+	var initDescribePost = "UPDATE `t_screen_layout` SET screenId ='"+describe.screenId+"', layoutId ='"+describe.layoutId+
+						"', x ='"+describe.x+"', y ='"+describe.y+"', width ='"+describe.width+"', height ='"+describe.height+
+						"', winId ='"+describe.winId+"', scale ='"+describe.scale+"', items ='"+describe.items+
+						"' WHERE winId ='"+describe.winId+"'";
+						
+	pool.query(initScreenPost, screenData,function(err1, result1) {
+		if (err1) {
+			console.log(err1);
+			return;
+		}
+		pool.query(initLayoutPost, layoutData,function(err2, result2) {
+			if (err2) {
+				console.log(err2);
+				return;
+			}
+			pool.query(initDescribePost, describeData,function(err3, result3) {
+				if (err3) {
+					console.log(err3);
+					return;
+				}
+				res.send({state:true,data:{screenId:screenId,layoutId:layoutId,winId:winId}});
+			})
+		})
 	})
 })
 

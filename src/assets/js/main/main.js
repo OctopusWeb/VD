@@ -1642,38 +1642,46 @@ function partController(Dom){
 			initPart2(Dom);
 		});
 	})
-	Dom.addBtnGroup.find(".btn").eq(0).on("click",function(){ 
-		$at.screenInfo={
-			"screenInfo":{"title":"未命名","col":4,"row":2,"wid":1920,"hei":1080,"id":"s1"},
-			"drawInfo":[
+	Dom.addBtnGroup.find(".btn").eq(0).on("click",function(){
+		var screenInfo={
+			screenInfo:{title:"未命名",col:4,row:2,wid:1920,hei:1080,id:"s2 "}, 
+			drawInfo:[
 				{
-					"title":"测试1",
-					"id":"l1",
-					"controlUrl":"1",
-					"usePercent":"1",
-					"screens":[
-						{
-							"id":"w1",
-							"scale":1,
-							"across":false,
-							"screenInfo":[0,0,0,0],
-							"medias":[],
-							"items":[]
-							}
-						]
-					}
-				]
+					title:"未命名",
+					id:"l1",
+					controlUrl:"1",
+					usePercent:"1",
+					screens:[
+						{ 
+						id:"w1",
+						scale:1,
+						across:false,
+						screenInfo:[0,0,0,0],
+						medias:[],
+						items:['[{"contentId":"c96ba3008d1e4226b826a1c49887aae7","controlType":"PPT","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-总体","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":true},{"contentId":"fd76ad7be13c44f9a81bda53021b66b3","controlType":"WEB","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-仓库","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false},{"contentId":"a9adbcce9eec4db0b1731ff76704c028","controlType":"FLASH","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-库房","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false},{"contentId":"bdc851235c364ab8bc65ddda3c13596d","controlType":"PDF","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-维修","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false}]'] 
+						}
+					]
+				}
+			]
 		}
-		$at.allInfo.push($at.screenInfo);
-		ReactDOM.render(<MenuList/>,setScreenDom.screenList);
-		initPart1(Dom);
-		$("#screenList ul li").removeClass("selected");
-		$("#screenList ul li").last().addClass("selected"); 
-		$("#btnPart1").on("click",".next",function(){ 
-			$Animate.complete($Animate.Part1Hide,$Animate.Part2Show);
-			PartChange(1); 
-			initPart2(Dom);
-		});
+		var data1 = {data:JSON.stringify(screenInfo)}
+		$.post($at.url+"/interfaces/screenInfo/addScreen", data1,onComplete);
+		function onComplete(json){
+			screenInfo.screenInfo.id = json.data.screenId;
+			screenInfo.drawInfo[0].id = json.data.layoutId;
+			screenInfo.drawInfo[0].screens[0].id = json.data.winId;
+			$at.screenInfo = screenInfo;
+			$at.allInfo.push($at.screenInfo);
+			ReactDOM.render(<MenuList/>,setScreenDom.screenList);
+			initPart1(Dom);
+			$("#screenList ul li").removeClass("selected");
+			$("#screenList ul li").last().addClass("selected"); 
+			$("#btnPart1").on("click",".next",function(){ 
+				$Animate.complete($Animate.Part1Hide,$Animate.Part2Show);
+				PartChange(1); 
+				initPart2(Dom);
+			});
+		}	
 	})
 	function initPart1(Dom){
 		Dom.layShow.hide();
@@ -1729,8 +1737,16 @@ function partController(Dom){
 			PartChange(1)
 		});
 		$("#addPart3").find(".next").on("click",function(){
+			changeSrceen();
 			$Animate.LayoutShow();
 		});
+		function changeSrceen(){
+			var data1 = {data:JSON.stringify($at.screenInfo)}
+			$.post($at.url+"/interfaces/screenInfo/ChangeScreen", data1,onComplete);
+			function onComplete(json){
+				ReactDOM.render(<MenuList/>,setScreenDom.screenList);
+			}	
+		}
 	}
 	function PartChange(index){
 		var title = ["新建虚拟桌面","选择主机","分配屏幕"]
