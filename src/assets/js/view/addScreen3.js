@@ -23,7 +23,14 @@ var ScreenPlan = React.createClass({
 		return (<div id="screenPlan"><ul>
 				{
 					arr.map(function(result,index){
-						return (<li key = {index}><img src="assets/img/facility1.png"/><p>空</p></li>)
+						return (<li key = {index}>
+							<img src="assets/img/facility1.png"/>
+							<p>空</p>
+							<span className="span1"></span>
+							<span className="span2"></span>
+							<span className="span3"></span>
+							<span className="span4"></span>
+						</li>)
 					})
 				}
 			</ul>
@@ -66,7 +73,6 @@ var EntrySlected = React.createClass({
 var EntryList1 = React.createClass({
 	render : function(){
 		var facilityList = this.props.arr;
-		console.log(facilityList)
 		return (<div id="entryList"><ul> 
 			{
 				facilityList.map(function(result,index){

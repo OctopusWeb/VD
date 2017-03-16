@@ -74,8 +74,16 @@ function drawFun(drawArea,drawBox,screenLi,entrySlected,onComplete)
 		var index = entrySlected.find("li").index($(this));
 		var selected = $("#screenPlan ul").find(".selected");
 		var value = $(this).find("p").html();
+		var info1 = $(this).find("span").eq(0).html();
+		var info2 = $(this).find("span").eq(1).html(); 
+		var info3 = $(this).find("span").eq(2).html();
+		var info4 = $(this).find("span").eq(3).html();
 		selected.css({"background":$at.staticColors[index]});
 		selected.find("p").html(value); 
+		selected.find(".span1").html(info1); 
+		selected.find(".span2").html(info2); 
+		selected.find(".span3").html(info3); 
+		selected.find(".span4").html(info4);
 		entrySlected.hide();
 	}) 
 }

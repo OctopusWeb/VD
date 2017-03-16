@@ -246,24 +246,44 @@ router.post("/screenInfo/changeScreen",function(req,res){
 						"', x ='"+describe.x+"', y ='"+describe.y+"', width ='"+describe.width+"', height ='"+describe.height+
 						"', winId ='"+describe.winId+"', scale ='"+describe.scale+"', items ='"+describe.item+
 						"' WHERE winId ='"+describe.winId+"'";
+						
+	var hostList = param.screenInfo.host;
+	
+	var deleteHost = 'DELETE FROM `t_screen_host` WHERE screenId="'+screenInfo.screenId+'"';
+	var addHostPost = "INSERT INTO `t_screen_host`(id,describeJson,deviceId,screenId) VALUES(?,?,?,?)";
 	pool.query(changeScreenPost, "",function(err1, result1) {
 		if (err1) {
 			console.log(err1);
 			return;
 		}
-		pool.query(changeLayoutPost, "",function(err2, result2) {
-			if (err2) {
-				console.log(err2);
-				return;
-			}
-			pool.query(changeDescribePost, "",function(err3, result3) {
-				if (err3) {
-					console.log(err3);
+	})
+	pool.query(changeLayoutPost, "",function(err2, result2) {
+		if (err2) {
+			console.log(err2);
+			return;
+		}
+	})
+	pool.query(changeDescribePost, "",function(err3, result3) {
+		if (err3) {
+			console.log(err3);
+			return;
+		}
+	})
+	pool.query(deleteHost, "",function(err4, result4) {
+		if (err4) {
+			console.log(err4);
+			return;
+		}
+		for (var i=0;i<hostList.length;i++) {
+			id = shortid.gen();
+			var data = [id,hostList[i].describeJson,hostList[i].deviceId,screenInfo.screenId];
+			pool.query(addHostPost, data,function(err5, result5) {
+				if (err5) { 
+					console.log(err5);
 					return;
 				}
-				res.send({state:true,msg:"修改成功"});
 			})
-		})
+		}
 	})
 })
 

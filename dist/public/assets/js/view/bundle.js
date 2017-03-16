@@ -245,7 +245,11 @@ var ScreenPlan = React.createClass({
 							"p",
 							null,
 							"\u7A7A"
-						)
+						),
+						React.createElement("span", { className: "span1" }),
+						React.createElement("span", { className: "span2" }),
+						React.createElement("span", { className: "span3" }),
+						React.createElement("span", { className: "span4" })
 					);
 				})
 			),
@@ -320,7 +324,6 @@ var EntryList1 = React.createClass({
 
 	render: function render() {
 		var facilityList = this.props.arr;
-		console.log(facilityList);
 		return React.createElement(
 			"div",
 			{ id: "entryList" },
@@ -2480,7 +2483,7 @@ function partController(Dom) {
 	});
 	Dom.addBtnGroup.find(".btn").eq(0).on("click", function () {
 		var screenInfo = {
-			screenInfo: { title: "未命名", col: 4, row: 2, wid: 1920, hei: 1080, id: "s2 " },
+			screenInfo: { title: "未命名", col: 4, row: 2, wid: 1920, hei: 1080, id: "s2 ", host: [] },
 			drawInfo: [{
 				title: "未命名",
 				id: "l1",
@@ -2604,14 +2607,36 @@ function partController(Dom) {
 			$Animate.LayoutShow();
 		});
 		function changeSrceen() {
-			console.log($at.screenInfo);
+			var host = addHost();
+			$at.screenInfo.screenInfo.host = host;
 			var data1 = { data: JSON.stringify($at.screenInfo) };
-			$.post($at.url + "/interfaces/screenInfo/ChangeScreen", data1, onComplete);
+			$.post($at.url + "/interfaces/screenInfo/changeScreen", data1, onComplete);
 			function onComplete(json) {
 				ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 				ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 				ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
 			}
+		}
+		function addHost() {
+			var deviceList = $("#entryList ul li");
+			var hostlist = $("#screenPlan ul li");
+			var host = [];
+			for (var i = 0; i < deviceList.length; i++) {
+				var obj = {
+					deviceId: deviceList.eq(i).find("span").eq(3).html(),
+					id: "222"
+				};
+				var describe = [];
+				for (var j = 0; j < hostlist.length; j++) {
+					if (hostlist.eq(j).find("span").eq(3).html() == obj.deviceId) {
+						describe.push(j);
+					}
+				}
+				var describeJson = describe.join(",");
+				obj.describeJson = describeJson;
+				host.push(obj);
+			}
+			return host;
 		}
 	}
 	function PartChange(index) {
@@ -2623,7 +2648,7 @@ function partController(Dom) {
 }
 function setScreen(Dom, data) {
 	var LevTitleArr = ["新建虚拟桌面", "选择主机", "分配屏幕"];
-	ReactDOM.render(React.createElement(Menu, { imgSrc: "assets/img/logo.png", name: "HU" }), setScreenDom.userInfo);
+	ReactDOM.render(React.createElement(Menu, { imgSrc: "assets/img/logo.png", name: "ZOOLON" }), setScreenDom.userInfo);
 	ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
 	ReactDOM.render(React.createElement(LevTitle, { arr: LevTitleArr }), setScreenDom.levNum);
 	ReactDOM.render(React.createElement(PageTitle, { title: "\u65B0\u5EFA\u5C4F\u5E55" }), setScreenDom.pageTitle);
