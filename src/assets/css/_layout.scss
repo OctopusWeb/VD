@@ -408,6 +408,9 @@
                             font-size: nth($FontSize,7);
                             color: nth($NomalColor,4);
                         }
+                        span{
+                            display: none; 
+                        }
                         .close{
                             float: right;
                             width: 20px;
@@ -491,6 +494,9 @@
                                     text-align: center;
                                     font-size: nth($FontSize,7);
                                     color: nth($FontColor,2);
+                                }
+                                p{
+                                    display: none;
                                 }
                                 .add{
                                     float: left;

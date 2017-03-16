@@ -603,7 +603,7 @@ function ParseSoft(json) {
 		for (var j = 0; j < json.length; j++) {
 			if (json[j].typeCode.toUpperCase() == softArr[i][1]) {
 				var info = json[j];
-				var infoArr = [info.name, info.typeCode, info.path, info.contentId];
+				var infoArr = [info.name, info.typeCode, info.path, info.contentId, info.controlUrl];
 				obj.arr.push(infoArr);
 			}
 		}
@@ -941,25 +941,25 @@ function layParseDate(json) {
 					usePercent: layout.usePercent
 				};
 				for (var m = 0; m < json.describe.length; m++) {
-					var describe = json.describe[m];
-					if (layout.layoutId == describe.layoutId) {
+					var describes = json.describe[m];
+					if (layout.layoutId == describes.layoutId) {
 						var obj3 = {};
 						var media = [];
-						var item = json.describe[m].items;
+						var item = describes.items;
 						if (typeof item == "string") {
-							item = eval(item);
+							item = JSON.parse(item);
 						}
 						for (var n = 0; n < item.length; n++) {
-							var mediasArr = [item[n].controlType, item[n].name];
+							var mediasArr = [item[n].controlType, item[n].name, item[n].path, item[n].contentId, item[n].controlUrl];
 							media.push(mediasArr);
 						}
 						obj3 = {
-							id: describe.winId,
-							scale: describe.scale,
+							id: describes.winId,
+							scale: describes.scale,
 							across: false,
-							screenInfo: [describe.width, describe.height, describe.x, describe.y],
+							screenInfo: [describes.width, describes.height, describes.x, describes.y],
 							medias: media,
-							items: describe.items
+							items: describes.items
 						};
 						screens.push(obj3);
 					}
@@ -986,15 +986,42 @@ function layoutChange(Dom) {
 	var changeAddbuju = layoutInfo.find("h2");
 	var changeContent = layoutInfo.find(".contentList");
 	var changelayName = $(".layoutName");
-	var changeAddlay = $(".addLayout");
+	var changelay = $(".addLayout");
 	Dom.layChange.on("click", ".layout1", function () {
 		Dom.layShow.show();
 		Dom.layChange.hide();
 		ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 	});
-	changeAddlay.on("click", function () {
-		$at.allInfo[$at.menuIndex] = $at.screenInfo;
+	changelay.on("click", function () {
+		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
+			var screens = $at.screenInfo.drawInfo[i].screens;
+			for (var j = 0; j < screens.length; j++) {
+				var arr = [];
+				for (var n = 0; n < screens[j].medias.length; n++) {
+					var medias = screens[j].medias[n];
+					console.log(medias);
+					var obj = {
+						name: name[4],
+						contentId: medias[3],
+						controlType: medias[0],
+						controlUrl: medias[2],
+						path: medias[1]
+					};
+					arr.push(obj);
+				}
+
+				$at.screenInfo.drawInfo[i].screens[j].items = JSON.stringify(arr);
+			}
+		}
+		var data1 = { data: JSON.stringify($at.screenInfo) };
+		$.post($at.url + "/interfaces/screenInfo/changeLayout", data1, onComplete);
+		function onComplete() {
+			$at.allInfo[$at.menuIndex] = $at.screenInfo;
+			ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
+			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+		}
 	});
+
 	changeTitle.on("click", "li", function () {
 		screenLen = changeTitle.find("li").index($(this));
 	});
@@ -1095,8 +1122,12 @@ function layoutChange(Dom) {
 	});
 	changeContent.on("click", ".add", function () {
 		var type = $(this).parent().find(".icon").attr("name");
-		var name = $(this).parent().find("span").html();
-		var arr = [type, name];
+		var name = $(this).parent().find("span").eq(0).html();
+		var path = $(this).parent().find("p").eq(1).html();
+		var contentId = $(this).parent().find("p").eq(2).html();
+		var controlUrl = $(this).parent().find("p").eq(3).html();
+		var arr = [type, path, name, contentId, controlUrl];
+		console.log("[type,path,name,contentId,controlUrl]" + 111);
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
@@ -1365,7 +1396,7 @@ var InfoBox3 = React.createClass({
 				"ul",
 				{ className: "chooseList" },
 				b.map(function (result, index) {
-					var imgSrc = "assets/img/" + result[0] + ".png";
+					var imgSrc = "assets/img/" + result[1] + ".png";
 					return React.createElement(
 						"li",
 						{ key: index },
@@ -1373,7 +1404,27 @@ var InfoBox3 = React.createClass({
 						React.createElement(
 							"p",
 							null,
-							result[1]
+							result[0]
+						),
+						React.createElement(
+							"span",
+							null,
+							result[2]
+						),
+						React.createElement(
+							"span",
+							null,
+							result[3]
+						),
+						React.createElement(
+							"span",
+							null,
+							result[4]
+						),
+						React.createElement(
+							"span",
+							null,
+							result[5]
 						),
 						React.createElement("img", { src: "assets/img/close.png", className: "close", name: index })
 					);
@@ -1441,7 +1492,27 @@ var InfoBox4 = React.createClass({
 									React.createElement(
 										"span",
 										null,
-										result2[0]
+										result2[1]
+									),
+									React.createElement(
+										"p",
+										null,
+										result2[2]
+									),
+									React.createElement(
+										"p",
+										null,
+										result2[3]
+									),
+									React.createElement(
+										"p",
+										null,
+										result2[4]
+									),
+									React.createElement(
+										"p",
+										null,
+										result2[5]
 									),
 									React.createElement("img", { src: "assets/img/add.png", className: "add" })
 								);
@@ -1798,7 +1869,7 @@ var FunTitle = React.createClass({
 					React.createElement(
 						"p",
 						null,
-						result[1]
+						result[2]
 					)
 				);
 			})
@@ -2472,7 +2543,6 @@ function initScreenInfo() {
 	};
 	$at.getJson("dataDemo.json", "", onComplete);
 	function onComplete(json) {
-		console.log(json);
 		ReactDOM.render(React.createElement(Part5, { info: view5Info }), view5Dom.layoutShow);
 	}
 }
@@ -2495,7 +2565,7 @@ function partController(Dom) {
 					across: false,
 					screenInfo: [0, 0, 0, 0],
 					medias: [],
-					items: ['[{"contentId":"c96ba3008d1e4226b826a1c49887aae7","controlType":"PPT","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-总体","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":true},{"contentId":"fd76ad7be13c44f9a81bda53021b66b3","controlType":"WEB","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-仓库","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false},{"contentId":"a9adbcce9eec4db0b1731ff76704c028","controlType":"FLASH","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-库房","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false},{"contentId":"bdc851235c364ab8bc65ddda3c13596d","controlType":"PDF","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-维修","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false}]']
+					items: ['[]']
 				}]
 			}]
 		};

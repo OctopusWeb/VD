@@ -1,5 +1,5 @@
 var EntryHard = React.createClass({
-	render : function(){
+	render : function(){ 
 		return(<div>
 				<EntryList arr={this.props.arr} name={"资源类型"}/>
 				<div className="addBtn" id="entryAdd">添加</div> 

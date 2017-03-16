@@ -60,27 +60,27 @@ function layParseDate(json){
 					usePercent:layout.usePercent
 				}
 				for (var m=0;m<json.describe.length;m++){
-					var describe = json.describe[m];
-					if(layout.layoutId == describe.layoutId){
+					var describes = json.describe[m];
+					if(layout.layoutId == describes.layoutId){
 						var obj3={};
 						var media=[];
-						var item = json.describe[m].items;
+						var item = describes.items;
 						if(typeof(item)=="string"){
-							item=eval(item);
+							item=JSON.parse(item);
 						}
 						for (var n=0;n<item.length;n++) {
-							var mediasArr=[item[n].controlType,item[n].name];
+							var mediasArr=[item[n].controlType,item[n].name,item[n].path,item[n].contentId,item[n].controlUrl];
 							media.push(mediasArr);
 						}
 						obj3={
-							id:describe.winId,
-							scale:describe.scale,
+							id:describes.winId,
+							scale:describes.scale,
 							across:false,
-							screenInfo:[describe.width,describe.height,describe.x,describe.y],
+							screenInfo:[describes.width,describes.height,describes.x,describes.y],
 							medias:media, 
-							items:describe.items
+							items:describes.items
 						}
-						screens.push(obj3)
+						screens.push(obj3);
 					} 
 				}
 				obj2.screens=screens;
@@ -106,15 +106,42 @@ function layoutChange(Dom){
 	var changeAddbuju = layoutInfo.find("h2");
 	var changeContent =layoutInfo.find(".contentList");
 	var changelayName = $(".layoutName");
-	var changeAddlay = $(".addLayout");
+	var changelay = $(".addLayout");
 	Dom.layChange.on("click",".layout1",function(){
 		Dom.layShow.show(); 
 		Dom.layChange.hide();
 		ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
 	})
-	changeAddlay.on("click",function(){
-		$at.allInfo[$at.menuIndex]=$at.screenInfo;
-	})
+	changelay.on("click", function () {
+		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
+			var screens = $at.screenInfo.drawInfo[i].screens;
+			for (var j = 0; j < screens.length; j++) {
+				var arr=[]
+				for (var n=0;n<screens[j].medias.length;n++) {
+					var medias = screens[j].medias[n];
+					console.log(medias);
+					var obj = {
+						name : name[4],
+						contentId: medias[3],
+						controlType: medias[0],
+						controlUrl: medias[2],
+						path: medias[1]
+					};
+					arr.push(obj);
+				}
+				
+				$at.screenInfo.drawInfo[i].screens[j].items = JSON.stringify(arr);
+			}
+		}
+		var data1 = { data: JSON.stringify($at.screenInfo) };
+		$.post($at.url+"/interfaces/screenInfo/changeLayout", data1,onComplete);
+		function onComplete() {
+			$at.allInfo[$at.menuIndex] = $at.screenInfo;
+			ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
+			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+		}
+	});
+	
 	changeTitle.on("click","li",function(){
 		screenLen = changeTitle.find("li").index($(this));
 	})
@@ -217,8 +244,12 @@ function layoutChange(Dom){
 	})
 	changeContent.on("click",".add",function(){
 		var type = $(this).parent().find(".icon").attr("name");
-		var name = $(this).parent().find("span").html();
-		var arr = [type,name]
+		var name = $(this).parent().find("span").eq(0).html();
+		var path = $(this).parent().find("p").eq(1).html();
+		var contentId = $(this).parent().find("p").eq(2).html();
+		var controlUrl = $(this).parent().find("p").eq(3).html();
+		var arr = [type,path,name,contentId,controlUrl];
+		console.log("[type,path,name,contentId,controlUrl]"+111)
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	}) 

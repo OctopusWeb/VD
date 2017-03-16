@@ -151,6 +151,7 @@ html body { background: #efefef; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseList li { width: 130px; float: left; position: relative; margin-left: 10px; height: 26px; line-height: 26px; border-radius: 3px; border: 1px solid #b4b4b4; overflow: hidden; background: #fff; margin-top: 5px; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseList li .icon { float: left; margin: 7px 10px; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseList li p { float: left; width: 70px; text-align: center; line-height: 25px; font-size: 12px; color: #b4b4b4; }
+#layout #LayoutScreen #layoutInfo .infoBox .chooseList li span { display: none; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseList li .close { float: right; width: 20px; height: 20px; margin-top: 3px; }
 #layout #LayoutScreen #layoutInfo .infoBox .chooseList .selected p, #layout #LayoutScreen #layoutInfo .infoBox .chooseList #wrap #addScreen #menu #screenList li:hover p, #wrap #addScreen #menu #screenList #layout #LayoutScreen #layoutInfo .infoBox .chooseList li:hover p { color: #eb7627; }
 #layout #LayoutScreen #layoutInfo .infoBox .infoList { float: left; width: 90%; margin-left: 5%; margin-top: 10px; height: 170px; }
@@ -164,6 +165,7 @@ html body { background: #efefef; }
 #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li .contentBtn { float: left; border-radius: 3px; border: 1px solid #b4b4b4; width: 130px; height: 27px; margin-left: 10px; margin-top: 10px; cursor: pointer; position: relative; }
 #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li .contentBtn .icon { width: 10px; float: left; margin: 8px 10px; }
 #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li .contentBtn span { line-height: 27px; float: left; width: 70px; text-align: center; font-size: 12px; color: #727171; }
+#layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li .contentBtn p { display: none; }
 #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li .contentBtn .add { float: left; right: 5px; margin-top: 7px; height: 10px; width: 10px; display: none; }
 #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li .selected, #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li li:hover { border-color: #eb7627; }
 #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li .selected span, #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li #wrap #addScreen #menu #screenList li:hover span, #wrap #addScreen #menu #screenList #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li li:hover span { color: #eb7627; }

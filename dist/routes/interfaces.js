@@ -85,7 +85,7 @@ router.post('/entryPost/content',function(req,res){
 	var name = param.name;
 	var path = param.path;
 	var typeCode = param.typeCode;
-	var entryContentPostSql = 'INSERT INTO `t_content`(contentId,name,path,typeCode,time) VALUES(?,?,?,?,?)';
+	var entryContentPostSql = 'INSERT INTO `t_content`(contentId,name,path,typeCode,time,controlUrl) VALUES(?,?,?,?,?)';
 	pool.query(entryContentPostSql, [contentId,name,path,typeCode,time],function(err, result) {
 		if (err) {
 			console.log(err);
@@ -276,15 +276,71 @@ router.post("/screenInfo/changeScreen",function(req,res){
 		}
 		for (var i=0;i<hostList.length;i++) {
 			id = shortid.gen();
-			var data = [id,hostList[i].describeJson,hostList[i].deviceId,screenInfo.screenId];
-			pool.query(addHostPost, data,function(err5, result5) {
-				if (err5) { 
-					console.log(err5);
-					return;
-				}
-			})
+			(function(i){
+				var data = [id,hostList[i].describeJson,hostList[i].deviceId,screenInfo.screenId];
+				pool.query(addHostPost, data,function(err5, result5) {
+					if (err5) { 
+						console.log(err5);
+						return;
+					}
+				})
+			})(i)
 		}
 	})
+})
+
+router.post("/screenInfo/changeLayout",function(req,res){
+	var postData = req.body;
+	var param = JSON.parse(postData.data);
+	var screenId = param.screenInfo.id;
+	var layoutList = param.drawInfo;
+	
+	var deleteLayout = 'DELETE FROM `t_screen_layout` WHERE screenId="'+screenId+'"';
+	var addLayoutPost = "INSERT INTO `t_screen_layout`(layoutId,controlUrl,name,screenId,usePercent,idx,describeJson) VALUES(?,?,?,?,?,?,?)";
+	
+	
+	var addDescribePost = "INSERT INTO `t_describe`(screenId,layoutId,x,y,width,height,winId,scale,items) VALUES(?,?,?,?,?,?,?,?,?)";
+	
+	pool.query(deleteLayout, "",function(err1, result1) {
+		if (err1) {
+			console.log(err1);
+			return;
+		}
+		for (var i=0;i<layoutList.length;i++) {
+			newlayoutid = shortid.gen(); 
+			(function(i,newlayoutid){
+				var data = [newlayoutid,layoutList[i].controlUrl,layoutList[i].title,screenId,layoutList[i].usePercent,"1",""];
+				pool.query(addLayoutPost, data,function(err2, result2) {
+					if (err2) { 
+						console.log(err2);
+						return;
+					}
+					for (var j=0;j<layoutList[i].screens.length;j++) {
+						var deleteDescribe = 'DELETE FROM `t_describe` WHERE layoutId="'+layoutList[i].id+'"';
+						winid = shortid.gen();
+						(function(j,winid){
+							var screens=layoutList[i].screens[j];
+							var data1=[screenId,newlayoutid,screens.screenInfo[2],screens.screenInfo[3],screens.screenInfo[0],screens.screenInfo[1],winid,screens.scale,screens.items]
+							pool.query(deleteDescribe, "",function(err3, result3) {
+								if (err3) {
+									console.log(err3);
+									return;
+								}
+								pool.query(addDescribePost, data1,function(err4, result4) {
+									if (err4) { 
+										console.log(err4);
+										return;
+									}
+								})
+							})
+						})(j,winid)
+					}
+				})
+			})(i,newlayoutid)
+		}
+	})
+
+	
 })
 
 router.get("/screenInfo",function(req,res){

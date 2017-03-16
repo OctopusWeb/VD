@@ -170,7 +170,7 @@ var FunTitle = React.createClass({
 					var imgSrc = "assets/img/"+result[0]+".png"
 					return(<li key={index} className={cla}>
 						<img src={imgSrc}/>
-						<p>{result[1]}</p>
+						<p>{result[2]}</p>
 						</li>)
 				})
 			}

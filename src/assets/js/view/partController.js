@@ -18,7 +18,7 @@ function partController(Dom){
 						across:false,
 						screenInfo:[0,0,0,0],
 						medias:[],
-						items:['[{"contentId":"c96ba3008d1e4226b826a1c49887aae7","controlType":"PPT","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-总体","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":true},{"contentId":"fd76ad7be13c44f9a81bda53021b66b3","controlType":"WEB","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-仓库","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false},{"contentId":"a9adbcce9eec4db0b1731ff76704c028","controlType":"FLASH","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-库房","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false},{"contentId":"bdc851235c364ab8bc65ddda3c13596d","controlType":"PDF","controlUrl":"","fileId":"","fromResourceCenter":"-1","ifStandardControl":"","name":"大修厂-维修","orderScript":"","path":"","spaceId":"66f060fda8eb4534b563819e18e1f34b","time":0,"typeCode":"t_content_00005","volume":50,"icon":"assets/images/icons-128/软件/Flash.png","selected":false}]'] 
+						items:['[]'] 
 						}
 					]
 				}
@@ -104,7 +104,6 @@ function partController(Dom){
 				PartChange(2);
 				initPart3(Dom,deviceList);
 			}
-			
 		});
 		$("#addPart2").find("ul").on("click",function(e){
 			var event = e || window.event;
@@ -141,7 +140,7 @@ function partController(Dom){
 				ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
 				ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 				ReactDOM.render(<MenuList/>,setScreenDom.screenList);
-			}	
+			}
 		}
 		function addHost(){
 			var deviceList = $("#entryList ul li");
@@ -169,6 +168,6 @@ function partController(Dom){
 		var title = ["新建虚拟桌面","选择主机","分配屏幕"]
 		$("#levNum li").removeClass("selected");
 		$("#levNum li").eq(index).addClass("selected"); 
-		$("#pageTitle h1").html(title[index]); 
+		$("#pageTitle h1").html(title[index]);
 	}
 }

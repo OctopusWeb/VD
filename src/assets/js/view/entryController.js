@@ -2,7 +2,7 @@ function initSoft(Dom){
 	var softArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZoolonWEB"],["video1","Video"]]
 	var softName = ["展项名称","展项类型","资源URL","总控命令地址"]
 	ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
-	
+	 
 	$("#entryAdd").on("click",function(){
 		var len=$(".entryList ul .selected").length;
 		if(len == 0){return}; 
@@ -203,8 +203,8 @@ function ParseSoft(json){
 		for (var j=0;j<json.length;j++) { 
 			if(json[j].typeCode.toUpperCase() == softArr[i][1]){ 
 				var info=json[j];
-				var infoArr=[info.name,info.typeCode,info.path,info.contentId];
-				obj.arr.push(infoArr)
+				var infoArr=[info.name,info.typeCode,info.path,info.contentId,info.controlUrl];
+				obj.arr.push(infoArr);
 			}
 		}
 		softList.push(obj);

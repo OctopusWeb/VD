@@ -1,4 +1,4 @@
-var view2Dom = {
+var view2Dom = { 
 	addPart2 : $at.GetDomId("addPart2"),
 }
 var facilityList = ["PC8189","PC8189","PC8189","PC8189","PC8189","PC8189","PC8189","PC8189","PC8189"]

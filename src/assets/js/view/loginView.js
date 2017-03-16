@@ -143,7 +143,6 @@ function initScreenInfo(){
 	}
 	$at.getJson("dataDemo.json","",onComplete);
 	function onComplete(json){
-		console.log(json)
 		ReactDOM.render(<Part5 info={view5Info}/>,view5Dom.layoutShow);
 	}
 }

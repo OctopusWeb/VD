@@ -1,4 +1,4 @@
-var view3Dom = {
+var view3Dom = { 
 	addPart3 : $at.GetDomId("addPart3")
 }
 
