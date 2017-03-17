@@ -23,7 +23,7 @@ var LayoutBottom = React.createClass({
 			<div className='layoutContent'>
 				{
 					info.map(function(result,index){
-						var htmls = chooseType(result[0],result[1],index)
+						var htmls = chooseType(result[2],result[0],index)
 						return htmls
 					})
 				}
@@ -167,10 +167,14 @@ var FunTitle = React.createClass({
 			{
 				title.map(function(result,index){
 					var cla = index==0?"selected":"";
-					var imgSrc = "assets/img/"+result[0]+".png"
+					var imgSrc = "assets/img/"+result[2]+".png"
 					return(<li key={index} className={cla}>
 						<img src={imgSrc}/>
+						<p className="p">{result[0]}</p>
+						<p>{result[1]}</p>
 						<p>{result[2]}</p>
+						<p>{result[3]}</p>
+						<p>{result[4]}</p>
 						</li>)
 				})
 			}

@@ -21,13 +21,14 @@ function initSoft(Dom){
 					var data={
 						name : name,
 						path : info1,
-						typeCode : info0
+						typeCode : info0,
+						controlUrl : info2
 					}
 				}
 			}
 			$.post($at.url+"/interfaces/entryPost/content", data,onComplete); 
 			function onComplete(json){
-				$at.softWare[num].arr.push([name,info0,info1,json.data.contentId,""]);
+				$at.softWare[num].arr.push([name,info0,info1,json.data.contentId,info2]);
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 			}
 			
@@ -49,7 +50,8 @@ function initSoft(Dom){
 				contentId : contentId,
 				name : name,
 				path : info1,
-				typeCode : info0
+				typeCode : info0,
+				controlUrl : info2
 			}
 			$.post($at.url+"/interfaces/entryChange/content", data,onComplete);  
 			function onComplete(json){
@@ -62,7 +64,7 @@ function initSoft(Dom){
 					var arr = $at.softWare[i].arr;
 					for (var j=0;j<arr.length;j++) {
 						if($at.softWare[i].arr[j][3]==contentId){
-							$at.softWare[i].arr[j]=[name,info0,info1,contentId,""];
+							$at.softWare[i].arr[j]=[name,info0,info1,contentId,info2];
 						}
 					}
 				}
@@ -89,7 +91,7 @@ function initSoft(Dom){
 		var name = $(this).find("h3").html();
 		var info0 = $(this).find("p").eq(0).html();
 		var info1 = $(this).find("p").eq(1).html();
-		var info2 = $(this).find("p").eq(2).html();
+		var info2 = $(this).find("p").eq(3).html();
 		$("#entryHard input").eq(0).val(name);
 		$("#entryHard input").eq(1).val(info0);
 		$("#entryHard input").eq(2).val(info1);

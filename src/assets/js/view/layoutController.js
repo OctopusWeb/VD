@@ -68,10 +68,12 @@ function layParseDate(json){
 						if(typeof(item)=="string"){
 							item=JSON.parse(item);
 						}
+						console.log(item)
 						for (var n=0;n<item.length;n++) {
-							var mediasArr=[item[n].controlType,item[n].name,item[n].path,item[n].contentId,item[n].controlUrl];
+							var mediasArr=[item[n].name,item[n].controlType,item[n].path,item[n].contentId,item[n].controlUrl];
 							media.push(mediasArr);
 						}
+						console.log(media);
 						obj3={
 							id:describes.winId,
 							scale:describes.scale,
@@ -119,13 +121,12 @@ function layoutChange(Dom){
 				var arr=[]
 				for (var n=0;n<screens[j].medias.length;n++) {
 					var medias = screens[j].medias[n];
-					console.log(medias);
 					var obj = {
-						name : name[4],
+						name : medias[0],
+						controlType: medias[1],
+						path: medias[2],
 						contentId: medias[3],
-						controlType: medias[0],
-						controlUrl: medias[2],
-						path: medias[1]
+						controlUrl: medias[4],
 					};
 					arr.push(obj);
 				}
@@ -248,8 +249,7 @@ function layoutChange(Dom){
 		var path = $(this).parent().find("p").eq(1).html();
 		var contentId = $(this).parent().find("p").eq(2).html();
 		var controlUrl = $(this).parent().find("p").eq(3).html();
-		var arr = [type,path,name,contentId,controlUrl];
-		console.log("[type,path,name,contentId,controlUrl]"+111)
+		var arr = [name,path,type,contentId,controlUrl];
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	}) 

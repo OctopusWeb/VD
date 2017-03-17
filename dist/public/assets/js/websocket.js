@@ -1,0 +1,2 @@
+$at.SocketFun=function(){var e;this.connect=function(){try{e=new WebSocket($at.socketUrl)}catch(e){return void alert("error")}e.onopen=sOpen,e.onerror=sError,e.onmessage=sMessage,e.onclose=sClose},this.sOpen=function(){alert("connect success!")},this.sError=function(){alert("connect error")},this.sMessage=function(e){alert("server says:"+e)},this.sClose=function(){alert("connect close")},this.send=function(n){e.send("hello ,i am siren!")},this.close=function(){e.close()}};
+//# sourceMappingURL=maps/websocket.js.map

@@ -267,13 +267,14 @@ function initSoft(Dom){
 					var data={
 						name : name,
 						path : info1,
-						typeCode : info0
+						typeCode : info0,
+						controlUrl : info2
 					}
 				}
 			}
 			$.post($at.url+"/interfaces/entryPost/content", data,onComplete); 
 			function onComplete(json){
-				$at.softWare[num].arr.push([name,info0,info1,json.data.contentId,""]);
+				$at.softWare[num].arr.push([name,info0,info1,json.data.contentId,info2]);
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 			}
 			
@@ -295,7 +296,8 @@ function initSoft(Dom){
 				contentId : contentId,
 				name : name,
 				path : info1,
-				typeCode : info0
+				typeCode : info0,
+				controlUrl : info2
 			}
 			$.post($at.url+"/interfaces/entryChange/content", data,onComplete);  
 			function onComplete(json){
@@ -308,7 +310,7 @@ function initSoft(Dom){
 					var arr = $at.softWare[i].arr;
 					for (var j=0;j<arr.length;j++) {
 						if($at.softWare[i].arr[j][3]==contentId){
-							$at.softWare[i].arr[j]=[name,info0,info1,contentId,""];
+							$at.softWare[i].arr[j]=[name,info0,info1,contentId,info2];
 						}
 					}
 				}
@@ -335,7 +337,7 @@ function initSoft(Dom){
 		var name = $(this).find("h3").html();
 		var info0 = $(this).find("p").eq(0).html();
 		var info1 = $(this).find("p").eq(1).html();
-		var info2 = $(this).find("p").eq(2).html();
+		var info2 = $(this).find("p").eq(3).html();
 		$("#entryHard input").eq(0).val(name);
 		$("#entryHard input").eq(1).val(info0);
 		$("#entryHard input").eq(2).val(info1);
@@ -686,10 +688,12 @@ function layParseDate(json){
 						if(typeof(item)=="string"){
 							item=JSON.parse(item);
 						}
+						console.log(item)
 						for (var n=0;n<item.length;n++) {
-							var mediasArr=[item[n].controlType,item[n].name,item[n].path,item[n].contentId,item[n].controlUrl];
+							var mediasArr=[item[n].name,item[n].controlType,item[n].path,item[n].contentId,item[n].controlUrl];
 							media.push(mediasArr);
 						}
+						console.log(media);
 						obj3={
 							id:describes.winId,
 							scale:describes.scale,
@@ -737,13 +741,12 @@ function layoutChange(Dom){
 				var arr=[]
 				for (var n=0;n<screens[j].medias.length;n++) {
 					var medias = screens[j].medias[n];
-					console.log(medias);
 					var obj = {
-						name : name[4],
+						name : medias[0],
+						controlType: medias[1],
+						path: medias[2],
 						contentId: medias[3],
-						controlType: medias[0],
-						controlUrl: medias[2],
-						path: medias[1]
+						controlUrl: medias[4],
 					};
 					arr.push(obj);
 				}
@@ -866,8 +869,7 @@ function layoutChange(Dom){
 		var path = $(this).parent().find("p").eq(1).html();
 		var contentId = $(this).parent().find("p").eq(2).html();
 		var controlUrl = $(this).parent().find("p").eq(3).html();
-		var arr = [type,path,name,contentId,controlUrl];
-		console.log("[type,path,name,contentId,controlUrl]"+111)
+		var arr = [name,path,type,contentId,controlUrl];
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	}) 
@@ -1002,14 +1004,14 @@ var InfoBox3 = React.createClass({
 			<ul className="chooseList"> 
 			{
 				b.map(function(result,index){
-					var imgSrc = "assets/img/"+result[1]+".png"
+					var imgSrc = "assets/img/"+result[2]+".png"
 					return(<li key={index}>
 						<img src={imgSrc} className="icon"/>
 						<p>{result[0]}</p>
-						<span>{result[2]}</span> 
+						<span>{result[1]}</span> 
+						<span>{result[2]}</span>
 						<span>{result[3]}</span>
 						<span>{result[4]}</span>
-						<span>{result[5]}</span>
 						<img src="assets/img/close.png" className="close" name={index}/>
 					</li>)
 				})
@@ -1054,12 +1056,12 @@ var InfoBox4 = React.createClass({
 									result.arr.map(function(result2,index2){
 										return(
 											<div className="contentBtn" key={index2}>
-												<img src={imgSrc} className="icon" name={titleList[index][0]}/> 
-												<span>{result2[1]}</span>
+												<img src={imgSrc} className="icon" name={titleList[index][1]}/> 
+												<span>{result2[0]}</span>
+												<p>{result2[1]}</p>
 												<p>{result2[2]}</p>
 												<p>{result2[3]}</p>
 												<p>{result2[4]}</p>
-												<p>{result2[5]}</p>
 												<img src="assets/img/add.png" className="add"/>
 											</div>
 										)
@@ -1186,7 +1188,7 @@ var LayoutBottom = React.createClass({
 			<div className='layoutContent'>
 				{
 					info.map(function(result,index){
-						var htmls = chooseType(result[0],result[1],index)
+						var htmls = chooseType(result[2],result[0],index)
 						return htmls
 					})
 				}
@@ -1330,10 +1332,14 @@ var FunTitle = React.createClass({
 			{
 				title.map(function(result,index){
 					var cla = index==0?"selected":"";
-					var imgSrc = "assets/img/"+result[0]+".png"
+					var imgSrc = "assets/img/"+result[2]+".png"
 					return(<li key={index} className={cla}>
 						<img src={imgSrc}/>
+						<p className="p">{result[0]}</p>
+						<p>{result[1]}</p>
 						<p>{result[2]}</p>
+						<p>{result[3]}</p>
+						<p>{result[4]}</p>
 						</li>)
 				})
 			}
@@ -1517,7 +1523,7 @@ var ZoolonFun = React.createClass({
 
 function loginController(Dom){
 	Dom.submite.on("click",function(){
-		
+//		$at.SocketFun.send();
 		var name=$("#userName input").val();
 		var pass=$("#passWord input").val();
 		if(name==""||pass==""){

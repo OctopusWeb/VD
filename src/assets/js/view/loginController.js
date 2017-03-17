@@ -1,6 +1,6 @@
 function loginController(Dom){
 	Dom.submite.on("click",function(){
-		
+//		$at.SocketFun.send();
 		var name=$("#userName input").val();
 		var pass=$("#passWord input").val();
 		if(name==""||pass==""){

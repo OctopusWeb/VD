@@ -128,14 +128,14 @@ var InfoBox3 = React.createClass({
 			<ul className="chooseList"> 
 			{
 				b.map(function(result,index){
-					var imgSrc = "assets/img/"+result[1]+".png"
+					var imgSrc = "assets/img/"+result[2]+".png"
 					return(<li key={index}>
 						<img src={imgSrc} className="icon"/>
 						<p>{result[0]}</p>
-						<span>{result[2]}</span> 
+						<span>{result[1]}</span> 
+						<span>{result[2]}</span>
 						<span>{result[3]}</span>
 						<span>{result[4]}</span>
-						<span>{result[5]}</span>
 						<img src="assets/img/close.png" className="close" name={index}/>
 					</li>)
 				})
@@ -180,12 +180,12 @@ var InfoBox4 = React.createClass({
 									result.arr.map(function(result2,index2){
 										return(
 											<div className="contentBtn" key={index2}>
-												<img src={imgSrc} className="icon" name={titleList[index][0]}/> 
-												<span>{result2[1]}</span>
+												<img src={imgSrc} className="icon" name={titleList[index][1]}/> 
+												<span>{result2[0]}</span>
+												<p>{result2[1]}</p>
 												<p>{result2[2]}</p>
 												<p>{result2[3]}</p>
 												<p>{result2[4]}</p>
-												<p>{result2[5]}</p>
 												<img src="assets/img/add.png" className="add"/>
 											</div>
 										)

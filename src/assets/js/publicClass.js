@@ -23,4 +23,5 @@ $at.softWare={};
 $at.entryHard={};
 $at.menuIndex=0;
 $at.staicUrl = "http://localhost:3000/";
+$at.socketUrl = 'ws://192.168.1.222:1234'
 
