@@ -843,7 +843,7 @@ var InputList = React.createClass({
 });
 
 function bindController() {
-	$(".onBtn").on("click", "p:eq(0)", function () {
+	$(".onBtn1").on("click", "p:eq(0)", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -857,16 +857,13 @@ function bindController() {
 				"Width": openInfo.screens[i].screenInfo[0],
 				"Height": openInfo.screens[i].screenInfo[1]
 			};
-			console.log(winIndex);
 			if (openInfo.screens[i].medias[winIndex]) {
 				var type = chooseType(openInfo.screens[i].medias[winIndex][2].toUpperCase());
-				console.log(openInfo.screens[i].medias[winIndex][2].toUpperCase());
 				obj.Resource = {
 					"Source": "local",
 					"Path": openInfo.screens[i].medias[winIndex][1]
 				};
 				obj.Type = type;
-				console.log(type);
 			}
 			Layout.push(obj);
 		}
@@ -876,6 +873,16 @@ function bindController() {
 		};
 		var multiScreen = new MultiScreenCall();
 		var data = multiScreen.open(Arguments);
+		send(data);
+	});
+	$(".videoFun #play").on("click", function () {
+		var Video = new Videocall();
+		var data = Video.play();
+		send(data);
+	});
+	$(".videoFun #pause").on("click", function () {
+		var Video = new Videocall();
+		var data = Video.pause();
 		send(data);
 	});
 	function chooseType(name) {
@@ -902,7 +909,7 @@ function bindController() {
 				break;
 		}
 	}
-	$(".onBtn").on("click", "p:eq(1)", function () {
+	$(".onBtn1").on("click", "p:eq(1)", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
 		var multiScreen = new MultiScreenCall();
@@ -1992,7 +1999,7 @@ var VideoFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn" },
+						{ className: "onBtn onBtn1" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
@@ -2027,12 +2034,12 @@ var VideoFun = React.createClass({
 						{ className: "onBtn" },
 						React.createElement(
 							"p",
-							{ className: "selected" },
+							{ className: "selected", id: "play" },
 							"\u9ED8\u8BA4"
 						),
 						React.createElement(
 							"p",
-							null,
+							{ id: "pause" },
 							"\u5FAA\u73AF"
 						)
 					)
@@ -2099,7 +2106,7 @@ var PptFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn" },
+						{ className: "onBtn onBtn1" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
@@ -2188,7 +2195,7 @@ var PdfFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn" },
+						{ className: "onBtn onBtn1" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
@@ -2338,7 +2345,7 @@ var FlashFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn" },
+						{ className: "onBtn onBtn1" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
@@ -2403,7 +2410,7 @@ var WebFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn" },
+						{ className: "onBtn onBtn1" },
 						React.createElement(
 							"p",
 							{ className: "selected" },

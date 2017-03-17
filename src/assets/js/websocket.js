@@ -59,64 +59,63 @@ function MultiScreenCall(){
 	};
 }
 function Videocall(){
-	var obj = new obj;
-	obj.open = function(Arguments){
-		Arguments = {
-	        "LayoutId": "f1216dd9a8834c54a187bcf1de7e5874",
-	        "WinId": "b1wJ6zJsdbuUbtxrBXMoBsjcpJAQ6JWj",
-	        "Layout": [
-	            {
-	                "WinId": "b1wJ6zJsdbuUbtxrBXMoBsjcpJAQ6JWj",
-	                "X": 1920,
-	                "Y": 0,
-	                "Width": 3840,
-	                "Height": 2160,
-	                "Type": "video",
-	                "Resource": {
-	                    "Source": "local",
-	                    "Path": "d:\\video\\zoolonvideo.mp4",
-	                    "Volume": 50
-	                }
-	            }
-	        ]
-	    }
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "openWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-	obj.close = function(Arguments){
-		Arguments =  {
-	        "LayoutId": "f1216dd9a8834c54a187bcf1de7e5874",
-	        "WinId": "b1wJ6zJsdbuUbtxrBXMoBsjcpJAQ6JWj",
-	        "Layout": [
-	            {
-	                "WinId": "b1wJ6zJsdbuUbtxrBXMoBsjcpJAQ6JWj"
-	            }
-	        ]
-	    }
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "closeWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-	obj.pause = function(Arguments){
+//	this.open = function(Arguments){
+//		Arguments = {
+//	        "LayoutId": "f1216dd9a8834c54a187bcf1de7e5874",
+//	        "WinId": "b1wJ6zJsdbuUbtxrBXMoBsjcpJAQ6JWj",
+//	        "Layout": [
+//	            {
+//	                "WinId": "b1wJ6zJsdbuUbtxrBXMoBsjcpJAQ6JWj",
+//	                "X": 1920,
+//	                "Y": 0,
+//	                "Width": 3840,
+//	                "Height": 2160,
+//	                "Type": "video",
+//	                "Resource": {
+//	                    "Source": "local",
+//	                    "Path": "d:\\video\\zoolonvideo.mp4",
+//	                    "Volume": 50
+//	                }
+//	            }
+//	        ]
+//	    }
+//		var data = {
+//			"receiverName": "Deamon-1",
+//		    "senderName": "web",
+//		    "messageID": "123456",
+//		    "messageType": "",
+//		    "Service": "multiScreenCall",
+//		    "Action": "openWindow",
+//		    "HostId":"daemon0",
+//		    "Arguments": Arguments
+//		}
+//		return data;
+//	}
+//	this.close = function(Arguments){
+//		Arguments =  {
+//	        "LayoutId": "f1216dd9a8834c54a187bcf1de7e5874",
+//	        "WinId": "b1wJ6zJsdbuUbtxrBXMoBsjcpJAQ6JWj",
+//	        "Layout": [
+//	            {
+//	                "WinId": "b1wJ6zJsdbuUbtxrBXMoBsjcpJAQ6JWj"
+//	            }
+//	        ]
+//	    }
+//		var data = {
+//			"receiverName": "Deamon-1",
+//		    "senderName": "web",
+//		    "messageID": "123456",
+//		    "messageType": "",
+//		    "Service": "multiScreenCall",
+//		    "Action": "closeWindow",
+//		    "HostId":"daemon0",
+//		    "Arguments": Arguments
+//		}
+//		return data;
+//	}
+	this.pause = function(){
 		var data={
-			"receiverName": "Deamon-1",
+			"receiverName": "w6FXeLJRq0",
 		    "senderName": "web",
 		    "messageID": "123456",
 		    "messageType": "",
@@ -125,9 +124,9 @@ function Videocall(){
 		}
 		return data;
 	}
-	obj.play = function(){
+	this.play = function(){
 		var data={
-			"receiverName": "Deamon-1",
+			"receiverName": "w6FXeLJRq0",
 		    "senderName": "web",
 		    "messageID": "123456",
 		    "messageType": "",
@@ -136,7 +135,7 @@ function Videocall(){
 		}
 		return data;
 	}
-	obj.setPlayMode = function(type){
+	this.setPlayMode = function(type){
 		type=0
 		var data={
 			"receiverName": "Deamon-1",
@@ -149,7 +148,7 @@ function Videocall(){
 		}
 		return data;
 	}
-	obj.setPosition = function(type){
+	this.setPosition = function(type){
 		var data={
 			"receiverName": "Deamon-1",
 		    "senderName": "web",
@@ -161,7 +160,7 @@ function Videocall(){
 		}
 		return data;
 	}
-	obj.setVolume = function(type){
+	this.setVolume = function(type){
 		var data={
 			"receiverName": "Deamon-1",
 		    "senderName": "web",
@@ -173,5 +172,4 @@ function Videocall(){
 		}
 		return data;
 	}
-	return obj;
 }

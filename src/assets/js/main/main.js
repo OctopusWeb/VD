@@ -581,7 +581,7 @@ var InputList = React.createClass({
 })
 
 function bindController(){
-	$(".onBtn").on("click","p:eq(0)",function(){
+	$(".onBtn1").on("click","p:eq(0)",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -613,6 +613,16 @@ function bindController(){
 		var data = multiScreen.open(Arguments);
 		send(data);
 	})
+	$(".videoFun #play").on("click",function(){
+		var Video = new Videocall();
+		var data = Video.play();
+		send(data);
+	})
+	$(".videoFun #pause").on("click",function(){
+		var Video = new Videocall();
+		var data = Video.pause(); 
+		send(data);
+	})
 	function chooseType(name){
 		switch (name){
 			case "VIDEO":
@@ -637,7 +647,7 @@ function bindController(){
 				break;
 		}
 	}
-	$(".onBtn").on("click","p:eq(1)",function(){
+	$(".onBtn1").on("click","p:eq(1)",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
 		var multiScreen = new MultiScreenCall();
@@ -1424,7 +1434,7 @@ var VideoFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn">
+					<div className="onBtn onBtn1">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1435,8 +1445,8 @@ var VideoFun = React.createClass({
 				<div className="controller">
 					<h2>播放模式</h2>
 					<div className="onBtn">
-						<p className="selected">默认</p> 
-						<p>循环</p>
+						<p className="selected" id="play">默认</p> 
+						<p id="pause">循环</p>
 					</div>
 				</div>
 				<div className="controller">
@@ -1463,7 +1473,7 @@ var PptFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn">
+					<div className="onBtn onBtn1">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1494,7 +1504,7 @@ var PdfFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn">
+					<div className="onBtn onBtn1">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1543,7 +1553,7 @@ var FlashFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn">
+					<div className="onBtn onBtn1">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1568,7 +1578,7 @@ var WebFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn">
+					<div className="onBtn onBtn1">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1584,7 +1594,7 @@ var WebFun = React.createClass({
 					</div>
 				</div>
 			</div>	
-		</div>)
+		</div>) 
 	}
 })
 var ZoolonFun = React.createClass({
