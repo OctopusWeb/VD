@@ -124,7 +124,7 @@ var destPath = {
 		
 	});
 	// 默认任务
-	gulp.task('default',['watch']);
+	gulp.task('default',['webserver','watch']);
 
 /* = 发布环境( Release Task )
 -------------------------------------------------------------- */

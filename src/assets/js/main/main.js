@@ -262,9 +262,10 @@ function initSoft(Dom){
 			var type = $(".entryList .selected").find("h3").html();
 			var num;
 			for (var i=0;i<$at.softWare.length;i++) {
-				if(type == $at.softWare[i].name){
+				if(type.toLowerCase() == $at.softWare[i].name.toLowerCase()){
 					num=i;
 					var data={
+						contentId : "",
 						name : name,
 						path : info1,
 						typeCode : info0,
@@ -579,6 +580,73 @@ var InputList = React.createClass({
 	}
 })
 
+function bindController(){
+	$(".onBtn").on("click","p:eq(0)",function(){
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = [];
+		for (var i = 0; i < openInfo.screens.length; i++) {
+			console.log(openInfo.screens[i])
+			var obj = {
+				"WinId": openInfo.screens[i].id,
+				"X": openInfo.screens[i].screenInfo[2],
+				"Y": openInfo.screens[i].screenInfo[3],
+				"Width": openInfo.screens[i].screenInfo[0],
+				"Height": openInfo.screens[i].screenInfo[1],
+			};
+			if (openInfo.screens[i].medias[winIndex]) {
+				var type = chooseType(openInfo.screens[i].medias[winIndex][2].toUpperCase());
+				obj.Resource = {
+					"Source": "local",
+					"Path":openInfo.screens[i].medias[winIndex][1]
+				};
+				obj.Type = type;
+			}  
+			Layout.push(obj);
+		}
+		var Arguments = {
+			"LayoutId": openInfo.id,
+			"Layout": Layout 
+		};
+		var multiScreen = new MultiScreenCall();
+		var data = multiScreen.open(Arguments);
+		send(data);
+	})
+	function chooseType(name){
+		switch (name){
+			case "VIDEO":
+				var type = "video"
+				return type
+			case "PPT":
+				var type = "ppt";
+				return type
+			case "PDF":
+				var type = "pdf";
+				return type
+			case "FLASH":
+				var type =	"swf";
+				return type
+			case "WEB":
+				var type = "httpurl";
+				return type
+			case "SHIPIN":
+				var type = "video"
+				return type
+			default:
+				break;
+		}
+	}
+	$(".onBtn").on("click","p:eq(1)",function(){
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
+		var multiScreen = new MultiScreenCall();
+		var Arguments = { "LayoutId": $at.screenInfo.drawInfo[index].id};
+		var data = multiScreen.close(Arguments);
+		send(data);
+	})
+}
+
 $(function(){
 	var Dom = {
 		submite		: $(".submite"),
@@ -620,6 +688,7 @@ $(function(){
 })
 function layShowController(Dom){
 	ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
+	bindController();
 	var funTitle = $(".funTitle");
 	var layoutContent = $(".layoutContent");
 	funTitle.on("click","li",function(){
@@ -637,6 +706,7 @@ function layShowController(Dom){
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected"); 
 	});
+	
 }
 function layChangeController(Dom){ 
 	ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
@@ -733,6 +803,7 @@ function layoutChange(Dom){
 		Dom.layShow.show(); 
 		Dom.layChange.hide();
 		ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
+		bindController();
 	})
 	changelay.on("click", function () {
 		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
@@ -760,6 +831,7 @@ function layoutChange(Dom){
 			$at.allInfo[$at.menuIndex] = $at.screenInfo;
 			ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+			bindController();
 		}
 	});
 	
@@ -877,7 +949,7 @@ function layoutChange(Dom){
 var view4Dom = {
 	layout	: $at.GetDomId("layout")
 }
-var titleList = [["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH"],["WEB","WEB"],["ZOOLONWEB","ZOOLONWEB"],["SHIPIN","视频"]]
+var titleList = [["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH"],["WEB","WEB"],["ZOOLONWEB","ZOOLONWEB"],["VIDEO","VIDEO"]]
 var Part4 = React.createClass({
 	render : function(){
 		var info = this.props.info;
@@ -1308,8 +1380,8 @@ var DrawBox = React.createClass({
 	}
 })
 function chooseType(type,name,index){
-	switch (type.toUpperCase()){ 
-		case "SHIPIN":
+	switch (type.toUpperCase()){
+		case "VIDEO":
 			return(<VideoFun title={name} key={index}/>)
 		case "PPT":
 			return(<PptFun title={name} key={index}/>)
@@ -1523,7 +1595,8 @@ var ZoolonFun = React.createClass({
 
 function loginController(Dom){
 	Dom.submite.on("click",function(){
-//		$at.SocketFun.send();
+		connect();
+		socket.onopen();
 		var name=$("#userName input").val();
 		var pass=$("#passWord input").val();
 		if(name==""||pass==""){
@@ -1852,6 +1925,7 @@ function partController(Dom){
 				ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
 				ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 				ReactDOM.render(<MenuList/>,setScreenDom.screenList);
+				bindController();
 			}
 		}
 		function addHost(){

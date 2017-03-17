@@ -1,7 +1,7 @@
 var view4Dom = {
 	layout	: $at.GetDomId("layout")
 }
-var titleList = [["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH"],["WEB","WEB"],["ZOOLONWEB","ZOOLONWEB"],["SHIPIN","视频"]]
+var titleList = [["PPT","PPT"],["PDF","PDF"],["FLASH","FLASH"],["WEB","WEB"],["ZOOLONWEB","ZOOLONWEB"],["VIDEO","VIDEO"]]
 var Part4 = React.createClass({
 	render : function(){
 		var info = this.props.info;

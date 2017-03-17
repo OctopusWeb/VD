@@ -16,9 +16,10 @@ function initSoft(Dom){
 			var type = $(".entryList .selected").find("h3").html();
 			var num;
 			for (var i=0;i<$at.softWare.length;i++) {
-				if(type == $at.softWare[i].name){
+				if(type.toLowerCase() == $at.softWare[i].name.toLowerCase()){
 					num=i;
 					var data={
+						contentId : "",
 						name : name,
 						path : info1,
 						typeCode : info0,

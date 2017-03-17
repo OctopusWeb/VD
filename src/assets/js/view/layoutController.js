@@ -1,5 +1,6 @@
 function layShowController(Dom){
 	ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
+	bindController();
 	var funTitle = $(".funTitle");
 	var layoutContent = $(".layoutContent");
 	funTitle.on("click","li",function(){
@@ -17,6 +18,7 @@ function layShowController(Dom){
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected"); 
 	});
+	
 }
 function layChangeController(Dom){ 
 	ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
@@ -113,6 +115,7 @@ function layoutChange(Dom){
 		Dom.layShow.show(); 
 		Dom.layChange.hide();
 		ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
+		bindController();
 	})
 	changelay.on("click", function () {
 		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
@@ -140,6 +143,7 @@ function layoutChange(Dom){
 			$at.allInfo[$at.menuIndex] = $at.screenInfo;
 			ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+			bindController();
 		}
 	});
 	

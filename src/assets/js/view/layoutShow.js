@@ -143,8 +143,8 @@ var DrawBox = React.createClass({
 	}
 })
 function chooseType(type,name,index){
-	switch (type.toUpperCase()){ 
-		case "SHIPIN":
+	switch (type.toUpperCase()){
+		case "VIDEO":
 			return(<VideoFun title={name} key={index}/>)
 		case "PPT":
 			return(<PptFun title={name} key={index}/>)
