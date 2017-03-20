@@ -199,7 +199,7 @@ var VideoFun = React.createClass({
 				<h1>控制界面</h1>
 				<div className="controller">
 					<h2>播放模式</h2>
-					<div className="onBtn">
+					<div className="onBtn arround">
 						<p className="selected" id="play">默认</p> 
 						<p id="pause">循环</p>
 					</div>

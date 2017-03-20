@@ -100,7 +100,7 @@ function bindController(){
 		var data = video.close(Arguments);
 		send(data);
 	})
-	$(".videoPlay").on("click","img",function(){
+	$(".playPro").on("click","img",function(){
 		var src = $(this).attr("src");
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -140,7 +140,16 @@ function bindController(){
 		var data = video.setVolume(openInfo.screens[layindex].id,parseInt(len));
 		send(data);
 	});
-	
+	$(".arround").on("click","p",function(){
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var index = $(".arround p").index($(this));
+		var video = new Videocall();
+		console.log(index); 
+		var data = video.setPlayMode(openInfo.screens[layindex].id,index);
+		send(data);
+	})
 	function chooseType(name){
 		switch (name){
 			case "VIDEO":

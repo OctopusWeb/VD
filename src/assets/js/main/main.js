@@ -682,7 +682,7 @@ function bindController(){
 		var data = video.close(Arguments);
 		send(data);
 	})
-	$(".videoPlay").on("click","img",function(){
+	$(".playPro").on("click","img",function(){
 		var src = $(this).attr("src");
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -708,7 +708,7 @@ function bindController(){
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var len = (e.pageX-$(this).offset().left)/$(this).width()*100;
 		$(this).find("p").width(len+"%");
-		var video = new Videocall(); 
+		var video = new Videocall();
 		var data = video.setPosition(openInfo.screens[layindex].id,parseInt(len));
 		send(data);
 	});
@@ -722,7 +722,16 @@ function bindController(){
 		var data = video.setVolume(openInfo.screens[layindex].id,parseInt(len));
 		send(data);
 	});
-	
+	$(".arround").on("click","p",function(){
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var index = $(".arround p").index($(this));
+		var video = new Videocall();
+		console.log(index); 
+		var data = video.setPlayMode(openInfo.screens[layindex].id,index);
+		send(data);
+	})
 	function chooseType(name){
 		switch (name){
 			case "VIDEO":
@@ -1542,7 +1551,7 @@ var VideoFun = React.createClass({
 				<h1>控制界面</h1>
 				<div className="controller">
 					<h2>播放模式</h2>
-					<div className="onBtn">
+					<div className="onBtn arround">
 						<p className="selected" id="play">默认</p> 
 						<p id="pause">循环</p>
 					</div>
