@@ -238,13 +238,13 @@ var PptFun = React.createClass({
 				<h1>控制界面</h1>
 				<div className="controller">
 					<h2>跳转页面</h2>
-					<div className="nomalBtn">
+					<div className="nomalBtn pptgroup">
 						<p>首页</p> 
 						<p>上一页</p> 
 						<p>下一页</p> 
 						<p>尾页</p> 
 					</div>
-					<div className="inputBtn">
+					<div className="inputBtn pptInput">
 						<p>跳转至</p>
 						<input type="number"/>
 					</div>
@@ -269,20 +269,20 @@ var PdfFun = React.createClass({
 				<h1>控制界面</h1>
 				<div className="controller">
 					<h2>跳转页面</h2>
-					<div className="nomalBtn">
-						<p>首页</p> 
+					<div className="nomalBtn pdfGroup">
+						<p>首页</p>
 						<p>上一页</p> 
 						<p>下一页</p> 
 						<p>尾页</p> 
 					</div>
-					<div className="inputBtn">
+					<div className="inputBtn pdfInput">
 						<p>跳转至</p>
 						<input type="number"/>
 					</div>
 				</div>
 				<div className="controller">
 					<h2>布局模式</h2>
-					<div className="nomalBtn">
+					<div className="nomalBtn pdfGroup2">
 						<p>单页</p> 
 						<p>单列</p> 
 						<p>双列(左)</p> 
@@ -292,7 +292,7 @@ var PdfFun = React.createClass({
 				</div>
 				<div className="controller">
 					<h2>缩放</h2>
-					<div className="pro1">
+					<div className="pro1 pdfScale">
 						<span>100</span>
 						<div><p></p></div>
 					</div>

@@ -19,7 +19,7 @@ function layShowController(Dom){
 	Dom.layShow.find(".drawContent1").on("click","li",function(){
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected"); 
-		
+		bindController();
 	});
 	
 }

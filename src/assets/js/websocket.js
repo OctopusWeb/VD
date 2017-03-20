@@ -144,3 +144,159 @@ function Videocall(){
 		return data;
 	}
 }
+function PptCall(){
+	this.open = function(Arguments){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "multiScreenCall",
+		    "Action": "openWindow",
+		    "HostId":"daemon0",
+		    "Arguments": Arguments
+		}
+		return data;
+	}
+	this.close = function(Arguments){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "multiScreenCall",
+		    "Action": "closeWindow",
+		    "HostId":"daemon0",
+		    "Arguments": Arguments
+		}
+		return data;
+	}
+	this.changeBtn = function(winId,type,num){
+		var data={
+			"receiverName": winId,
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service":"pptCall",
+		    "Action":type,
+		}
+		if(type == "goPage"){
+			data.page=parseInt(num);
+		}
+		return data;
+	}
+}
+function FlashCall(){
+	this.open = function(Arguments){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "multiScreenCall",
+		    "Action": "openWindow",
+		    "HostId":"daemon0",
+		    "Arguments": Arguments
+		}
+		return data;
+	}
+	this.close = function(Arguments){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "multiScreenCall",
+		    "Action": "closeWindow",
+		    "HostId":"daemon0",
+		    "Arguments": Arguments
+		}
+		return data;
+	}
+}
+//web控制
+function WebCall(){
+	this.open = function(Arguments){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "multiScreenCall",
+		    "Action": "openWindow",
+		    "HostId":"daemon0",
+		    "Arguments": Arguments
+		}
+		return data;
+	}
+	this.close = function(Arguments){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "multiScreenCall",
+		    "Action": "closeWindow",
+		    "HostId":"daemon0",
+		    "Arguments": Arguments
+		}
+		return data;
+	}
+}
+//pdf控制
+function PdfCall(){
+	this.open = function(Arguments){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "multiScreenCall",
+		    "Action": "openWindow",
+		    "HostId":"daemon0",
+		    "Arguments": Arguments
+		}
+		return data;
+	}
+	this.close = function(Arguments){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "multiScreenCall",
+		    "Action": "closeWindow",
+		    "HostId":"daemon0",
+		    "Arguments": Arguments
+		}
+		return data;
+	}
+	this.changeBtn = function(winId,type,num){
+		var data={
+			"receiverName": winId,
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service":"pdfCall",
+		    "Action":type,
+		}
+		if(type == "goPage"){
+			data.page=parseInt(num);
+		}else if(type == "SetLayoutMode"){
+			data.layoutmode = num;
+		}
+		return data;
+	}
+	this.zoom = function(type){
+		var data = {
+			"receiverName": "Deamon-1",
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service": "pdfCall",
+		    "Action": "SetZoom",
+		    "zoom": type
+		}
+		return data;
+	}
+}
