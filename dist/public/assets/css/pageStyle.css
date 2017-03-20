@@ -80,6 +80,7 @@ html body { background: #efefef; }
 #addPart3 #screenPlan ul li { width: 25%; border: 1px solid #727171; box-sizing: border-box; float: left; height: 150px; text-align: center; }
 #addPart3 #screenPlan ul li img { height: 50%; margin-top: 38px; }
 #addPart3 #screenPlan ul li p { width: 100%; text-align: center; font-size: 12px; color: #fff; }
+#addPart3 #screenPlan ul li span { display: none; }
 #addPart3 #screenPlan ul .selected, #addPart3 #screenPlan ul #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #addPart3 #screenPlan ul li:hover { border: 1px solid #fff; }
 #addPart3 #screenPlan ul .selected p, #addPart3 #screenPlan ul #wrap #addScreen #menu #screenList li:hover p, #wrap #addScreen #menu #screenList #addPart3 #screenPlan ul li:hover p { color: #fff; }
 #addPart3 #screenPlan #drawArea { width: 100%; height: 300px; position: absolute; top: 0; left: 0; }

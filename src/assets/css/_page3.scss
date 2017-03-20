@@ -36,6 +36,9 @@
                     font-size: nth($FontSize,7);
                     color: nth($FontColor,4);
                 }
+                span{
+                    display: none;
+                }
             }
             .selected{
                 border:1px solid nth($FontColor,4);

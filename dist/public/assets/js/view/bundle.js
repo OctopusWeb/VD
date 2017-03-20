@@ -1075,17 +1075,14 @@ function layShowController(Dom) {
 		funTitle.find("li").eq(index).addClass("selected");
 		layoutContent.find(".fun").removeClass("selected");
 		layoutContent.find(".fun").eq(index).addClass("selected");
-		bindController();
 	});
 	Dom.layShow.on("click", ".layout2", function () {
 		Dom.layShow.hide();
 		Dom.layChange.show();
-		bindController();
 	});
 	Dom.layShow.find(".drawContent1").on("click", "li", function () {
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected");
-		bindController();
 	});
 }
 function layChangeController(Dom) {
@@ -1137,13 +1134,12 @@ function layParseDate(json) {
 						var item = describes.items;
 						if (typeof item == "string") {
 							item = JSON.parse(item);
+							
 						}
-						console.log(item);
 						for (var n = 0; n < item.length; n++) {
 							var mediasArr = [item[n].name, item[n].controlType, item[n].path, item[n].contentId, item[n].controlUrl];
 							media.push(mediasArr);
 						}
-						console.log(media);
 						obj3 = {
 							id: describes.winId,
 							scale: describes.scale,
