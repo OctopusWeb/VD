@@ -36,6 +36,8 @@ var LayoutTop = React.createClass({
 	render : function(){
 		return (<div id="showTop">
 					<h1>{this.props.title}</h1>
+					<div id="closeLayout" className="layoutBtn">关闭布局</div>
+					<div id="openLayout" className="layoutBtn">打开布局</div>
 				</div>)
 	}
 })
@@ -187,7 +189,7 @@ var VideoFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn videoOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -204,14 +206,14 @@ var VideoFun = React.createClass({
 				</div>
 				<div className="controller">
 					<h2>播放进度</h2>
-					<div className="pro1">
-						<img src="assets/img/action.png"/>
+					<div className="pro1 playPro">
+						<img src="assets/img/pause.png"/>
 						<div><p></p></div>
 					</div>
 				</div>
 				<div className="controller">
 					<h2>音量</h2>
-					<div className="pro1">
+					<div className="pro1 voicePro">
 						<img src="assets/img/sound.png"/>
 						<div><p></p></div>
 					</div>
@@ -226,7 +228,7 @@ var PptFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn pptOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -257,7 +259,7 @@ var PdfFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn pdfOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -306,7 +308,7 @@ var FlashFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn flashOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -331,7 +333,7 @@ var WebFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn webOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>

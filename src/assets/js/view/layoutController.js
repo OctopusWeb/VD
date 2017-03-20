@@ -9,14 +9,17 @@ function layShowController(Dom){
 		funTitle.find("li").eq(index).addClass("selected");
 		layoutContent.find(".fun").removeClass("selected");
 		layoutContent.find(".fun").eq(index).addClass("selected");
+		bindController();
 	})
 	Dom.layShow.on("click",".layout2",function(){
 		Dom.layShow.hide();
 		Dom.layChange.show();
+		bindController();
 	})
 	Dom.layShow.find(".drawContent1").on("click","li",function(){
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected"); 
+		bindController(); 
 	});
 	
 }

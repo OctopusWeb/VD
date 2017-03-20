@@ -15,6 +15,18 @@
         position: absolute;
         background:nth($NomalColor,6);
         border-bottom: 1px solid nth($NomalColor,4);
+        .layoutBtn{
+            float: right;
+            width: 100px;
+            height: 25px;
+            line-height: 25px;
+            color: nth($FontColor,4);
+            @include top-gradient;
+            text-align: center;
+            font-size: nth($FontSize,7);
+            margin-top: 12px;
+            margin-right: 10px;
+        }
         h1{
             line-height: 50px;
             width: auto;

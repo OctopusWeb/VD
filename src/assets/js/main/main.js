@@ -581,13 +581,13 @@ var InputList = React.createClass({
 })
 
 function bindController(){
-	$(".onBtn1").on("click","p:eq(0)",function(){
+	$("#openLayout").on("click",function(){//打开布局
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var Layout = [];
-		for (var i = 0; i < openInfo.screens.length; i++) {
-			console.log(openInfo.screens[i])
+		for (var i=0;i<openInfo.screens.length;i++) {
 			var obj = {
 				"WinId": openInfo.screens[i].id,
 				"X": openInfo.screens[i].screenInfo[2],
@@ -605,6 +605,7 @@ function bindController(){
 			}  
 			Layout.push(obj);
 		}
+		
 		var Arguments = {
 			"LayoutId": openInfo.id,
 			"Layout": Layout 
@@ -612,17 +613,116 @@ function bindController(){
 		var multiScreen = new MultiScreenCall();
 		var data = multiScreen.open(Arguments);
 		send(data);
-	})
-	$(".videoFun #play").on("click",function(){
-		var Video = new Videocall();
-		var data = Video.play();
+	});
+	$("#closeLayout").on("click",function(){//关闭布局
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
+		var multiScreen = new MultiScreenCall();
+		var Arguments = { "LayoutId": $at.screenInfo.drawInfo[index].id};
+		var data = multiScreen.close(Arguments);
 		send(data);
 	})
-	$(".videoFun #pause").on("click",function(){
-		var Video = new Videocall();
-		var data = Video.pause(); 
+	
+//视频video控制
+	$(".videoOn").on("click","p:eq(0)",function(){//打开video
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = []
+		if(layindex<0){
+			alert("请选择窗口");
+			return
+		}
+		var obj = {
+			"WinId": openInfo.screens[layindex].id,
+			"X": openInfo.screens[layindex].screenInfo[2],
+			"Y": openInfo.screens[layindex].screenInfo[3],
+			"Width": openInfo.screens[layindex].screenInfo[0],
+			"Height": openInfo.screens[layindex].screenInfo[1],
+		};
+		if (openInfo.screens[layindex].medias[winIndex]) {
+			var type = chooseType(openInfo.screens[layindex].medias[winIndex][2].toUpperCase());
+			obj.Resource = {
+				"Source": "local",
+				"Path":openInfo.screens[layindex].medias[winIndex][1]
+			};
+			obj.Type = type;
+		}  
+		Layout.push(obj);
+		var Arguments = {
+			"LayoutId":openInfo.id,
+			"WinId":openInfo.screens[layindex].id,
+			"Layout":Layout
+		}
+		var video = new Videocall();
+		var data = video.open(Arguments);
 		send(data);
 	})
+	$(".videoOn").on("click","p:eq(1)",function(){//打开video
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = []
+		if(layindex<0){
+			alert("请选择窗口");
+			return
+		}
+		var obj = {
+			"WinId": openInfo.screens[layindex].id
+		};
+		Layout.push(obj)
+		var Arguments={
+			"LayoutId":openInfo.id,
+			"WinId":openInfo.screens[layindex].id,
+			"Layout": Layout
+		}
+		var video = new Videocall();
+		var data = video.close(Arguments);
+		send(data);
+	})
+	$(".videoPlay").on("click","img",function(){
+		var src = $(this).attr("src");
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var video = new Videocall();
+		if(layindex<0){
+			alert("请选择窗口");
+			return
+		}
+		if (src == "assets/img/action.png") {
+			$(this).attr({"src":"assets/img/pause.png"});
+			var data = video.play(openInfo.screens[layindex].id); 
+			send(data);
+		}else{
+			$(this).attr({"src":"assets/img/action.png"});
+			var data = video.pause(openInfo.screens[layindex].id);
+			send(data);
+		}
+	})
+	$(".playPro").on("click","div",function(e){
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var len = (e.pageX-$(this).offset().left)/$(this).width()*100;
+		$(this).find("p").width(len+"%");
+		var video = new Videocall(); 
+		var data = video.setPosition(openInfo.screens[layindex].id,parseInt(len));
+		send(data);
+	});
+	$(".voicePro").on("click","div",function(e){
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var len = (e.pageX-$(this).offset().left)/$(this).width()*100;
+		$(this).find("p").width(len+"%");
+		var video = new Videocall();
+		var data = video.setVolume(openInfo.screens[layindex].id,parseInt(len));
+		send(data);
+	});
+	
 	function chooseType(name){
 		switch (name){
 			case "VIDEO":
@@ -647,14 +747,7 @@ function bindController(){
 				break;
 		}
 	}
-	$(".onBtn1").on("click","p:eq(1)",function(){
-		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
-		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
-		var multiScreen = new MultiScreenCall();
-		var Arguments = { "LayoutId": $at.screenInfo.drawInfo[index].id};
-		var data = multiScreen.close(Arguments);
-		send(data);
-	})
+	
 }
 
 $(function(){
@@ -707,14 +800,17 @@ function layShowController(Dom){
 		funTitle.find("li").eq(index).addClass("selected");
 		layoutContent.find(".fun").removeClass("selected");
 		layoutContent.find(".fun").eq(index).addClass("selected");
+		bindController();
 	})
 	Dom.layShow.on("click",".layout2",function(){
 		Dom.layShow.hide();
 		Dom.layChange.show();
+		bindController();
 	})
 	Dom.layShow.find(".drawContent1").on("click","li",function(){
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected"); 
+		bindController(); 
 	});
 	
 }
@@ -1283,6 +1379,8 @@ var LayoutTop = React.createClass({
 	render : function(){
 		return (<div id="showTop">
 					<h1>{this.props.title}</h1>
+					<div id="closeLayout" className="layoutBtn">关闭布局</div>
+					<div id="openLayout" className="layoutBtn">打开布局</div>
 				</div>)
 	}
 })
@@ -1434,7 +1532,7 @@ var VideoFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn videoOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1451,14 +1549,14 @@ var VideoFun = React.createClass({
 				</div>
 				<div className="controller">
 					<h2>播放进度</h2>
-					<div className="pro1">
-						<img src="assets/img/action.png"/>
+					<div className="pro1 playPro">
+						<img src="assets/img/pause.png"/>
 						<div><p></p></div>
 					</div>
 				</div>
 				<div className="controller">
 					<h2>音量</h2>
-					<div className="pro1">
+					<div className="pro1 voicePro">
 						<img src="assets/img/sound.png"/>
 						<div><p></p></div>
 					</div>
@@ -1473,7 +1571,7 @@ var PptFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn pptOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1504,7 +1602,7 @@ var PdfFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn pdfOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1553,7 +1651,7 @@ var FlashFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn flashOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>
@@ -1578,7 +1676,7 @@ var WebFun = React.createClass({
 			<div className="controllerBox"> 
 				<h1>动作</h1>
 				<div className="controller">
-					<div className="onBtn onBtn1">
+					<div className="onBtn webOn">
 						<p className="selected">打开</p> 
 						<p>关闭</p>
 					</div>

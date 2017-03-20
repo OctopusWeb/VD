@@ -843,13 +843,14 @@ var InputList = React.createClass({
 });
 
 function bindController() {
-	$(".onBtn1").on("click", "p:eq(0)", function () {
+	$("#openLayout").on("click", function () {
+		//打开布局
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var Layout = [];
 		for (var i = 0; i < openInfo.screens.length; i++) {
-			console.log(openInfo.screens[i]);
 			var obj = {
 				"WinId": openInfo.screens[i].id,
 				"X": openInfo.screens[i].screenInfo[2],
@@ -867,6 +868,7 @@ function bindController() {
 			}
 			Layout.push(obj);
 		}
+
 		var Arguments = {
 			"LayoutId": openInfo.id,
 			"Layout": Layout
@@ -875,16 +877,118 @@ function bindController() {
 		var data = multiScreen.open(Arguments);
 		send(data);
 	});
-	$(".videoFun #play").on("click", function () {
-		var Video = new Videocall();
-		var data = Video.play();
+	$("#closeLayout").on("click", function () {
+		//关闭布局
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
+		var multiScreen = new MultiScreenCall();
+		var Arguments = { "LayoutId": $at.screenInfo.drawInfo[index].id };
+		var data = multiScreen.close(Arguments);
 		send(data);
 	});
-	$(".videoFun #pause").on("click", function () {
-		var Video = new Videocall();
-		var data = Video.pause();
+
+	//视频video控制
+	$(".videoOn").on("click", "p:eq(0)", function () {
+		//打开video
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = [];
+		if (layindex < 0) {
+			alert("请选择窗口");
+			return;
+		}
+		var obj = {
+			"WinId": openInfo.screens[layindex].id,
+			"X": openInfo.screens[layindex].screenInfo[2],
+			"Y": openInfo.screens[layindex].screenInfo[3],
+			"Width": openInfo.screens[layindex].screenInfo[0],
+			"Height": openInfo.screens[layindex].screenInfo[1]
+		};
+		if (openInfo.screens[layindex].medias[winIndex]) {
+			var type = chooseType(openInfo.screens[layindex].medias[winIndex][2].toUpperCase());
+			obj.Resource = {
+				"Source": "local",
+				"Path": openInfo.screens[layindex].medias[winIndex][1]
+			};
+			obj.Type = type;
+		}
+		Layout.push(obj);
+		var Arguments = {
+			"LayoutId": openInfo.id,
+			"WinId": openInfo.screens[layindex].id,
+			"Layout": Layout
+		};
+		var video = new Videocall();
+		var data = video.open(Arguments);
 		send(data);
 	});
+	$(".videoOn").on("click", "p:eq(1)", function () {
+		//打开video
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = [];
+		if (layindex < 0) {
+			alert("请选择窗口");
+			return;
+		}
+		var obj = {
+			"WinId": openInfo.screens[layindex].id
+		};
+		Layout.push(obj);
+		var Arguments = {
+			"LayoutId": openInfo.id,
+			"WinId": openInfo.screens[layindex].id,
+			"Layout": Layout
+		};
+		var video = new Videocall();
+		var data = video.close(Arguments);
+		send(data);
+	});
+	$(".videoPlay").on("click", "img", function () {
+		var src = $(this).attr("src");
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var video = new Videocall();
+		if (layindex < 0) {
+			alert("请选择窗口");
+			return;
+		}
+		if (src == "assets/img/action.png") {
+			$(this).attr({ "src": "assets/img/pause.png" });
+			var data = video.play(openInfo.screens[layindex].id);
+			send(data);
+		} else {
+			$(this).attr({ "src": "assets/img/action.png" });
+			var data = video.pause(openInfo.screens[layindex].id);
+			send(data);
+		}
+	});
+	$(".playPro").on("click", "div", function (e) {
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var len = (e.pageX - $(this).offset().left) / $(this).width() * 100;
+		$(this).find("p").width(len + "%");
+		var video = new Videocall();
+		var data = video.setPosition(openInfo.screens[layindex].id, parseInt(len));
+		send(data);
+	});
+	$(".voicePro").on("click", "div", function (e) {
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var len = (e.pageX - $(this).offset().left) / $(this).width() * 100;
+		$(this).find("p").width(len + "%");
+		var video = new Videocall();
+		var data = video.setVolume(openInfo.screens[layindex].id, parseInt(len));
+		send(data);
+	});
+
 	function chooseType(name) {
 		switch (name) {
 			case "VIDEO":
@@ -909,14 +1013,6 @@ function bindController() {
 				break;
 		}
 	}
-	$(".onBtn1").on("click", "p:eq(1)", function () {
-		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
-		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
-		var multiScreen = new MultiScreenCall();
-		var Arguments = { "LayoutId": $at.screenInfo.drawInfo[index].id };
-		var data = multiScreen.close(Arguments);
-		send(data);
-	});
 }
 
 $(function () {
@@ -970,14 +1066,17 @@ function layShowController(Dom) {
 		funTitle.find("li").eq(index).addClass("selected");
 		layoutContent.find(".fun").removeClass("selected");
 		layoutContent.find(".fun").eq(index).addClass("selected");
+		bindController();
 	});
 	Dom.layShow.on("click", ".layout2", function () {
 		Dom.layShow.hide();
 		Dom.layChange.show();
+		bindController();
 	});
 	Dom.layShow.find(".drawContent1").on("click", "li", function () {
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected");
+		bindController();
 	});
 }
 function layChangeController(Dom) {
@@ -1790,6 +1889,16 @@ var LayoutTop = React.createClass({
 				"h1",
 				null,
 				this.props.title
+			),
+			React.createElement(
+				"div",
+				{ id: "closeLayout", className: "layoutBtn" },
+				"\u5173\u95ED\u5E03\u5C40"
+			),
+			React.createElement(
+				"div",
+				{ id: "openLayout", className: "layoutBtn" },
+				"\u6253\u5F00\u5E03\u5C40"
 			)
 		);
 	}
@@ -1999,7 +2108,7 @@ var VideoFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn onBtn1" },
+						{ className: "onBtn videoOn" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
@@ -2054,8 +2163,8 @@ var VideoFun = React.createClass({
 					),
 					React.createElement(
 						"div",
-						{ className: "pro1" },
-						React.createElement("img", { src: "assets/img/action.png" }),
+						{ className: "pro1 playPro" },
+						React.createElement("img", { src: "assets/img/pause.png" }),
 						React.createElement(
 							"div",
 							null,
@@ -2073,7 +2182,7 @@ var VideoFun = React.createClass({
 					),
 					React.createElement(
 						"div",
-						{ className: "pro1" },
+						{ className: "pro1 voicePro" },
 						React.createElement("img", { src: "assets/img/sound.png" }),
 						React.createElement(
 							"div",
@@ -2106,7 +2215,7 @@ var PptFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn onBtn1" },
+						{ className: "onBtn pptOn" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
@@ -2195,7 +2304,7 @@ var PdfFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn onBtn1" },
+						{ className: "onBtn pdfOn" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
@@ -2345,7 +2454,7 @@ var FlashFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn onBtn1" },
+						{ className: "onBtn flashOn" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
@@ -2410,7 +2519,7 @@ var WebFun = React.createClass({
 					{ className: "controller" },
 					React.createElement(
 						"div",
-						{ className: "onBtn onBtn1" },
+						{ className: "onBtn webOn" },
 						React.createElement(
 							"p",
 							{ className: "selected" },
