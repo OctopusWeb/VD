@@ -287,9 +287,9 @@ function PdfCall(){
 		}
 		return data;
 	}
-	this.zoom = function(type){
+	this.zoom = function(winId,type){
 		var data = {
-			"receiverName": "Deamon-1",
+			"receiverName": winId,
 		    "senderName": "web",
 		    "messageID": "123456",
 		    "messageType": "",
