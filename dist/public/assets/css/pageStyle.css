@@ -75,29 +75,29 @@ html body { background: #efefef; }
 #addPart2 #btnPart2 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; float: left; }
 
 #addPart3 { position: absolute; width: 100%; height: 100%; left: 100%; padding: 100px 150px 50px 50px; overflow: auto; }
-#addPart3 #screenPlan { width: 80%; height: auto; padding-top: 20px; border-top: 1px solid #b4b4b4; position: relative; }
-#addPart3 #screenPlan ul { width: 100%; height: 300px; position: absolute; list-style: none; background: #d2d4d8; top: 0; left: 0; }
-#addPart3 #screenPlan ul li { width: 25%; border: 1px solid #727171; box-sizing: border-box; float: left; height: 150px; text-align: center; }
-#addPart3 #screenPlan ul li img { height: 50%; margin-top: 38px; }
-#addPart3 #screenPlan ul li p { width: 100%; text-align: center; font-size: 12px; color: #fff; }
+#addPart3 #screenPlan { width: 80%; height: auto; padding-top: 20px; border-top: 1px solid #b4b4b4; position: relative; float: left; }
+#addPart3 #screenPlan ul { width: 100%; list-style: none; background: #d2d4d8; float: left; }
+#addPart3 #screenPlan ul li { border: 1px solid #727171; box-sizing: border-box; float: left; text-align: center; position: relative; }
+#addPart3 #screenPlan ul li img { position: absolute; width: 40%; left: 30%; padding: 20px; }
+#addPart3 #screenPlan ul li p { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 12px; color: #fff; }
 #addPart3 #screenPlan ul li span { display: none; }
 #addPart3 #screenPlan ul .selected, #addPart3 #screenPlan ul #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #addPart3 #screenPlan ul li:hover { border: 1px solid #fff; }
 #addPart3 #screenPlan ul .selected p, #addPart3 #screenPlan ul #wrap #addScreen #menu #screenList li:hover p, #wrap #addScreen #menu #screenList #addPart3 #screenPlan ul li:hover p { color: #fff; }
-#addPart3 #screenPlan #drawArea { width: 100%; height: 300px; position: absolute; top: 0; left: 0; }
+#addPart3 #screenPlan #drawArea { width: 100%; height: 100%; position: absolute; }
 #addPart3 #screenPlan #drawArea #drawBox { position: absolute; left: 0; top: 0; border: 1px solid #cf031d; background: rgba(234, 85, 20, 0.5); }
 #addPart3 #entrySlected { width: 170px; height: auto; position: absolute; background: #b4b4b4; padding-bottom: 5px; display: none; }
 #addPart3 #entrySlected ul { width: 170px; float: left; }
 #addPart3 #entrySlected ul li { list-style: none; width: 50px; margin-left: 5px; margin-top: 5px; height: 70px; float: left; }
-#addPart3 #entrySlected ul li p { font-size: 10px; color: #fff; width: 100%; text-align: center; }
+#addPart3 #entrySlected ul li p { font-size: 10px; color: #fff; width: 100%; white-space: nowrap; text-overflow: ellipsis; -o-text-overflow: ellipsis; overflow: hidden; text-align: center; }
 #addPart3 #entrySlected ul li span { display: none; }
 #addPart3 #entrySlected ul li img { width: 50px; }
 #addPart3 #entrySlected ul .selected img, #addPart3 #entrySlected ul #wrap #addScreen #menu #screenList li:hover img, #wrap #addScreen #menu #screenList #addPart3 #entrySlected ul li:hover img { border-width: 2px !important; }
-#addPart3 #entryList { width: 80%; height: auto; position: relative; top: 300px; }
+#addPart3 #entryList { width: 80%; height: auto; position: relative; }
 #addPart3 #entryList li { float: left; width: 110px; height: 140px; list-style: none; }
 #addPart3 #entryList li img { width: 100px; float: left; margin: 5px; }
 #addPart3 #entryList li p { width: 110px; text-align: center; font-size: 14px; color: #727171; border-radius: 4px; }
 #addPart3 #entryList li span { display: none; }
-#addPart3 #btnPart3 { width: 50%; left: 30%; height: 25px; position: absolute; bottom: 70px; }
+#addPart3 #btnPart3 { width: 100%; padding-left: 30%; height: 25px; float: left; }
 #addPart3 #btnPart3 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; float: left; }
 
 #layout { position: absolute; top: 50px; left: 260px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; opacity: 1; display: none; }

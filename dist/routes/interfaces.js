@@ -251,7 +251,7 @@ router.post("/screenInfo/changeScreen",function(req,res){
 						
 	var hostList = param.screenInfo.host;
 	
-	var deleteHost = 'DELETE FROM `t_screen_host` WHERE screenId="'+screenInfo.screenId+'"';
+	var deleteHost = 'DELETE FROM  `t_screen_host` WHERE screenId="'+screenInfo.screenId+'"';
 	var addHostPost = "INSERT INTO `t_screen_host`(id,describeJson,deviceId,screenId) VALUES(?,?,?,?)";
 	pool.query(changeScreenPost, "",function(err1, result1) {
 		if (err1) {
@@ -276,6 +276,7 @@ router.post("/screenInfo/changeScreen",function(req,res){
 			console.log(err4);
 			return;
 		}
+		res.send({state:true})
 		for (var i=0;i<hostList.length;i++) {
 			id = shortid.gen();
 			(function(i){
@@ -318,7 +319,7 @@ router.post("/screenInfo/changeLayout",function(req,res){
 						return;
 					}
 					for (var j=0;j<layoutList[i].screens.length;j++) {
-						var deleteDescribe = 'DELETE FROM `t_describe` WHERE layoutId="'+layoutList[i].id+'"';
+						var deleteDescribe = 'DELETE FROM `t_describe` WHERE screenId="'+screenId+'"';
 						winid = shortid.gen();
 						(function(j,winid){
 							var screens=layoutList[i].screens[j];
@@ -340,6 +341,7 @@ router.post("/screenInfo/changeLayout",function(req,res){
 				})
 			})(i,newlayoutid)
 		}
+		res.send({state:true})
 	})
 
 	

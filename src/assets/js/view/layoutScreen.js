@@ -86,7 +86,7 @@ var LayoutInfo = React.createClass({
 			<div id="sources">
 				<InfoBox3 texts={medias}/>
 			</div>
-			<div>
+			<div id="infoBox4">
 				<InfoBox4 softWare={this.props.softWare}/>
 			</div>
 		</div>)

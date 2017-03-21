@@ -51,7 +51,7 @@ function bindController(){
 	$(".playPro div").off("click");
 	$(".voicePro div").off("click");
 	$(".arround p").off("click");
-	$(".videoOn").on("click","p:eq(0)",function(){//打开video
+	$(".videoOn p:eq(0)").on("click",function(){//打开video
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -87,7 +87,7 @@ function bindController(){
 		var data = video.open(Arguments);
 		send(data);
 	})
-	$(".videoOn").on("click","p:eq(1)",function(){//关闭video
+	$(".videoOn p:eq(1)").on("click",function(){//关闭video
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -111,7 +111,7 @@ function bindController(){
 		var data = video.close(Arguments);
 		send(data);
 	})
-	$(".playPro").on("click","img",function(){
+	$(".playPro img").on("click",function(){
 		var src = $(this).attr("src");
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -131,7 +131,7 @@ function bindController(){
 			send(data);
 		}
 	})
-	$(".playPro").on("click","div",function(e){
+	$(".playPro div").on("click",function(e){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -141,7 +141,7 @@ function bindController(){
 		var data = video.setPosition(openInfo.screens[layindex].id,parseInt(len));
 		send(data);
 	});
-	$(".voicePro").on("click","div",function(e){
+	$(".voicePro div").on("click",function(e){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -151,7 +151,7 @@ function bindController(){
 		var data = video.setVolume(openInfo.screens[layindex].id,parseInt(len));
 		send(data);
 	});
-	$(".arround").on("click","p",function(){
+	$(".arround p").on("click",function(){
 		changeClass($(".arround p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -190,8 +190,13 @@ function bindController(){
 //PPT控制
 	$(".pptOn p:eq(0)").off("click");
 	$(".pptOn p:eq(1)").off("click");
+	$(".pptgroup p:eq(0)").off("click");
+	$(".pptgroup p:eq(1)").off("click");
+	$(".pptgroup p:eq(2)").off("click");
+	$(".pptgroup p:eq(3)").off("click");
+	$(".pptInput input").off("blur");
 	var ppt = new PptCall();
-	$(".pptOn").on("click","p:eq(0)",function(){//打开ppt
+	$(".pptOn p:eq(0)").on("click",function(){//打开ppt
 		changeClass($(".pptOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -227,7 +232,7 @@ function bindController(){
 		var data = video.open(Arguments);
 		send(data);
 	})
-	$(".pptOn").on("click","p:eq(1)",function(){//关闭ppt
+	$(".pptOn p:eq(1)").on("click",function(){//关闭ppt
 		changeClass($(".pptOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -251,28 +256,28 @@ function bindController(){
 		var data = video.close(Arguments);
 		send(data);
 	})
-	$(".pptgroup").on("click","p:eq(0)",function(){
+	$(".pptgroup p:eq(0)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = ppt.changeBtn(openInfo.screens[layindex].id,"first"); 
 		send(data);
 	})
-	$(".pptgroup").on("click","p:eq(1)",function(){
+	$(".pptgroup p:eq(1)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = ppt.changeBtn(openInfo.screens[layindex].id,"pre");
 		send(data);
 	})
-	$(".pptgroup").on("click","p:eq(2)",function(){
+	$(".pptgroup p:eq(2)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = ppt.changeBtn(openInfo.screens[layindex].id,"next");
 		send(data);
 	})
-	$(".pptgroup").on("click","p:eq(3)",function(){
+	$(".pptgroup p:eq(3)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -293,7 +298,9 @@ function bindController(){
 		self.addClass("selected");
 	}
 //flash控制
-	$(".flashOn").on("click","p:eq(0)",function(){
+	$(".flashOn p:eq(0)").off("click");
+	$(".flashOn p:eq(1)").off("click");
+	$(".flashOn p:eq(0)").on("click",function(){
 		changeClass($(".pptOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -329,7 +336,7 @@ function bindController(){
 		var data = flash.open(Arguments);
 		send(data);
 	})
-	$(".flashOn").on("click","p:eq(1)",function(){
+	$(".flashOn p:eq(1)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -353,8 +360,10 @@ function bindController(){
 		send(data);
 	})
 //web控制
-	$(".webOn").on("click","p:eq(0)",function(){
-		changeClass($(".pptOn p"),$(this));
+	$(".webOn p:eq(0)").off("click");
+	$(".webOn p:eq(1)").off("click");
+	$(".webOn p:eq(0)").on("click",function(){
+		changeClass($(".webOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -389,7 +398,8 @@ function bindController(){
 		var data = web.open(Arguments);
 		send(data);
 	})
-	$(".webOn").on("click","p:eq(1)",function(){
+	$(".webOn p:eq(1)").on("click",function(){
+		changeClass($(".webOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -414,28 +424,100 @@ function bindController(){
 	})
 //pdf控制
 	var pdf = new PdfCall();
-	$(".pdfGroup").on("click","p:eq(0)",function(){
+	$(".pdfOn p:eq(0)").off("click");
+	$(".pdfOn p:eq(1)").off("click");
+	$(".pdfGroup p:eq(0)").off("click");
+	$(".pdfGroup p:eq(1)").off("click");
+	$(".pdfGroup p:eq(2)").off("click");
+	$(".pdfGroup p:eq(3)").off("click");
+	$(".pdfGroup input").off("blur");
+	$(".pdfGroup2 p:eq(0)").off("click");
+	$(".pdfGroup2 p:eq(1)").off("click");
+	$(".pdfGroup2 p:eq(2)").off("click");
+	$(".pdfGroup2 p:eq(3)").off("click");
+	$(".pdfScale").off("click"); 
+	
+	$(".pdfOn p:eq(0)").on("click",function(){
+		changeClass($(".pdfOn p"),$(this));
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = []
+		if(layindex<0){
+			alert("请选择窗口");
+			return
+		}
+		var obj = {
+			"WinId": openInfo.screens[layindex].id,
+			"X": openInfo.screens[layindex].screenInfo[3],
+			"Y": openInfo.screens[layindex].screenInfo[2],
+			"Width": openInfo.screens[layindex].screenInfo[0],
+			"Height": openInfo.screens[layindex].screenInfo[1],
+		};
+		if (openInfo.screens[layindex].medias[winIndex]) {
+			var type = chooseType(openInfo.screens[layindex].medias[winIndex][2].toUpperCase());
+			obj.Resource = {
+				"Source": "local",
+				"Path":openInfo.screens[layindex].medias[winIndex][1]
+			};
+			obj.Type = type;
+		}  
+		Layout.push(obj);
+		var Arguments = {
+			"LayoutId":openInfo.id, 
+			"WinId":openInfo.screens[layindex].id,
+			"Layout":Layout
+		}
+		var data = pdf.open(Arguments);
+		send(data);
+	})
+	$(".pdfOn p:eq(1)").on("click",function(){
+		changeClass($(".pdfOn p"),$(this));
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = []
+		if(layindex<0){
+			alert("请选择窗口");
+			return
+		}
+		var obj = {
+			"WinId": openInfo.screens[layindex].id
+		};
+		Layout.push(obj)
+		var Arguments={
+			"LayoutId":openInfo.id,
+			"WinId":openInfo.screens[layindex].id,
+			"Layout": Layout
+		}
+		var data = pdf.close(Arguments);
+		send(data);
+	})
+	 
+	$(".pdfGroup p:eq(0)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id,"first");
 		send(data);
 	})
-	$(".pdfGroup").on("click","p:eq(1)",function(){
+	$(".pdfGroup p:eq(1)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id,"pre");
 		send(data);
 	})
-	$(".pdfGroup").on("click","p:eq(2)",function(){
+	$(".pdfGroup p:eq(2)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id,"next");
 		send(data);
 	})
-	$(".pdfGroup").on("click","p:eq(3)",function(){
+	$(".pdfGroup p:eq(3)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -451,47 +533,48 @@ function bindController(){
 		send(data);
 	})
 	
-	$(".pdfGroup2").on("click","p:eq(0)",function(){
+	$(".pdfGroup2 p:eq(0)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetLayoutMode","SinglePage");
 		send(data);
 	})
-	$(".pdfGroup2").on("click","p:eq(1)",function(){
+	$(".pdfGroup2 p:eq(1)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetLayoutMode","OneColumn");
 		send(data);
 	})
-	$(".pdfGroup2").on("click","p:eq(2)",function(){
+	$(".pdfGroup2 p:eq(2)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetLayoutMode","TwoColumnLeft");
 		send(data);
 	})
-	$(".pdfGroup2").on("click","p:eq(3)",function(){
+	$(".pdfGroup2 p:eq(3)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetLayoutMode","TwoColumnRight");
 		send(data);
 	})
-	$(".pdfGroup2").on("click","p:eq(4)",function(){
+	$(".pdfGroup2 p:eq(4)").on("click",function(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetFit");
 		send(data);
 	})
-	$(".pdfScale").on("click","div",function(e){
+	$(".pdfScale div").on("click",function(e){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var len = (e.pageX-$(this).offset().left)/$(this).width()*100;
 		$(this).find("p").width(len+"%");
+		$(this).parent().find("span").html(parseInt(len));
 		var data = pdf.zoom(openInfo.screens[layindex].id,parseInt(len));
 		send(data);
 	});

@@ -214,7 +214,7 @@ var Part3 = React.createClass({
 		return React.createElement(
 			"div",
 			null,
-			React.createElement(ScreenPlan, { num: this.props.num }),
+			React.createElement(ScreenPlan, { row: this.props.row, col: this.props.col, hei: this.props.hei, wid: this.props.wid }),
 			React.createElement(EntrySlected, { arr: this.props.arr }),
 			React.createElement(EntryList1, { arr: this.props.arr }),
 			React.createElement(BtnPart3, null)
@@ -225,10 +225,14 @@ var ScreenPlan = React.createClass({
 	displayName: "ScreenPlan",
 
 	render: function render() {
-		var arr = [];
-		var num = this.props.num;
-		for (var i = 0; i < num; i++) {
-			arr.push(i);
+		var b = [];
+		var row = this.props.row;
+		var col = this.props.col;
+		var bil = this.props.hei / this.props.wid;
+		var wid = 100 / col + "%";
+		var hei = bil * 100 / col + "%";
+		for (var i = 0; i < row * col; i++) {
+			b.push(i);
 		}
 		return React.createElement(
 			"div",
@@ -236,10 +240,10 @@ var ScreenPlan = React.createClass({
 			React.createElement(
 				"ul",
 				null,
-				arr.map(function (result, index) {
+				b.map(function (result, index) {
 					return React.createElement(
 						"li",
-						{ key: index },
+						{ key: index, style: { width: wid, paddingBottom: hei } },
 						React.createElement("img", { src: "assets/img/facility1.png" }),
 						React.createElement(
 							"p",
@@ -290,7 +294,7 @@ var EntrySlected = React.createClass({
 						React.createElement("img", { src: "assets/img/facility.png", style: colorStyle }),
 						React.createElement(
 							"p",
-							null,
+							{ title: result.name },
 							result.name
 						),
 						React.createElement(
@@ -410,6 +414,7 @@ function initSoft(Dom) {
 			var onComplete = function onComplete(json) {
 				$at.softWare[num].arr.push([name, info0, info1, json.data.contentId, info2]);
 				ReactDOM.render(React.createElement(EntryHard, { arr: softArr, list: $at.softWare, name: softName }), document.getElementById("entryHard"));
+				ReactDOM.render(React.createElement(InfoBox4, { softWare: $at.softWare }), document.getElementById("infoBox4"));
 			};
 
 			var type = $(".entryList .selected").find("h3").html();
@@ -456,7 +461,9 @@ function initSoft(Dom) {
 						}
 					}
 				}
+				console.log(JSON.stringify($at.allInfo));
 				ReactDOM.render(React.createElement(EntryHard, { arr: softArr, list: $at.softWare, name: softName }), document.getElementById("entryHard"));
+				ReactDOM.render(React.createElement(InfoBox4, { softWare: $at.softWare }), document.getElementById("infoBox4"));
 			};
 
 			var data = {
@@ -897,7 +904,7 @@ function bindController() {
 	$(".playPro div").off("click");
 	$(".voicePro div").off("click");
 	$(".arround p").off("click");
-	$(".videoOn").on("click", "p:eq(0)", function () {
+	$(".videoOn p:eq(0)").on("click", function () {
 		//打开video
 		changeClass($(".videoOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
@@ -934,7 +941,7 @@ function bindController() {
 		var data = video.open(Arguments);
 		send(data);
 	});
-	$(".videoOn").on("click", "p:eq(1)", function () {
+	$(".videoOn p:eq(1)").on("click", function () {
 		//关闭video
 		changeClass($(".videoOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
@@ -959,7 +966,7 @@ function bindController() {
 		var data = video.close(Arguments);
 		send(data);
 	});
-	$(".playPro").on("click", "img", function () {
+	$(".playPro img").on("click", function () {
 		var src = $(this).attr("src");
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -979,7 +986,7 @@ function bindController() {
 			send(data);
 		}
 	});
-	$(".playPro").on("click", "div", function (e) {
+	$(".playPro div").on("click", function (e) {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -989,7 +996,7 @@ function bindController() {
 		var data = video.setPosition(openInfo.screens[layindex].id, parseInt(len));
 		send(data);
 	});
-	$(".voicePro").on("click", "div", function (e) {
+	$(".voicePro div").on("click", function (e) {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -999,7 +1006,7 @@ function bindController() {
 		var data = video.setVolume(openInfo.screens[layindex].id, parseInt(len));
 		send(data);
 	});
-	$(".arround").on("click", "p", function () {
+	$(".arround p").on("click", function () {
 		changeClass($(".arround p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1038,8 +1045,13 @@ function bindController() {
 	//PPT控制
 	$(".pptOn p:eq(0)").off("click");
 	$(".pptOn p:eq(1)").off("click");
+	$(".pptgroup p:eq(0)").off("click");
+	$(".pptgroup p:eq(1)").off("click");
+	$(".pptgroup p:eq(2)").off("click");
+	$(".pptgroup p:eq(3)").off("click");
+	$(".pptInput input").off("blur");
 	var ppt = new PptCall();
-	$(".pptOn").on("click", "p:eq(0)", function () {
+	$(".pptOn p:eq(0)").on("click", function () {
 		//打开ppt
 		changeClass($(".pptOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
@@ -1076,7 +1088,7 @@ function bindController() {
 		var data = video.open(Arguments);
 		send(data);
 	});
-	$(".pptOn").on("click", "p:eq(1)", function () {
+	$(".pptOn p:eq(1)").on("click", function () {
 		//关闭ppt
 		changeClass($(".pptOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
@@ -1101,28 +1113,28 @@ function bindController() {
 		var data = video.close(Arguments);
 		send(data);
 	});
-	$(".pptgroup").on("click", "p:eq(0)", function () {
+	$(".pptgroup p:eq(0)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = ppt.changeBtn(openInfo.screens[layindex].id, "first");
 		send(data);
 	});
-	$(".pptgroup").on("click", "p:eq(1)", function () {
+	$(".pptgroup p:eq(1)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = ppt.changeBtn(openInfo.screens[layindex].id, "pre");
 		send(data);
 	});
-	$(".pptgroup").on("click", "p:eq(2)", function () {
+	$(".pptgroup p:eq(2)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = ppt.changeBtn(openInfo.screens[layindex].id, "next");
 		send(data);
 	});
-	$(".pptgroup").on("click", "p:eq(3)", function () {
+	$(".pptgroup p:eq(3)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1143,7 +1155,9 @@ function bindController() {
 		self.addClass("selected");
 	}
 	//flash控制
-	$(".flashOn").on("click", "p:eq(0)", function () {
+	$(".flashOn p:eq(0)").off("click");
+	$(".flashOn p:eq(1)").off("click");
+	$(".flashOn p:eq(0)").on("click", function () {
 		changeClass($(".pptOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1179,7 +1193,7 @@ function bindController() {
 		var data = flash.open(Arguments);
 		send(data);
 	});
-	$(".flashOn").on("click", "p:eq(1)", function () {
+	$(".flashOn p:eq(1)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -1203,8 +1217,10 @@ function bindController() {
 		send(data);
 	});
 	//web控制
-	$(".webOn").on("click", "p:eq(0)", function () {
-		changeClass($(".pptOn p"), $(this));
+	$(".webOn p:eq(0)").off("click");
+	$(".webOn p:eq(1)").off("click");
+	$(".webOn p:eq(0)").on("click", function () {
+		changeClass($(".webOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -1239,7 +1255,8 @@ function bindController() {
 		var data = web.open(Arguments);
 		send(data);
 	});
-	$(".webOn").on("click", "p:eq(1)", function () {
+	$(".webOn p:eq(1)").on("click", function () {
+		changeClass($(".webOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -1264,28 +1281,100 @@ function bindController() {
 	});
 	//pdf控制
 	var pdf = new PdfCall();
-	$(".pdfGroup").on("click", "p:eq(0)", function () {
+	$(".pdfOn p:eq(0)").off("click");
+	$(".pdfOn p:eq(1)").off("click");
+	$(".pdfGroup p:eq(0)").off("click");
+	$(".pdfGroup p:eq(1)").off("click");
+	$(".pdfGroup p:eq(2)").off("click");
+	$(".pdfGroup p:eq(3)").off("click");
+	$(".pdfGroup input").off("blur");
+	$(".pdfGroup2 p:eq(0)").off("click");
+	$(".pdfGroup2 p:eq(1)").off("click");
+	$(".pdfGroup2 p:eq(2)").off("click");
+	$(".pdfGroup2 p:eq(3)").off("click");
+	$(".pdfScale").off("click");
+
+	$(".pdfOn p:eq(0)").on("click", function () {
+		changeClass($(".pdfOn p"), $(this));
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = [];
+		if (layindex < 0) {
+			alert("请选择窗口");
+			return;
+		}
+		var obj = {
+			"WinId": openInfo.screens[layindex].id,
+			"X": openInfo.screens[layindex].screenInfo[3],
+			"Y": openInfo.screens[layindex].screenInfo[2],
+			"Width": openInfo.screens[layindex].screenInfo[0],
+			"Height": openInfo.screens[layindex].screenInfo[1]
+		};
+		if (openInfo.screens[layindex].medias[winIndex]) {
+			var type = chooseType(openInfo.screens[layindex].medias[winIndex][2].toUpperCase());
+			obj.Resource = {
+				"Source": "local",
+				"Path": openInfo.screens[layindex].medias[winIndex][1]
+			};
+			obj.Type = type;
+		}
+		Layout.push(obj);
+		var Arguments = {
+			"LayoutId": openInfo.id,
+			"WinId": openInfo.screens[layindex].id,
+			"Layout": Layout
+		};
+		var data = pdf.open(Arguments);
+		send(data);
+	});
+	$(".pdfOn p:eq(1)").on("click", function () {
+		changeClass($(".pdfOn p"), $(this));
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var Layout = [];
+		if (layindex < 0) {
+			alert("请选择窗口");
+			return;
+		}
+		var obj = {
+			"WinId": openInfo.screens[layindex].id
+		};
+		Layout.push(obj);
+		var Arguments = {
+			"LayoutId": openInfo.id,
+			"WinId": openInfo.screens[layindex].id,
+			"Layout": Layout
+		};
+		var data = pdf.close(Arguments);
+		send(data);
+	});
+
+	$(".pdfGroup p:eq(0)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id, "first");
 		send(data);
 	});
-	$(".pdfGroup").on("click", "p:eq(1)", function () {
+	$(".pdfGroup p:eq(1)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id, "pre");
 		send(data);
 	});
-	$(".pdfGroup").on("click", "p:eq(2)", function () {
+	$(".pdfGroup p:eq(2)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id, "next");
 		send(data);
 	});
-	$(".pdfGroup").on("click", "p:eq(3)", function () {
+	$(".pdfGroup p:eq(3)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1301,47 +1390,48 @@ function bindController() {
 		send(data);
 	});
 
-	$(".pdfGroup2").on("click", "p:eq(0)", function () {
+	$(".pdfGroup2 p:eq(0)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id, "SetLayoutMode", "SinglePage");
 		send(data);
 	});
-	$(".pdfGroup2").on("click", "p:eq(1)", function () {
+	$(".pdfGroup2 p:eq(1)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id, "SetLayoutMode", "OneColumn");
 		send(data);
 	});
-	$(".pdfGroup2").on("click", "p:eq(2)", function () {
+	$(".pdfGroup2 p:eq(2)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id, "SetLayoutMode", "TwoColumnLeft");
 		send(data);
 	});
-	$(".pdfGroup2").on("click", "p:eq(3)", function () {
+	$(".pdfGroup2 p:eq(3)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id, "SetLayoutMode", "TwoColumnRight");
 		send(data);
 	});
-	$(".pdfGroup2").on("click", "p:eq(4)", function () {
+	$(".pdfGroup2 p:eq(4)").on("click", function () {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var data = pdf.changeBtn(openInfo.screens[layindex].id, "SetFit");
 		send(data);
 	});
-	$(".pdfScale").on("click", "div", function (e) {
+	$(".pdfScale div").on("click", function (e) {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var len = (e.pageX - $(this).offset().left) / $(this).width() * 100;
 		$(this).find("p").width(len + "%");
+		$(this).parent().find("span").html(parseInt(len));
 		var data = pdf.zoom(openInfo.screens[layindex].id, parseInt(len));
 		send(data);
 	});
@@ -1392,6 +1482,7 @@ function layShowController(Dom) {
 	bindController();
 	var funTitle = $(".funTitle");
 	var layoutContent = $(".layoutContent");
+	var drawTitle1 = $(".drawTitle1");
 	funTitle.on("click", "li", function () {
 		var index = funTitle.find("li").index($(this));
 		funTitle.find("li").removeClass("selected");
@@ -1400,13 +1491,25 @@ function layShowController(Dom) {
 		layoutContent.find(".fun").eq(index).addClass("selected");
 	});
 	Dom.layShow.on("click", ".layout2", function () {
-		Dom.layShow.hide();
-		Dom.layChange.show();
+		Dom.layShow.fadeOut();
+		Dom.layChange.fadeIn();
 	});
 	Dom.layShow.find(".drawContent1").on("click", "li", function () {
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected");
-		bindController();
+		setTimeout(function () {
+			$(".layoutContent .fun").removeClass("selected");
+			$(".layoutContent .fun").eq(0).addClass("selected");
+			bindController();
+		}, 100);
+	});
+	drawTitle1.on("click", function () {
+		setTimeout(function () {
+			$(".drawContent1 li").eq(0).addClass("selected");
+			$(".layoutContent .fun").removeClass("selected");
+			$(".layoutContent .fun").eq(0).addClass("selected");
+			bindController();
+		}, 100);
 	});
 }
 function layChangeController(Dom) {
@@ -1498,8 +1601,9 @@ function layoutChange(Dom) {
 	var changelayName = $(".layoutName");
 	var changelay = $(".addLayout");
 	Dom.layChange.on("click", ".layout1", function () {
-		Dom.layShow.show();
-		Dom.layChange.hide();
+		changelay.trigger("click");
+		Dom.layShow.fadeIn();
+		Dom.layChange.fadeOut();
 		ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 		bindController();
 	});
@@ -1525,11 +1629,13 @@ function layoutChange(Dom) {
 		}
 		var data1 = { data: JSON.stringify($at.screenInfo) };
 		$.post($at.url + "/interfaces/screenInfo/changeLayout", data1, onComplete);
-		function onComplete() {
+		function onComplete(json) {
 			$at.allInfo[$at.menuIndex] = $at.screenInfo;
 			ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 			bindController();
+			Dom.layShow.fadeIn();
+			Dom.layChange.fadeOut();
 		}
 	});
 
@@ -1771,7 +1877,7 @@ var LayoutInfo = React.createClass({
 			),
 			React.createElement(
 				"div",
-				null,
+				{ id: "infoBox4" },
 				React.createElement(InfoBox4, { softWare: this.props.softWare })
 			)
 		);
@@ -3206,8 +3312,11 @@ function partController(Dom) {
 	}
 	function initPart3(Dom, deviceList) {
 		$("#addPart3").html("");
-		var nums = $at.screenInfo.screenInfo.row * $at.screenInfo.screenInfo.col;
-		ReactDOM.render(React.createElement(Part3, { arr: deviceList, num: nums }), view3Dom.addPart3);
+		var row = $at.screenInfo.screenInfo.row;
+		var col = $at.screenInfo.screenInfo.col;
+		var hei = $at.screenInfo.screenInfo.hei;
+		var wid = $at.screenInfo.screenInfo.wid;
+		ReactDOM.render(React.createElement(Part3, { arr: deviceList, row: row, col: col, hei: hei, wid: wid }), view3Dom.addPart3);
 		drawController(Dom);
 		$("#addPart3").find(".pre").on("click", function () {
 			$Animate.complete($Animate.Part3Hide, $Animate.Part2Show);
@@ -3309,25 +3418,21 @@ var MenuList = React.createClass({
 	displayName: "MenuList",
 
 	render: function render() {
-		var obj = [];
-		for (var i = 0; i < $at.allInfo.length; i++) {
-			obj.push($at.allInfo[i].screenInfo.title);
-		}
 		return React.createElement(
 			"ul",
 			null,
-			obj.map(function (result, index) {
+			$at.allInfo.map(function (result, index) {
 				if (index == 0) {
 					return React.createElement(
 						"li",
-						{ key: index, title: result, className: "selected" },
-						result
+						{ key: index, title: result.screenInfo.title, className: "selected" },
+						result.screenInfo.title
 					);
 				} else {
 					return React.createElement(
 						"li",
-						{ key: index, title: result },
-						result
+						{ key: index, title: result.screenInfo.title },
+						result.screenInfo.title
 					);
 				}
 			})

@@ -15,17 +15,13 @@ var Menu = React.createClass({
 })
 var MenuList = React.createClass({
 	render : function(){
-		var obj = [];
-		for (var i=0;i<$at.allInfo.length;i++) {
-			obj.push($at.allInfo[i].screenInfo.title);
-		} 
 		return (<ul>
-				{ 
-					obj.map(function(result,index){
+				{
+					$at.allInfo.map(function(result,index){
 						if(index == 0){  
-							return <li key={index} title={result} className="selected">{result}</li>
+							return <li key={index} title={result.screenInfo.title} className="selected">{result.screenInfo.title}</li>
 						}else{
-							return <li key = {index} title = {result}>{result}</li>
+							return <li key = {index} title = {result.screenInfo.title}>{result.screenInfo.title}</li>
 						}
 					})
 				}  

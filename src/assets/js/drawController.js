@@ -99,12 +99,13 @@ function selectedScreen(screenList,obj){
 		var domLeft = dom.offset().left;
 		var domRight = domLeft+dom.width();
 		var domTop = dom.offset().top;
-		var domBottom = domTop+dom.height();
+		var domBottom = domTop+dom.outerHeight();
 		
 		var boxLeft = obj.left;
 		var boxRight = obj.left+obj.width;
 		var boxTop = obj.top;
 		var boxBottom = obj.top+obj.height;
+		
 		if((boxLeft>domRight) || (boxRight<domLeft) || (boxTop>domBottom) || (boxBottom<domTop)){
 			return false
 		}else{

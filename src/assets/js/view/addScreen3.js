@@ -5,7 +5,7 @@ var view3Dom = {
 var Part3 = React.createClass({
 	render : function(){
 		return (<div>
-			<ScreenPlan num = {this.props.num}/>
+			<ScreenPlan row={this.props.row} col={this.props.col} hei={this.props.hei} wid={this.props.wid}/>
 			<EntrySlected arr={this.props.arr}/>
 			<EntryList1 arr={this.props.arr}/>
 			<BtnPart3/> 
@@ -15,15 +15,19 @@ var Part3 = React.createClass({
 })
 var ScreenPlan = React.createClass({
 	render : function(){
-		var arr = [];
-		var num = this.props.num
-		for(var i=0;i<num;i++){
- 			arr.push(i)
+		var b = [];
+		var row = this.props.row; 
+ 		var col = this.props.col;
+ 		var bil = this.props.hei/this.props.wid
+ 		var wid = 100/col+"%";
+ 		var hei = bil*100/col+"%";
+ 		for(var i=0;i<row*col;i++){
+ 			b.push(i)
  		}
 		return (<div id="screenPlan"><ul>
 				{
-					arr.map(function(result,index){
-						return (<li key = {index}>
+					b.map(function(result,index){
+						return (<li key = {index} style={{width:wid,paddingBottom:hei}}>
 							<img src="assets/img/facility1.png"/>
 							<p>空</p>
 							<span className="span1"></span>
@@ -58,7 +62,7 @@ var EntrySlected = React.createClass({
 					}
 					return (<li key = {index}>
 						<img src="assets/img/facility.png" style={colorStyle}/>
-						<p>{result.name}</p>
+						<p title={result.name}>{result.name}</p>
 						<span>{result.macAddress}</span>
 						<span>{result.daemonId}</span>
 						<span>{result.remark}</span>

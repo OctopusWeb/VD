@@ -1,4 +1,4 @@
-function partController(Dom){ 
+function partController(Dom){
 	Dom.addBtnGroup.find(".btn").eq(1).on("click",function(){ 
 		initPart1(Dom);
 	})
@@ -120,8 +120,11 @@ function partController(Dom){
 	}
 	function initPart3(Dom,deviceList){
 		$("#addPart3").html("");
-		var nums = $at.screenInfo.screenInfo.row*$at.screenInfo.screenInfo.col;
-		ReactDOM.render(<Part3 arr={deviceList} num={nums}/>,view3Dom.addPart3); 
+		var row = $at.screenInfo.screenInfo.row;
+		var col = $at.screenInfo.screenInfo.col;
+		var hei = $at.screenInfo.screenInfo.hei;
+		var wid = $at.screenInfo.screenInfo.wid;
+		ReactDOM.render(<Part3 arr={deviceList} row={row} col={col} hei={hei} wid={wid}/>,view3Dom.addPart3); 
 		drawController(Dom); 
 		$("#addPart3").find(".pre").on("click",function(){
 			$Animate.complete($Animate.Part3Hide,$Animate.Part2Show);

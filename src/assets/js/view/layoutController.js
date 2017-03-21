@@ -3,24 +3,36 @@ function layShowController(Dom){
 	bindController();
 	var funTitle = $(".funTitle");
 	var layoutContent = $(".layoutContent");
+	var drawTitle1 = $(".drawTitle1");
 	funTitle.on("click","li",function(){
 		var index = funTitle.find("li").index($(this));
 		funTitle.find("li").removeClass("selected");
 		funTitle.find("li").eq(index).addClass("selected");
 		layoutContent.find(".fun").removeClass("selected");
 		layoutContent.find(".fun").eq(index).addClass("selected");
-		
 	})
 	Dom.layShow.on("click",".layout2",function(){
-		Dom.layShow.hide();
-		Dom.layChange.show();
-		
+		Dom.layShow.fadeOut();
+		Dom.layChange.fadeIn();
 	})
 	Dom.layShow.find(".drawContent1").on("click","li",function(){
 		$(".drawContent1").find("li").removeClass("selected");
-		$(this).addClass("selected"); 
-		bindController();
+		$(this).addClass("selected");
+		setTimeout(function(){
+			$(".layoutContent .fun").removeClass("selected");
+			$(".layoutContent .fun").eq(0).addClass("selected");
+			bindController(); 
+		},100);
+		
 	});
+	drawTitle1.on("click",function(){
+		setTimeout(function(){
+			$(".drawContent1 li").eq(0).addClass("selected");
+			$(".layoutContent .fun").removeClass("selected");
+			$(".layoutContent .fun").eq(0).addClass("selected");
+			bindController(); 
+		},100);
+	})
 	
 }
 function layChangeController(Dom){ 
@@ -113,8 +125,9 @@ function layoutChange(Dom){
 	var changelayName = $(".layoutName");
 	var changelay = $(".addLayout");
 	Dom.layChange.on("click",".layout1",function(){
-		Dom.layShow.show(); 
-		Dom.layChange.hide();
+		changelay.trigger("click");
+		Dom.layShow.fadeIn();
+		Dom.layChange.fadeOut();
 		ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
 		bindController();
 	})
@@ -140,11 +153,13 @@ function layoutChange(Dom){
 		}
 		var data1 = { data: JSON.stringify($at.screenInfo) };
 		$.post($at.url+"/interfaces/screenInfo/changeLayout", data1,onComplete);
-		function onComplete() {
+		function onComplete(json) {
 			$at.allInfo[$at.menuIndex] = $at.screenInfo;
 			ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 			bindController();
+			Dom.layShow.fadeIn();
+			Dom.layChange.fadeOut();
 		}
 	});
 	

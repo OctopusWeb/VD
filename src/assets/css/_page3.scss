@@ -11,26 +11,27 @@
         padding-top: 20px;
         border-top: 1px solid nth($NomalColor,4);
         position: relative;
+        float: left;
         ul{
             width: $NomalWidth;
-            height: 300px;
-            position: absolute;
             list-style: none;
             background: nth($NomalColor,5);
-            top: 0;
-            left: 0;
+            float: left;
             li{
-                width: $NomalWidth/4;
                 border: 1px solid nth($NomalColor,3);
                 box-sizing: border-box;
                 float: left;
-                height: 150px;
                 text-align: center;
+                position: relative;
                 img{
-                    height: 50%;
-                    margin-top: 38px;
+                    position: absolute;
+                    width: 40%;
+                    left: 30%;
+                    padding: 20px;
                 }
                 p{
+                    position: absolute;
+                    bottom: 30px;
                     width: 100%;
                     text-align: center;
                     font-size: nth($FontSize,7);
@@ -49,10 +50,8 @@
         }
         #drawArea{  
             width: 100%;
-            height: 300px;
+            height: 100%;
             position: absolute;
-            top: 0;
-            left: 0;
             #drawBox{
                 position: absolute;
                 left: 0;
@@ -83,6 +82,7 @@
                     font-size: nth($FontSize,8);
                     color: nth($FontColor,4);
                     width: 100%;
+                    white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;
                     text-align: center;
                 }
                 span{
@@ -103,7 +103,6 @@
         width: $NomalWidth/10*8;
         height: auto;
         position: relative;
-        top: 300px;
         li{
             float: left;
             width: 110px;
@@ -127,11 +126,10 @@
         }
     }
     #btnPart3{
-        width: $NomalWidth/2;
-        left: $NomalWidth/10*3;
+        width: $NomalWidth;
+        padding-left: $NomalWidth/10*3;
         height: 25px;
-        position: absolute;
-        bottom: 70px;
+        float: left;
         div{
             height: 25px;
             line-height: 25px;
