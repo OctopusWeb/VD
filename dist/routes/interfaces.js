@@ -104,7 +104,7 @@ router.post("/entryChange/content",function(req,res){
 	var typeCode = param.typeCode;
 	
 	var entryContentChangeSql = "UPDATE `t_content` SET name ='"+name+"', path ='"+path+"', typeCode ='"+typeCode+"' WHERE contentId ='"+contentId+"'"
-	pool.query(entryContentChangeSql,function(err, result) { 
+	pool.query(entryContentChangeSql,function(err, result) {
 		if (err) {
 			console.log(err);
 			return;

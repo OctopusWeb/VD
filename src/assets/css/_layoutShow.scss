@@ -290,14 +290,15 @@
                                background: nth($NomalColor,7);
                                margin-top: 10px;
                                margin-left: 10px;
-                               
+                               cursor: pointer;
                                p{
                                    display: block;
                                    float: left;
                                    height: 4px;
                                    background: nth($NomalColor,4);
                                    border-radius: 2px;
-                                   width: 70%;
+                                   width: 0%;
+                                   
                                }
                            }
                        }

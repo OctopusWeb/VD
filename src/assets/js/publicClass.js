@@ -1,5 +1,5 @@
 var $at = {}; 
-$at.url="http://localhost:3000";
+$at.url="http://192.168.0.177:3000";
 $at.getJson = function(url,data,onComplete){
 	$.getJSON(url,data,function(data){
 		onComplete(data) 
@@ -22,6 +22,6 @@ $at.screenInfo={};
 $at.softWare={};
 $at.entryHard={};
 $at.menuIndex=0;
-$at.staicUrl = "http://localhost:3000/";
+$at.staicUrl = "http://192.168.0.177:3000/";
 $at.socketUrl = 'ws://192.168.0.196:1234';
 

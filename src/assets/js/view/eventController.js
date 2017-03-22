@@ -79,7 +79,7 @@ function bindController(){
 		}  
 		Layout.push(obj);
 		var Arguments = {
-			"LayoutId":openInfo.id,
+			"LayoutId":openInfo.id, 
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
 		}
@@ -224,7 +224,7 @@ function bindController(){
 		}  
 		Layout.push(obj);
 		var Arguments = {
-			"LayoutId":openInfo.id,
+			"LayoutId":openInfo.id, 
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
 		}
@@ -301,7 +301,7 @@ function bindController(){
 	$(".flashOn p:eq(0)").off("click");
 	$(".flashOn p:eq(1)").off("click");
 	$(".flashOn p:eq(0)").on("click",function(){
-		changeClass($(".pptOn p"),$(this));
+		changeClass($(".flashOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -328,7 +328,7 @@ function bindController(){
 		}  
 		Layout.push(obj);
 		var Arguments = {
-			"LayoutId":openInfo.id,
+			"LayoutId":openInfo.id, 
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
 		}
@@ -337,6 +337,7 @@ function bindController(){
 		send(data);
 	})
 	$(".flashOn p:eq(1)").on("click",function(){
+		changeClass($(".flashOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -435,7 +436,8 @@ function bindController(){
 	$(".pdfGroup2 p:eq(1)").off("click");
 	$(".pdfGroup2 p:eq(2)").off("click");
 	$(".pdfGroup2 p:eq(3)").off("click");
-	$(".pdfScale").off("click"); 
+	$(".pdfGroup2 p:eq(4)").off("click");
+	$(".pdfScale div").off("click");
 	
 	$(".pdfOn p:eq(0)").on("click",function(){
 		changeClass($(".pdfOn p"),$(this));
