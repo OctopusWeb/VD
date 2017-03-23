@@ -18,10 +18,10 @@ var MenuList = React.createClass({
 		return (<ul>
 				{
 					$at.allInfo.map(function(result,index){
-						if(index == 0){  
-							return <li key={index} title={result.screenInfo.title} className="selected">{result.screenInfo.title}</li>
+						if(index == 0){ 
+							return <li key={index} title={result.screenInfo.title} className="selected">{result.screenInfo.title}<img src="assets/img/close.png"/></li>
 						}else{
-							return <li key = {index} title = {result.screenInfo.title}>{result.screenInfo.title}</li>
+							return <li key = {index} title = {result.screenInfo.title}>{result.screenInfo.title}<img src="assets/img/close.png"/></li>
 						}
 					})
 				}  
@@ -36,7 +36,7 @@ var LevTitle = React.createClass({
 		return (<ul>
 			{
 				LevTitleArr.map(function(result,index){
-					if(index == 0){  
+					if(index == 0){
 						return <li key={index} title={result} className="selected"><p><span>{index}</span>{result}</p></li>
 					}else{
 						return <li key = {index} title = {result}><p><span>{index}</span>{result}</p></li>

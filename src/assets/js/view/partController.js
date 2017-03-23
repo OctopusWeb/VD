@@ -1,8 +1,29 @@
 function partController(Dom){
 	Dom.addBtnGroup.find(".btn").eq(1).on("click",function(){ 
 		initPart1(Dom);
+		$("#screenList .selected img").show();
+		$("#screenList .selected img").off("click");
+		$("#screenList .selected img").on("click",function(e){
+			e.stopPropagation();
+			var config = confirm("确定删除此屏幕么？");
+			if(config){
+				var data={
+					id:$at.allInfo[$at.menuIndex].screenInfo.id
+				}
+				$.post($at.url+"/interfaces/screenInfo/deleteScreen", data,onComplete);
+				function onComplete(json){
+					if(!json.state){return}
+					$at.allInfo.splice($at.menuIndex,1);
+					$at.screenInfo = $at.allInfo[0];
+					ReactDOM.render(<MenuList/>,setScreenDom.screenList);
+					bindController();
+					$("#screenList li").eq(0).trigger("click");
+				}
+			}
+		})
 	})
 	Dom.addBtnGroup.find(".btn").eq(0).on("click",function(){
+		$("#screenList li img").hide();
 		var screenInfo={
 			screenInfo:{title:"未命名",col:4,row:2,wid:1920,hei:1080,id:"s2 ",host:[]}, 
 			drawInfo:[

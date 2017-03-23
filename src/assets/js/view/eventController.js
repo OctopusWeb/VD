@@ -86,6 +86,11 @@ function bindController(){
 		var video = new Videocall();
 		var data = video.open(Arguments);
 		send(data);
+		
+//		var getPosition = video.getPosition(openInfo.screens[layindex].id);
+//		var getVolume = video.getVolume(openInfo.screens[layindex].id);
+//		send(getPosition);
+//		send(getVolume);
 	})
 	$(".videoOn p:eq(1)").on("click",function(){//关闭video
 		changeClass($(".videoOn p"),$(this));

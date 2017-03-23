@@ -6,6 +6,7 @@ function setScreen(Dom,data){
 	ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);
 	$("#screenList").on("click","li",function(){
 		$("#screenList").find("li").removeClass("selected");
+		$("#screenList li img").hide();
 		$(this).addClass("selected");
 		Dom.layShow.show();
 		Dom.layChange.hide(); 

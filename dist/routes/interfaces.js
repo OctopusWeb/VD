@@ -343,8 +343,39 @@ router.post("/screenInfo/changeLayout",function(req,res){
 		}
 		res.send({state:true})
 	})
+})
 
-	
+router.post("/screenInfo/deleteScreen",function(req,res){
+	var screenId = req.body.id;
+	var deleteDescribe = 'DELETE FROM `t_describe` WHERE screenId="'+screenId+'"';
+	var deleteHost = 'DELETE FROM `t_screen_host` WHERE screenId="'+screenId+'"';
+	var deleteInfo = 'DELETE FROM `t_screen_info` WHERE screenId="'+screenId+'"';
+	var deleteLayout = 'DELETE FROM `t_screen_layout` WHERE screenId="'+screenId+'"';
+	pool.query(deleteDescribe, function(err, result) {
+		if (err) {
+			console.log("b");
+			return;
+		}
+	})
+	pool.query(deleteHost, function(err, result) {
+		if (err) {
+			console.log("b");
+			return;
+		}
+	})
+	pool.query(deleteInfo, function(err, result) {
+		if (err) {
+			console.log("b");
+			return;
+		}
+	})
+	pool.query(deleteLayout, function(err, result) {
+		if (err) {
+			console.log("b");
+			return;
+		}
+	})
+	res.send({state:true});
 })
 
 router.get("/screenInfo",function(req,res){

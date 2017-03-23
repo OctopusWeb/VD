@@ -940,6 +940,11 @@ function bindController() {
 		var video = new Videocall();
 		var data = video.open(Arguments);
 		send(data);
+
+		//		var getPosition = video.getPosition(openInfo.screens[layindex].id);
+		//		var getVolume = video.getVolume(openInfo.screens[layindex].id);
+		//		send(getPosition);
+		//		send(getVolume);
 	});
 	$(".videoOn p:eq(1)").on("click", function () {
 		//关闭video
@@ -1645,9 +1650,12 @@ function layoutChange(Dom) {
 		screenLen = changeTitle.find("li").index($(this));
 	});
 	changeTitle.on("click", ".close", function (e) {
-		var index = changeTitle.find("close").index($(this));
-		$at.screenInfo.drawInfo.splice(index, 1);
-		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+		var config = confirm("确定删除此布局么？");
+		if (config) {
+			var index = changeTitle.find("close").index($(this));
+			$at.screenInfo.drawInfo.splice(index, 1);
+			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+		}
 	});
 	changeBtnGroup.find("span").on("click", function () {
 		var num = parseInt($at.screenInfo.drawInfo.length) + 1;
@@ -1730,10 +1738,18 @@ function layoutChange(Dom) {
 		$at.screenInfo.drawInfo[screenLen].screens.push(data);
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
-	changeContent.on("click", ".close", function () {
-		$at.screenInfo.drawInfo[screenLen].screens.splice(smallIndex, 1);
-		smallIndex = 0;
-		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+	changeDraw.on("click", ".close", function () {
+
+		if ($at.screenInfo.drawInfo[screenLen].screens.length == 1) {
+			alert("只有一个布局了,请不要删除！");
+		} else {
+			var config = confirm("确定删除此窗口么？");
+			if (config) {
+				$at.screenInfo.drawInfo[screenLen].screens.splice(smallIndex, 1);
+				smallIndex = 0;
+				ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+			}
+		}
 	});
 	changeContent.on("click", ".contentBtn", function () {
 		changeContent.find(".contentBtn").removeClass("selected");
@@ -3199,8 +3215,32 @@ function initScreenInfo() {
 function partController(Dom) {
 	Dom.addBtnGroup.find(".btn").eq(1).on("click", function () {
 		initPart1(Dom);
+		$("#screenList .selected img").show();
+		$("#screenList .selected img").off("click");
+		$("#screenList .selected img").on("click", function (e) {
+			e.stopPropagation();
+			var config = confirm("确定删除此屏幕么？");
+			if (config) {
+				var onComplete = function onComplete(json) {
+					if (!json.state) {
+						return;
+					}
+					$at.allInfo.splice($at.menuIndex, 1);
+					$at.screenInfo = $at.allInfo[0];
+					ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
+					bindController();
+					$("#screenList li").eq(0).trigger("click");
+				};
+
+				var data = {
+					id: $at.allInfo[$at.menuIndex].screenInfo.id
+				};
+				$.post($at.url + "/interfaces/screenInfo/deleteScreen", data, onComplete);
+			}
+		});
 	});
 	Dom.addBtnGroup.find(".btn").eq(0).on("click", function () {
+		$("#screenList li img").hide();
 		var screenInfo = {
 			screenInfo: { title: "未命名", col: 4, row: 2, wid: 1920, hei: 1080, id: "s2 ", host: [] },
 			drawInfo: [{
@@ -3377,6 +3417,7 @@ function setScreen(Dom, data) {
 	ReactDOM.render(React.createElement(PageTitle, { title: "\u65B0\u5EFA\u5C4F\u5E55" }), setScreenDom.pageTitle);
 	$("#screenList").on("click", "li", function () {
 		$("#screenList").find("li").removeClass("selected");
+		$("#screenList li img").hide();
 		$(this).addClass("selected");
 		Dom.layShow.show();
 		Dom.layChange.hide();
@@ -3428,13 +3469,15 @@ var MenuList = React.createClass({
 					return React.createElement(
 						"li",
 						{ key: index, title: result.screenInfo.title, className: "selected" },
-						result.screenInfo.title
+						result.screenInfo.title,
+						React.createElement("img", { src: "assets/img/close.png" })
 					);
 				} else {
 					return React.createElement(
 						"li",
 						{ key: index, title: result.screenInfo.title },
-						result.screenInfo.title
+						result.screenInfo.title,
+						React.createElement("img", { src: "assets/img/close.png" })
 					);
 				}
 			})

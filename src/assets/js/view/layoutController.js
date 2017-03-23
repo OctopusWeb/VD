@@ -167,9 +167,12 @@ function layoutChange(Dom){
 		screenLen = changeTitle.find("li").index($(this));
 	})
 	changeTitle.on("click",".close",function(e){
-		var index = changeTitle.find("close").index($(this));
-		$at.screenInfo.drawInfo.splice(index,1);
-		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+		var config = confirm("确定删除此布局么？");
+		if(config){
+			var index = changeTitle.find("close").index($(this));
+			$at.screenInfo.drawInfo.splice(index,1);
+			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+		}
 	})
 	changeBtnGroup.find("span").on("click",function(){
 		var num  = parseInt($at.screenInfo.drawInfo.length)+1;
@@ -254,10 +257,18 @@ function layoutChange(Dom){
 		$at.screenInfo.drawInfo[screenLen].screens.push(data); 
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeContent.on("click",".close",function(){
-		$at.screenInfo.drawInfo[screenLen].screens.splice(smallIndex,1);
-		smallIndex=0;
-		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+	changeDraw.on("click",".close",function(){
+		
+		if($at.screenInfo.drawInfo[screenLen].screens.length==1){
+			alert("只有一个布局了,请不要删除！")
+		}else{
+			var config = confirm("确定删除此窗口么？");
+			if(config){
+				$at.screenInfo.drawInfo[screenLen].screens.splice(smallIndex,1);
+				smallIndex=0;
+				ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+			}
+		}
 	})
 	changeContent.on("click",".contentBtn",function(){
 		changeContent.find(".contentBtn").removeClass("selected");

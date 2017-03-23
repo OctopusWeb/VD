@@ -19,7 +19,7 @@ function sError(){
     console.log('connect error')
 }
 function sMessage(msg){
-    console.log('server says:'+msg)
+    console.log('server says:'+JSON.stringify(msg));
 }
 function sClose(){
     console.log('connect close')
@@ -140,6 +140,28 @@ function Videocall(){
 		    "Service":"videoCall",
 		    "Action":"setVolume",
 		    "Volume":type
+		}
+		return data;
+	}
+	this.getVolume = function(winId){ 
+		var data={
+			"receiverName": winId,
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service":"videoCall",
+		    "Action":"getVolume"
+		}
+		return data;
+	}
+	this.getPosition = function(winId){
+		var data={
+			"receiverName": winId,
+		    "senderName": "web",
+		    "messageID": "123456",
+		    "messageType": "",
+		    "Service":"videoCall",
+		    "Action":"getPosition"
 		}
 		return data;
 	}
