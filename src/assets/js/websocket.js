@@ -19,7 +19,7 @@ function sError(){
     console.log('connect error')
 }
 function sMessage(msg){
-    console.log('server says:'+JSON.stringify(msg));
+    console.log('server says:'+msg.data);
 }
 function sClose(){
     console.log('connect close')

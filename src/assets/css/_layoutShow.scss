@@ -1,7 +1,7 @@
 #layoutShow{
     position: absolute;
     top: 50px;
-    left: 260px;
+    left:  0px;
     right: 0;
     bottom: 0;
     overflow: auto;
@@ -99,6 +99,9 @@
                     }
                     .selected{
                         background: nth($FontColor,4);
+                        p{
+                            color: nth($LightColor,2);
+                        }
                     }
                 }
             }
@@ -146,7 +149,7 @@
                 float: left;
                 width: 100px;
                 height: 26px;
-                margin:20px 40%;
+                margin: 10px 40%;
                 color: nth($FontColor,4);
                 text-align: center;
                 font-size: nth($FontSize,7);
@@ -186,13 +189,15 @@
                     }
                 }
                 .selected{
-                    background: #f7f8f8;
+                    background: nth($FontColor,4);
+                    p{
+                        color: nth($LightColor,2);
+                    }
                 }
             }
             .layoutContent{
                 width: $NomalWidth;
                 float: left;
-                height: 300px;
                 background: #f7f8f8;
                 border-top-left-radius:3px;
                 border-top-right-radius:3px;
@@ -210,7 +215,6 @@
                 .controllerBox{
                    width: $NomalWidth;
                    float: left;
-                   height: 120px;
                    margin-top: 20px;
                    background: nth($FontColor,4);
                    border: 1px solid nth($NomalColor,5);

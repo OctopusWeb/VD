@@ -66,17 +66,18 @@ var destPath = {
 	});
 	
 	gulp.task('build',["reactContact"],function() {
-		return gulp.src('src/assets/js/main/main.js',function(err,files){
-			browserify(files)
-	        .transform(babelify, {
-	            presets: ['es2015', 'react']
-	        })
-	        .transform(shim)
-	        .bundle()
-	        .pipe(source(destPath.build+'/bundle.js'))
- 			.pipe(gulp.dest('./'));
-		})
-	    
+		setTimeout(function(){
+			return gulp.src('src/assets/js/main/main.js',function(err,files){
+				browserify(files)
+		        .transform(babelify, {
+		            presets: ['es2015', 'react']
+		        })
+		        .transform(shim)
+		        .bundle()
+		        .pipe(source(destPath.build+'/bundle.js'))
+	 			.pipe(gulp.dest('./'));
+			})
+		},100)
 	});
 	
 	gulp.task("reactContact",function(){

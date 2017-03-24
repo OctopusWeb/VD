@@ -400,6 +400,7 @@ function initSoft(Dom) {
 	ReactDOM.render(React.createElement(EntryHard, { arr: softArr, list: $at.softWare, name: softName }), document.getElementById("entryHard"));
 
 	$("#entryAdd").on("click", function () {
+		soundBtn();
 		var len = $(".entryList ul .selected").length;
 		if (len == 0) {
 			return;
@@ -438,6 +439,7 @@ function initSoft(Dom) {
 		}
 	});
 	$("#entryChange").on("click", function () {
+		soundBtn();
 		var name = $("#entryHard input").eq(0).val();
 		var info0 = $("#entryHard input").eq(1).val();
 		var info1 = $("#entryHard input").eq(2).val();
@@ -461,6 +463,7 @@ function initSoft(Dom) {
 						}
 					}
 				}
+				$(".changeBtn").hide();
 				console.log(JSON.stringify($at.allInfo));
 				ReactDOM.render(React.createElement(EntryHard, { arr: softArr, list: $at.softWare, name: softName }), document.getElementById("entryHard"));
 				ReactDOM.render(React.createElement(InfoBox4, { softWare: $at.softWare }), document.getElementById("infoBox4"));
@@ -477,6 +480,7 @@ function initSoft(Dom) {
 		}
 	});
 	$("#entryHard .entryList").on("click", "li", function () {
+		soundBtn();
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
@@ -485,9 +489,11 @@ function initSoft(Dom) {
 		$("#entryHard input").eq(1).val(type);
 		$("#entryHard input").eq(2).val("");
 		$("#entryHard input").eq(3).val("");
-		$(".changeBtn").hide();
+		$(".changeBtn").eq(0).show();
+		$(".changeBtn").eq(1).hide();
 	});
 	$("#entryHard .chooseList").on("click", "li", function () {
+		soundBtn();
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
@@ -500,7 +506,8 @@ function initSoft(Dom) {
 		$("#entryHard input").eq(1).val(info0);
 		$("#entryHard input").eq(2).val(info1);
 		$("#entryHard input").eq(3).val(info2);
-		$(".changeBtn").show();
+		$(".changeBtn").eq(1).show();
+		$(".changeBtn").eq(0).hide();
 	});
 }
 function initHard(Dom) {
@@ -508,6 +515,7 @@ function initHard(Dom) {
 	var hardName = ["设备名称", "mac地址", "daemonld", "备注"];
 	ReactDOM.render(React.createElement(EntrySoft, { arr: hardArr, list: $at.entryHard, name: hardName }), document.getElementById("entrySoftware"));
 	$("#entrySoftware .chooseList").on("click", "li", function () {
+		soundBtn();
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
@@ -520,9 +528,11 @@ function initHard(Dom) {
 		$("#entrySoftware input").eq(1).val(info0);
 		$("#entrySoftware input").eq(2).val(info1);
 		$("#entrySoftware input").eq(3).val(info2);
-		$(".changeBtn").show();
+		$(".changeBtn").eq(0).show();
+		$(".changeBtn").eq(1).hide();
 	});
 	$("#entrySoftware .entryList").on("click", "li", function () {
+		soundBtn();
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
@@ -530,9 +540,11 @@ function initHard(Dom) {
 		$("#entrySoftware input").eq(1).val("");
 		$("#entrySoftware input").eq(2).val("");
 		$("#entrySoftware input").eq(3).val("");
-		$(".changeBtn").hide();
+		$(".changeBtn").eq(1).show();
+		$(".changeBtn").eq(0).hide();
 	});
 	$("#softAdd").on("click", function () {
+		soundBtn();
 		var len = $(".entryList ul .selected").length;
 		if (len == 0) {
 			return;
@@ -565,6 +577,7 @@ function initHard(Dom) {
 		}
 	});
 	$("#softChange").on("click", function () {
+		soundBtn();
 		var name = $("#entrySoftware input").eq(0).val();
 		var info0 = $("#entrySoftware input").eq(1).val();
 		var info1 = $("#entrySoftware input").eq(2).val();
@@ -647,13 +660,8 @@ var EntryHard = React.createClass({
 			"div",
 			null,
 			React.createElement(EntryList, { arr: this.props.arr, name: "资源类型" }),
-			React.createElement(
-				"div",
-				{ className: "addBtn", id: "entryAdd" },
-				"\u6DFB\u52A0"
-			),
 			React.createElement(ChooseList, { list: this.props.list, name: "当前所有内容" }),
-			React.createElement(InputList, { name: this.props.name, id: "entryChange" })
+			React.createElement(InputList, { name: this.props.name, id: "entryChange", id2: "entryAdd" })
 		);
 	}
 });
@@ -665,13 +673,8 @@ var EntrySoft = React.createClass({
 			"div",
 			null,
 			React.createElement(EntryList, { arr: this.props.arr, name: "设备类型" }),
-			React.createElement(
-				"div",
-				{ className: "addBtn", id: "softAdd" },
-				"\u6DFB\u52A0"
-			),
 			React.createElement(ChooseList, { list: this.props.list, name: "当前所有设备" }),
-			React.createElement(InputList, { name: this.props.name, id: "softChange" })
+			React.createElement(InputList, { name: this.props.name, id: "softChange", id2: "softAdd" })
 		);
 	}
 });
@@ -842,6 +845,11 @@ var InputList = React.createClass({
 			),
 			React.createElement(
 				"div",
+				{ id: this.props.id2, className: "changeBtn" },
+				"\u786E\u8BA4\u6DFB\u52A0"
+			),
+			React.createElement(
+				"div",
 				{ id: this.props.id, className: "changeBtn" },
 				"\u786E\u8BA4\u4FEE\u6539"
 			)
@@ -855,6 +863,7 @@ function bindController() {
 	$("#closeLayout").off("click");
 	$("#openLayout").on("click", function () {
 		//打开布局
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -889,6 +898,7 @@ function bindController() {
 	});
 	$("#closeLayout").on("click", function () {
 		//关闭布局
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
 		var multiScreen = new MultiScreenCall();
@@ -906,6 +916,7 @@ function bindController() {
 	$(".arround p").off("click");
 	$(".videoOn p:eq(0)").on("click", function () {
 		//打开video
+		soundBtn();
 		changeClass($(".videoOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -948,6 +959,7 @@ function bindController() {
 	});
 	$(".videoOn p:eq(1)").on("click", function () {
 		//关闭video
+		soundBtn();
 		changeClass($(".videoOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -972,6 +984,7 @@ function bindController() {
 		send(data);
 	});
 	$(".playPro img").on("click", function () {
+		soundBtn();
 		var src = $(this).attr("src");
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -992,6 +1005,7 @@ function bindController() {
 		}
 	});
 	$(".playPro div").on("click", function (e) {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1002,6 +1016,7 @@ function bindController() {
 		send(data);
 	});
 	$(".voicePro div").on("click", function (e) {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1012,6 +1027,7 @@ function bindController() {
 		send(data);
 	});
 	$(".arround p").on("click", function () {
+		soundBtn();
 		changeClass($(".arround p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1058,6 +1074,7 @@ function bindController() {
 	var ppt = new PptCall();
 	$(".pptOn p:eq(0)").on("click", function () {
 		//打开ppt
+		soundBtn();
 		changeClass($(".pptOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1095,6 +1112,7 @@ function bindController() {
 	});
 	$(".pptOn p:eq(1)").on("click", function () {
 		//关闭ppt
+		soundBtn();
 		changeClass($(".pptOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1119,6 +1137,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pptgroup p:eq(0)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1126,6 +1145,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pptgroup p:eq(1)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1133,6 +1153,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pptgroup p:eq(2)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1140,6 +1161,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pptgroup p:eq(3)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1148,6 +1170,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pptInput input").on("blur", function () {
+		soundBtn();
 		var value = $(this).val();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1163,6 +1186,7 @@ function bindController() {
 	$(".flashOn p:eq(0)").off("click");
 	$(".flashOn p:eq(1)").off("click");
 	$(".flashOn p:eq(0)").on("click", function () {
+		soundBtn();
 		changeClass($(".flashOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1199,6 +1223,7 @@ function bindController() {
 		send(data);
 	});
 	$(".flashOn p:eq(1)").on("click", function () {
+		soundBtn();
 		changeClass($(".flashOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1226,6 +1251,7 @@ function bindController() {
 	$(".webOn p:eq(0)").off("click");
 	$(".webOn p:eq(1)").off("click");
 	$(".webOn p:eq(0)").on("click", function () {
+		soundBtn();
 		changeClass($(".webOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1262,6 +1288,7 @@ function bindController() {
 		send(data);
 	});
 	$(".webOn p:eq(1)").on("click", function () {
+		soundBtn();
 		changeClass($(".webOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1302,6 +1329,7 @@ function bindController() {
 	$(".pdfScale div").off("click");
 
 	$(".pdfOn p:eq(0)").on("click", function () {
+		soundBtn();
 		changeClass($(".pdfOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1337,6 +1365,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfOn p:eq(1)").on("click", function () {
+		soundBtn();
 		changeClass($(".pdfOn p"), $(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1361,6 +1390,7 @@ function bindController() {
 	});
 
 	$(".pdfGroup p:eq(0)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1368,6 +1398,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfGroup p:eq(1)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1375,6 +1406,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfGroup p:eq(2)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1382,6 +1414,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfGroup p:eq(3)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1389,6 +1422,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfInput input").on("blur", function () {
+		soundBtn();
 		var value = $(this).val();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1398,6 +1432,7 @@ function bindController() {
 	});
 
 	$(".pdfGroup2 p:eq(0)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1405,6 +1440,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfGroup2 p:eq(1)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1412,6 +1448,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfGroup2 p:eq(2)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1419,6 +1456,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfGroup2 p:eq(3)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1426,6 +1464,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfGroup2 p:eq(4)").on("click", function () {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1433,6 +1472,7 @@ function bindController() {
 		send(data);
 	});
 	$(".pdfScale div").on("click", function (e) {
+		soundBtn();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -1491,6 +1531,7 @@ function layShowController(Dom) {
 	var layoutContent = $(".layoutContent");
 	var drawTitle1 = $(".drawTitle1");
 	funTitle.on("click", "li", function () {
+		soundBtn();
 		var index = funTitle.find("li").index($(this));
 		funTitle.find("li").removeClass("selected");
 		funTitle.find("li").eq(index).addClass("selected");
@@ -1498,10 +1539,12 @@ function layShowController(Dom) {
 		layoutContent.find(".fun").eq(index).addClass("selected");
 	});
 	Dom.layShow.on("click", ".layout2", function () {
+		soundBtn();
 		Dom.layShow.fadeOut();
 		Dom.layChange.fadeIn();
 	});
 	Dom.layShow.find(".drawContent1").on("click", "li", function () {
+		soundBtn();
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected");
 		setTimeout(function () {
@@ -1511,6 +1554,7 @@ function layShowController(Dom) {
 		}, 100);
 	});
 	drawTitle1.on("click", function () {
+		soundBtn();
 		setTimeout(function () {
 			$(".drawContent1 li").eq(0).addClass("selected");
 			$(".layoutContent .fun").removeClass("selected");
@@ -1615,6 +1659,7 @@ function layoutChange(Dom) {
 		bindController();
 	});
 	changelay.on("click", function () {
+		soundBtn();
 		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
 			var screens = $at.screenInfo.drawInfo[i].screens;
 			for (var j = 0; j < screens.length; j++) {
@@ -1647,9 +1692,11 @@ function layoutChange(Dom) {
 	});
 
 	changeTitle.on("click", "li", function () {
+		soundBtn();
 		screenLen = changeTitle.find("li").index($(this));
 	});
 	changeTitle.on("click", ".close", function (e) {
+		soundBtn();
 		var config = confirm("确定删除此布局么？");
 		if (config) {
 			var index = changeTitle.find("close").index($(this));
@@ -1658,6 +1705,7 @@ function layoutChange(Dom) {
 		}
 	});
 	changeBtnGroup.find("span").on("click", function () {
+		soundBtn();
 		var num = parseInt($at.screenInfo.drawInfo.length) + 1;
 		var addScreen = {
 			title: "屏幕" + num,
@@ -1672,13 +1720,16 @@ function layoutChange(Dom) {
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 	changeBtnGroup.find("p").on("click", function () {
+		soundBtn();
 		changelayName.find("input").val("");
 		changelayName.show();
 	});
 	changelayName.find(".close").on("click", function () {
+		soundBtn();
 		changelayName.hide();
 	});
 	changelayName.find("p").on("click", function () {
+		soundBtn();
 		var value = changelayName.find("input").val();
 		if (value) {
 			$at.screenInfo.drawInfo[screenLen].title = value;
@@ -1687,12 +1738,14 @@ function layoutChange(Dom) {
 		}
 	});
 	layoutInfo.find(".infoBox1").on("click", "p", function () {
+		soundBtn();
 		layoutInfo.find("p").removeClass("selected");
 		$(this).addClass("selected");
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].across = layoutInfo.find("p").index($(this)) == 0;
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 	changeDraw.on("click", "li", function () {
+		soundBtn();
 		var num = parseInt($(this).find("span").html());
 		smallIndex = num;
 		var arr = $at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo;
@@ -1703,33 +1756,40 @@ function layoutChange(Dom) {
 		changeDraw.find("li").removeClass("selected");
 		$(this).addClass("selected");
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+		boxChange($(this), screenLen, smallIndex);
 	});
 	changeBox2.find("input").eq(0).on("change", function () {
+		soundBtn();
 		var x = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3] = parseInt(x);
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 	changeBox2.find("input").eq(1).on("change", function () {
+		soundBtn();
 		var y = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2] = parseInt(y);
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 	changeBox2.find("input").eq(2).on("change", function () {
+		soundBtn();
 		var wid = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0] = parseInt(wid);
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 	changeBox2.find("input").eq(3).on("change", function () {
+		soundBtn();
 		var hei = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1] = parseInt(hei);
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 	changeChoose.on("click", ".close", function () {
+		soundBtn();
 		var num = changeChoose.find("li .close").index($(this));
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num), 1);
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 	changeAddbuju.on("click", function () {
+		soundBtn();
 		var data = {
 			across: true,
 			screenInfo: [1920, 1080, 0, 0],
@@ -1739,7 +1799,7 @@ function layoutChange(Dom) {
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 	changeDraw.on("click", ".close", function () {
-
+		soundBtn();
 		if ($at.screenInfo.drawInfo[screenLen].screens.length == 1) {
 			alert("只有一个布局了,请不要删除！");
 		} else {
@@ -1752,10 +1812,12 @@ function layoutChange(Dom) {
 		}
 	});
 	changeContent.on("click", ".contentBtn", function () {
+		soundBtn();
 		changeContent.find(".contentBtn").removeClass("selected");
 		$(this).addClass("selected");
 	});
 	changeContent.on("click", ".add", function () {
+		soundBtn();
 		var type = $(this).parent().find(".icon").attr("name");
 		var name = $(this).parent().find("span").eq(0).html();
 		var path = $(this).parent().find("p").eq(1).html();
@@ -1766,6 +1828,50 @@ function layoutChange(Dom) {
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 }
+function boxChange(self, screenLen, smallIndex) {
+	var box = $(".drawContent");
+	var changeBox2 = $("#layoutInfo .infoBox2");
+	var boxWid = box.width();
+	var boxHei = box.height();
+	var winWid = self.width();
+	var winHei = self.height();
+	var relWid = changeBox2.find("input").eq(2).val();
+	var relHei = changeBox2.find("input").eq(3).val();
+	var bili = parseFloat(winWid) / parseFloat(relWid);
+	self.off("mousedown");
+	self.on("mousedown", function (e1) {
+		e1.stopPropagation();
+		var selfX = self.position().left / boxWid * 100;
+		var selfY = self.position().top / boxHei * 100;
+		var starX = e1.pageX;
+		var starY = e1.pageY;
+		self.on("mousemove", function (e2) {
+			var moveX = e2.pageX;
+			var moveY = e2.pageY;
+			var relX = (moveX - starX) / boxWid * 100;
+			var relY = (moveY - starY) / boxHei * 100;
+			self.css({ "left": relX + selfX + "%", "top": relY + selfY + "%" });
+		});
+
+		console.log(bili);
+		console.log(self.position().left);
+		console.log(self.position().top);
+	});
+	self.on("mouseleave", function () {
+		self.off("mousedown");
+		self.off("mousemove");
+	});
+	self.on("mouseup", function () {
+		var left = self.position().left / bili;
+		var top = self.position().top / bili;
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3] = left;
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2] = top;
+		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+		self.off("mousedown");
+		self.off("mousemove");
+	});
+}
+
 var view4Dom = {
 	layout: $at.GetDomId("layout")
 };
@@ -3026,8 +3132,7 @@ var ZoolonFun = React.createClass({
 
 function loginController(Dom) {
 	Dom.submite.on("click", function () {
-		connect();
-		socket.onopen();
+		soundBtn();
 		var name = $("#userName input").val();
 		var pass = $("#passWord input").val();
 		if (name == "" || pass == "") {
@@ -3045,11 +3150,16 @@ function initLayInfo(Dom, user, password) {
 			return;
 		}
 		$Animate.complete($Animate.loginHide, $Animate.wrapShow);
+		$("#menu").animate({ left: "-260px" });
+		$("#layoutShow,#layout,#setScreen").animate({ left: "0px" });
+		$("#wrap #addScreen #setScreen").css({ "padding-right": "0" });
 		var data = layParseDate(json);
 		$at.allInfo = data;
 		$at.screenInfo = data[$at.menuIndex];
 		$at.getJson($at.url + "/interfaces/entry/content", "", onComplete2);
 		function onComplete2(json2) {
+			connect();
+			socket.onopen();
 			$at.softWare = ParseSoft(json2.data);
 			initSoft(Dom);
 			layShowController(Dom);
@@ -3214,6 +3324,7 @@ function initScreenInfo() {
 
 function partController(Dom) {
 	Dom.addBtnGroup.find(".btn").eq(1).on("click", function () {
+		soundBtn();
 		initPart1(Dom);
 		$("#screenList .selected img").show();
 		$("#screenList .selected img").off("click");
@@ -3240,6 +3351,7 @@ function partController(Dom) {
 		});
 	});
 	Dom.addBtnGroup.find(".btn").eq(0).on("click", function () {
+		soundBtn();
 		$("#screenList li img").hide();
 		var screenInfo = {
 			screenInfo: { title: "未命名", col: 4, row: 2, wid: 1920, hei: 1080, id: "s2 ", host: [] },
@@ -3293,6 +3405,7 @@ function partController(Dom) {
 		$("#inputGroup .input").eq(4).find("input").val(hei);
 
 		$("#btnPart1").on("click", ".next", function () {
+			soundBtn();
 			$at.screenInfo.screenInfo.title = $("#inputGroup .input").eq(0).find("input").val();
 			$at.screenInfo.screenInfo.row = $("#inputGroup .input").eq(1).find("input").val();
 			$at.screenInfo.screenInfo.col = $("#inputGroup .input").eq(3).find("input").val();
@@ -3315,10 +3428,12 @@ function partController(Dom) {
 			}
 		}
 		$("#btnPart2").find(".pre").on("click", function () {
+			soundBtn();
 			$Animate.complete($Animate.Part2Hide1, $Animate.Part1Show);
 			PartChange(0);
 		});
 		$("#btnPart2").find(".next").on("click", function () {
+			soundBtn();
 			var selected = $("#addPart2 ul .selected");
 			var deviceList = [];
 			for (var i = 0; i < selected.length; i++) {
@@ -3340,6 +3455,7 @@ function partController(Dom) {
 			}
 		});
 		$("#addPart2").find("ul").on("click", function (e) {
+			soundBtn();
 			var event = e || window.event;
 			var dom = event.target || event.srcElement;
 			dom = dom.parentNode.parentNode;
@@ -3361,10 +3477,12 @@ function partController(Dom) {
 		ReactDOM.render(React.createElement(Part3, { arr: deviceList, row: row, col: col, hei: hei, wid: wid }), view3Dom.addPart3);
 		drawController(Dom);
 		$("#addPart3").find(".pre").on("click", function () {
+			soundBtn();
 			$Animate.complete($Animate.Part3Hide, $Animate.Part2Show);
 			PartChange(1);
 		});
 		$("#addPart3").find(".next").on("click", function () {
+			soundBtn();
 			changeSrceen();
 			$Animate.LayoutShow();
 		});
@@ -3416,6 +3534,7 @@ function setScreen(Dom, data) {
 	ReactDOM.render(React.createElement(LevTitle, { arr: LevTitleArr }), setScreenDom.levNum);
 	ReactDOM.render(React.createElement(PageTitle, { title: "\u65B0\u5EFA\u5C4F\u5E55" }), setScreenDom.pageTitle);
 	$("#screenList").on("click", "li", function () {
+		soundBtn();
 		$("#screenList").find("li").removeClass("selected");
 		$("#screenList li img").hide();
 		$(this).addClass("selected");
@@ -3425,6 +3544,22 @@ function setScreen(Dom, data) {
 		$at.screenInfo = $at.allInfo[$at.menuIndex];
 		selectedMenu(Dom);
 	});
+	$("#smallMenu").on("click", function () {
+		soundBtn();
+		$("#smallMenu").toggleClass("selected");
+		if ($(this).attr("class") == "selected") {
+			$("#menu").animate({ left: "-260px" });
+			$("#layoutShow,#layout,#setScreen").animate({ left: "0px" });
+			$("#wrap #addScreen #setScreen").css({ "padding-right": "0" });
+		} else {
+			$("#menu").animate({ left: "0px" });
+			$("#layoutShow,#layout,#setScreen").animate({ left: "260px" });
+			$("#wrap #addScreen #setScreen").css({ "padding-right": "260px" });
+		}
+	});
+}
+function soundBtn() {
+	$at.mp3.play();
 }
 function selectedMenu(Dom) {
 	$("#layoutShow").html("");

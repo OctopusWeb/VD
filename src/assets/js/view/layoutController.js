@@ -5,6 +5,7 @@ function layShowController(Dom){
 	var layoutContent = $(".layoutContent");
 	var drawTitle1 = $(".drawTitle1");
 	funTitle.on("click","li",function(){
+		soundBtn()
 		var index = funTitle.find("li").index($(this));
 		funTitle.find("li").removeClass("selected");
 		funTitle.find("li").eq(index).addClass("selected");
@@ -12,10 +13,12 @@ function layShowController(Dom){
 		layoutContent.find(".fun").eq(index).addClass("selected");
 	})
 	Dom.layShow.on("click",".layout2",function(){
+		soundBtn()
 		Dom.layShow.fadeOut();
 		Dom.layChange.fadeIn();
 	})
 	Dom.layShow.find(".drawContent1").on("click","li",function(){
+		soundBtn()
 		$(".drawContent1").find("li").removeClass("selected");
 		$(this).addClass("selected");
 		setTimeout(function(){
@@ -26,6 +29,7 @@ function layShowController(Dom){
 		
 	});
 	drawTitle1.on("click",function(){
+		soundBtn()
 		setTimeout(function(){
 			$(".drawContent1 li").eq(0).addClass("selected");
 			$(".layoutContent .fun").removeClass("selected");
@@ -132,6 +136,7 @@ function layoutChange(Dom){
 		bindController();
 	})
 	changelay.on("click", function () {
+		soundBtn()
 		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
 			var screens = $at.screenInfo.drawInfo[i].screens;
 			for (var j = 0; j < screens.length; j++) {
@@ -164,9 +169,11 @@ function layoutChange(Dom){
 	});
 	
 	changeTitle.on("click","li",function(){
+		soundBtn()
 		screenLen = changeTitle.find("li").index($(this));
 	})
 	changeTitle.on("click",".close",function(e){
+		soundBtn()
 		var config = confirm("确定删除此布局么？");
 		if(config){
 			var index = changeTitle.find("close").index($(this));
@@ -175,6 +182,7 @@ function layoutChange(Dom){
 		}
 	})
 	changeBtnGroup.find("span").on("click",function(){
+		soundBtn()
 		var num  = parseInt($at.screenInfo.drawInfo.length)+1;
 		var addScreen = {
 			title: "屏幕"+num,
@@ -191,13 +199,16 @@ function layoutChange(Dom){
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
 	changeBtnGroup.find("p").on("click",function(){
+		soundBtn()
 		changelayName.find("input").val("")
 		changelayName.show();
 	})
 	changelayName.find(".close").on("click",function(){
+		soundBtn()
 		changelayName.hide();
 	})
 	changelayName.find("p").on("click",function(){
+		soundBtn()
 		var value = changelayName.find("input").val();
 		if(value){
 			$at.screenInfo.drawInfo[screenLen].title = value;
@@ -206,12 +217,14 @@ function layoutChange(Dom){
 		}
 	});
 	layoutInfo.find(".infoBox1").on("click","p",function(){
+		soundBtn()
 		layoutInfo.find("p").removeClass("selected");
 		$(this).addClass("selected");
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].across=layoutInfo.find("p").index($(this))==0;
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
 	changeDraw.on("click","li",function(){
+		soundBtn();
 		var num = parseInt($(this).find("span").html());
 		smallIndex=num;
 		var arr = $at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo;
@@ -219,36 +232,43 @@ function layoutChange(Dom){
 		changeBox2.find("input").eq(0).val(arr[3])
 		changeBox2.find("input").eq(2).val(arr[0])
 		changeBox2.find("input").eq(3).val(arr[1])
-		changeDraw.find("li").removeClass("selected"); 
+		changeDraw.find("li").removeClass("selected");
 		$(this).addClass("selected");
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+		boxChange($(this),screenLen,smallIndex);
 	})
 	changeBox2.find("input").eq(0).on("change",function(){
+		soundBtn()
 		var x = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(x);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
 	changeBox2.find("input").eq(1).on("change",function(){
+		soundBtn()
 		var y = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(y);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
 	changeBox2.find("input").eq(2).on("change",function(){
+		soundBtn()
 		var wid = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
 	changeBox2.find("input").eq(3).on("change",function(){
+		soundBtn()
 		var hei = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
 	changeChoose.on("click",".close",function(){
+		soundBtn()
 		var num = changeChoose.find("li .close").index($(this));
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num),1);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
 	changeAddbuju.on("click",function(){ 
+		soundBtn()
 		var data = {
 					across:true,
 					screenInfo:[1920,1080,0,0],
@@ -258,7 +278,7 @@ function layoutChange(Dom){
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
 	changeDraw.on("click",".close",function(){
-		
+		soundBtn()
 		if($at.screenInfo.drawInfo[screenLen].screens.length==1){
 			alert("只有一个布局了,请不要删除！")
 		}else{
@@ -271,10 +291,12 @@ function layoutChange(Dom){
 		}
 	})
 	changeContent.on("click",".contentBtn",function(){
+		soundBtn()
 		changeContent.find(".contentBtn").removeClass("selected");
 		$(this).addClass("selected");
 	})
 	changeContent.on("click",".add",function(){
+		soundBtn()
 		var type = $(this).parent().find(".icon").attr("name");
 		var name = $(this).parent().find("span").eq(0).html();
 		var path = $(this).parent().find("p").eq(1).html();
@@ -284,4 +306,48 @@ function layoutChange(Dom){
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	}) 
+}
+function boxChange(self,screenLen,smallIndex){
+	var box = $(".drawContent");
+	var changeBox2 = $("#layoutInfo .infoBox2");
+	var boxWid = box.width();
+	var boxHei = box.height();
+	var winWid = self.width();
+	var winHei = self.height();
+	var relWid = changeBox2.find("input").eq(2).val();
+	var relHei = changeBox2.find("input").eq(3).val();
+	var bili = parseFloat(winWid)/parseFloat(relWid);
+	self.off("mousedown");
+	self.on("mousedown",function(e1){
+		e1.stopPropagation();
+		var selfX = self.position().left/boxWid*100;
+		var selfY = self.position().top/boxHei*100;
+		var starX = e1.pageX;
+		var starY = e1.pageY;
+		self.on("mousemove",function(e2){
+			var moveX = e2.pageX;
+			var moveY = e2.pageY;
+			var relX = (moveX-starX)/boxWid*100; 
+			var relY = (moveY-starY)/boxHei*100;
+			self.css({"left":relX+selfX+"%","top":relY+selfY+"%"});
+		}) 
+		
+		console.log(bili);
+		console.log(self.position().left);
+		console.log(self.position().top);
+	})
+	self.on("mouseleave",function(){
+		self.off("mousedown");
+		self.off("mousemove"); 
+	})
+	self.on("mouseup",function(){
+		var left = self.position().left/bili;
+		var top = self.position().top/bili;
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=left;
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=top;
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+		self.off("mousedown");
+		self.off("mousemove");
+	})
+	
 }

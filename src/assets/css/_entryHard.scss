@@ -29,7 +29,7 @@
     .entryList{
         width: $NomalWidth/4;
         float: left;
-        height: 600px;
+        height: 550px;
         border: 1px solid nth($NomalColor,4);
         background: #e9eef2;
         overflow: auto;
@@ -65,7 +65,7 @@
                     font-weight: 400;
                 }
             }
-            .selected{
+            .selected{ 
                img{
                    -webkit-box-shadow:0 0 10px rgba(232, 45, 37, .3);  
                     -moz-box-shadow:0 0 10px rgba(232, 45, 37, .3);  
@@ -91,7 +91,7 @@
     .chooseList{
         width: $NomalWidth/10*7;
         float: left;
-        height: 600px;
+        height: 550px;
         border: 1px solid nth($NomalColor,4);
         background: #e9eef2;
         overflow: auto;
@@ -108,7 +108,7 @@
         }
         
         .ulList{
-            height: 550px;
+            height: 500px;
             width: $NomalWidth;
             float: left;
             overflow: auto;

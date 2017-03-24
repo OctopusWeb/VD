@@ -26,10 +26,11 @@ html body { background: #efefef; }
 #wrap #toptitle #userInfo h1, #wrap #toptitle #userInfo #login #loginBox h2, #login #loginBox #wrap #toptitle #userInfo h2 { color: #fff; font-size: 26px; float: left; line-height: 47px; margin-left: 10px; color: #efefef; }
 #wrap #toptitle #userInfo h1:after, #wrap #toptitle #userInfo #login #loginBox h2:after, #login #loginBox #wrap #toptitle #userInfo h2:after { clear: both; }
 #wrap #toptitle #btnGroup { width: 220px; height: 52px; margin-right: 15px; float: right; }
-#wrap #toptitle #btnGroup .btn { width: 100px; height: 25px; float: left; margin-left: 10px; background: #d2d4d8; text-align: center; line-height: 24px; color: #727171; font-size: 14px; margin-top: 13px; cursor: pointer; }
+#wrap #toptitle #btnGroup .btn { width: 100px; height: 25px; float: left; margin-left: 10px; background: -webkit-linear-gradient(top, #ffffff, #b5b5b6); background: -o-linear-gradient(top, #ffffff, #b5b5b6); background: -moz-linear-gradient(top, #ffffff, #b5b5b6); background: linear-gradient(to bottom, #ffffff, #b5b5b6); text-align: center; line-height: 24px; color: #3d3d3d; font-size: 14px; margin-top: 13px; cursor: pointer; }
 #wrap #toptitle #btnGroup:after { clear: both; }
 #wrap #addScreen { width: 100%; height: 100%; position: absolute; left: 0; top: 52px; }
-#wrap #addScreen #menu { width: 260px; height: 100%; background: #313842; z-index: 1000; position: relative; }
+#wrap #addScreen #menu { width: 260px; height: 100%; background: #313842; z-index: 2000; position: relative; }
+#wrap #addScreen #menu #smallMenu { width: 13px; position: absolute; top: 40%; left: 260px; cursor: pointer; }
 #wrap #addScreen #menu #addBtnGroup { width: 100%; height: 50px; float: left; border-bottom: 1px solid #252a30; }
 #wrap #addScreen #menu #addBtnGroup:after { clear: both; }
 #wrap #addScreen #menu #addBtnGroup .btn { background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); height: 30px; width: 108px; float: left; margin: 10px 0 0 15px; line-height: 28px; text-align: center; color: #fff; cursor: pointer; }
@@ -101,7 +102,7 @@ html body { background: #efefef; }
 #addPart3 #btnPart3 { width: 100%; padding-left: 30%; height: 25px; float: left; }
 #addPart3 #btnPart3 div { height: 25px; line-height: 25px; width: 100px; text-align: center; background: #d2d4d8; font-size: 14px; border: 1px solid #fff; cursor: pointer; float: left; }
 
-#layout { position: absolute; top: 50px; left: 260px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; opacity: 1; display: none; }
+#layout { position: absolute; top: 50px; left: 0px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; opacity: 1; display: none; }
 #layout .layoutName { position: absolute; width: 300px; height: 150px; background: #efefef; left: 50%; margin-left: -150px; top: 20%; border-radius: 5px; border: 1px #727171 solid; display: none; }
 #layout .layoutName .close { position: absolute; right: 0px; top: 0px; }
 #layout .layoutName h1, #layout .layoutName #login #loginBox h2, #login #loginBox #layout .layoutName h2 { text-align: center; font-size: 18px; line-height: 50px; color: #727171; font-weight: 400; border-bottom: 1px solid #727171; }
@@ -177,7 +178,7 @@ html body { background: #efefef; }
 #layout #LayoutScreen #layoutInfo .infoBox2 { height: 110px; margin-top: 20px; }
 #layout #LayoutScreen .layout1 { float: left; width: 100px; height: 26px; margin: 20px 40%; color: #fff; text-align: center; font-size: 12px; line-height: 26px; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); }
 
-#layoutShow { position: absolute; top: 50px; left: 260px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; opacity: 1; display: block; }
+#layoutShow { position: absolute; top: 50px; left: 0px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; opacity: 1; display: block; }
 #layoutShow #showTop { width: 100%; height: 50px; position: absolute; background: #efefef; border-bottom: 1px solid #b4b4b4; }
 #layoutShow #showTop .layoutBtn { float: right; width: 100px; height: 25px; line-height: 25px; color: #fff; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); text-align: center; font-size: 12px; margin-top: 12px; margin-right: 10px; }
 #layoutShow #showTop h1, #layoutShow #showTop #login #loginBox h2, #login #loginBox #layoutShow #showTop h2 { line-height: 50px; width: auto; font-size: 16px; color: #eb7627; margin-left: 20px; font-weight: 400; float: left; }
@@ -190,6 +191,7 @@ html body { background: #efefef; }
 #layoutShow #LayoutScreen #screenUl #drawBox1 .drawTitle1 li { width: 10%; border-top-left-radius: 3px; border-top-right-radius: 3px; float: left; height: 25px; border: 1px solid #b4b4b4; margin-left: 5px; list-style: none; position: relative; }
 #layoutShow #LayoutScreen #screenUl #drawBox1 .drawTitle1 li p { width: 100%; text-align: center; line-height: 25px; font-size: 12px; color: #b4b4b4; }
 #layoutShow #LayoutScreen #screenUl #drawBox1 .drawTitle1 .selected, #layoutShow #LayoutScreen #screenUl #drawBox1 .drawTitle1 #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layoutShow #LayoutScreen #screenUl #drawBox1 .drawTitle1 li:hover { background: #fff; }
+#layoutShow #LayoutScreen #screenUl #drawBox1 .drawTitle1 .selected p, #layoutShow #LayoutScreen #screenUl #drawBox1 .drawTitle1 #wrap #addScreen #menu #screenList li:hover p, #wrap #addScreen #menu #screenList #layoutShow #LayoutScreen #screenUl #drawBox1 .drawTitle1 li:hover p { color: #eb7627; }
 #layoutShow #LayoutScreen #screenUl .drawContent1 { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
 #layoutShow #LayoutScreen #screenUl .drawContent1 li { position: absolute; border: 2px solid #fff; list-style: none; background: rgba(0, 0, 0, 0.5); }
 #layoutShow #LayoutScreen #screenUl .drawContent1 li span { text-align: center; position: absolute; width: 15px; height: 15px; border-radius: 50%; left: 50%; top: 50%; background: #fff; font-size: 12px; line-height: 15px; text-align: center; margin-top: -7px; margin-left: -7px; }
@@ -201,11 +203,12 @@ html body { background: #efefef; }
 #layoutShow #LayoutScreen #layoutBottom .funTitle li img { position: absolute; top: 5px; left: 8px; }
 #layoutShow #LayoutScreen #layoutBottom .funTitle li p { display: none; width: 100%; text-align: center; line-height: 25px; font-size: 12px; color: #b4b4b4; }
 #layoutShow #LayoutScreen #layoutBottom .funTitle li .p { display: block; }
-#layoutShow #LayoutScreen #layoutBottom .funTitle .selected, #layoutShow #LayoutScreen #layoutBottom .funTitle #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layoutShow #LayoutScreen #layoutBottom .funTitle li:hover { background: #f7f8f8; }
-#layoutShow #LayoutScreen #layoutBottom .layoutContent { width: 100%; float: left; height: 300px; background: #f7f8f8; border-top-left-radius: 3px; border-top-right-radius: 3px; border: 1px solid #b4b4b4; }
+#layoutShow #LayoutScreen #layoutBottom .funTitle .selected, #layoutShow #LayoutScreen #layoutBottom .funTitle #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layoutShow #LayoutScreen #layoutBottom .funTitle li:hover { background: #fff; }
+#layoutShow #LayoutScreen #layoutBottom .funTitle .selected p, #layoutShow #LayoutScreen #layoutBottom .funTitle #wrap #addScreen #menu #screenList li:hover p, #wrap #addScreen #menu #screenList #layoutShow #LayoutScreen #layoutBottom .funTitle li:hover p { color: #eb7627; }
+#layoutShow #LayoutScreen #layoutBottom .layoutContent { width: 100%; float: left; background: #f7f8f8; border-top-left-radius: 3px; border-top-right-radius: 3px; border: 1px solid #b4b4b4; }
 #layoutShow #LayoutScreen #layoutBottom .layoutContent .fun { width: 100%; float: left; padding: 20px; padding-top: 0; display: none; }
 #layoutShow #LayoutScreen #layoutBottom .layoutContent .selected, #layoutShow #LayoutScreen #layoutBottom .layoutContent #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layoutShow #LayoutScreen #layoutBottom .layoutContent li:hover { display: block; }
-#layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox { width: 100%; float: left; height: 120px; margin-top: 20px; background: #fff; border: 1px solid #d2d4d8; }
+#layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox { width: 100%; float: left; margin-top: 20px; background: #fff; border: 1px solid #d2d4d8; }
 #layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox h1, #layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox #login #loginBox h2, #login #loginBox #layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox h2 { width: 100%; float: left; line-height: 21px; font-size: 14px; color: #727171; border-left: 3px solid #727171; padding-left: 10px; font-weight: 400; margin: 10px 0; }
 #layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox .controller { float: left; height: 80px; margin-left: 20px; }
 #layoutShow #LayoutScreen #layoutBottom .layoutContent .controllerBox .controller h2 { float: left; font-size: 12px; color: #b4b4b4; line-height: 20px; width: 100%; font-weight: 400; }
@@ -226,7 +229,7 @@ html body { background: #efefef; }
 #entryHard, #entrySoftware { position: absolute; left: 0; top: 50px; bottom: 0; right: 0; z-index: 10000; background: #efefef; padding: 30px; display: none; overflow: auto; }
 #entryHard .title, #entrySoftware .title { width: 100%; float: left; height: 40px; -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
 #entryHard .title h1, #entryHard .title #login #loginBox h2, #login #loginBox #entryHard .title h2, #entrySoftware .title h1, #entrySoftware .title #login #loginBox h2, #login #loginBox #entrySoftware .title h2 { width: 100%; float: left; font-size: 14px; color: #cf031d; border-left: 3px solid #cf031d; font-weight: 400; padding-left: 10px; }
-#entryHard .entryList, #entrySoftware .entryList { width: 25%; float: left; height: 600px; border: 1px solid #b4b4b4; background: #e9eef2; overflow: auto; }
+#entryHard .entryList, #entrySoftware .entryList { width: 25%; float: left; height: 550px; border: 1px solid #b4b4b4; background: #e9eef2; overflow: auto; }
 #entryHard .entryList h2, #entrySoftware .entryList h2 { width: 100%; float: left; font-size: 14px; color: #727171; border-left: 3px solid #727171; font-weight: 400; padding-left: 10px; margin: 10px 0; }
 #entryHard .entryList ul, #entrySoftware .entryList ul { float: left; width: 100%; margin-top: 20px; }
 #entryHard .entryList ul li, #entrySoftware .entryList ul li { float: left; width: 140px; height: 140px; list-style: none; }
@@ -235,9 +238,9 @@ html body { background: #efefef; }
 #entryHard .entryList ul .selected img, #entryHard .entryList ul #wrap #addScreen #menu #screenList li:hover img, #wrap #addScreen #menu #screenList #entryHard .entryList ul li:hover img, #entrySoftware .entryList ul .selected img, #entrySoftware .entryList ul #wrap #addScreen #menu #screenList li:hover img, #wrap #addScreen #menu #screenList #entrySoftware .entryList ul li:hover img { -webkit-box-shadow: 0 0 10px rgba(232, 45, 37, 0.3); -moz-box-shadow: 0 0 10px rgba(232, 45, 37, 0.3); box-shadow: 0 0 10px rgba(232, 45, 37, 0.3); }
 #entryHard .entryList ul .selected h3, #entryHard .entryList ul #wrap #addScreen #menu #screenList li:hover h3, #wrap #addScreen #menu #screenList #entryHard .entryList ul li:hover h3, #entrySoftware .entryList ul .selected h3, #entrySoftware .entryList ul #wrap #addScreen #menu #screenList li:hover h3, #wrap #addScreen #menu #screenList #entrySoftware .entryList ul li:hover h3 { color: #eb7627; }
 #entryHard .addBtn, #entrySoftware .addBtn { position: absolute; width: 3.5%; text-align: center; line-height: 25px; color: #fff; top: 40%; left: 26%; font-size: 12px; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); }
-#entryHard .chooseList, #entrySoftware .chooseList { width: 70%; float: left; height: 600px; border: 1px solid #b4b4b4; background: #e9eef2; overflow: auto; margin-left: 4%; }
+#entryHard .chooseList, #entrySoftware .chooseList { width: 70%; float: left; height: 550px; border: 1px solid #b4b4b4; background: #e9eef2; overflow: auto; margin-left: 4%; }
 #entryHard .chooseList h2, #entrySoftware .chooseList h2 { width: 100%; float: left; font-size: 14px; color: #727171; border-left: 3px solid #727171; font-weight: 400; padding-left: 10px; margin: 10px 0; }
-#entryHard .chooseList .ulList, #entrySoftware .chooseList .ulList { height: 550px; width: 100%; float: left; overflow: auto; }
+#entryHard .chooseList .ulList, #entrySoftware .chooseList .ulList { height: 500px; width: 100%; float: left; overflow: auto; }
 #entryHard .chooseList .ulList ul, #entrySoftware .chooseList .ulList ul { width: 100%; float: left; border-bottom: 1px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px 0; overflow: hidden; height: auto; }
 #entryHard .chooseList .ulList ul p, #entrySoftware .chooseList .ulList ul p { width: 100%; float: left; display: block; line-height: 25px; color: #e95513; height: 25px; padding: 0 30px; font-size: 12px; font-weight: 600; }
 #entryHard .chooseList .ulList ul p img, #entrySoftware .chooseList .ulList ul p img { display: block; border-style: none; float: right; margin-right: 20px; margin-top: 10px; }

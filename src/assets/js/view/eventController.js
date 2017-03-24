@@ -3,6 +3,7 @@ function bindController(){
 	$("#openLayout").off("click");
 	$("#closeLayout").off("click");
 	$("#openLayout").on("click",function(){//打开布局
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var winIndex = $(".funTitle li").index($(".funTitle .selected")) || 0;
@@ -36,6 +37,7 @@ function bindController(){
 		send(data);
 	});
 	$("#closeLayout").on("click",function(){//关闭布局
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
 		var multiScreen = new MultiScreenCall();
@@ -52,6 +54,7 @@ function bindController(){
 	$(".voicePro div").off("click");
 	$(".arround p").off("click");
 	$(".videoOn p:eq(0)").on("click",function(){//打开video
+		soundBtn()
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -93,6 +96,7 @@ function bindController(){
 //		send(getVolume);
 	})
 	$(".videoOn p:eq(1)").on("click",function(){//关闭video
+		soundBtn()
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -117,6 +121,7 @@ function bindController(){
 		send(data);
 	})
 	$(".playPro img").on("click",function(){
+		soundBtn()
 		var src = $(this).attr("src");
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -137,6 +142,7 @@ function bindController(){
 		}
 	})
 	$(".playPro div").on("click",function(e){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -147,6 +153,7 @@ function bindController(){
 		send(data);
 	});
 	$(".voicePro div").on("click",function(e){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -157,6 +164,7 @@ function bindController(){
 		send(data);
 	});
 	$(".arround p").on("click",function(){
+		soundBtn()
 		changeClass($(".arround p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -202,6 +210,7 @@ function bindController(){
 	$(".pptInput input").off("blur");
 	var ppt = new PptCall();
 	$(".pptOn p:eq(0)").on("click",function(){//打开ppt
+		soundBtn()
 		changeClass($(".pptOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -238,6 +247,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pptOn p:eq(1)").on("click",function(){//关闭ppt
+		soundBtn()
 		changeClass($(".pptOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -262,6 +272,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pptgroup p:eq(0)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -269,6 +280,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pptgroup p:eq(1)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -276,6 +288,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pptgroup p:eq(2)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -283,6 +296,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pptgroup p:eq(3)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -291,6 +305,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pptInput input").on("blur",function(){
+		soundBtn()
 		var value = $(this).val();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -306,6 +321,7 @@ function bindController(){
 	$(".flashOn p:eq(0)").off("click");
 	$(".flashOn p:eq(1)").off("click");
 	$(".flashOn p:eq(0)").on("click",function(){
+		soundBtn()
 		changeClass($(".flashOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -342,6 +358,7 @@ function bindController(){
 		send(data);
 	})
 	$(".flashOn p:eq(1)").on("click",function(){
+		soundBtn()
 		changeClass($(".flashOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -369,6 +386,7 @@ function bindController(){
 	$(".webOn p:eq(0)").off("click");
 	$(".webOn p:eq(1)").off("click");
 	$(".webOn p:eq(0)").on("click",function(){
+		soundBtn()
 		changeClass($(".webOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -405,6 +423,7 @@ function bindController(){
 		send(data);
 	})
 	$(".webOn p:eq(1)").on("click",function(){
+		soundBtn()
 		changeClass($(".webOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -445,6 +464,7 @@ function bindController(){
 	$(".pdfScale div").off("click");
 	
 	$(".pdfOn p:eq(0)").on("click",function(){
+		soundBtn()
 		changeClass($(".pdfOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -480,6 +500,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfOn p:eq(1)").on("click",function(){
+		soundBtn()
 		changeClass($(".pdfOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -504,6 +525,7 @@ function bindController(){
 	})
 	 
 	$(".pdfGroup p:eq(0)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -511,6 +533,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfGroup p:eq(1)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -518,6 +541,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfGroup p:eq(2)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -525,6 +549,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfGroup p:eq(3)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -532,6 +557,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfInput input").on("blur",function(){
+		soundBtn()
 		var value = $(this).val();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -541,6 +567,7 @@ function bindController(){
 	})
 	
 	$(".pdfGroup2 p:eq(0)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -548,6 +575,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfGroup2 p:eq(1)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -555,6 +583,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfGroup2 p:eq(2)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -562,6 +591,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfGroup2 p:eq(3)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -569,6 +599,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfGroup2 p:eq(4)").on("click",function(){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
@@ -576,6 +607,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfScale div").on("click",function(e){
+		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];

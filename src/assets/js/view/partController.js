@@ -1,5 +1,6 @@
 function partController(Dom){
 	Dom.addBtnGroup.find(".btn").eq(1).on("click",function(){ 
+		soundBtn()
 		initPart1(Dom);
 		$("#screenList .selected img").show();
 		$("#screenList .selected img").off("click");
@@ -23,6 +24,7 @@ function partController(Dom){
 		})
 	})
 	Dom.addBtnGroup.find(".btn").eq(0).on("click",function(){
+		soundBtn()
 		$("#screenList li img").hide();
 		var screenInfo={
 			screenInfo:{title:"未命名",col:4,row:2,wid:1920,hei:1080,id:"s2 ",host:[]}, 
@@ -80,6 +82,7 @@ function partController(Dom){
 		$("#inputGroup .input").eq(4).find("input").val(hei); 
 		
 		$("#btnPart1").on("click",".next",function(){
+			soundBtn()
 			$at.screenInfo.screenInfo.title = $("#inputGroup .input").eq(0).find("input").val();
 			$at.screenInfo.screenInfo.row = $("#inputGroup .input").eq(1).find("input").val();
 			$at.screenInfo.screenInfo.col = $("#inputGroup .input").eq(3).find("input").val(); 
@@ -102,10 +105,12 @@ function partController(Dom){
 			}
 		}
 		$("#btnPart2").find(".pre").on("click",function(){
+			soundBtn()
 			$Animate.complete($Animate.Part2Hide1,$Animate.Part1Show);
 			PartChange(0);
 		});
 		$("#btnPart2").find(".next").on("click",function(){
+			soundBtn()
 			var selected = $("#addPart2 ul .selected");
 			var deviceList = []
 			for (var i=0;i<selected.length;i++) {
@@ -127,6 +132,7 @@ function partController(Dom){
 			}
 		});
 		$("#addPart2").find("ul").on("click",function(e){
+			soundBtn()
 			var event = e || window.event;
 			var dom = event.target || event.srcElement;
 			dom = dom.parentNode.parentNode;
@@ -148,10 +154,12 @@ function partController(Dom){
 		ReactDOM.render(<Part3 arr={deviceList} row={row} col={col} hei={hei} wid={wid}/>,view3Dom.addPart3); 
 		drawController(Dom); 
 		$("#addPart3").find(".pre").on("click",function(){
+			soundBtn()
 			$Animate.complete($Animate.Part3Hide,$Animate.Part2Show);
 			PartChange(1)
 		});
 		$("#addPart3").find(".next").on("click",function(){
+			soundBtn()
 			changeSrceen();
 			$Animate.LayoutShow();
 		});

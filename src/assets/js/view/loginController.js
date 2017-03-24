@@ -1,7 +1,6 @@
 function loginController(Dom){
-	Dom.submite.on("click",function(){
-		connect();
-		socket.onopen();
+	Dom.submite.on("click",function(){	
+		soundBtn()
 		var name=$("#userName input").val();
 		var pass=$("#passWord input").val();
 		if(name==""||pass==""){
@@ -19,11 +18,16 @@ function initLayInfo(Dom,user,password){
 			return;
 		} 
 		$Animate.complete($Animate.loginHide,$Animate.wrapShow);
+		$("#menu").animate({left : "-260px"})
+		$("#layoutShow,#layout,#setScreen").animate({left : "0px"})
+		$("#wrap #addScreen #setScreen").css({"padding-right":"0"})
 		var data = layParseDate(json);
 		$at.allInfo = data;
 		$at.screenInfo=data[$at.menuIndex];
 		$at.getJson($at.url+"/interfaces/entry/content","",onComplete2);
 		function onComplete2(json2){
+			connect();
+			socket.onopen();
 			$at.softWare = ParseSoft(json2.data);
 			initSoft(Dom); 
 			layShowController(Dom);

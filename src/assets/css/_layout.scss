@@ -1,7 +1,7 @@
 #layout{
 	position: absolute;
 	top: 50px;
-	left: 260px;
+	left:  0px;
 	right: 0;
 	bottom: 0;
     overflow: auto;
@@ -274,8 +274,8 @@
             float: left;
             width: $NomalWidth;
             border-top: 1px solid nth($NomalColor,7);
-            margin-top: 50px;
-            padding: 50px;
+            margin-top: 20px;
+            padding: 20px 50px;
             h1{
                 width: $NomalWidth;
                 float: left;
@@ -535,7 +535,7 @@
             float: left;
             width: 100px;
             height: 26px;
-            margin:20px 40%;
+            margin:10px 40%;
             color: nth($FontColor,4);
             text-align: center;
             font-size: nth($FontSize,7);

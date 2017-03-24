@@ -4,6 +4,7 @@ function initSoft(Dom){
 	ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 	 
 	$("#entryAdd").on("click",function(){
+		soundBtn()
 		var len=$(".entryList ul .selected").length;
 		if(len == 0){return}; 
 		var name = $("#entryHard input").eq(0).val();
@@ -39,6 +40,7 @@ function initSoft(Dom){
 		
 	})
 	$("#entryChange").on("click",function(){
+		soundBtn()
 		var name = $("#entryHard input").eq(0).val();
 		var info0 = $("#entryHard input").eq(1).val();
 		var info1 = $("#entryHard input").eq(2).val();
@@ -70,6 +72,7 @@ function initSoft(Dom){
 						}
 					}
 				}
+				$(".changeBtn").hide();
 				console.log(JSON.stringify($at.allInfo));
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 				ReactDOM.render(<InfoBox4 softWare={$at.softWare}/>,document.getElementById("infoBox4")); 
@@ -77,6 +80,7 @@ function initSoft(Dom){
 		}
 	})
 	$("#entryHard .entryList").on("click","li",function(){
+		soundBtn()
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected"); 
@@ -85,9 +89,11 @@ function initSoft(Dom){
 		$("#entryHard input").eq(1).val(type);
 		$("#entryHard input").eq(2).val("");
 		$("#entryHard input").eq(3).val("");
-		$(".changeBtn").hide();
+		$(".changeBtn").eq(0).show();
+		$(".changeBtn").eq(1).hide();
 	})
 	$("#entryHard .chooseList").on("click","li",function(){
+		soundBtn()
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
@@ -100,7 +106,8 @@ function initSoft(Dom){
 		$("#entryHard input").eq(1).val(info0);
 		$("#entryHard input").eq(2).val(info1);
 		$("#entryHard input").eq(3).val(info2);
-		$(".changeBtn").show(); 
+		$(".changeBtn").eq(1).show();
+		$(".changeBtn").eq(0).hide();
 	}) 
 }
 function initHard(Dom){
@@ -108,6 +115,7 @@ function initHard(Dom){
 	var hardName = ["设备名称","mac地址","daemonld","备注"];
 	ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
 	$("#entrySoftware .chooseList").on("click","li",function(){
+		soundBtn()
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
@@ -120,9 +128,11 @@ function initHard(Dom){
 		$("#entrySoftware input").eq(1).val(info0);
 		$("#entrySoftware input").eq(2).val(info1);
 		$("#entrySoftware input").eq(3).val(info2);
-		$(".changeBtn").show();
+		$(".changeBtn").eq(0).show();
+		$(".changeBtn").eq(1).hide();
 	});
 	$("#entrySoftware .entryList").on("click","li",function(){
+		soundBtn()
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
@@ -130,9 +140,11 @@ function initHard(Dom){
 		$("#entrySoftware input").eq(1).val("");
 		$("#entrySoftware input").eq(2).val("");
 		$("#entrySoftware input").eq(3).val("");
-		$(".changeBtn").hide()
+		$(".changeBtn").eq(1).show();
+		$(".changeBtn").eq(0).hide();
 	})
 	$("#softAdd").on("click",function(){
+		soundBtn()
 		var len=$(".entryList ul .selected").length;
 		if(len == 0){return};
 		var name = $("#entrySoftware input").eq(0).val();
@@ -162,6 +174,7 @@ function initHard(Dom){
 		}
 	})
 	$("#softChange").on("click",function(){
+		soundBtn()
 		var name = $("#entrySoftware input").eq(0).val();
 		var info0 = $("#entrySoftware input").eq(1).val();
 		var info1 = $("#entrySoftware input").eq(2).val();
