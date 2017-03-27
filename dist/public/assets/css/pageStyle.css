@@ -130,15 +130,16 @@ html body { background: #efefef; }
 #layout #LayoutScreen #screenUl #drawBox .drawTitle .selected .close, #layout #LayoutScreen #screenUl #drawBox .drawTitle #wrap #addScreen #menu #screenList li:hover .close, #wrap #addScreen #menu #screenList #layout #LayoutScreen #screenUl #drawBox .drawTitle li:hover .close { display: none; }
 #layout #LayoutScreen #screenUl #drawBox .drawContent { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
 #layout #LayoutScreen #screenUl #drawBox .drawContent li { position: absolute; border: 2px solid #e95513; list-style: none; background: rgba(0, 0, 0, 0.5); }
-#layout #LayoutScreen #screenUl #drawBox .drawContent li .change { width: 8px; height: 8px; position: absolute; background: #fff; border: 1px solid #e95513; display: none; }
-#layout #LayoutScreen #screenUl #drawBox .drawContent li .change1 { left: -4px; top: -4px; }
-#layout #LayoutScreen #screenUl #drawBox .drawContent li .change2 { left: -4px; bottom: -4px; }
-#layout #LayoutScreen #screenUl #drawBox .drawContent li .change3 { right: -4px; bottom: -4px; }
+#layout #LayoutScreen #screenUl #drawBox .drawContent li .change { width: 14px; height: 14px; position: absolute; background: #fff; border: 1px solid #e95513; display: none; }
+#layout #LayoutScreen #screenUl #drawBox .drawContent li .change1 { left: -5px; top: -5px; }
+#layout #LayoutScreen #screenUl #drawBox .drawContent li .change2 { left: -5px; bottom: -5px; }
+#layout #LayoutScreen #screenUl #drawBox .drawContent li .change3 { right: -7px; bottom: -7px; }
 #layout #LayoutScreen #screenUl #drawBox .drawContent li .close { position: absolute; right: -9px; top: -9px; display: none; }
 #layout #LayoutScreen #screenUl #drawBox .drawContent li span { text-align: center; position: absolute; width: 15px; height: 15px; border-radius: 50%; left: 50%; top: 50%; background: #fff; font-size: 12px; line-height: 15px; text-align: center; margin-top: -7px; margin-left: -7px; }
-#layout #LayoutScreen #screenUl #drawBox .drawContent .selected .change, #layout #LayoutScreen #screenUl #drawBox .drawContent #wrap #addScreen #menu #screenList li:hover .change, #wrap #addScreen #menu #screenList #layout #LayoutScreen #screenUl #drawBox .drawContent li:hover .change { display: block; }
+#layout #LayoutScreen #screenUl #drawBox .drawContent .selected, #layout #LayoutScreen #screenUl #drawBox .drawContent #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layout #LayoutScreen #screenUl #drawBox .drawContent li:hover { cursor: move; }
+#layout #LayoutScreen #screenUl #drawBox .drawContent .selected .change3, #layout #LayoutScreen #screenUl #drawBox .drawContent #wrap #addScreen #menu #screenList li:hover .change3, #wrap #addScreen #menu #screenList #layout #LayoutScreen #screenUl #drawBox .drawContent li:hover .change3 { display: block; }
 #layout #LayoutScreen #screenUl #drawBox .drawContent .selected .close, #layout #LayoutScreen #screenUl #drawBox .drawContent #wrap #addScreen #menu #screenList li:hover .close, #wrap #addScreen #menu #screenList #layout #LayoutScreen #screenUl #drawBox .drawContent li:hover .close { display: block; }
-#layout #LayoutScreen #layoutInfo { float: left; width: 100%; border-top: 1px solid #fff; margin-top: 50px; padding: 50px; }
+#layout #LayoutScreen #layoutInfo { float: left; width: 100%; border-top: 1px solid #fff; margin-top: 20px; padding: 20px 50px; }
 #layout #LayoutScreen #layoutInfo h1, #layout #LayoutScreen #layoutInfo #login #loginBox h2, #login #loginBox #layout #LayoutScreen #layoutInfo h2 { width: 100%; float: left; font-size: 16px; color: #727171; font-weight: 400; line-height: 20px; border-left: 3px solid #cf031d; padding-left: 10px; }
 #layout #LayoutScreen #layoutInfo h2 { position: absolute; right: 5%; width: 60px; height: 27px; color: #fff; font-size: 14px; line-height: 27px; font-weight: 400; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); text-align: center; cursor: pointer; }
 #layout #LayoutScreen #layoutInfo > div { width: 33.33333%; min-width: 260px; height: 240px; float: left; margin-top: 20px; }
@@ -176,7 +177,7 @@ html body { background: #efefef; }
 #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList .selected, #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layout #LayoutScreen #layoutInfo .infoBox .infoList .contentList li:hover { display: block; }
 #layout #LayoutScreen #layoutInfo .infoBox1 { height: 110px; }
 #layout #LayoutScreen #layoutInfo .infoBox2 { height: 110px; margin-top: 20px; }
-#layout #LayoutScreen .layout1 { float: left; width: 100px; height: 26px; margin: 20px 40%; color: #fff; text-align: center; font-size: 12px; line-height: 26px; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); }
+#layout #LayoutScreen .layout1 { float: left; width: 100px; height: 26px; margin: 10px 40%; color: #fff; text-align: center; font-size: 12px; line-height: 26px; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); }
 
 #layoutShow { position: absolute; top: 50px; left: 0px; right: 0; bottom: 0; overflow: auto; background: #efefef; z-index: 1000; opacity: 1; display: block; }
 #layoutShow #showTop { width: 100%; height: 50px; position: absolute; background: #efefef; border-bottom: 1px solid #b4b4b4; }
@@ -197,7 +198,7 @@ html body { background: #efefef; }
 #layoutShow #LayoutScreen #screenUl .drawContent1 li span { text-align: center; position: absolute; width: 15px; height: 15px; border-radius: 50%; left: 50%; top: 50%; background: #fff; font-size: 12px; line-height: 15px; text-align: center; margin-top: -7px; margin-left: -7px; }
 #layoutShow #LayoutScreen #screenUl .drawContent1 .selected, #layoutShow #LayoutScreen #screenUl .drawContent1 #wrap #addScreen #menu #screenList li:hover, #wrap #addScreen #menu #screenList #layoutShow #LayoutScreen #screenUl .drawContent1 li:hover { border: 2px solid #e95513; }
 #layoutShow #LayoutScreen #layoutBottom { position: absolute; width: 100%; height: 335px; top: 100%; margin-top: 30px; border-top: 1px solid #efefef; margin-left: -5px; }
-#layoutShow #LayoutScreen #layoutBottom .layout2 { float: left; width: 100px; height: 26px; margin: 20px 40%; color: #fff; text-align: center; font-size: 12px; line-height: 26px; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); }
+#layoutShow #LayoutScreen #layoutBottom .layout2 { float: left; width: 100px; height: 26px; margin: 10px 40%; color: #fff; text-align: center; font-size: 12px; line-height: 26px; background: -webkit-linear-gradient(top, #eb7627, #cf031d); background: -o-linear-gradient(top, #eb7627, #cf031d); background: -moz-linear-gradient(top, #eb7627, #cf031d); background: linear-gradient(to bottom, #eb7627, #cf031d); }
 #layoutShow #LayoutScreen #layoutBottom .funTitle { width: 100%; float: left; height: 25px; }
 #layoutShow #LayoutScreen #layoutBottom .funTitle li { width: 10%; float: left; border-top-left-radius: 3px; border-top-right-radius: 3px; height: 25px; border: 1px solid #b4b4b4; margin-left: 5px; list-style: none; position: relative; border-bottom: none; }
 #layoutShow #LayoutScreen #layoutBottom .funTitle li img { position: absolute; top: 5px; left: 8px; }

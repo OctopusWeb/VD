@@ -218,24 +218,24 @@
                         list-style: none;
                         background: rgba(0,0,0,0.5);
                         .change{
-                            width: 8px;
-                            height: 8px;
+                            width: 14px;
+                            height: 14px;
                             position: absolute;
                             background: nth($FontColor,4);
                             border: 1px solid nth($LightColor,3);
                             display: none;
                         }
                         .change1{
-                            left: -4px;
-                            top: -4px;
+                            left: -5px;
+                            top: -5px;
                         }
                         .change2{
-                            left: -4px;
-                            bottom: -4px;
+                            left: -5px;
+                            bottom: -5px;
                         }
                         .change3{
-                            right: -4px;
-                            bottom: -4px;
+                            right: -7px;
+                            bottom: -7px;
                         }
                         .close{
                             position: absolute;
@@ -260,7 +260,8 @@
                         }
                     }
                     .selected{
-                        .change{
+                        cursor: move;
+                        .change3{
                             display: block;
                         }
                         .close{

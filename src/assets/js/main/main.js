@@ -323,7 +323,6 @@ function initSoft(Dom){
 					}
 				}
 				$(".changeBtn").hide();
-				console.log(JSON.stringify($at.allInfo));
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 				ReactDOM.render(<InfoBox4 softWare={$at.softWare}/>,document.getElementById("infoBox4")); 
 			}
@@ -378,8 +377,8 @@ function initHard(Dom){
 		$("#entrySoftware input").eq(1).val(info0);
 		$("#entrySoftware input").eq(2).val(info1);
 		$("#entrySoftware input").eq(3).val(info2);
-		$(".changeBtn").eq(0).show();
-		$(".changeBtn").eq(1).hide();
+		$(".changeBtn").eq(2).show();
+		$(".changeBtn").eq(3).hide();
 	});
 	$("#entrySoftware .entryList").on("click","li",function(){
 		soundBtn()
@@ -390,8 +389,8 @@ function initHard(Dom){
 		$("#entrySoftware input").eq(1).val("");
 		$("#entrySoftware input").eq(2).val("");
 		$("#entrySoftware input").eq(3).val("");
-		$(".changeBtn").eq(1).show();
-		$(".changeBtn").eq(0).hide();
+		$(".changeBtn").eq(3).show();
+		$(".changeBtn").eq(2).hide();
 	})
 	$("#softAdd").on("click",function(){
 		soundBtn()
@@ -456,6 +455,7 @@ function initHard(Dom){
 						}
 					}
 				}
+				$(".changeBtn").hide()
 				ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
 			}
 		}
@@ -690,14 +690,10 @@ function bindController(){
 		var video = new Videocall();
 		var data = video.open(Arguments);
 		send(data);
-		
-//		var getPosition = video.getPosition(openInfo.screens[layindex].id);
-//		var getVolume = video.getVolume(openInfo.screens[layindex].id);
-//		send(getPosition);
-//		send(getVolume);
 	})
 	$(".videoOn p:eq(1)").on("click",function(){//关闭video
 		soundBtn()
+		
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -720,6 +716,10 @@ function bindController(){
 		var video = new Videocall();
 		var data = video.close(Arguments);
 		send(data);
+//		var getPosition = video.getPosition(openInfo.screens[layindex].id);
+//		var getVolume = video.getVolume(openInfo.screens[layindex].id);
+//		send(getPosition);
+//		send(getVolume);
 	})
 	$(".playPro img").on("click",function(){
 		soundBtn()
@@ -1569,12 +1569,12 @@ function layoutChange(Dom){
 	}) 
 }
 function boxChange(self,screenLen,smallIndex){
-	var box = $(".drawContent");
+	var box = $(".screenUl");
 	var changeBox2 = $("#layoutInfo .infoBox2");
-	var boxWid = box.width();
-	var boxHei = box.height();
-	var winWid = self.width();
-	var winHei = self.height();
+	var boxWid = box.outerWidth();
+	var boxHei = box.outerHeight();
+	var winWid = self.outerWidth();
+	var winHei = self.outerHeight();
 	var relWid = changeBox2.find("input").eq(2).val();
 	var relHei = changeBox2.find("input").eq(3).val();
 	var bili = parseFloat(winWid)/parseFloat(relWid);
@@ -1585,32 +1585,82 @@ function boxChange(self,screenLen,smallIndex){
 		var selfY = self.position().top/boxHei*100;
 		var starX = e1.pageX;
 		var starY = e1.pageY;
+		self.off("mousemove");
 		self.on("mousemove",function(e2){
+			e2.stopPropagation();
 			var moveX = e2.pageX;
 			var moveY = e2.pageY;
 			var relX = (moveX-starX)/boxWid*100; 
 			var relY = (moveY-starY)/boxHei*100;
 			self.css({"left":relX+selfX+"%","top":relY+selfY+"%"});
 		}) 
-		
-		console.log(bili);
-		console.log(self.position().left);
-		console.log(self.position().top);
-	})
-	self.on("mouseleave",function(){
-		self.off("mousedown");
-		self.off("mousemove"); 
-	})
-	self.on("mouseup",function(){
-		var left = self.position().left/bili;
-		var top = self.position().top/bili;
-		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=left;
-		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=top;
-		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
-		self.off("mousedown");
-		self.off("mousemove");
+		self.off("mouseleave");
+		self.on("mouseleave",function(e3){
+			e3.stopPropagation();
+			self.off("mousedown");
+			self.off("mousemove");
+			self.off("mouseleave");
+		})
+		self.off("mouseup");
+		self.on("mouseup",function(e4){
+			e4.stopPropagation();
+			var lefts = self.position().left/bili;
+			var tops = self.position().top/bili;
+
+			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(lefts);
+			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(tops);
+//			var wid = self.outerWidth()/bili;
+//			var hei = self.height()/bili;
+//			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
+//			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
+//			self.find(".change3").off("mousedown");
+//			$(".drawContent").off("mousemove");
+//			$(".drawContent").off("mouseleave");
+			self.off("mousedown");
+			self.off("mousemove");
+			self.off("mouseleave");
+			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+			
+		})
 	})
 	
+	
+//	self.find(".change3").off("mousedown")
+//	self.find(".change3").on("mousedown",function(e1){
+//		e1.stopPropagation();
+//		var winWid = self.outerWidth();
+//		var winHei = self.outerHeight();
+//		var starX = e1.pageX;
+//		var starY = e1.pageY;
+//		$(".drawContent").off("mousemove");
+//		$(".drawContent").on("mousemove",function(e2){
+//			e2.stopPropagation();
+//			var moveX = e2.pageX;
+//			var moveY = e2.pageY;
+//			var relwid = (winWid+moveX-starX)/boxWid*100;
+//			var relhei = (winHei+moveY-starY)/boxHei*100;
+//			self.css({"width":relwid+"%","height":relhei+"%"});
+//		})
+//		$(".drawContent").off("mouseleave");
+//		$(".drawContent").on("mouseleave",function(e3){
+//			e3.stopPropagation();
+//			self.find(".change3").off("mousedown");
+//			$(".drawContent").off("mousemove");
+//			$(".drawContent").off("mouseleave");
+//		})
+//		$(".drawContent").off("mouseup");
+//		$(".drawContent").on("mouseup",function(e4){
+//			var wid = self.outerWidth()/bili;
+//			var hei = self.outerHeight()/bili;
+//			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
+//			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
+//			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+//			self.find(".change3").off("mousedown");
+//			$(".drawContent").off("mousemove");
+//			$(".drawContent").off("mouseleave");
+//			return
+//		})	
+//	})
 }
 
 var view4Dom = {

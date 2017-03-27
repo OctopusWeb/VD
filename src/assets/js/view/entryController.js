@@ -73,7 +73,6 @@ function initSoft(Dom){
 					}
 				}
 				$(".changeBtn").hide();
-				console.log(JSON.stringify($at.allInfo));
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 				ReactDOM.render(<InfoBox4 softWare={$at.softWare}/>,document.getElementById("infoBox4")); 
 			}
@@ -128,8 +127,8 @@ function initHard(Dom){
 		$("#entrySoftware input").eq(1).val(info0);
 		$("#entrySoftware input").eq(2).val(info1);
 		$("#entrySoftware input").eq(3).val(info2);
-		$(".changeBtn").eq(0).show();
-		$(".changeBtn").eq(1).hide();
+		$(".changeBtn").eq(2).show();
+		$(".changeBtn").eq(3).hide();
 	});
 	$("#entrySoftware .entryList").on("click","li",function(){
 		soundBtn()
@@ -140,8 +139,8 @@ function initHard(Dom){
 		$("#entrySoftware input").eq(1).val("");
 		$("#entrySoftware input").eq(2).val("");
 		$("#entrySoftware input").eq(3).val("");
-		$(".changeBtn").eq(1).show();
-		$(".changeBtn").eq(0).hide();
+		$(".changeBtn").eq(3).show();
+		$(".changeBtn").eq(2).hide();
 	})
 	$("#softAdd").on("click",function(){
 		soundBtn()
@@ -206,6 +205,7 @@ function initHard(Dom){
 						}
 					}
 				}
+				$(".changeBtn").hide()
 				ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
 			}
 		}

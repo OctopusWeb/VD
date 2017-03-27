@@ -22,6 +22,7 @@ function sMessage(msg){
     console.log('server says:'+msg.data);
 }
 function sClose(){
+	connect();
     console.log('connect close')
 }
 function send(data){
@@ -30,6 +31,7 @@ function send(data){
 }
 function close(){
     socket.close();
+    
 }
 
 function MultiScreenCall(){

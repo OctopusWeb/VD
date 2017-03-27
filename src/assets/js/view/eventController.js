@@ -89,14 +89,10 @@ function bindController(){
 		var video = new Videocall();
 		var data = video.open(Arguments);
 		send(data);
-		
-//		var getPosition = video.getPosition(openInfo.screens[layindex].id);
-//		var getVolume = video.getVolume(openInfo.screens[layindex].id);
-//		send(getPosition);
-//		send(getVolume);
 	})
 	$(".videoOn p:eq(1)").on("click",function(){//关闭video
 		soundBtn()
+		
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -119,6 +115,10 @@ function bindController(){
 		var video = new Videocall();
 		var data = video.close(Arguments);
 		send(data);
+//		var getPosition = video.getPosition(openInfo.screens[layindex].id);
+//		var getVolume = video.getVolume(openInfo.screens[layindex].id);
+//		send(getPosition);
+//		send(getVolume);
 	})
 	$(".playPro img").on("click",function(){
 		soundBtn()
