@@ -19,7 +19,7 @@ function sError(){
     console.log('connect error')
 }
 function sMessage(msg){
-    console.log('server says:'+msg.data);
+	videoSetInfo(msg);
 }
 function sClose(){
 	connect();
@@ -31,7 +31,9 @@ function send(data){
 }
 function close(){
     socket.close();
-    
+}
+function videoSetInfo(msg){
+	console.log(msg.data);
 }
 
 function MultiScreenCall(){
@@ -145,7 +147,7 @@ function Videocall(){
 		}
 		return data;
 	}
-	this.getVolume = function(winId){ 
+	this.getVolume = function(winId){
 		var data={
 			"receiverName": winId,
 		    "senderName": "web",

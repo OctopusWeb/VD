@@ -223,7 +223,7 @@ var EntryList1 = React.createClass({
 			{
 				facilityList.map(function(result,index){
 					var colorStyle = {
-						border : "2px solid "+$at.staticColors[index]
+						border : "4px solid "+$at.staticColors[index] 
 					} 
 					return (<li key={index}>
 								<img src="assets/img/facility.png" style={colorStyle}/>
@@ -648,6 +648,7 @@ function bindController(){
 	})
 	
 //视频video控制
+	var videoInterval;
 	$(".videoOn p:eq(0)").off("click");
 	$(".videoOn p:eq(1)").off("click");
 	$(".playPro img").off("click");
@@ -656,6 +657,7 @@ function bindController(){
 	$(".arround p").off("click");
 	$(".videoOn p:eq(0)").on("click",function(){//打开video
 		soundBtn()
+		
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -688,12 +690,27 @@ function bindController(){
 			"Layout":Layout
 		}
 		var video = new Videocall();
+		if(videoInterval){
+			clearInterval(videoInterval)
+		}
+		videoInterval = setInterval(function(){
+			videoGetInfo(openInfo.screens[layindex].id,video);
+		},1000)
 		var data = video.open(Arguments);
 		send(data);
 	})
+	
+	function videoGetInfo(winid,video){
+		var getPosition = video.getPosition(winid);
+		var getVolume = video.getVolume(winid);
+		send(getPosition);
+		send(getVolume);
+	}
 	$(".videoOn p:eq(1)").on("click",function(){//关闭video
-		soundBtn()
-		
+		soundBtn();
+		if(videoInterval){
+			clearInterval(videoInterval)
+		}
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -716,10 +733,6 @@ function bindController(){
 		var video = new Videocall();
 		var data = video.close(Arguments);
 		send(data);
-//		var getPosition = video.getPosition(openInfo.screens[layindex].id);
-//		var getVolume = video.getVolume(openInfo.screens[layindex].id);
-//		send(getPosition);
-//		send(getVolume);
 	})
 	$(".playPro img").on("click",function(){
 		soundBtn()

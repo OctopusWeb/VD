@@ -81,7 +81,7 @@ var EntryList1 = React.createClass({
 			{
 				facilityList.map(function(result,index){
 					var colorStyle = {
-						border : "2px solid "+$at.staticColors[index]
+						border : "4px solid "+$at.staticColors[index] 
 					} 
 					return (<li key={index}>
 								<img src="assets/img/facility.png" style={colorStyle}/>
