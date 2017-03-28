@@ -36,7 +36,7 @@ function videoSetInfo(msg){
 	console.log(msg.data);
 }
 
-function MultiScreenCall(){
+function PublicCall(){
 	this.open = function (Arguments) {
 		var data = {
 			"receiverName": "Deamon-1",
@@ -61,9 +61,7 @@ function MultiScreenCall(){
 		};
 		return data;
 	};
-}
-function Videocall(){
-	this.open = function(Arguments){
+	this.viewOpen = function(Arguments){
 		var data = {
 			"receiverName": "Deamon-1",
 		    "senderName": "web",
@@ -76,7 +74,7 @@ function Videocall(){
 		}
 		return data;
 	}
-	this.close = function(Arguments){
+	this.viewClose = function(){
 		var data = {
 			"receiverName": "Deamon-1",
 		    "senderName": "web",
@@ -89,214 +87,19 @@ function Videocall(){
 		}
 		return data;
 	}
-	this.pause = function(winId){
+	this.stateFun = function(winId,server,action){
 		var data={
 			"receiverName": winId,
 		    "senderName": "web",
 		    "messageID": "123456",
 		    "messageType": "",
-		    "Service":"videoCall",
-		    "Action":"pause"
-		}
-		return data;
-	}
-	this.play = function(winId){
-		var data={
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service":"videoCall",
-		    "Action":"play"
-		}
-		return data;
-	}
-	this.setPlayMode = function(winId,type){
-		var data={
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service":"videoCall",
-		    "Action":"setPlayMode",
-		    "PlayMode":type
-		}
-		return data;
-	} 
-	this.setPosition = function(winId,type){
-		var data={
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service":"videoCall",
-		    "Action":"setPosition",
-		    "Position":type
-		}
-		return data;
-	}
-	this.setVolume = function(winId,type){
-		var data={
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service":"videoCall",
-		    "Action":"setVolume",
-		    "Volume":type
-		}
-		return data;
-	}
-	this.getVolume = function(winId){
-		var data={
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service":"videoCall",
-		    "Action":"getVolume"
-		}
-		return data;
-	}
-	this.getPosition = function(winId){
-		var data={
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service":"videoCall",
-		    "Action":"getPosition"
+		    "Service":server,
+		    "Action":action
 		}
 		return data;
 	}
 }
-function PptCall(){
-	this.open = function(Arguments){
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "openWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-	this.close = function(Arguments){
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "closeWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-	this.changeBtn = function(winId,type,num){
-		var data={
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service":"pptCall",
-		    "Action":type,
-		}
-		if(type == "goPage"){
-			data.page=parseInt(num);
-		}
-		return data;
-	}
-}
-function FlashCall(){
-	this.open = function(Arguments){
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "openWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-	this.close = function(Arguments){
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "closeWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-}
-//web控制
-function WebCall(){
-	this.open = function(Arguments){
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "openWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-	this.close = function(Arguments){
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "closeWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-}
-//pdf控制
 function PdfCall(){
-	this.open = function(Arguments){
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "openWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
-	this.close = function(Arguments){
-		var data = {
-			"receiverName": "Deamon-1",
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "multiScreenCall",
-		    "Action": "closeWindow",
-		    "HostId":"daemon0",
-		    "Arguments": Arguments
-		}
-		return data;
-	}
 	this.changeBtn = function(winId,type,num){
 		var data={
 			"receiverName": winId,

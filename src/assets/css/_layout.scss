@@ -261,6 +261,7 @@
                     }
                     .selected{
                         cursor: move;
+                        z-index: 1;
                         .change3{
                             display: block;
                         }

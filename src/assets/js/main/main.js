@@ -600,6 +600,7 @@ var InputList = React.createClass({
 })
 
 function bindController(){
+	var publicCalls = new PublicCall();
 //总控打开关闭	
 	$("#openLayout").off("click");
 	$("#closeLayout").off("click");
@@ -633,17 +634,15 @@ function bindController(){
 			"LayoutId": openInfo.id,
 			"Layout": Layout 
 		};
-		var multiScreen = new MultiScreenCall();
-		var data = multiScreen.open(Arguments);
+		var data = publicCalls.open(Arguments);
 		send(data);
 	});
 	$("#closeLayout").on("click",function(){//关闭布局
 		soundBtn()
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var winIndex = $(".drawContent1 li").index($(".drawContent1 .selected")) || 0;
-		var multiScreen = new MultiScreenCall();
 		var Arguments = { "LayoutId": $at.screenInfo.drawInfo[index].id};
-		var data = multiScreen.close(Arguments);
+		var data = publicCalls.close(Arguments);
 		send(data);
 	})
 	
@@ -657,7 +656,6 @@ function bindController(){
 	$(".arround p").off("click");
 	$(".videoOn p:eq(0)").on("click",function(){//打开video
 		soundBtn()
-		
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -689,20 +687,19 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
 		}
-		var video = new Videocall();
 		if(videoInterval){
 			clearInterval(videoInterval)
 		}
 		videoInterval = setInterval(function(){
-			videoGetInfo(openInfo.screens[layindex].id,video);
+			videoGetInfo(openInfo.screens[layindex].id,publicCalls);
 		},1000)
-		var data = video.open(Arguments);
+		var data = publicCalls.viewOpen(Arguments);
 		send(data);
 	})
 	
-	function videoGetInfo(winid,video){
-		var getPosition = video.getPosition(winid);
-		var getVolume = video.getVolume(winid);
+	function videoGetInfo(winid,publicCalls){
+		var getPosition = publicCalls.viewOpen(winid,"videoCall","getPosition");
+		var getVolume = publicCalls.viewOpen(winid,"videoCall","getVolume");
 		send(getPosition);
 		send(getVolume);
 	}
@@ -730,8 +727,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout": Layout
 		}
-		var video = new Videocall();
-		var data = video.close(Arguments);
+		var data = publicCalls.viewClose(Arguments);
 		send(data);
 	})
 	$(".playPro img").on("click",function(){
@@ -740,18 +736,17 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var video = new Videocall();
 		if(layindex<0){
 			alert("请选择窗口");
 			return
 		}
 		if (src == "assets/img/action.png") {
 			$(this).attr({"src":"assets/img/pause.png"});
-			var data = video.play(openInfo.screens[layindex].id); 
+			var data = publicCalls.stateFun(openInfo.screens[layindex].id,"videoCall","play"); 
 			send(data);
 		}else{
 			$(this).attr({"src":"assets/img/action.png"});
-			var data = video.pause(openInfo.screens[layindex].id);
+			var data = publicCalls.stateFun(openInfo.screens[layindex].id,"videoCall","pause");
 			send(data);
 		}
 	})
@@ -762,8 +757,8 @@ function bindController(){
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var len = (e.pageX-$(this).offset().left)/$(this).width()*100;
 		$(this).find("p").width(len+"%");
-		var video = new Videocall();
-		var data = video.setPosition(openInfo.screens[layindex].id,parseInt(len));
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"videoCall","setPosition");
+		data.Position = parseInt(len);
 		send(data);
 	});
 	$(".voicePro div").on("click",function(e){
@@ -773,8 +768,8 @@ function bindController(){
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var len = (e.pageX-$(this).offset().left)/$(this).width()*100;
 		$(this).find("p").width(len+"%");
-		var video = new Videocall();
-		var data = video.setVolume(openInfo.screens[layindex].id,parseInt(len));
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"videoCall","setVolume");
+		data.Volume = parseInt(len);
 		send(data);
 	});
 	$(".arround p").on("click",function(){
@@ -784,9 +779,8 @@ function bindController(){
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
 		var index = $(".arround p").index($(this));
-		var video = new Videocall();
-		console.log(index); 
-		var data = video.setPlayMode(openInfo.screens[layindex].id,index);
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"videoCall","setPlayMode");
+		data.PlayMode = index;
 		send(data);
 	})
 	function chooseType(name){
@@ -822,7 +816,6 @@ function bindController(){
 	$(".pptgroup p:eq(2)").off("click");
 	$(".pptgroup p:eq(3)").off("click");
 	$(".pptInput input").off("blur");
-	var ppt = new PptCall();
 	$(".pptOn p:eq(0)").on("click",function(){//打开ppt
 		soundBtn()
 		changeClass($(".pptOn p"),$(this));
@@ -856,8 +849,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
 		}
-		var video = new Videocall();
-		var data = video.open(Arguments);
+		var data = publicCalls.viewOpen(Arguments);
 		send(data);
 	})
 	$(".pptOn p:eq(1)").on("click",function(){//关闭ppt
@@ -881,8 +873,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout": Layout
 		}
-		var video = new Videocall();
-		var data = video.close(Arguments);
+		var data = publicCalls.viewClose(Arguments);
 		send(data);
 	})
 	$(".pptgroup p:eq(0)").on("click",function(){
@@ -890,7 +881,7 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = ppt.changeBtn(openInfo.screens[layindex].id,"first"); 
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pptCall","first"); 
 		send(data);
 	})
 	$(".pptgroup p:eq(1)").on("click",function(){
@@ -898,7 +889,7 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = ppt.changeBtn(openInfo.screens[layindex].id,"pre");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pptCall","pre"); 
 		send(data);
 	})
 	$(".pptgroup p:eq(2)").on("click",function(){
@@ -906,7 +897,7 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = ppt.changeBtn(openInfo.screens[layindex].id,"next");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pptCall","next"); 
 		send(data);
 	})
 	$(".pptgroup p:eq(3)").on("click",function(){
@@ -914,8 +905,7 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		
-		var data = ppt.changeBtn(openInfo.screens[layindex].id,"last");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pptCall","last"); 
 		send(data);
 	})
 	$(".pptInput input").on("blur",function(){
@@ -924,7 +914,8 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = ppt.changeBtn(openInfo.screens[layindex].id,"goPage",value);
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pptCall","goPage"); 
+		data.page = parseInt(value)
 		send(data);
 	})
 	function changeClass(dom,self){
@@ -967,8 +958,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
 		}
-		var flash = new FlashCall();
-		var data = flash.open(Arguments);
+		var data = publicCalls.viewOpen(Arguments);
 		send(data);
 	})
 	$(".flashOn p:eq(1)").on("click",function(){
@@ -992,8 +982,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout": Layout
 		}
-		var flash = new FlashCall();
-		var data = flash.close(Arguments);
+		var data = publicCalls.viewClose(Arguments);
 		send(data);
 	})
 //web控制
@@ -1032,8 +1021,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
 		}
-		var web = new WebCall();
-		var data = web.open(Arguments);
+		var data = publicCalls.viewOpen(Arguments);
 		send(data);
 	})
 	$(".webOn p:eq(1)").on("click",function(){
@@ -1057,8 +1045,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout": Layout
 		}
-		var web = new WebCall();
-		var data = web.close(Arguments);
+		var data = publicCalls.viewClose(Arguments);
 		send(data);
 	})
 //pdf控制
@@ -1110,7 +1097,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
 		}
-		var data = pdf.open(Arguments);
+		var data = publicCalls.viewOpen(Arguments);
 		send(data);
 	})
 	$(".pdfOn p:eq(1)").on("click",function(){
@@ -1134,7 +1121,7 @@ function bindController(){
 			"WinId":openInfo.screens[layindex].id,
 			"Layout": Layout
 		}
-		var data = pdf.close(Arguments);
+		var data = publicCalls.viewClose(Arguments);
 		send(data);
 	})
 	 
@@ -1143,7 +1130,7 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"first");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","first"); 
 		send(data);
 	})
 	$(".pdfGroup p:eq(1)").on("click",function(){
@@ -1151,7 +1138,7 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"pre");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","pre"); 
 		send(data);
 	})
 	$(".pdfGroup p:eq(2)").on("click",function(){
@@ -1159,7 +1146,7 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"next");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","next"); 
 		send(data);
 	})
 	$(".pdfGroup p:eq(3)").on("click",function(){
@@ -1167,7 +1154,7 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"last");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","last"); 
 		send(data);
 	})
 	$(".pdfInput input").on("blur",function(){
@@ -1176,7 +1163,8 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = ppt.changeBtn(openInfo.screens[layindex].id,"goPage",value);
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","goPage"); 
+		data.page = parseInt(value)
 		send(data);
 	})
 	
@@ -1185,7 +1173,8 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetLayoutMode","SinglePage");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","SetLayoutMode"); 
+		data.layoutmode = "SinglePage"
 		send(data);
 	})
 	$(".pdfGroup2 p:eq(1)").on("click",function(){
@@ -1193,7 +1182,8 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetLayoutMode","OneColumn");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","SetLayoutMode"); 
+		data.layoutmode = "OneColumn"
 		send(data);
 	})
 	$(".pdfGroup2 p:eq(2)").on("click",function(){
@@ -1201,7 +1191,8 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetLayoutMode","TwoColumnLeft");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","SetLayoutMode"); 
+		data.layoutmode = "TwoColumnLeft"
 		send(data);
 	})
 	$(".pdfGroup2 p:eq(3)").on("click",function(){
@@ -1209,7 +1200,8 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetLayoutMode","TwoColumnRight");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","SetLayoutMode"); 
+		data.layoutmode = "TwoColumnRight"
 		send(data);
 	})
 	$(".pdfGroup2 p:eq(4)").on("click",function(){
@@ -1217,7 +1209,8 @@ function bindController(){
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index];
-		var data = pdf.changeBtn(openInfo.screens[layindex].id,"SetFit");
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","SetLayoutMode"); 
+		data.layoutmode = "SetFit"
 		send(data);
 	})
 	$(".pdfScale div").on("click",function(e){
@@ -1228,9 +1221,18 @@ function bindController(){
 		var len = (e.pageX-$(this).offset().left)/$(this).width()*100;
 		$(this).find("p").width(len+"%");
 		$(this).parent().find("span").html(parseInt(len));
-		var data = pdf.zoom(openInfo.screens[layindex].id,parseInt(len));
+		var data = publicCalls.stateFun(openInfo.screens[layindex].id,"pdfCall","SetZoom"); 
+		data.zoom = parseInt(len)
 		send(data);
 	});
+	
+	function getlayoutId(){
+		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index];
+		var id = openInfo.screens[layindex].id;
+		return id;
+	}
 }
 
 $(function(){
