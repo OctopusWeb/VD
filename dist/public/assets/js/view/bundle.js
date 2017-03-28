@@ -660,7 +660,7 @@ var EntryHard = React.createClass({
 			"div",
 			null,
 			React.createElement(EntryList, { arr: this.props.arr, name: "资源类型" }),
-			React.createElement(ChooseList, { list: this.props.list, name: "当前所有内容" }),
+			React.createElement(ChooseList, { list: this.props.list, name: "已录入资源" }),
 			React.createElement(InputList, { name: this.props.name, id: "entryChange", id2: "entryAdd" })
 		);
 	}
@@ -673,7 +673,7 @@ var EntrySoft = React.createClass({
 			"div",
 			null,
 			React.createElement(EntryList, { arr: this.props.arr, name: "设备类型" }),
-			React.createElement(ChooseList, { list: this.props.list, name: "当前所有设备" }),
+			React.createElement(ChooseList, { list: this.props.list, name: "已录入设备" }),
 			React.createElement(InputList, { name: this.props.name, id: "softChange", id2: "softAdd" })
 		);
 	}
@@ -1489,7 +1489,6 @@ function bindController() {
 		data.zoom = parseInt(len);
 		send(data);
 	});
-
 	function getlayoutId() {
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1761,6 +1760,7 @@ function layoutChange(Dom) {
 	});
 	changeDraw.on("click", "li", function () {
 		soundBtn();
+		screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
 		var num = parseInt($(this).find("span").html());
 		smallIndex = num;
 		var arr = $at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo;
@@ -1771,7 +1771,7 @@ function layoutChange(Dom) {
 		changeDraw.find("li").removeClass("selected");
 		$(this).addClass("selected");
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
-		boxChange($(this), screenLen, smallIndex);
+		boxChange($(this), smallIndex, changeTitle);
 	});
 	changeBox2.find("input").eq(0).on("change", function () {
 		soundBtn();
@@ -1843,7 +1843,7 @@ function layoutChange(Dom) {
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	});
 }
-function boxChange(self, screenLen, smallIndex) {
+function boxChange(self, smallIndex, changeTitle) {
 	var box = $(".screenUl");
 	var changeBox2 = $("#layoutInfo .infoBox2");
 	var boxWid = box.outerWidth();
@@ -1881,16 +1881,16 @@ function boxChange(self, screenLen, smallIndex) {
 			e4.stopPropagation();
 			var lefts = self.position().left / bili;
 			var tops = self.position().top / bili;
-
+			var screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3] = parseInt(lefts);
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2] = parseInt(tops);
-			//			var wid = self.outerWidth()/bili;
-			//			var hei = self.height()/bili;
-			//			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
-			//			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
-			//			self.find(".change3").off("mousedown");
-			//			$(".drawContent").off("mousemove");
-			//			$(".drawContent").off("mouseleave");
+			var wid = self.outerWidth() / bili;
+			var hei = self.height() / bili;
+			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0] = parseInt(wid);
+			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1] = parseInt(hei);
+			self.find(".change3").off("mousedown");
+			$(".drawContent").off("mousemove");
+			$(".drawContent").off("mouseleave");
 			self.off("mousedown");
 			self.off("mousemove");
 			self.off("mouseleave");
@@ -1898,42 +1898,42 @@ function boxChange(self, screenLen, smallIndex) {
 		});
 	});
 
-	//	self.find(".change3").off("mousedown")
-	//	self.find(".change3").on("mousedown",function(e1){
-	//		e1.stopPropagation();
-	//		var winWid = self.outerWidth();
-	//		var winHei = self.outerHeight();
-	//		var starX = e1.pageX;
-	//		var starY = e1.pageY;
-	//		$(".drawContent").off("mousemove");
-	//		$(".drawContent").on("mousemove",function(e2){
-	//			e2.stopPropagation();
-	//			var moveX = e2.pageX;
-	//			var moveY = e2.pageY;
-	//			var relwid = (winWid+moveX-starX)/boxWid*100;
-	//			var relhei = (winHei+moveY-starY)/boxHei*100;
-	//			self.css({"width":relwid+"%","height":relhei+"%"});
-	//		})
-	//		$(".drawContent").off("mouseleave");
-	//		$(".drawContent").on("mouseleave",function(e3){
-	//			e3.stopPropagation();
-	//			self.find(".change3").off("mousedown");
-	//			$(".drawContent").off("mousemove");
-	//			$(".drawContent").off("mouseleave");
-	//		})
-	//		$(".drawContent").off("mouseup");
-	//		$(".drawContent").on("mouseup",function(e4){
-	//			var wid = self.outerWidth()/bili;
-	//			var hei = self.outerHeight()/bili;
-	//			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
-	//			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
-	//			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
-	//			self.find(".change3").off("mousedown");
-	//			$(".drawContent").off("mousemove");
-	//			$(".drawContent").off("mouseleave");
-	//			return
-	//		})	
-	//	})
+	self.find(".change3").off("mousedown");
+	self.find(".change3").on("mousedown", function (e1) {
+		e1.stopPropagation();
+		var winWid = self.outerWidth();
+		var winHei = self.outerHeight();
+		var starX = e1.pageX;
+		var starY = e1.pageY;
+		$(".drawContent").off("mousemove");
+		$(".drawContent").on("mousemove", function (e2) {
+			e2.stopPropagation();
+			var moveX = e2.pageX;
+			var moveY = e2.pageY;
+			var relwid = (winWid + moveX - starX) / boxWid * 100;
+			var relhei = (winHei + moveY - starY) / boxHei * 100;
+			self.css({ "width": relwid + "%", "height": relhei + "%" });
+		});
+		$(".drawContent").off("mouseleave");
+		$(".drawContent").on("mouseleave", function (e3) {
+			e3.stopPropagation();
+			self.find(".change3").off("mousedown");
+			$(".drawContent").off("mousemove");
+			$(".drawContent").off("mouseleave");
+		});
+		$(".drawContent").off("mouseup");
+		$(".drawContent").on("mouseup", function (e4) {
+			var screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
+			var wid = self.outerWidth() / bili;
+			var hei = self.outerHeight() / bili;
+			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0] = parseInt(wid);
+			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1] = parseInt(hei);
+			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
+			self.find(".change3").off("mousedown");
+			$(".drawContent").off("mousemove");
+			$(".drawContent").off("mouseleave");
+		});
+	});
 }
 
 var view4Dom = {
@@ -3612,14 +3612,19 @@ function setScreen(Dom, data) {
 		soundBtn();
 		$("#smallMenu").toggleClass("selected");
 		if ($(this).attr("class") == "selected") {
+			$(this).attr({ "src": "assets/img/smallMenu1.png" });
 			$("#menu").animate({ left: "-260px" });
 			$("#layoutShow,#layout,#setScreen").animate({ left: "0px" });
 			$("#wrap #addScreen #setScreen").css({ "padding-right": "0" });
 		} else {
+			$(this).attr({ "src": "assets/img/smallMenu.png" });
 			$("#menu").animate({ left: "0px" });
 			$("#layoutShow,#layout,#setScreen").animate({ left: "260px" });
 			$("#wrap #addScreen #setScreen").css({ "padding-right": "260px" });
 		}
+	});
+	$("#entryMenu").on("click", function () {
+		$("#btnGroup").fadeToggle();
 	});
 }
 function soundBtn() {

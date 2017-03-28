@@ -19,15 +19,20 @@ function setScreen(Dom,data){
 		soundBtn()
 		$("#smallMenu").toggleClass("selected");
 		if($(this).attr("class") == "selected"){
+			$(this).attr({"src":"assets/img/smallMenu1.png"})
 			$("#menu").animate({left : "-260px"})
 			$("#layoutShow,#layout,#setScreen").animate({left : "0px"})
 			$("#wrap #addScreen #setScreen").css({"padding-right":"0"}) 
 		}else{
+			$(this).attr({"src":"assets/img/smallMenu.png"})
 			$("#menu").animate({left : "0px"})
 			$("#layoutShow,#layout,#setScreen").animate({left : "260px"})
 			$("#wrap #addScreen #setScreen").css({"padding-right":"260px"})
 		}
 		
+	})
+	$("#entryMenu").on("click",function(){
+		$("#btnGroup").fadeToggle();
 	})
 }
 function soundBtn(){

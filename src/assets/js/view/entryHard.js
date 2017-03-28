@@ -2,7 +2,7 @@ var EntryHard = React.createClass({
 	render : function(){ 
 		return(<div>
 				<EntryList arr={this.props.arr} name={"资源类型"}/>
-				<ChooseList list = {this.props.list} name={"当前所有内容"}/>
+				<ChooseList list = {this.props.list} name={"已录入资源"}/>
 				<InputList name={this.props.name} id={"entryChange"} id2={"entryAdd"}/>
 			</div>
 		)
@@ -12,7 +12,7 @@ var EntrySoft = React.createClass({
 	render : function(){
 		return(<div>
 				<EntryList arr={this.props.arr} name={"设备类型"}/>
-				<ChooseList list={this.props.list} name={"当前所有设备"}/>
+				<ChooseList list={this.props.list} name={"已录入设备"}/>
 				<InputList name={this.props.name} id={"softChange"} id2={"softAdd"}/>
 			</div>)
 	}

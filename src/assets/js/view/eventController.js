@@ -557,7 +557,7 @@ function bindController(){
 		send(data);
 	})
 	$(".pdfInput input").on("blur",function(){
-		soundBtn()
+		soundBtn();
 		var value = $(this).val();
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
