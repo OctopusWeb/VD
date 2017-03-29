@@ -30,10 +30,6 @@ $(function(){
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
 	
-	
-	Dom.ulList.on("click","p",function(){
-		$(this).parent().find("li").slideToggle(); 
-	})
 	partController(Dom);
 	loginController(Dom);
 })

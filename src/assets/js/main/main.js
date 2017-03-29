@@ -252,6 +252,9 @@ function initSoft(Dom){
 	var softArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZoolonWEB"],["video1","Video"]]
 	var softName = ["展项名称","展项类型","资源URL","总控命令地址"]
 	ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
+	$(".ulList").on("click","p",function(){
+		$(this).parent().find("li").slideToggle(); 
+	})
 	 
 	$("#entryAdd").on("click",function(){
 		soundBtn()
@@ -655,7 +658,7 @@ function bindController(){
 	$(".voicePro div").off("click");
 	$(".arround p").off("click");
 	$(".videoOn p:eq(0)").on("click",function(){//打开video
-		soundBtn()
+		soundBtn();
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -1049,7 +1052,6 @@ function bindController(){
 		send(data);
 	})
 //pdf控制
-	var pdf = new PdfCall();
 	$(".pdfOn p:eq(0)").off("click");
 	$(".pdfOn p:eq(1)").off("click");
 	$(".pdfGroup p:eq(0)").off("click");
@@ -1266,10 +1268,6 @@ $(function(){
 	}
 	document.body.onselectstart=document.body.oncontextmenu=function(){ return false;};
 	
-	
-	Dom.ulList.on("click","p",function(){
-		$(this).parent().find("li").slideToggle(); 
-	})
 	partController(Dom);
 	loginController(Dom);
 })

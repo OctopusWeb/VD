@@ -74,7 +74,7 @@ function PublicCall(){
 		}
 		return data;
 	}
-	this.viewClose = function(){
+	this.viewClose = function(Arguments){
 		var data = {
 			"receiverName": "Deamon-1",
 		    "senderName": "web",
@@ -95,36 +95,6 @@ function PublicCall(){
 		    "messageType": "",
 		    "Service":server,
 		    "Action":action
-		}
-		return data;
-	}
-}
-function PdfCall(){
-	this.changeBtn = function(winId,type,num){
-		var data={
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service":"pdfCall",
-		    "Action":type,
-		}
-		if(type == "goPage"){
-			data.page=parseInt(num);
-		}else if(type == "SetLayoutMode"){
-			data.layoutmode = num;
-		}
-		return data;
-	}
-	this.zoom = function(winId,type){
-		var data = {
-			"receiverName": winId,
-		    "senderName": "web",
-		    "messageID": "123456",
-		    "messageType": "",
-		    "Service": "pdfCall",
-		    "Action": "SetZoom",
-		    "zoom": type
 		}
 		return data;
 	}

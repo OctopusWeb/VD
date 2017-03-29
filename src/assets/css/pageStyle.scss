@@ -36,6 +36,7 @@ html{
     width: $NomalWidth;
     font-family: "微软雅黑";
     overflow: hidden;
+    position: absolute;
     body{
         @extend html;
         background:nth($NomalColor,6);

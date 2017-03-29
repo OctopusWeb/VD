@@ -54,7 +54,7 @@ function bindController(){
 	$(".voicePro div").off("click");
 	$(".arround p").off("click");
 	$(".videoOn p:eq(0)").on("click",function(){//打开video
-		soundBtn()
+		soundBtn();
 		changeClass($(".videoOn p"),$(this));
 		var index = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
@@ -448,7 +448,6 @@ function bindController(){
 		send(data);
 	})
 //pdf控制
-	var pdf = new PdfCall();
 	$(".pdfOn p:eq(0)").off("click");
 	$(".pdfOn p:eq(1)").off("click");
 	$(".pdfGroup p:eq(0)").off("click");

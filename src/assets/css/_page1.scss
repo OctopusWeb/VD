@@ -82,7 +82,7 @@
     }
     #btnPart1{
         width: $NomalWidth/2;
-        margin-left: $NomalWidth/5*2;
+        margin-left: $NomalWidth/2;
         height: 25px;
         bottom: 70px;
         float: left;
@@ -92,6 +92,7 @@
             height: 25px;
             line-height: 25px;
             width: 100px;
+            margin-left: -50px;
             text-align: center;
             background: nth($NomalColor,5);
             font-size: nth($FontSize,6);

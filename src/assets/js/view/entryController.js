@@ -2,6 +2,9 @@ function initSoft(Dom){
 	var softArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZoolonWEB"],["video1","Video"]]
 	var softName = ["展项名称","展项类型","资源URL","总控命令地址"]
 	ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
+	$(".ulList").on("click","p",function(){
+		$(this).parent().find("li").slideToggle(); 
+	})
 	 
 	$("#entryAdd").on("click",function(){
 		soundBtn()
