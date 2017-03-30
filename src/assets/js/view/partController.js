@@ -39,7 +39,7 @@ function partController(Dom){
 						id:"w1",
 						scale:1,
 						across:false,
-						screenInfo:[0,0,0,0],
+						screenInfo:[1920,1080,0,0],
 						medias:[],
 						items:['[]'] 
 						}
@@ -54,11 +54,16 @@ function partController(Dom){
 			screenInfo.drawInfo[0].id = json.data.layoutId;
 			screenInfo.drawInfo[0].screens[0].id = json.data.winId;
 			$at.screenInfo = screenInfo;
+			console.log($at.screenInfo);
 			$at.allInfo.push($at.screenInfo);
+			view5Dom.layoutShow.innerHTML="";
+			view4Dom.layout.innerHTML="";
+			ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
+			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 			ReactDOM.render(<MenuList/>,setScreenDom.screenList);
 			initPart1(Dom);
 			$("#screenList ul li").removeClass("selected");
-			$("#screenList ul li").last().addClass("selected"); 
+			$("#screenList ul li").last().addClass("selected");
 		}	
 	})
 	function initPart1(Dom){

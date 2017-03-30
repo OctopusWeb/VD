@@ -253,6 +253,7 @@ function initSoft(Dom){
 	var softName = ["展项名称","展项类型","资源URL","总控命令地址"]
 	ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 	$(".ulList").on("click","p",function(){
+		$(this).parent().toggleClass("selected");
 		$(this).parent().find("li").slideToggle(); 
 	})
 	 
@@ -281,8 +282,11 @@ function initSoft(Dom){
 					}
 				}
 			}
+			var name1 = "."+info0.toUpperCase();
+			$(name1).find("li").show();
 			$.post($at.url+"/interfaces/entryPost/content", data,onComplete); 
 			function onComplete(json){
+				
 				$at.softWare[num].arr.push([name,info0,info1,json.data.contentId,info2]);
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 				ReactDOM.render(<InfoBox4 softWare={$at.softWare}/>,document.getElementById("infoBox4"));
@@ -650,7 +654,6 @@ function bindController(){
 	})
 	
 //视频video控制
-	var videoInterval;
 	$(".videoOn p:eq(0)").off("click");
 	$(".videoOn p:eq(1)").off("click");
 	$(".playPro img").off("click");
@@ -689,23 +692,10 @@ function bindController(){
 			"LayoutId":openInfo.id, 
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
-		}
-		if(videoInterval){
-			clearInterval(videoInterval)
-		}
-		videoInterval = setInterval(function(){
-			videoGetInfo(openInfo.screens[layindex].id,publicCalls);
-		},1000)
+		}		
 		var data = publicCalls.viewOpen(Arguments);
 		send(data);
 	})
-	
-	function videoGetInfo(winid,publicCalls){
-		var getPosition = publicCalls.viewOpen(winid,"videoCall","getPosition");
-		var getVolume = publicCalls.viewOpen(winid,"videoCall","getVolume");
-		send(getPosition);
-		send(getVolume);
-	}
 	$(".videoOn p:eq(1)").on("click",function(){//关闭video
 		soundBtn();
 		if(videoInterval){
@@ -1277,6 +1267,7 @@ function layShowController(Dom){
 	var funTitle = $(".funTitle");
 	var layoutContent = $(".layoutContent");
 	var drawTitle1 = $(".drawTitle1");
+	var publicCalls = new PublicCall();
 	funTitle.on("click","li",function(){
 		soundBtn()
 		var index = funTitle.find("li").index($(this));
@@ -1284,7 +1275,24 @@ function layShowController(Dom){
 		funTitle.find("li").eq(index).addClass("selected");
 		layoutContent.find(".fun").removeClass("selected");
 		layoutContent.find(".fun").eq(index).addClass("selected");
+		
+		var index1 = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index1]; 
+		if(videoInterval){
+			clearInterval(videoInterval)
+		}
+		videoInterval = setInterval(function(){
+			videoGetInfo(openInfo.screens[layindex].id,publicCalls);
+		},1000)
+		
 	})
+	function videoGetInfo(winid,publicCalls){
+		var getPosition = publicCalls.stateFun(winid,"videoCall","getPosition");
+		var getVolume = publicCalls.stateFun(winid,"videoCall","getVolume");
+		send(getPosition);
+		send(getVolume);
+	}
 	Dom.layShow.on("click",".layout2",function(){
 		soundBtn()
 		Dom.layShow.fadeOut();
@@ -1658,6 +1666,9 @@ function boxChange(self,smallIndex,changeTitle){
 			self.find(".change3").off("mousedown");
 			$(".drawContent").off("mousemove");
 			$(".drawContent").off("mouseleave");
+			self.off("mousedown");
+			self.off("mousemove");
+			self.off("mouseleave");
 		})
 		$(".drawContent").off("mouseup");
 		$(".drawContent").on("mouseup",function(e4){
@@ -1670,6 +1681,9 @@ function boxChange(self,smallIndex,changeTitle){
 			self.find(".change3").off("mousedown");
 			$(".drawContent").off("mousemove");
 			$(".drawContent").off("mouseleave");
+			self.off("mousedown");
+			self.off("mousemove");
+			self.off("mouseleave");
 		})	
 	})
 }
@@ -2558,7 +2572,7 @@ function partController(Dom){
 						id:"w1",
 						scale:1,
 						across:false,
-						screenInfo:[0,0,0,0],
+						screenInfo:[1920,1080,0,0],
 						medias:[],
 						items:['[]'] 
 						}
@@ -2573,11 +2587,16 @@ function partController(Dom){
 			screenInfo.drawInfo[0].id = json.data.layoutId;
 			screenInfo.drawInfo[0].screens[0].id = json.data.winId;
 			$at.screenInfo = screenInfo;
+			console.log($at.screenInfo);
 			$at.allInfo.push($at.screenInfo);
+			view5Dom.layoutShow.innerHTML="";
+			view4Dom.layout.innerHTML="";
+			ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
+			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 			ReactDOM.render(<MenuList/>,setScreenDom.screenList);
 			initPart1(Dom);
 			$("#screenList ul li").removeClass("selected");
-			$("#screenList ul li").last().addClass("selected"); 
+			$("#screenList ul li").last().addClass("selected");
 		}	
 	})
 	function initPart1(Dom){

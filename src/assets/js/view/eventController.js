@@ -46,7 +46,6 @@ function bindController(){
 	})
 	
 //视频video控制
-	var videoInterval;
 	$(".videoOn p:eq(0)").off("click");
 	$(".videoOn p:eq(1)").off("click");
 	$(".playPro img").off("click");
@@ -85,23 +84,10 @@ function bindController(){
 			"LayoutId":openInfo.id, 
 			"WinId":openInfo.screens[layindex].id,
 			"Layout":Layout
-		}
-		if(videoInterval){
-			clearInterval(videoInterval)
-		}
-		videoInterval = setInterval(function(){
-			videoGetInfo(openInfo.screens[layindex].id,publicCalls);
-		},1000)
+		}		
 		var data = publicCalls.viewOpen(Arguments);
 		send(data);
 	})
-	
-	function videoGetInfo(winid,publicCalls){
-		var getPosition = publicCalls.viewOpen(winid,"videoCall","getPosition");
-		var getVolume = publicCalls.viewOpen(winid,"videoCall","getVolume");
-		send(getPosition);
-		send(getVolume);
-	}
 	$(".videoOn p:eq(1)").on("click",function(){//关闭video
 		soundBtn();
 		if(videoInterval){

@@ -4,6 +4,7 @@ function layShowController(Dom){
 	var funTitle = $(".funTitle");
 	var layoutContent = $(".layoutContent");
 	var drawTitle1 = $(".drawTitle1");
+	var publicCalls = new PublicCall();
 	funTitle.on("click","li",function(){
 		soundBtn()
 		var index = funTitle.find("li").index($(this));
@@ -11,7 +12,24 @@ function layShowController(Dom){
 		funTitle.find("li").eq(index).addClass("selected");
 		layoutContent.find(".fun").removeClass("selected");
 		layoutContent.find(".fun").eq(index).addClass("selected");
+		
+		var index1 = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
+		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
+		var openInfo = $at.screenInfo.drawInfo[index1]; 
+		if(videoInterval){
+			clearInterval(videoInterval)
+		}
+		videoInterval = setInterval(function(){
+			videoGetInfo(openInfo.screens[layindex].id,publicCalls);
+		},1000)
+		
 	})
+	function videoGetInfo(winid,publicCalls){
+		var getPosition = publicCalls.stateFun(winid,"videoCall","getPosition");
+		var getVolume = publicCalls.stateFun(winid,"videoCall","getVolume");
+		send(getPosition);
+		send(getVolume);
+	}
 	Dom.layShow.on("click",".layout2",function(){
 		soundBtn()
 		Dom.layShow.fadeOut();
@@ -385,6 +403,9 @@ function boxChange(self,smallIndex,changeTitle){
 			self.find(".change3").off("mousedown");
 			$(".drawContent").off("mousemove");
 			$(".drawContent").off("mouseleave");
+			self.off("mousedown");
+			self.off("mousemove");
+			self.off("mouseleave");
 		})
 		$(".drawContent").off("mouseup");
 		$(".drawContent").on("mouseup",function(e4){
@@ -397,6 +418,9 @@ function boxChange(self,smallIndex,changeTitle){
 			self.find(".change3").off("mousedown");
 			$(".drawContent").off("mousemove");
 			$(".drawContent").off("mouseleave");
+			self.off("mousedown");
+			self.off("mousemove");
+			self.off("mouseleave");
 		})	
 	})
 }

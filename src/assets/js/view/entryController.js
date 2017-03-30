@@ -3,6 +3,7 @@ function initSoft(Dom){
 	var softName = ["展项名称","展项类型","资源URL","总控命令地址"]
 	ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 	$(".ulList").on("click","p",function(){
+		$(this).parent().toggleClass("selected");
 		$(this).parent().find("li").slideToggle(); 
 	})
 	 
@@ -31,8 +32,11 @@ function initSoft(Dom){
 					}
 				}
 			}
+			var name1 = "."+info0.toUpperCase();
+			$(name1).find("li").show();
 			$.post($at.url+"/interfaces/entryPost/content", data,onComplete); 
 			function onComplete(json){
+				
 				$at.softWare[num].arr.push([name,info0,info1,json.data.contentId,info2]);
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 				ReactDOM.render(<InfoBox4 softWare={$at.softWare}/>,document.getElementById("infoBox4"));

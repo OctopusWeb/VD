@@ -85,6 +85,7 @@ function drawFun(drawArea,drawBox,screenLi,entrySlected,onComplete)
 		selected.find(".span3").html(info3); 
 		selected.find(".span4").html(info4);
 		entrySlected.hide();
+		$("#screenPlan ul li").removeClass("selected");
 	}) 
 }
 

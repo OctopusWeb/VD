@@ -86,7 +86,6 @@ router.post('/entryPost/content',function(req,res){
 	var path = param.path;
 	var typeCode = param.typeCode;
 	var controlUrl = param.controlUrl;
-	console.log(req.body)
 	var entryContentPostSql = 'INSERT INTO `t_content`(contentId,name,path,typeCode,time,controlUrl) VALUES(?,?,?,?,?,?)';
 	pool.query(entryContentPostSql, [contentId,name,path,typeCode,time,controlUrl],function(err, result) {
 		if (err) {
