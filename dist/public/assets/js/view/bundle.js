@@ -1733,7 +1733,7 @@ function layoutChange(Dom) {
 			screens: [{
 				across: true,
 				screenInfo: [1920, 1080, 0, 0],
-				medias: [[]]
+				medias: []
 			}]
 		};
 		$at.screenInfo.drawInfo.push(addScreen);
@@ -1814,7 +1814,7 @@ function layoutChange(Dom) {
 		var data = {
 			across: true,
 			screenInfo: [1920, 1080, 0, 0],
-			medias: [[]]
+			medias: []
 		};
 		$at.screenInfo.drawInfo[screenLen].screens.push(data);
 		ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
