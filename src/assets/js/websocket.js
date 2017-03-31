@@ -10,7 +10,6 @@ function connect(){
     socket.onerror=sError;
     socket.onmessage=sMessage;
     socket.onclose=sClose
-
 }
 function sOpen(){ 
     console.log('connect success!');
@@ -23,10 +22,9 @@ function sMessage(msg){
 }
 function sClose(){
 	connect();
-    console.log('connect close')
+    console.log('connect close');
 }
 function send(data){
-	console.log(JSON.stringify(data));
     socket.send(JSON.stringify(data)); 
 }
 function close(){

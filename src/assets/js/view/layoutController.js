@@ -200,7 +200,7 @@ function layoutChange(Dom){
 		}
 	})
 	changeBtnGroup.find("span").on("click",function(){
-		soundBtn()
+		soundBtn();
 		var num  = parseInt($at.screenInfo.drawInfo.length)+1;
 		var addScreen = {
 			title: "屏幕"+num,
@@ -209,7 +209,7 @@ function layoutChange(Dom){
 				{
 					across:true,
 					screenInfo:[1920,1080,0,0],
-					medias:[],
+					medias:[[]],
 				}
 			]
 		}
@@ -291,7 +291,7 @@ function layoutChange(Dom){
 		var data = {
 					across:true,
 					screenInfo:[1920,1080,0,0],
-					medias:[],
+					medias:[[]],
 				}
 		$at.screenInfo.drawInfo[screenLen].screens.push(data); 
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);

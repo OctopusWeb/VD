@@ -54,7 +54,6 @@ function partController(Dom){
 			screenInfo.drawInfo[0].id = json.data.layoutId;
 			screenInfo.drawInfo[0].screens[0].id = json.data.winId;
 			$at.screenInfo = screenInfo;
-			console.log($at.screenInfo);
 			$at.allInfo.push($at.screenInfo);
 			view5Dom.layoutShow.innerHTML="";
 			view4Dom.layout.innerHTML="";
