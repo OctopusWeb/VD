@@ -301,14 +301,15 @@ router.post("/screenInfo/changeLayout",function(req,res){
 	var addLayoutPost = "INSERT INTO `t_screen_layout`(layoutId,controlUrl,name,screenId,usePercent,idx,describeJson) VALUES(?,?,?,?,?,?,?)";
 	
 	var addDescribePost = "INSERT INTO `t_describe`(screenId,layoutId,x,y,width,height,winId,scale,items) VALUES(?,?,?,?,?,?,?,?,?)";
-	
 	pool.query(deleteLayout, "",function(err1, result1) {
 		if (err1) {
 			console.log(err1);
 			return;
 		}
+		var arr = []
 		for (var i=0;i<layoutList.length;i++) {
 			newlayoutid = shortid.gen(); 
+			arr.push([newlayoutid,layoutList[i].id]);
 			(function(i,newlayoutid){
 				var data = [newlayoutid,layoutList[i].controlUrl,layoutList[i].title,screenId,layoutList[i].usePercent,"1",""];
 				pool.query(addLayoutPost, data,function(err2, result2) {
@@ -340,7 +341,7 @@ router.post("/screenInfo/changeLayout",function(req,res){
 				})
 			})(i,newlayoutid)
 		}
-		res.send({state:true})
+		res.send({state:true,data:arr})
 	})
 })
 

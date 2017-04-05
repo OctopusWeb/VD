@@ -24,6 +24,6 @@ $at.menuIndex=0;
 $at.mp3 = document.getElementById("mp3");
 $at.url="http://192.168.0.179:3000";
 $at.staicUrl = "http://192.168.0.179:3000/";
-$at.socketUrl = 'ws://192.168.0.196:1234';
+$at.socketUrl = 'ws://192.168.0.253:1234';
 var videoInterval;
 

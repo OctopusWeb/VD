@@ -177,6 +177,7 @@ function partController(Dom){
 				ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 				ReactDOM.render(<MenuList/>,setScreenDom.screenList);
 				bindController();
+				$("#screenList").find(".selected").trigger("click");
 			}
 		}
 		function addHost(){

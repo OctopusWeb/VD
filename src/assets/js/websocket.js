@@ -25,6 +25,7 @@ function sClose(){
     console.log('connect close');
 }
 function send(data){
+	console.log(JSON.stringify(data));
     socket.send(JSON.stringify(data)); 
 }
 function close(){

@@ -57,7 +57,8 @@ function layShowController(Dom){
 	})
 	
 }
-function layChangeController(Dom){ 
+function layChangeController(Dom){
+	view4Dom.layout.innerHTML="";
 	ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	layoutChange(Dom);
 }
@@ -146,14 +147,15 @@ function layoutChange(Dom){
 	var changeContent =layoutInfo.find(".contentList");
 	var changelayName = $(".layoutName");
 	var changelay = $(".addLayout");
+	Dom.layChange.off("click",".layout1")
 	Dom.layChange.on("click",".layout1",function(){
 		changelay.trigger("click");
 		Dom.layShow.fadeIn();
 		Dom.layChange.fadeOut();
 		ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
-		bindController();
 	})
-	changelay.on("click", function () {
+	changelay.off("click");
+	changelay.on("click",function () {
 		soundBtn()
 		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
 			var screens = $at.screenInfo.drawInfo[i].screens;
@@ -177,6 +179,9 @@ function layoutChange(Dom){
 		var data1 = { data: JSON.stringify($at.screenInfo) };
 		$.post($at.url+"/interfaces/screenInfo/changeLayout", data1,onComplete);
 		function onComplete(json) {
+			for (var i=0;i<$at.screenInfo.drawInfo.length;i++) {
+				$at.screenInfo.drawInfo[i].id = json.data[i][0];
+			}
 			$at.allInfo[$at.menuIndex] = $at.screenInfo;
 			ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
@@ -185,11 +190,12 @@ function layoutChange(Dom){
 			Dom.layChange.fadeOut();
 		}
 	});
-	
+	changeTitle.off("click","li")
 	changeTitle.on("click","li",function(){
 		soundBtn()
 		screenLen = changeTitle.find("li").index($(this));
 	})
+	changeTitle.off("click",".close")
 	changeTitle.on("click",".close",function(e){
 		soundBtn()
 		var config = confirm("确定删除此布局么？");
@@ -199,6 +205,7 @@ function layoutChange(Dom){
 			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 		}
 	})
+	changeBtnGroup.find("span").off("click");
 	changeBtnGroup.find("span").on("click",function(){
 		soundBtn();
 		var num  = parseInt($at.screenInfo.drawInfo.length)+1;

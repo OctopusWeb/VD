@@ -417,10 +417,10 @@ function initSoft(Dom) {
 			alert("请在下方填写相关信息");
 		} else {
 			var onComplete = function onComplete(json) {
-
 				$at.softWare[num].arr.push([name, info0, info1, json.data.contentId, info2]);
 				ReactDOM.render(React.createElement(EntryHard, { arr: softArr, list: $at.softWare, name: softName }), document.getElementById("entryHard"));
 				ReactDOM.render(React.createElement(InfoBox4, { softWare: $at.softWare }), document.getElementById("infoBox4"));
+				$("#screenList").find(".selected").trigger("click");
 			};
 
 			var type = $(".entryList .selected").find("h3").html();
@@ -473,6 +473,7 @@ function initSoft(Dom) {
 				$(".changeBtn").hide();
 				ReactDOM.render(React.createElement(EntryHard, { arr: softArr, list: $at.softWare, name: softName }), document.getElementById("entryHard"));
 				ReactDOM.render(React.createElement(InfoBox4, { softWare: $at.softWare }), document.getElementById("infoBox4"));
+				$("#screenList").find(".selected").trigger("click");
 			};
 
 			var data = {
@@ -1584,6 +1585,7 @@ function layShowController(Dom) {
 	});
 }
 function layChangeController(Dom) {
+	view4Dom.layout.innerHTML = "";
 	ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 	layoutChange(Dom);
 }
@@ -1671,13 +1673,14 @@ function layoutChange(Dom) {
 	var changeContent = layoutInfo.find(".contentList");
 	var changelayName = $(".layoutName");
 	var changelay = $(".addLayout");
+	Dom.layChange.off("click", ".layout1");
 	Dom.layChange.on("click", ".layout1", function () {
 		changelay.trigger("click");
 		Dom.layShow.fadeIn();
 		Dom.layChange.fadeOut();
 		ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
-		bindController();
 	});
+	changelay.off("click");
 	changelay.on("click", function () {
 		soundBtn();
 		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
@@ -1702,6 +1705,9 @@ function layoutChange(Dom) {
 		var data1 = { data: JSON.stringify($at.screenInfo) };
 		$.post($at.url + "/interfaces/screenInfo/changeLayout", data1, onComplete);
 		function onComplete(json) {
+			for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
+				$at.screenInfo.drawInfo[i].id = json.data[i][0];
+			}
 			$at.allInfo[$at.menuIndex] = $at.screenInfo;
 			ReactDOM.render(React.createElement(Part5, { info: $at.screenInfo }), view5Dom.layoutShow);
 			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
@@ -1710,11 +1716,12 @@ function layoutChange(Dom) {
 			Dom.layChange.fadeOut();
 		}
 	});
-
+	changeTitle.off("click", "li");
 	changeTitle.on("click", "li", function () {
 		soundBtn();
 		screenLen = changeTitle.find("li").index($(this));
 	});
+	changeTitle.off("click", ".close");
 	changeTitle.on("click", ".close", function (e) {
 		soundBtn();
 		var config = confirm("确定删除此布局么？");
@@ -1724,6 +1731,7 @@ function layoutChange(Dom) {
 			ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 		}
 	});
+	changeBtnGroup.find("span").off("click");
 	changeBtnGroup.find("span").on("click", function () {
 		soundBtn();
 		var num = parseInt($at.screenInfo.drawInfo.length) + 1;
@@ -3576,6 +3584,7 @@ function partController(Dom) {
 				ReactDOM.render(React.createElement(Part4, { info: $at.screenInfo, softWare: $at.softWare }), view4Dom.layout);
 				ReactDOM.render(React.createElement(MenuList, null), setScreenDom.screenList);
 				bindController();
+				$("#screenList").find(".selected").trigger("click");
 			}
 		}
 		function addHost() {

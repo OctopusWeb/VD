@@ -36,13 +36,14 @@ function initSoft(Dom){
 			$(name1).find("li").show();
 			$.post($at.url+"/interfaces/entryPost/content", data,onComplete); 
 			function onComplete(json){
-				
 				$at.softWare[num].arr.push([name,info0,info1,json.data.contentId,info2]);
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 				ReactDOM.render(<InfoBox4 softWare={$at.softWare}/>,document.getElementById("infoBox4"));
+				$("#screenList").find(".selected").trigger("click");
 			}
 			
 			$("#entryHard input").eq(0).val("");
+			
 		}
 		
 	})
@@ -82,6 +83,7 @@ function initSoft(Dom){
 				$(".changeBtn").hide();
 				ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
 				ReactDOM.render(<InfoBox4 softWare={$at.softWare}/>,document.getElementById("infoBox4")); 
+				$("#screenList").find(".selected").trigger("click");
 			}
 		}
 	})

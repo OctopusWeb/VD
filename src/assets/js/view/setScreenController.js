@@ -15,7 +15,7 @@ function setScreen(Dom,data){
 		$at.screenInfo = $at.allInfo[$at.menuIndex];
 		selectedMenu(Dom);
 	})
-	$("#smallMenu").on("click",function(){ 
+	$("#smallMenu").on("click",function(){
 		soundBtn()
 		$("#smallMenu").toggleClass("selected");
 		if($(this).attr("class") == "selected"){
