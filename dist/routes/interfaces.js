@@ -3,12 +3,12 @@ var router = express.Router();
 var utility = require("utility");
 var mysql= require('mysql');
 var shortid = require("js-shortid");
-var pool = mysql.createPool({  
-    host     : '192.168.1.254',
+var pool = mysql.createPool({
+    host     : '192.168.1.222',
     user     : 'root',
-    password : 'root',
+    password : '123456',
     database : 'vd' ,
-    port	 : '3320'
+    port	 : '3306'
 });
 
 

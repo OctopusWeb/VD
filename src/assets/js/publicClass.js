@@ -22,8 +22,11 @@ $at.softWare={};
 $at.entryHard={};
 $at.menuIndex=0;
 $at.mp3 = document.getElementById("mp3");
-$at.url="http://192.168.0.179:3000";
-$at.staicUrl = "http://192.168.0.179:3000/";
-$at.socketUrl = 'ws://192.168.0.253:1234';
+
+$at.url="http://192.168.0.179:3000";//服务器部署地址
+$at.staicUrl = "http://192.168.0.179:3000/";//服务器部署地址
+
+$at.socketUrl = 'ws://192.168.1.222:1234';//websocket地址
+
 var videoInterval;
 
