@@ -181,7 +181,7 @@ var InfoBox4 = React.createClass({
 										return(
 											<div className="contentBtn" key={index2}>
 												<img src={imgSrc} className="icon" name={titleList[index][1]}/> 
-												<span>{result2[0]}</span>
+												<span title={result2[0]}>{result2[0]}</span>
 												<p>{result2[1]}</p>
 												<p>{result2[2]}</p>
 												<p>{result2[3]}</p>

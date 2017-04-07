@@ -70,7 +70,7 @@ function drawFun(drawArea,drawBox,screenLi,entrySlected,onComplete)
 	},function(){ 
 		$(this).removeClass("selected");
 	})
-	entrySlected.on("click","li",function(){ 
+	entrySlected.on("click","li",function(){
 		var index = entrySlected.find("li").index($(this));
 		var selected = $("#screenPlan ul").find(".selected");
 		var value = $(this).find("p").html();

@@ -19,7 +19,7 @@ function bindController(){
 				"Height": openInfo.screens[i].screenInfo[1],
 			};
 			if (openInfo.screens[i].medias[winIndex]) {
-				var type = chooseType(openInfo.screens[i].medias[winIndex][2].toUpperCase());
+				var type = chooseType(openInfo.screens[i].medias[winIndex][2].toUpperCase());  
 				obj.Resource = {
 					"Source": "local",
 					"Path":openInfo.screens[i].medias[winIndex][1]

@@ -324,10 +324,10 @@ function layoutChange(Dom){
 	changeContent.on("click",".add",function(){
 		soundBtn()
 		var type = $(this).parent().find(".icon").attr("name");
-		var name = $(this).parent().find("span").eq(0).html();
-		var path = $(this).parent().find("p").eq(1).html();
-		var contentId = $(this).parent().find("p").eq(2).html();
-		var controlUrl = $(this).parent().find("p").eq(3).html();
+		var name = $(this).parent().find("span").eq(0).text();
+		var path = $(this).parent().find("p").eq(1).text();
+		var contentId = $(this).parent().find("p").eq(2).text();
+		var controlUrl = $(this).parent().find("p").eq(3).text();
 		var arr = [name,path,type,contentId,controlUrl];
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.push(arr);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);

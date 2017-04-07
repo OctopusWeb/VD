@@ -471,6 +471,7 @@
                         width: $NomalWidth;
                         height: 148px;
                         background: nth($NomalColor,7);
+                        overflow: auto;
                         li{
                             display: none;
                             list-style: none;
@@ -496,6 +497,7 @@
                                     text-align: center;
                                     font-size: nth($FontSize,7);
                                     color: nth($FontColor,2);
+                                    white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;
                                 }
                                 p{
                                     display: none;

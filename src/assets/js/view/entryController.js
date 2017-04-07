@@ -18,7 +18,7 @@ function initSoft(Dom){
 		if(name==""||info0==""||info1==""||info2==""){
 			alert("请在下方填写相关信息");
 		}else{
-			var type = $(".entryList .selected").find("h3").html();
+			var type = $(".entryList .selected").find("h3").text();
 			var num;
 			for (var i=0;i<$at.softWare.length;i++) {
 				if(type.toLowerCase() == $at.softWare[i].name.toLowerCase()){
@@ -53,7 +53,7 @@ function initSoft(Dom){
 		var info0 = $("#entryHard input").eq(1).val();
 		var info1 = $("#entryHard input").eq(2).val();
 		var info2 = $("#entryHard input").eq(3).val();
-		var contentId = $(".chooseList .selected p").eq(2).html();
+		var contentId = $(".chooseList .selected p").eq(2).text();
 		if(name==""||info0==""||info1==""||info2==""){
 			alert("请在下方填写相关信息");
 			return
@@ -92,7 +92,7 @@ function initSoft(Dom){
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected"); 
-		var type = $(this).find("h3").html()
+		var type = $(this).find("h3").text()
 		$("#entryHard input").eq(0).val("");
 		$("#entryHard input").eq(1).val(type);
 		$("#entryHard input").eq(2).val("");
@@ -106,10 +106,10 @@ function initSoft(Dom){
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
 		var type = $(this).parent().attr("class");
-		var name = $(this).find("h3").html();
-		var info0 = $(this).find("p").eq(0).html();
-		var info1 = $(this).find("p").eq(1).html();
-		var info2 = $(this).find("p").eq(3).html();
+		var name = $(this).find("h3").text();
+		var info0 = $(this).find("p").eq(0).text();
+		var info1 = $(this).find("p").eq(1).text();
+		var info2 = $(this).find("p").eq(3).text();
 		$("#entryHard input").eq(0).val(name);
 		$("#entryHard input").eq(1).val(info0);
 		$("#entryHard input").eq(2).val(info1);
@@ -128,10 +128,10 @@ function initHard(Dom){
 		$(".chooseList").find("li").removeClass("selected");
 		$(this).addClass("selected");
 		var type = $(this).parent().attr("class");
-		var name = $(this).find("h3").html();
-		var info0 = $(this).find("p").eq(0).html();
-		var info1 = $(this).find("p").eq(1).html();
-		var info2 = $(this).find("p").eq(2).html();
+		var name = $(this).find("h3").text();
+		var info0 = $(this).find("p").eq(0).text();
+		var info1 = $(this).find("p").eq(1).text();
+		var info2 = $(this).find("p").eq(2).text();
 		$("#entrySoftware input").eq(0).val(name);
 		$("#entrySoftware input").eq(1).val(info0);
 		$("#entrySoftware input").eq(2).val(info1);
@@ -187,7 +187,7 @@ function initHard(Dom){
 		var info0 = $("#entrySoftware input").eq(1).val();
 		var info1 = $("#entrySoftware input").eq(2).val();
 		var info2 = $("#entrySoftware input").eq(3).val();
-		var deviceId = $(".chooseList .selected p").eq(3).html();
+		var deviceId = $(".chooseList .selected p").eq(3).text();
 		if(name==""||info0==""||info1==""||info2==""){
 			alert("请在下方填写相关信息");
 			return
