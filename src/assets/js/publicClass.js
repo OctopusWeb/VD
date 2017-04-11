@@ -5,7 +5,7 @@ $at.getJson = function(url,data,onComplete){
 	})
 }
 $at.GetDomId = function(name){
-	var dom = document.getElementById(name); 
+	var dom = document.getElementById(name);
 	return dom
 }
 $at.staticColors = [
@@ -21,7 +21,7 @@ $at.screenInfo={};
 $at.softWare={};
 $at.entryHard={};
 $at.menuIndex=0;
-$at.mp3 = document.getElementById("mp3");
+$at.mp3 = document.getElementById("mp3"); 
 $at.url="http://192.168.0.251:3000";//服务器部署地址
 $at.staicUrl = "http://192.168.0.251:3000/";//服务器部署地址
 

@@ -4,7 +4,7 @@ var utility = require("utility");
 var mysql= require('mysql');
 var shortid = require("js-shortid");
 var pool = mysql.createPool({
-    host     : '192.168.1.222',
+    host     : '192.168.1.252',
     user     : 'root',
     password : '123456',
     database : 'vd' ,
