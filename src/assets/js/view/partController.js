@@ -61,6 +61,7 @@ function partController(Dom){
 			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 			ReactDOM.render(<MenuList/>,setScreenDom.screenList);
 			initPart1(Dom);
+			$at.menuIndex = $("#screenList ul li").length-1;
 			$("#screenList ul li").removeClass("selected");
 			$("#screenList ul li").last().addClass("selected");
 		}	

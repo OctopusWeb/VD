@@ -1465,7 +1465,7 @@ function layoutChange(Dom){
 		soundBtn()
 		var config = confirm("确定删除此布局么？");
 		if(config){
-			var index = changeTitle.find("close").index($(this));
+			var index = changeTitle.find(".close").index($(this));
 			$at.screenInfo.drawInfo.splice(index,1);
 			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 		}
@@ -1571,7 +1571,7 @@ function layoutChange(Dom){
 	changeDraw.on("click",".close",function(){
 		soundBtn()
 		if($at.screenInfo.drawInfo[screenLen].screens.length==1){
-			alert("只有一个布局了,请不要删除！")
+			alert("只有一个窗口了,请不要删除！")
 		}else{
 			var config = confirm("确定删除此窗口么？");
 			if(config){
@@ -1587,7 +1587,7 @@ function layoutChange(Dom){
 		$(this).addClass("selected");
 	})
 	changeContent.on("click",".add",function(){
-		soundBtn()
+		soundBtn();
 		var type = $(this).parent().find(".icon").attr("name");
 		var name = $(this).parent().find("span").eq(0).text();
 		var path = $(this).parent().find("p").eq(1).text();
@@ -1607,7 +1607,8 @@ function boxChange(self,smallIndex,changeTitle){
 	var winHei = self.outerHeight();
 	var relWid = changeBox2.find("input").eq(2).val();
 	var relHei = changeBox2.find("input").eq(3).val();
-	var bili = parseFloat(winWid)/parseFloat(relWid);
+	var bili1 = parseFloat(winWid)/parseFloat(relWid);
+	var bili2 = parseFloat(winHei)/parseFloat(relHei);
 	self.off("mousedown");
 	self.on("mousedown",function(e1){
 		e1.stopPropagation();
@@ -1634,13 +1635,13 @@ function boxChange(self,smallIndex,changeTitle){
 		self.off("mouseup");
 		self.on("mouseup",function(e4){
 			e4.stopPropagation();
-			var lefts = self.position().left/bili;
-			var tops = self.position().top/bili;
+			var lefts = self.position().left/bili1;
+			var tops = self.position().top/bili2;
 			var screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(lefts);
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(tops);
-			var wid = self.outerWidth()/bili;
-			var hei = self.height()/bili;
+			var wid = self.outerWidth()/bili1;
+			var hei = self.outerHeight()/bili2;
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
 			self.find(".change3").off("mousedown");
@@ -1682,8 +1683,8 @@ function boxChange(self,smallIndex,changeTitle){
 		$(".drawContent").off("mouseup");
 		$(".drawContent").on("mouseup",function(e4){
 			var screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
-			var wid = self.outerWidth()/bili;
-			var hei = self.outerHeight()/bili;
+			var wid = self.outerWidth()/bili1;
+			var hei = self.outerHeight()/bili2;
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
 			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
@@ -2603,6 +2604,7 @@ function partController(Dom){
 			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 			ReactDOM.render(<MenuList/>,setScreenDom.screenList);
 			initPart1(Dom);
+			$at.menuIndex = $("#screenList ul li").length-1;
 			$("#screenList ul li").removeClass("selected");
 			$("#screenList ul li").last().addClass("selected");
 		}	
