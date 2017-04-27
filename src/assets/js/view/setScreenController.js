@@ -31,8 +31,16 @@ function setScreen(Dom,data){
 		}
 		
 	})
+	var btnInterval;
 	$("#entryMenu").on("click",function(){
+		soundBtn()
+		clearTimeout(btnInterval);
 		$("#btnGroup").fadeToggle();
+		$("#entryHard").fadeOut();
+		$("#entrySoftware").fadeOut();
+		btnInterval = setTimeout(function(){
+			$("#btnGroup").fadeOut();
+		},2000)
 	})
 }
 function soundBtn(){

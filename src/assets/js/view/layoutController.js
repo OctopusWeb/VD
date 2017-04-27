@@ -156,7 +156,7 @@ function layoutChange(Dom){
 	})
 	changelay.off("click");
 	changelay.on("click",function () {
-		soundBtn()
+		soundBtn() 
 		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
 			var screens = $at.screenInfo.drawInfo[i].screens;
 			for (var j = 0; j < screens.length; j++) {

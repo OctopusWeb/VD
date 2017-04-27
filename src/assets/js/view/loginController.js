@@ -34,9 +34,9 @@ function initLayInfo(Dom,user,password){
 			layChangeController(Dom);
 			setScreen(Dom,data);
 			$(".layoutContent .fun").eq(0).addClass("selected");
-		}	
+		}
 		$at.getJson($at.url+"/interfaces/entry/device","",onComplete3); 
-		function onComplete3(json3){		
+		function onComplete3(json3){
 			$at.entryHard = ParseHard(json3.data); 
 			initHard(Dom);
 		}	
