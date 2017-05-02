@@ -293,7 +293,7 @@ function layoutChange(Dom){
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num),1);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeAddbuju.on("click",function(){ 
+	changeAddbuju.on("click",function(){
 		soundBtn()
 		var data = {
 					across:true,

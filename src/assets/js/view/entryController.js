@@ -10,7 +10,7 @@ function initSoft(Dom){
 	$("#entryAdd").on("click",function(){
 		soundBtn()
 		var len=$(".entryList ul .selected").length;
-		if(len == 0){return}; 
+		if(len == 0){return};
 		var name = $("#entryHard input").eq(0).val();
 		var info0 = $("#entryHard input").eq(1).val();
 		var info1 = $("#entryHard input").eq(2).val();
@@ -43,9 +43,7 @@ function initSoft(Dom){
 			}
 			
 			$("#entryHard input").eq(0).val("");
-			
 		}
-		
 	})
 	$("#entryChange").on("click",function(){
 		soundBtn()
@@ -171,7 +169,6 @@ function initHard(Dom){
 					daemonId : info1,
 					remark : info2
 				}
-				
 			} 
 			$.post($at.url+"/interfaces/entryPost/device", data,onComplete); 
 			function onComplete(json){
@@ -182,7 +179,7 @@ function initHard(Dom){
 		}
 	})
 	$("#softChange").on("click",function(){
-		soundBtn()
+		soundBtn();
 		var name = $("#entrySoftware input").eq(0).val();
 		var info0 = $("#entrySoftware input").eq(1).val();
 		var info1 = $("#entrySoftware input").eq(2).val();
@@ -214,7 +211,7 @@ function initHard(Dom){
 						}
 					}
 				}
-				$(".changeBtn").hide()
+				$(".changeBtn").hide();
 				ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
 			}
 		}

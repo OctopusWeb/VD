@@ -20,6 +20,7 @@
         border-radius: 5px;
         border: 1px nth($NomalColor,3) solid;
         display: none; 
+        z-index: 100;
         .close{
             position: absolute;
             right: 0px;
