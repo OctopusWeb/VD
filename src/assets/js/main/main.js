@@ -1454,7 +1454,7 @@ function layoutChange(Dom){
 	});
 	changeTitle.off("click","li")
 	changeTitle.on("click","li",function(){
-		soundBtn()
+		soundBtn();
 		screenLen = changeTitle.find("li").index($(this));
 	})
 	changeTitle.off("click",".close")
@@ -1595,6 +1595,8 @@ function layoutChange(Dom){
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	}) 
 }
+var moveBol = false;
+var changeBol = false;
 function boxChange(self,smallIndex,changeTitle){
 	var box = $(".screenUl");
 	var changeBox2 = $("#layoutInfo .infoBox2");
@@ -1615,13 +1617,14 @@ function boxChange(self,smallIndex,changeTitle){
 		var starY = e1.pageY;
 		self.off("mousemove");
 		self.on("mousemove",function(e2){
+			moveBol = true;
 			e2.stopPropagation();
 			var moveX = e2.pageX;
 			var moveY = e2.pageY;
 			var relX = (moveX-starX)/boxWid*100; 
 			var relY = (moveY-starY)/boxHei*100;
 			self.css({"left":relX+selfX+"%","top":relY+selfY+"%"});
-		}) 
+		})
 		self.off("mouseleave");
 		self.on("mouseleave",function(e3){
 			e3.stopPropagation();
@@ -1632,27 +1635,37 @@ function boxChange(self,smallIndex,changeTitle){
 		self.off("mouseup");
 		self.on("mouseup",function(e4){
 			e4.stopPropagation();
-			var lefts = self.position().left/bili1;
-			var tops = self.position().top/bili2;
-			var screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
-			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(lefts);
-			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(tops);
-			var wid = self.outerWidth()/bili1;
-			var hei = self.outerHeight()/bili2;
-			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
-			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
 			self.find(".change3").off("mousedown");
 			$(".drawContent").off("mousemove");
 			$(".drawContent").off("mouseleave");
 			self.off("mousedown");
 			self.off("mousemove");
 			self.off("mouseleave");
-			ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+			screenLen?screenLen=screenLen:screenLen=0;
+			if(moveBol){
+				var lefts = self.position().left/bili1;
+				var tops = self.position().top/bili2;
+				var screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
+				$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(lefts);
+				$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(tops);
+				ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+				moveBol = false;
+			}
+			if(changeBol){
+				var wid = self.outerWidth()/bili1;
+				var hei = self.outerHeight()/bili2;
+				$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
+				$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
+				ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+				changeBol = false;
+				
+			}
 		})
 	})
 	
 	self.find(".change3").off("mousedown")
 	self.find(".change3").on("mousedown",function(e1){
+		changeBol = true;
 		e1.stopPropagation();
 		var winWid = self.outerWidth();
 		var winHei = self.outerHeight();
@@ -1679,7 +1692,7 @@ function boxChange(self,smallIndex,changeTitle){
 		})
 		$(".drawContent").off("mouseup");
 		$(".drawContent").on("mouseup",function(e4){
-			var screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
+ 			var screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
 			var wid = self.outerWidth()/bili1;
 			var hei = self.outerHeight()/bili2;
 			$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
