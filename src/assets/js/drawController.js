@@ -6,7 +6,7 @@ function drawController(ControllerDom){
 	drawFun(drawArea,drawBox,screenLi,entrySlected,selectedScreen);
 }
 function drawFun(drawArea,drawBox,screenLi,entrySlected,onComplete)
-{  
+{//绘制区域
 	var boxInfo = {};
 	var eInfo = {};
 	drawArea.on("mousedown",function(event){
@@ -89,13 +89,13 @@ function drawFun(drawArea,drawBox,screenLi,entrySlected,onComplete)
 	}) 
 }
 
-function selectedScreen(screenList,obj){
+function selectedScreen(screenList,obj){//返回选中窗口数组
 	var arr = screenList.filter(filFun);
 	screenList.removeClass("selected");
 	arr.each(function(index){
 		$(this).addClass("selected");
 	})
-	function filFun(index){
+	function filFun(index){//判断选中窗口
 		var dom = screenList.eq(index);
 		var domLeft = dom.offset().left;
 		var domRight = domLeft+dom.width();

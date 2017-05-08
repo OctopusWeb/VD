@@ -12,7 +12,7 @@ var pool = mysql.createPool({
 });
 
 
-router.get('/login', function(req, res){
+router.get('/login', function(req, res){//登录页面get请求，验证用户名密码正确，返回screenInfo，layout，describe等页面需要数据
 	var name = req.query.name || req.params.name;
 	var pass = req.query.password || req.parms.password;
 	var userGetSql = 'SELECT *  FROM `t_user_info` WHERE userName=? AND password=?';
@@ -57,7 +57,7 @@ router.get('/login', function(req, res){
 		}
 	})
 });
-router.get('/entry/device',function(req,res){
+router.get('/entry/device',function(req,res){//硬件get请求
 	var entryDeviceGetSql = 'SELECT *  FROM `t_device`';
 	pool.query(entryDeviceGetSql, function(err, result) {
 		if (err) {
@@ -67,7 +67,7 @@ router.get('/entry/device',function(req,res){
 		res.send({state:true,data:result})
 	})
 })
-router.get('/entry/content',function(req,res){
+router.get('/entry/content',function(req,res){//软件get请求
 	var entryContentGetSql = 'SELECT *  FROM `t_content`';
 	pool.query(entryContentGetSql, function(err, result) {
 		if (err) {
@@ -77,7 +77,7 @@ router.get('/entry/content',function(req,res){
 		res.send({state:true,data:result})
 	})
 })
-router.post('/entryPost/content',function(req,res){
+router.post('/entryPost/content',function(req,res){//软件添加post请求
 	var param = req.body;
 	var data = new Date();
 	var time = data.getTime();
@@ -95,7 +95,7 @@ router.post('/entryPost/content',function(req,res){
 		res.send({state:true,data:{contentId:contentId}});
 	})
 })
-router.post("/entryChange/content",function(req,res){
+router.post("/entryChange/content",function(req,res){//软件修改post请求
 	var param = req.body;
 	var contentId = param.contentId;
 	var name = param.name;
@@ -111,7 +111,7 @@ router.post("/entryChange/content",function(req,res){
 		res.send({state:true,data:{contentId:contentId}});
 	})
 })
-router.post('/entryPost/device',function(req,res){
+router.post('/entryPost/device',function(req,res){//硬件添加post请求
 	var param = req.body;
 	var data = new Date();
 	var time = data.getTime();
@@ -129,7 +129,7 @@ router.post('/entryPost/device',function(req,res){
 		res.send({state:true,data:{deviceId:deviceId}});
 	})
 })
-router.post("/entryChange/device",function(req,res){
+router.post("/entryChange/device",function(req,res){//硬件修改post请求
 	var param = req.body;
 	var deviceId = param.deviceId;
 	var name = param.name;
@@ -146,7 +146,7 @@ router.post("/entryChange/device",function(req,res){
 	})
 })
 
-router.post("/screenInfo/addScreen",function(req,res){
+router.post("/screenInfo/addScreen",function(req,res){//添加屏幕信息post请求
 	var postData = req.body;
 	var param = JSON.parse(postData.data);
 
@@ -204,7 +204,7 @@ router.post("/screenInfo/addScreen",function(req,res){
 	})
 })
 
-router.post("/screenInfo/changeScreen",function(req,res){
+router.post("/screenInfo/changeScreen",function(req,res){//修改屏幕信息post请求
 	var postData = req.body;
 	var param = JSON.parse(postData.data);
 	var data = new Date();
@@ -291,7 +291,7 @@ router.post("/screenInfo/changeScreen",function(req,res){
 	})
 })
 
-router.post("/screenInfo/changeLayout",function(req,res){
+router.post("/screenInfo/changeLayout",function(req,res){//添加布局post请求
 	var postData = req.body;
 	var param = JSON.parse(postData.data);
 	var screenId = param.screenInfo.id;
@@ -345,7 +345,7 @@ router.post("/screenInfo/changeLayout",function(req,res){
 	})
 })
 
-router.post("/screenInfo/deleteScreen",function(req,res){
+router.post("/screenInfo/deleteScreen",function(req,res){//删除屏幕信息post请求
 	var screenId = req.body.id;
 	var deleteDescribe = 'DELETE FROM `t_describe` WHERE screenId="'+screenId+'"';
 	var deleteHost = 'DELETE FROM `t_screen_host` WHERE screenId="'+screenId+'"';
@@ -378,7 +378,7 @@ router.post("/screenInfo/deleteScreen",function(req,res){
 	res.send({state:true});
 })
 
-router.get("/screenInfo",function(req,res){
+router.get("/screenInfo",function(req,res){//查找屏幕信息get请求
 	var screenInfoGetSql = 'SELECT *  FROM `t_screen_info`';
     pool.query(screenInfoGetSql, function(err, result) {
 		if (err) {

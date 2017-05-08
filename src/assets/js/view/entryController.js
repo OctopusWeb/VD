@@ -225,7 +225,7 @@ function ParseSoft(json){
 		obj.name=softArr[i][1];
 		obj.img=softArr[i][0];
 		obj.arr=[];
-		for (var j=0;j<json.length;j++) { 
+		for (var j=0;j<json.length;j++) {
 			if(json[j].typeCode.toUpperCase() == softArr[i][1]){ 
 				var info=json[j];
 				var infoArr=[info.name,info.typeCode,info.path,info.contentId,info.controlUrl];

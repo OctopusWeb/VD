@@ -10,7 +10,7 @@ function loginController(Dom){
 		}
 	})
 }
-function initLayInfo(Dom,user,password){
+function initLayInfo(Dom,user,password){//验证登录密码以及用户名是否正确，返回成功后构造页面
 	$at.getJson($at.url+"/interfaces/login",{name:user,password:password},onComplete);
 	function onComplete(json){
 		if(!json.state){

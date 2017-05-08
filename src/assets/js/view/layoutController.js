@@ -396,7 +396,6 @@ function boxChange(self,smallIndex,changeTitle){
 				$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
 				ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 				changeBol = false;
-				
 			}
 		})
 	})
