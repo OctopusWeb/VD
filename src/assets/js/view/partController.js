@@ -1,5 +1,5 @@
 function partController(Dom){
-	Dom.addBtnGroup.find(".btn").eq(1).on("click",function(){ 
+	Dom.addBtnGroup.find(".btn").eq(1).on("click",function(){//编辑项目状态下设置
 		soundBtn()
 		initPart1(Dom);
 		$("#screenList .selected img").show();
@@ -23,7 +23,7 @@ function partController(Dom){
 			}
 		})
 	})
-	Dom.addBtnGroup.find(".btn").eq(0).on("click",function(){
+	Dom.addBtnGroup.find(".btn").eq(0).on("click",function(){//添加项目按钮
 		soundBtn()
 		$("#screenList li img").hide();
 		var screenInfo={
@@ -66,7 +66,7 @@ function partController(Dom){
 			$("#screenList ul li").last().addClass("selected");
 		}	
 	})
-	function initPart1(Dom){
+	function initPart1(Dom){//编辑项目信息布局一
 		Dom.layShow.hide();
 		Dom.layChange.hide();
 		$("#addPart1").css({"left":"0"});
@@ -98,7 +98,7 @@ function partController(Dom){
 			initPart2(Dom);
 		});
 	}
-	function initPart2(Dom){
+	function initPart2(Dom){//编辑项目信息布局二
 		$("#addPart2").html("");
 		ReactDOM.render(<Part2/>,view2Dom.addPart2);
 		var host = $("#addPart2 ul li"); 
@@ -150,7 +150,7 @@ function partController(Dom){
 			}
 		});
 	}
-	function initPart3(Dom,deviceList){
+	function initPart3(Dom,deviceList){//编辑项目信息布局三
 		$("#addPart3").html("");
 		var row = $at.screenInfo.screenInfo.row;
 		var col = $at.screenInfo.screenInfo.col;
@@ -203,7 +203,7 @@ function partController(Dom){
 			return host;
 		}
 	}
-	function PartChange(index){
+	function PartChange(index){//更改标题信息
 		var title = ["新建虚拟桌面","选择主机","分配屏幕"]
 		$("#levNum li").removeClass("selected");
 		$("#levNum li").eq(index).addClass("selected"); 

@@ -1,13 +1,13 @@
-function initSoft(Dom){
+function initSoft(Dom){//软件界面初始化
 	var softArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZoolonWEB"],["video1","Video"]]
 	var softName = ["展项名称","展项类型","资源URL","总控命令地址"]
 	ReactDOM.render(<EntryHard arr={softArr} list={$at.softWare} name={softName}/>,document.getElementById("entryHard")); 
-	$(".ulList").on("click","p",function(){
+	$(".ulList").on("click","p",function(){//列表选中伸缩
 		$(this).parent().toggleClass("selected");
 		$(this).parent().find("li").slideToggle(); 
 	})
 	 
-	$("#entryAdd").on("click",function(){
+	$("#entryAdd").on("click",function(){//添加软件
 		soundBtn()
 		var len=$(".entryList ul .selected").length;
 		if(len == 0){return};
@@ -45,7 +45,7 @@ function initSoft(Dom){
 			$("#entryHard input").eq(0).val("");
 		}
 	})
-	$("#entryChange").on("click",function(){
+	$("#entryChange").on("click",function(){//修改软件
 		soundBtn()
 		var name = $("#entryHard input").eq(0).val();
 		var info0 = $("#entryHard input").eq(1).val();
@@ -85,7 +85,7 @@ function initSoft(Dom){
 			}
 		}
 	})
-	$("#entryHard .entryList").on("click","li",function(){
+	$("#entryHard .entryList").on("click","li",function(){//选中软件
 		soundBtn()
 		$(".entryList").find("li").removeClass("selected");
 		$(".chooseList").find("li").removeClass("selected");
@@ -116,7 +116,7 @@ function initSoft(Dom){
 		$(".changeBtn").eq(0).hide();
 	}) 
 }
-function initHard(Dom){
+function initHard(Dom){//初始化硬件列表
 	var hardArr = [["shebei1","PC"]];
 	var hardName = ["设备名称","mac地址","daemonld","备注"];
 	ReactDOM.render(<EntrySoft arr={hardArr}  list={$at.entryHard}  name={hardName}/>,document.getElementById("entrySoftware"));
@@ -149,7 +149,7 @@ function initHard(Dom){
 		$(".changeBtn").eq(3).show();
 		$(".changeBtn").eq(2).hide();
 	})
-	$("#softAdd").on("click",function(){
+	$("#softAdd").on("click",function(){//硬件添加
 		soundBtn()
 		var len=$(".entryList ul .selected").length;
 		if(len == 0){return};
@@ -178,7 +178,7 @@ function initHard(Dom){
 			$("#entrySoftware input").eq(0).val("");
 		}
 	})
-	$("#softChange").on("click",function(){
+	$("#softChange").on("click",function(){//硬件修改
 		soundBtn();
 		var name = $("#entrySoftware input").eq(0).val();
 		var info0 = $("#entrySoftware input").eq(1).val();
@@ -217,7 +217,7 @@ function initHard(Dom){
 		}
 	})
 }
-function ParseSoft(json){
+function ParseSoft(json){//软甲数据json处理
 	var softArr =[["ppt1","PPT"],["pdf1","PDF"],["flash1","FLASH"],["web1","WEB"],["zoolonweb1","ZOOLONWEB"],["video1","VIDEO"]]
 	var softList=[];
 	for (var i=0;i<softArr.length;i++) {
@@ -236,7 +236,7 @@ function ParseSoft(json){
 	}
 	return softList; 
 } 
-function ParseHard(json){
+function ParseHard(json){//硬件数据json处理
 	var hardArr = [["shebei1","PC"]];
 	var hardList=[];
 	for (var i=0;i<hardArr.length;i++) {

@@ -1,11 +1,11 @@
-function layShowController(Dom){
+function layShowController(Dom){//布局展示控制初始化
 	ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
 	bindController();
 	var funTitle = $(".funTitle");
 	var layoutContent = $(".layoutContent");
 	var drawTitle1 = $(".drawTitle1");
 	var publicCalls = new PublicCall();
-	funTitle.on("click","li",function(){
+	funTitle.on("click","li",function(){//布局点击
 		soundBtn()
 		var index = funTitle.find("li").index($(this));
 		funTitle.find("li").removeClass("selected");
@@ -16,13 +16,12 @@ function layShowController(Dom){
 		var index1 = $(".drawTitle1 li").index($(".drawTitle1 .selected"));
 		var layindex = $(".drawContent1 li").index($(".drawContent1 .selected"));
 		var openInfo = $at.screenInfo.drawInfo[index1]; 
-		if(videoInterval){
-			clearInterval(videoInterval)
-		}
-		videoInterval = setInterval(function(){
-			videoGetInfo(openInfo.screens[layindex].id,publicCalls);
-		},1000)
-		
+//		if(videoInterval){
+//			clearInterval(videoInterval)
+//		}
+//		videoInterval = setInterval(function(){
+//			videoGetInfo(openInfo.screens[layindex].id,publicCalls);
+//		},1000)	
 	})
 	function videoGetInfo(winid,publicCalls){
 		var getPosition = publicCalls.stateFun(winid,"videoCall","getPosition");
@@ -30,7 +29,7 @@ function layShowController(Dom){
 		send(getPosition);
 		send(getVolume);
 	}
-	Dom.layShow.on("click",".layout2",function(){
+	Dom.layShow.on("click",".layout2",function(){//编辑布局/展示布局切换
 		soundBtn()
 		Dom.layShow.fadeOut();
 		Dom.layChange.fadeIn();
@@ -44,9 +43,8 @@ function layShowController(Dom){
 			$(".layoutContent .fun").eq(0).addClass("selected");
 			bindController(); 
 		},100);
-		
 	});
-	drawTitle1.on("click",function(){
+	drawTitle1.on("click",function(){//布局选择
 		soundBtn()
 		setTimeout(function(){
 			$(".drawContent1 li").eq(0).addClass("selected");
@@ -62,7 +60,7 @@ function layChangeController(Dom){
 	ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	layoutChange(Dom);
 }
-function layParseDate(json){
+function layParseDate(json){//布局信息json整理
 	var screenArr=[]; 
 	for (var i=0;i<json.screenInfo.length;i++) {
 		var obj={};
@@ -133,7 +131,7 @@ function layParseDate(json){
 	}
 	return screenArr;
 }
-function layoutChange(Dom){
+function layoutChange(Dom){//窗口编辑状态下方法
 	var screenLen=0;
 	var smallIndex=0;
 	var layChangeBox = $("#LayoutScreen");
@@ -148,14 +146,14 @@ function layoutChange(Dom){
 	var changelayName = $(".layoutName");
 	var changelay = $(".addLayout");
 	Dom.layChange.off("click",".layout1")
-	Dom.layChange.on("click",".layout1",function(){
+	Dom.layChange.on("click",".layout1",function(){//编辑布局/展示布局切换
 		changelay.trigger("click");
 		Dom.layShow.fadeIn();
 		Dom.layChange.fadeOut();
 		ReactDOM.render(<Part5 info={$at.screenInfo}/>,view5Dom.layoutShow);
 	})
 	changelay.off("click");
-	changelay.on("click",function () {
+	changelay.on("click",function () {//编辑布局编辑完毕保存状态，提交数据库
 		soundBtn() 
 		for (var i = 0; i < $at.screenInfo.drawInfo.length; i++) {
 			var screens = $at.screenInfo.drawInfo[i].screens;
@@ -191,12 +189,12 @@ function layoutChange(Dom){
 		}
 	});
 	changeTitle.off("click","li")
-	changeTitle.on("click","li",function(){
+	changeTitle.on("click","li",function(){//选择布局
 		soundBtn();
 		screenLen = changeTitle.find("li").index($(this));
 	})
 	changeTitle.off("click",".close")
-	changeTitle.on("click",".close",function(e){
+	changeTitle.on("click",".close",function(e){//删除布局
 		soundBtn()
 		var config = confirm("确定删除此布局么？");
 		if(config){
@@ -206,7 +204,7 @@ function layoutChange(Dom){
 		}
 	})
 	changeBtnGroup.find("span").off("click");
-	changeBtnGroup.find("span").on("click",function(){
+	changeBtnGroup.find("span").on("click",function(){//添加布局
 		soundBtn();
 		var num  = parseInt($at.screenInfo.drawInfo.length)+1;
 		var addScreen = {
@@ -223,16 +221,16 @@ function layoutChange(Dom){
 		$at.screenInfo.drawInfo.push(addScreen);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeBtnGroup.find("p").on("click",function(){
+	changeBtnGroup.find("p").on("click",function(){//显示更改窗口
 		soundBtn()
 		changelayName.find("input").val("")
 		changelayName.show();
 	})
-	changelayName.find(".close").on("click",function(){
+	changelayName.find(".close").on("click",function(){//关闭更改窗口
 		soundBtn()
 		changelayName.hide();
 	})
-	changelayName.find("p").on("click",function(){
+	changelayName.find("p").on("click",function(){//更改布局名称
 		soundBtn()
 		var value = changelayName.find("input").val();
 		if(value){
@@ -248,7 +246,7 @@ function layoutChange(Dom){
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].across=layoutInfo.find("p").index($(this))==0;
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeDraw.on("click","li",function(){
+	changeDraw.on("click","li",function(){//是否可跨切换
 		soundBtn();
 		screenLen = changeTitle.find("li").index(changeTitle.find(".selected"));
 		var num = parseInt($(this).find("span").html());
@@ -263,37 +261,31 @@ function layoutChange(Dom){
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 		boxChange($(this),smallIndex,changeTitle);
 	})
-	changeBox2.find("input").eq(0).on("change",function(){
+	changeBox2.find("input").eq(0).on("change",function(){//窗口X值
 		soundBtn();
 		var x = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[3]=parseInt(x);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeBox2.find("input").eq(1).on("change",function(){
+	changeBox2.find("input").eq(1).on("change",function(){//窗口Y值
 		soundBtn()
 		var y = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[2]=parseInt(y);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeBox2.find("input").eq(2).on("change",function(){
+	changeBox2.find("input").eq(2).on("change",function(){//窗口wid值
 		soundBtn()
 		var wid = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[0]=parseInt(wid);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeBox2.find("input").eq(3).on("change",function(){
+	changeBox2.find("input").eq(3).on("change",function(){//窗口hei值
 		soundBtn()
 		var hei = $(this).val();
 		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].screenInfo[1]=parseInt(hei);
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeChoose.on("click",".close",function(){
-		soundBtn()
-		var num = changeChoose.find("li .close").index($(this));
-		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num),1);
-		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
-	})
-	changeAddbuju.on("click",function(){
+	changeAddbuju.on("click",function(){//添加窗口
 		soundBtn()
 		var data = {
 					across:true,
@@ -303,7 +295,7 @@ function layoutChange(Dom){
 		$at.screenInfo.drawInfo[screenLen].screens.push(data); 
 		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
 	})
-	changeDraw.on("click",".close",function(){
+	changeDraw.on("click",".close",function(){//删除窗口
 		soundBtn()
 		if($at.screenInfo.drawInfo[screenLen].screens.length==1){
 			alert("只有一个窗口了,请不要删除！")
@@ -316,12 +308,18 @@ function layoutChange(Dom){
 			}
 		}
 	})
-	changeContent.on("click",".contentBtn",function(){
+	changeChoose.on("click",".close",function(){//删除软件
+		soundBtn()
+		var num = changeChoose.find("li .close").index($(this));
+		$at.screenInfo.drawInfo[screenLen].screens[smallIndex].medias.splice(parseInt(num),1);
+		ReactDOM.render(<Part4 info={$at.screenInfo} softWare={$at.softWare}/>,view4Dom.layout);
+	})
+	changeContent.on("click",".contentBtn",function(){//选择软件
 		soundBtn()
 		changeContent.find(".contentBtn").removeClass("selected");
 		$(this).addClass("selected");
 	})
-	changeContent.on("click",".add",function(){
+	changeContent.on("click",".add",function(){//添加软件
 		soundBtn();
 		var type = $(this).parent().find(".icon").attr("name");
 		var name = $(this).parent().find("span").eq(0).text();
@@ -335,7 +333,7 @@ function layoutChange(Dom){
 }
 var moveBol = false;
 var changeBol = false;
-function boxChange(self,smallIndex,changeTitle){
+function boxChange(self,smallIndex,changeTitle){//编辑布局下移动窗口
 	var box = $(".screenUl");
 	var changeBox2 = $("#layoutInfo .infoBox2");
 	var boxWid = box.outerWidth();

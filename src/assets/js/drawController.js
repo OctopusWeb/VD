@@ -89,7 +89,7 @@ function drawFun(drawArea,drawBox,screenLi,entrySlected,onComplete)
 	}) 
 }
 
-function selectedScreen(screenList,obj){//返回选中窗口数组
+function selectedScreen(screenList,obj){//设置选中窗口状态
 	var arr = screenList.filter(filFun);
 	screenList.removeClass("selected");
 	arr.each(function(index){

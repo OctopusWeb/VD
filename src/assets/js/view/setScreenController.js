@@ -4,7 +4,7 @@ function setScreen(Dom,data){
 	ReactDOM.render(<MenuList/>,setScreenDom.screenList);
 	ReactDOM.render(<LevTitle arr={LevTitleArr}/>,setScreenDom.levNum); 
 	ReactDOM.render(<PageTitle title = "新建屏幕" />,setScreenDom.pageTitle);
-	$("#screenList").on("click","li",function(){
+	$("#screenList").on("click","li",function(){//项目列表切换
 		soundBtn()
 		$("#screenList").find("li").removeClass("selected");
 		$("#screenList li img").hide();
@@ -15,7 +15,7 @@ function setScreen(Dom,data){
 		$at.screenInfo = $at.allInfo[$at.menuIndex];
 		selectedMenu(Dom);
 	})
-	$("#smallMenu").on("click",function(){
+	$("#smallMenu").on("click",function(){//左侧导航伸缩
 		soundBtn()
 		$("#smallMenu").toggleClass("selected");
 		if($(this).attr("class") == "selected"){
@@ -32,7 +32,7 @@ function setScreen(Dom,data){
 		
 	})
 	var btnInterval;
-	$("#entryMenu").on("click",function(){
+	$("#entryMenu").on("click",function(){//右上角软硬件界面伸缩
 		soundBtn()
 		clearTimeout(btnInterval);
 		$("#btnGroup").fadeToggle();

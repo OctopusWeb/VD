@@ -1,5 +1,5 @@
 var socket;
-function connect(){
+function connect(){//socket连接
     try{
         socket=new WebSocket($at.socketUrl);
     }catch(e){
@@ -36,7 +36,7 @@ function videoSetInfo(msg){
 }
 
 function PublicCall(){
-	this.open = function (Arguments) {
+	this.open = function (Arguments) {//打开布局
 		var data = {
 			"receiverName": "Deamon-1",
 			"senderName": "web",
@@ -48,7 +48,7 @@ function PublicCall(){
 		};
 		return data;
 	};
-	this.close = function (Arguments) {
+	this.close = function (Arguments) {//关闭布局
 		var data = {
 			"receiverName": "Deamon-1",
 			"senderName": "web",
@@ -60,7 +60,7 @@ function PublicCall(){
 		};
 		return data;
 	};
-	this.viewOpen = function(Arguments){
+	this.viewOpen = function(Arguments){//打开窗口
 		var data = {
 			"receiverName": "Deamon-1",
 		    "senderName": "web",
@@ -73,7 +73,7 @@ function PublicCall(){
 		}
 		return data;
 	}
-	this.viewClose = function(Arguments){
+	this.viewClose = function(Arguments){//关闭窗口
 		var data = {
 			"receiverName": "Deamon-1",
 		    "senderName": "web",
@@ -86,7 +86,7 @@ function PublicCall(){
 		}
 		return data;
 	}
-	this.stateFun = function(winId,server,action){
+	this.stateFun = function(winId,server,action){//发送命令
 		var data={
 			"receiverName": winId,
 		    "senderName": "web",
